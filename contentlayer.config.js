@@ -12,6 +12,10 @@ const Post = defineDocumentType(() => ({
       type: 'string',
       required: true,
     },
+    sort: {
+      type: 'number',
+      required: false,
+    },
   },
   computedFields: {
     url: {
