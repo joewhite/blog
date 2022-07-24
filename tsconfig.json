@@ -1,11 +1,15 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "baseUrl": ".",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
+    "paths": {
+      "contentlayer/generated": ["./.contentlayer/generated"]
+    },
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
