@@ -123,9 +123,6 @@ article {
     margin-right: 0;
     padding: 0.25rem 0.5rem;
     font-size: 0.75rem;
-
-    position: sticky;
-    top: 1rem;
   }
 
   footer {
