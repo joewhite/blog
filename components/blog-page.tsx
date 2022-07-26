@@ -1,11 +1,14 @@
+import {Post} from 'contentlayer/generated';
+import _ from 'lodash';
 import Head from 'next/head';
 import Link from 'next/link';
 import {PropsWithChildren} from 'react';
 
 export interface BlogPostParams extends PropsWithChildren {
+  allPosts: Post[];
 }
 
-export function BlogPage({children}: BlogPostParams) {
+export function BlogPage({allPosts, children}: BlogPostParams) {
   return <>
     <Head>
       <title>Joe White&apos;s Blog</title>
@@ -23,7 +26,16 @@ export function BlogPage({children}: BlogPostParams) {
         {children}
       </main>
       <nav>
-        Nav goes here.
+        <div><b>All posts by date</b></div>
+        {
+          _(allPosts)
+            .filter(post => Boolean(post.yyyy))
+            .groupBy(post => post.yyyy)
+            .toPairs()
+            .sortBy(pair => pair[0])
+            .value()
+            .map(pair => <div key={pair[0]}>{pair[0]} ({pair[1].length})</div>)
+        }
       </nav>
       <footer>
         Copyright &copy; Joe White. You are welcome to redistribute this content

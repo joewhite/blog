@@ -9,9 +9,11 @@ export async function getStaticProps() {
 
 export default function Home({posts}) {
   return <>
-    <BlogPage>
+    <BlogPage allPosts={allPosts}>
       <article>
-        {JSON.stringify(posts, null, 2)}
+        <pre>
+          {JSON.stringify(posts, null, 2)}
+        </pre>
         {' aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'}
       </article>
     </BlogPage>

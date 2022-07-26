@@ -8,6 +8,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  line-height: 1.5;
   word-break: break-word;
 }
 
@@ -97,6 +98,9 @@ article {
 main {
   grid-area: main;
   padding-right: var(--container-padding-x);
+
+  /* Source: https://css-tricks.com/preventing-a-grid-blowout/ */
+  min-width: 0;
 }
 
 article {
@@ -130,8 +134,11 @@ article {
   }
 }
 
-/*
 pre {
-  white-space: pre-wrap;
+  background: #444;
+  color: #EEE;
+  overflow-x: auto;
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+  padding-left: 1.5rem;
 }
-*/
