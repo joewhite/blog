@@ -1,0 +1,9 @@
+---
+draft: true
+title: "New version of DUnit (7.2.1)  #Delphi"
+sort: 1946
+---
+<p>It's a minor release, <a href="https://sourceforge.net/project/showfiles.php?group_id=7592&amp;package_id=7721&amp;release_id=242668">version 7.2.1</a>; nothing too earth-shaking. The biggest new feature, in my mind, is long strings -- CheckEquals and the like will now check all of a string, rather than calling it good enough after the first 255 characters. I think the optional explanatory-message parameters were being truncated, too, and aren't anymore. They also added support for comparing WideStrings, and fixed a couple of bugs.</p>
+<p>I had almost forgotten that DUnit only used ShortStrings! The stated reason was so you could compile DUnit into a DLL. If anyone is actually doing that, they need to use ShareMem now. I honestly can't say I've ever even considered putting DUnit into a DLL, but that's just me.</p>
+<p>They're not using SourceForge's bug tracker; their SourceForge site does have a text file with a <a href="https://sourceforge.net/project/shownotes.php?release_id=242668">one-line description</a> for each fix, but that really doesn't tell you anything unless you're already familiar with all the issues. However, they do have a <a href="http://www.modelistica.com/issues/secure/BrowseProject.jspa?id=10000&amp;report=changelog">Web site</a> where you can view the full list of enhancements and bug fixes for this version, along with archived discussions about each item. Oddly, you need to create a username and password before you can even view that Web site. How irritating. A bit silly, too, since they then promptly let you in without even verifying your e-mail address.</p>
+<p>Anyway, the long-string support should make this worth the download. (Downloading now...)</p>

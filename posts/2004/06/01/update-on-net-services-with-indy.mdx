@@ -1,0 +1,8 @@
+---
+draft: true
+title: "Update on .NET Services with Indy  #.NET  #Delphi"
+sort: 1949
+---
+<p>I was just glancing back through my blog, and noticed that I said <a href="http://blog.excastle.com/2004/05/22/windows-services-in-net-with-indy/">Windows services were easy</a> if you're using Indy's HTTP server component. (Reasonably true, it seems.) I also said that all you need to do is set the server component's Active property to true in your service's OnStart, and back to false in your OnStop. (Well, that's what I thought at the time.)</p>
+<p>Turns out the thing to do in OnStop is to call TIdHttpServer.Free. Free calls Dispose, and Dispose sets Active to false, so it all works out; but if you don't call Free, if for example you call Dispose instead, then the service EXE and DLLs won't actually unload from memory for a good fifteen or twenty seconds afterward. Don't ask me why; in Reflector, it sure doesn't look like Free is doing anything significant besides calling Dispose. It's all pretty puzzling. It also plays havoc with your pre- and post-build events that stop and restart your service so you can recompile it; when you say stop, it says it's stopped, but really it wants to think about it for a while longer first.</p>
+<p>Another mysterious thing is that, if you call Free, it will apparently (we found out) immediately terminate any client connections. This even though Free calls Dispose, which sets Active to false, and the setter for the Active property (at least this is what the code looked like) waits for all client-servicing threads to terminate before it returns. So it shouldn't, near as I can tell, be terminating connections when you Free it, but it is. This is what we get for working with beta software.</p>

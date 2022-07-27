@@ -1,0 +1,7 @@
+---
+draft: true
+title: "Delphi/Win32: Fun with RTTI  #Delphi"
+sort: 1942
+---
+<p>In .NET, it's easy to use Reflection to peek into other objects' private fields (though it's considered bad form, and of course it requires full trust). But doing the same thing in Delphi/Win32, as far as I knew, involved using the Disassembler window to find some magic numbers, and then hard-coding those magic numbers, which would be nastily brittle (and is why I never bothered).</p>
+<p>Not necessarily so, as it turns out. <a href="http://hallvards.blogspot.com/">Hallvard Vassbotn</a> just posted about a Delphi/Win32 <a href="http://hallvards.blogspot.com/2004/05/hack-1-write-access-to-read-only.html">hack to write to a read-only property</a>, using nothing but RTTI, a nice twist on inheritance, and of course some pointer arithmetic &#8212; but no hard-coded magic numbers, so it'll still work even if you change ancestors or add more fields. Cool!</p>

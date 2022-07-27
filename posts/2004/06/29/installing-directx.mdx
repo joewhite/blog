@@ -1,0 +1,15 @@
+---
+draft: true
+title: "Installing DirectX  #.NET"
+sort: 1968
+---
+<p>So I'm finally trying to install the DirectX Summer (2003) SDK update. The one that's actually supposed to be usable for writing .NET-based DirectX games. (Oh, you could write 'em before, but you couldn't legally redistribute the DLLs your customers needed to actually, oh, <em>run</em> the game. Not without significant pain for both the developer and the user. I'll have to see if they fixed that.)</p>
+<p>&lt;grumble frustration="75%"&gt;</p>
+<p>(A year after they originally released this update. You'd think they would have worked out the installer bugs by now, yeah?)</p>
+<p>So if you want to install support for debugging DirectX, the installer will totally wipe any customizations you've made to the Visual Studio IDE. They do a good job of warning you about it, but I have to wonder who originally made that design decision. ("I know! Let's piss off all our customers today!" "You mean even more than usual, Fred?")</p>
+<p>The readme warns you to uninstall previous versions of the DirectX SDK before installing the new one, because "Installing on top of a previous installation <strong><em><u>will</u></em></strong> cause you problems" (emphasis mine). Of course, they wait until you're several pages into the readme before they bother mentioning this, which didn't do good things to my (in retrospect, admittedly ill-advised) strategy of reading the readme while I waited for the installer to run. Guess whether the installer actually bothers to <em>check</em> for old versions of the SDK. Go on, take a guess.</p>
+<p>And apparently this version of the DirectX SDK is a monumental regression from the previous DX9 SDK, because according to the readme, "On Windows 2000 or Windows XP, You must be logged on as an administrator before installing the DirectX 9.0 SDK, installing the runtime, using any of SDK tools, or running any of the SDK samples." Yes. Apparently you can no longer even <em>run the samples</em> if you're developing under a non-admin account (which I do). Does this mean that users have to run as administrator just to <em>play</em> DirectX games? Were the DirectX programmers all sick when MS was talking about their security push?</p>
+<p>Growl. And all for what? The summer release apparently has the <em>exact same version</em> of Direct3D as before. Everything I would ever use is unchanged. (A high-level shading language doesn't help much when you're writing a tile-based RPG.)</p>
+<p>And I'm not even a tenth of the way through the readme yet. What other exciting revelations lie in store?</p>
+<p>Sigh.</p>
+<p>&lt;/grumble&gt;</p>

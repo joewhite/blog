@@ -1,0 +1,6 @@
+---
+draft: true
+title: "VS add-in for adding #region to the selected block  #.NET"
+sort: 1957
+---
+<a href="http://www.codeproject.com/dotnet/RegionsAddIn.asp">This post on CodeProject</a> looks pretty cool... I'll have to spend some time looking at it (in, as usual, my copious spare time). It's not so much what it does that's interesting (though the "Add to Existing Region" is pretty intriguing), it's more that it does it at all. I've written a VS macro to collapse code and then selectively re-expand the stuff that I know I always want to see (some comments, TODO items, the using statements at the top of the file); but actually modifying the code in an active document is just horribly awkward &#8212; otherwise I would have written several more by now (something to prompt me for a namespace name, and then add <font face="Courier New">using SomeNamespace;</font> to the top of the file, keeping the usings in alphabetical order, and without moving the cursor from where it was originally, would probably be the first). Dissecting this code should make for a lively weekend, sometime when I'm not hunting down boxes and then filling them with stuff.

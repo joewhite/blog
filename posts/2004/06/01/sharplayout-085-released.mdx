@@ -1,0 +1,20 @@
+---
+draft: true
+title: "SharpLayout 0.8.5 released  #.NET  #sharplayout"
+sort: 1948
+---
+Okay, I think I'll declare SharpLayout 0.8.5 to be semi-officially released. It doesn't have a Web site yet (unless you count this blog), but you can <a href="http://www.excastle.com/sharplayout/SharpLayout-0.8.5.zip">download it here</a>. This ZIP contains just the controls themselves, not the demo projects; I'll probably get around to releasing those later. Installation: Compile the project, right-click in the toolbox, select "Add/Remove Items", browse to the DLL, and there you go.
+
+So what the heck is SharpLayout? It's two (so far) Windows Forms controls that do basic flow-layout types of things. FlowLabel is like a Label with word-wrapping, except that a FlowLabel automatically adjusts its height to exactly fit the text inside it (and readjusts when its width changes). Throw in adjustable margins all around, and this is a good way to put several paragraphs of text into a GUI (using the margins for inter-paragraph spacing), and/or interspersing them with hyperlinks, buttons, graphics, whatever. The general idea is to allow you to write something along the lines of <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dnwui/html/iuiguidelines.asp">Microsoft's Inductive UI</a> without embedding IE or waiting for Longhorn.
+
+FlowLabel can also display an imagelist image next to the text (and unlike a normal Label, it actually makes space for the image, instead of overlapping it with the text). Other interesting properties: you can specify antialiased text; and you can turn borders on and off for each of the four edges and set the border color.
+
+FlowLinkLabel descends from FlowLabel, and along with all of FlowLabel's capabilities, adds (not surprisingly) abilities more or less like a LinkLabel, though unlike LinkLabel, it supports hover effects.
+
+Both FlowLabel and FlowLinkLabel are safe to use in a partial-trust environment, and I regularly test them in the Internet zone to make sure they work (though in the Internet zone, FlowLinkLabel loses the ability to cope with a few <a href="http://blog.excastle.com/2004/05/23/security-permissions-in-windows-forms/">pathological edge cases</a>).
+
+There are a few features yet to be written, but for the most part, these controls are basically functional. The main things I still want to write are FlowLinkLabel features: (1) focus rectangles (and focus support in general â€” get focus when you click on the link, that sort of thing), and (2) support for popping up a context menu by using Alt+F10 or the "context menu" key (currently disabled in FlowLinkLabel in order to support another feature: the context menu only appears if you right-click on the hyperlink, not if you right-click on non-hyperlink text or on an empty part of the control).
+
+A few other features are negotiable, since I don't expect to need them myself: multiple hyperlinks per FlowLinkLabel; support for putting the hyperlink in the middle of a paragraph (you can currently put the link at the beginning of a paragraph, but you can't have any non-linked text before the link); right-justified text and/or image on the right; and probably others as well.
+
+Feedback is more than welcome, as are questions about the code. This is a blog, after all.
