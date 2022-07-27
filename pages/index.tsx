@@ -1,21 +1,13 @@
-import {allPosts, Post} from 'contentlayer/generated';
-import {BlogPage, IndexEntry} from 'components/blog-page';
-import _ from 'lodash';
+import {BlogPage} from 'components/blog-page';
 import {GetStaticPropsResult} from 'next';
+import {getIndex, IndexEntry} from 'model/model';
 
 interface HomeParams {
   readonly index: readonly IndexEntry[];
 }
 
-function getIndexData(post: Post): IndexEntry {
-  return {
-    yyyy: post.yyyy,
-  };
-}
-
 export async function getStaticProps(): Promise<GetStaticPropsResult<HomeParams>> {
-  const posts = _.sortBy(allPosts, p => p._raw.sourceFileDir, p => p.sort, p => p._raw.sourceFileName);
-  return {props: {index: posts.map(getIndexData)}};
+  return {props: {index: getIndex()}};
 }
 
 export default function Home({index}: HomeParams) {

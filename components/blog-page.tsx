@@ -1,11 +1,8 @@
 import _ from 'lodash';
+import {IndexEntry} from 'model/model';
 import Head from 'next/head';
 import Link from 'next/link';
 import {PropsWithChildren} from 'react';
-
-export interface IndexEntry {
-  readonly yyyy: string;
-}
 
 export interface BlogPostParams extends PropsWithChildren {
   readonly index: readonly IndexEntry[];
