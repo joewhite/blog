@@ -13,6 +13,10 @@ const Post = defineDocumentType(() => ({
   filePathPattern: '**/*.mdx',
   contentType: 'mdx',
   fields: {
+    draft: {
+      type: 'boolean',
+      required: false,
+    },
     title: {
       type: 'string',
       required: true,
