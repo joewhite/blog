@@ -1,4 +1,4 @@
-const {readFileSync, writeFileSync} = require('fs');
+const {readFileSync, writeFileSync, existsSync} = require('fs');
 const path = require('path');
 const {Parser} = require('xml2js');
 const _ = require('lodash');
@@ -115,24 +115,46 @@ async function handleRawPost(post) {
 
 async function handlePost(post) {
   const {id, title, postPath, categories, tags, content} = post;
+  if (content.includes('<!')) {
+    throw new Error(`${postPath}: Invalid '<!'`);
+  }
+
+  if (postPath >= '2004/07') {
+    return undefined;
+  }
 
   const hashTags = [...categories, ...tags].map(t => `#${t}`);
   const titleAndTags = [title, ...hashTags].join('  ');
+  if (titleAndTags.includes('"')) {
+    throw new Error(`Quotes in title: ${titleAndTags}`);
+  }
 
-  const filePath = path.join(__dirname, '..', 'pages', postPath + '.mdx');
+  const filePath = path.join(__dirname, '..', 'posts', postPath + '.mdx');
   await mkdirp(path.dirname(filePath));
-  writeFileSync(filePath, `---
-Draft: true
-Title: ${titleAndTags}
-Sort: ${id}
+  const newFileContent = `---
+draft: true
+title: "${titleAndTags}"
+sort: ${id}
 ---
-${content}`);
+${content.trim()}\n`;
+  if (!existsSync(filePath) || readFileSync(filePath) !== newFileContent) {
+    writeFileSync(filePath, newFileContent);
+    return id;
+  }
 
-  throw new Error('Stopping after first post');
-
-  return id;
+  return 'unchanged';
 }
 
 async function massageContent(content) {
-  return content.replace(/<!--.*?-->/, '');
+  const result = content.replaceAll(/<!--.*?-->/g, '');
+  if (result.includes('<!')) {
+    console.log('%%%%%%%%%%%');
+    console.log('%%%%%%%%%%% Before massage');
+    console.log(content);
+    console.log('%%%%%%%%%%% After massage');
+    console.log(result);
+    console.log('%%%%%%%%%%%');
+  }
+
+  return result;
 }
