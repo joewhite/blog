@@ -1,14 +1,14 @@
 import {BlogPage} from 'components/blog-page';
 import {GetStaticPathsResult, GetStaticPropsResult} from 'next';
-import {getIndex, IndexEntry} from 'model/model';
+import {DatedEntry, getDatedEntries} from 'model/model';
 import _ from 'lodash';
 
 interface HomeParams {
-  readonly index: readonly IndexEntry[];
+  readonly index: readonly DatedEntry[];
 }
 
 export function getStaticPaths(): GetStaticPathsResult {
-  const index = getIndex();
+  const index = getDatedEntries();
   const slugs: string[][] = [
     [], // '/'
     ..._.uniqBy(index, e => e.yyyy).map(e => [e.yyyy]),
@@ -21,7 +21,7 @@ export function getStaticPaths(): GetStaticPathsResult {
 }
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<HomeParams>> {
-  return {props: {index: getIndex()}};
+  return {props: {index: getDatedEntries()}};
 }
 
 export default function Home({index}: HomeParams) {

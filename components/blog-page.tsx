@@ -1,11 +1,11 @@
 import _ from 'lodash';
-import {IndexEntry} from 'model/model';
+import {DatedEntry} from 'model/model';
 import Head from 'next/head';
 import Link from 'next/link';
 import {PropsWithChildren} from 'react';
 
 export interface BlogPostParams extends PropsWithChildren {
-  readonly index: readonly IndexEntry[];
+  readonly index: readonly DatedEntry[];
 }
 
 export function BlogPage({index, children}: BlogPostParams) {
