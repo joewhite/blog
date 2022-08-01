@@ -1,14 +1,30 @@
+import {Post} from 'contentlayer/generated';
 import _ from 'lodash';
 import {DatedEntry} from 'model/model';
 import Head from 'next/head';
 import Link from 'next/link';
+import {useMDXComponent} from 'next-contentlayer/hooks';
 import {PropsWithChildren} from 'react';
 
+interface PostContentParams {
+  post: Post;
+}
+
+function PostContent({post}: PostContentParams) {
+  const MDXContent = useMDXComponent(post.body.code);
+  const components = {};
+  return <article>
+    <h1>{post.title}</h1>
+    <MDXContent components={components}/>
+  </article>;
+}
+
 export interface BlogPostParams extends PropsWithChildren {
+  readonly post?: Post;
   readonly index: readonly DatedEntry[];
 }
 
-export function BlogPage({index, children}: BlogPostParams) {
+export function BlogPage({index, post, children}: BlogPostParams) {
   return <>
     <Head>
       <title>Joe White&apos;s Blog</title>
@@ -23,6 +39,7 @@ export function BlogPage({index, children}: BlogPostParams) {
         <small>Life, .NET, and cats</small>
       </header>
       <main>
+        {post && <PostContent post={post}/>}
         {children}
       </main>
       <nav>
