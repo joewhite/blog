@@ -38,11 +38,6 @@ export async function getStaticProps({params: {slug}}: GetStaticPropsContext): P
 
 export default function Home({slug, index, post}: HomeProps) {
   return <>
-    <BlogPage index={index} post={post}>
-      <article>
-        <h1>Slug = {JSON.stringify(slug)}</h1>
-        {index.map((entry, idx) => <div key={idx}>{entry.yyyy}</div>)}
-      </article>
-    </BlogPage>
+    <BlogPage index={index} post={post} />
   </>;
 }

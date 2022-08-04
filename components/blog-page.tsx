@@ -23,12 +23,12 @@ function PostContent({post}: PostContentParams) {
   </article>;
 }
 
-export interface BlogPostParams extends PropsWithChildren {
+export interface BlogPostParams {
   readonly post?: Post;
   readonly index: readonly DatedEntry[];
 }
 
-export function BlogPage({index, post, children}: BlogPostParams) {
+export function BlogPage({index, post}: BlogPostParams) {
   return <>
     <Head>
       <title>Joe White&apos;s Blog</title>
@@ -45,7 +45,6 @@ export function BlogPage({index, post, children}: BlogPostParams) {
       <main>
         {post && <PostContent post={post}/>}
         <StepNav index={index} currentPath={post.path}/>
-        {children}
       </main>
       <nav className='full'>
         <div><b>All posts by date</b></div>
