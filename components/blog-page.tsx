@@ -5,6 +5,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import {useMDXComponent} from 'next-contentlayer/hooks';
 import {PropsWithChildren} from 'react';
+import {StepNav} from './step-nav';
 
 interface PostContentParams {
   post: Post;
@@ -16,6 +17,9 @@ function PostContent({post}: PostContentParams) {
   return <article>
     <h1>{post.title}</h1>
     <MDXContent components={components}/>
+    {/* Make sure we have paragraph padding at the bottom, even if the last
+        element is an <a> instead of a <p> */}
+    <p/>
   </article>;
 }
 
@@ -40,9 +44,10 @@ export function BlogPage({index, post, children}: BlogPostParams) {
       </header>
       <main>
         {post && <PostContent post={post}/>}
+        <StepNav index={index} currentPath={post.path}/>
         {children}
       </main>
-      <nav>
+      <nav className='full'>
         <div><b>All posts by date</b></div>
         {
           _(index)

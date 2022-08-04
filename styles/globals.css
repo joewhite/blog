@@ -79,7 +79,7 @@ footer a {
   white-space: nowrap;
 }
 
-nav {
+nav.full {
   background: #b9baa3;
   grid-area: nav;
   margin-left: var(--container-padding-x);
@@ -89,13 +89,18 @@ nav {
   padding-bottom: 1rem;
 }
 
-nav,
+nav.full,
+nav.step a,
 article {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
   border: 1px solid #00000066;
   border-radius: 0.25rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+nav.full,
+article {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 main {
@@ -104,6 +109,62 @@ main {
 
   /* Source: https://css-tricks.com/preventing-a-grid-blowout/ */
   min-width: 0;
+}
+
+nav.step {
+  display: flex;
+  gap: 1rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+nav.step .step {
+  flex-basis: 50%;
+  min-width: 0;
+}
+
+nav.step a,
+nav.step a:visited {
+  display: block;
+  position: relative;
+  z-index: 0;
+  background: #1945e4;
+  color: #fffc;
+  padding: 0.25rem 0.5rem;
+  text-decoration: none;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  /* Ellipsis */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+nav.step a.older {
+  padding-left: 1.25rem;
+}
+
+nav.step a.newer {
+  text-align: right;
+  padding-right: 1.25rem;
+}
+
+nav.step a::after {
+  color: #fffc;
+  content: '\276F';
+  position: absolute;
+  transform: translate(-50%, 0%);
+}
+
+nav.step a.older::after {
+  content: '\276E';
+  left: 0.5rem;
+}
+
+nav.step a.newer::after {
+  content: '\276F';
+  right: 0;
 }
 
 article {
@@ -124,7 +185,7 @@ article {
     align-items: start;
   }
 
-  nav {
+  nav.full {
     margin-top: 1rem;
     margin-right: 0;
     padding: 0.25rem 0.5rem;
