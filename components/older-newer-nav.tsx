@@ -1,12 +1,12 @@
 import {DatedEntry} from 'model/model';
 import Link from 'next/link';
 
-export interface StepNavParams {
+export interface OlderNewerNavParams {
   readonly index: readonly DatedEntry[];
   readonly currentPath: string;
 }
 
-export function StepNav({index, currentPath}: StepNavParams) {
+export function OlderNewerNav({index, currentPath}: OlderNewerNavParams) {
   const postIndex = index.findIndex(e => e.path === currentPath);
   if (postIndex < 0) {
     return undefined;

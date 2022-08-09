@@ -4,8 +4,7 @@ import {DatedEntry} from 'model/model';
 import Head from 'next/head';
 import Link from 'next/link';
 import {useMDXComponent} from 'next-contentlayer/hooks';
-import {PropsWithChildren} from 'react';
-import {StepNav} from './step-nav';
+import {OlderNewerNav} from './older-newer-nav';
 
 interface PostContentParams {
   post: Post;
@@ -44,7 +43,7 @@ export function BlogPage({index, post}: BlogPostParams) {
       </header>
       <main>
         {post && <PostContent post={post}/>}
-        <StepNav index={index} currentPath={post.path}/>
+        <OlderNewerNav index={index} currentPath={post.path}/>
       </main>
       <nav className='full'>
         <div><b>All posts by date</b></div>
