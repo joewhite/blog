@@ -5,6 +5,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import {useMDXComponent} from 'next-contentlayer/hooks';
 import {OlderNewerNav} from './older-newer-nav';
+import {unicode} from './unicode';
 
 interface PostContentParams {
   post: Post;
@@ -28,9 +29,13 @@ export interface BlogPostParams {
 }
 
 export function BlogPage({index, post}: BlogPostParams) {
+  const title
+    = (post ? `${post.title} ${unicode.emDash} ` : '')
+    + `Joe White${unicode.rightSingleQuote}s Blog`;
+
   return <>
     <Head>
-      <title>Joe White&apos;s Blog</title>
+      <title>{title}</title>
     </Head>
 
     <div id='layout'>
