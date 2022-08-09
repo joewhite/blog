@@ -13,16 +13,21 @@ body {
 }
 
 a {
-  color: #0000ff;
-  text-decoration: underline;
+  color: #3656c6;
+  text-decoration: #3656c640 underline;
 }
 
 a:visited {
   color: #c000c0;
+  text-decoration: #c000c040 underline;
 }
 
 a:hover {
-  text-decoration: none;
+  text-decoration: #3656c6 underline;
+}
+
+a:visited:hover {
+  text-decoration: #c000c0 underline;
 }
 
 * {
