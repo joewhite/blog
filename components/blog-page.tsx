@@ -47,8 +47,10 @@ export function BlogPage({index, post}: BlogPostParams) {
         <small>Life, .NET, and cats</small>
       </header>
       <main>
-        {post && <PostContent post={post}/>}
-        <OlderNewerNav index={index} currentPath={post.path}/>
+        {post && <>
+          <PostContent post={post}/>
+          <OlderNewerNav index={index} currentPath={post.path}/>
+        </>}
       </main>
       <nav className='full'>
         <div><b>All posts by date</b></div>
