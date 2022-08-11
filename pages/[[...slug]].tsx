@@ -36,7 +36,7 @@ export async function getStaticProps({params: {slug}}: GetStaticPropsContext): P
   };
 }
 
-export default function Home({slug, index, post}: HomeProps) {
+export default function Home({index, post}: HomeProps) {
   return <>
     <BlogPage index={index} post={post} />
   </>;
