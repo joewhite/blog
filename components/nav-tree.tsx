@@ -24,7 +24,14 @@ function groupBy<T>(items: readonly T[], getKey: (_item: T) => string): readonly
     .value();
 }
 
-function Day({dd, posts}: {dd: string, posts: readonly DatedEntry[]}) {
+type TimeUnitParams<Name extends string> = {
+  // eslint-disable-next-line no-unused-vars
+  readonly [key in Name]: string;
+} & {
+  readonly posts: readonly DatedEntry[];
+}
+
+function Day({dd, posts}: TimeUnitParams<'dd'>) {
   return <>
     {dd} ({posts.length})
     <ul className={styles.childItems}>
@@ -35,7 +42,7 @@ function Day({dd, posts}: {dd: string, posts: readonly DatedEntry[]}) {
   </>;
 }
 
-function Month({mm, posts}: {mm: string, posts: readonly DatedEntry[]}) {
+function Month({mm, posts}: TimeUnitParams<'mm'>) {
   return <>
     {getMonthLongName(mm)} ({posts.length})
     <ul className={styles.childItems}>
@@ -48,7 +55,7 @@ function Month({mm, posts}: {mm: string, posts: readonly DatedEntry[]}) {
   </>;
 }
 
-function Year({yyyy, posts}: {yyyy: string, posts: readonly DatedEntry[]}) {
+function Year({yyyy, posts}: TimeUnitParams<'yyyy'>) {
   return <>
     {yyyy} ({posts.length})
     <ul className={styles.childItems}>
