@@ -2,12 +2,12 @@ import {DatedEntry} from 'model/model';
 import Link from 'next/link';
 
 export interface OlderNewerNavParams {
-  readonly index: readonly DatedEntry[];
+  readonly postSummaries: readonly DatedEntry[];
   readonly currentPath: string;
 }
 
-export function OlderNewerNav({index, currentPath}: OlderNewerNavParams) {
-  const postIndex = index.findIndex(e => e.path === currentPath);
+export function OlderNewerNav({postSummaries, currentPath}: OlderNewerNavParams) {
+  const postIndex = postSummaries.findIndex(e => e.path === currentPath);
   if (postIndex < 0) {
     return undefined;
   }
@@ -16,14 +16,14 @@ export function OlderNewerNav({index, currentPath}: OlderNewerNavParams) {
     {
       key: 'older',
       label: 'Older: ',
-      path: index[postIndex - 1]?.path,
-      title: index[postIndex - 1]?.title,
+      path: postSummaries[postIndex - 1]?.path,
+      title: postSummaries[postIndex - 1]?.title,
     },
     {
       key: 'newer',
       label: 'Newer: ',
-      path: index[postIndex + 1]?.path,
-      title: index[postIndex + 1]?.title,
+      path: postSummaries[postIndex + 1]?.path,
+      title: postSummaries[postIndex + 1]?.title,
     },
   ];
 

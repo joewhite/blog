@@ -7,15 +7,15 @@ import {Post} from 'contentlayer/generated';
 interface HomeProps {
   readonly slug: readonly string[];
   readonly post: Post | null;
-  readonly index: readonly DatedEntry[];
+  readonly postSummaries: readonly DatedEntry[];
 }
 
 export function getStaticPaths(): GetStaticPathsResult {
-  const index = getDatedEntries();
+  const postSummaries = getDatedEntries();
   const slugs: string[][] = [
     [], // '/'
-    ..._.uniqBy(index, e => e.yyyy).map(e => [e.yyyy]),
-    ...index.filter(e => Boolean(e.path)).map(e => e.path.split('/')),
+    ..._.uniqBy(postSummaries, e => e.yyyy).map(e => [e.yyyy]),
+    ...postSummaries.filter(e => Boolean(e.path)).map(e => e.path.split('/')),
   ];
 
   return {
@@ -31,13 +31,13 @@ export async function getStaticProps({params: {slug}}: GetStaticPropsContext): P
     props: {
       slug: slugAsArray,
       post: getPost(slugAsArray.join('/')),
-      index: getDatedEntries(),
+      postSummaries: getDatedEntries(),
     },
   };
 }
 
-export default function Home({index, post}: HomeProps) {
+export default function Home({postSummaries, post}: HomeProps) {
   return <>
-    <BlogPage index={index} post={post} />
+    <BlogPage postSummaries={postSummaries} post={post} />
   </>;
 }

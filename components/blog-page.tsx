@@ -25,10 +25,10 @@ function PostContent({post}: PostContentParams) {
 
 export interface BlogPostParams {
   readonly post?: Post;
-  readonly index: readonly DatedEntry[];
+  readonly postSummaries: readonly DatedEntry[];
 }
 
-export function BlogPage({index, post}: BlogPostParams) {
+export function BlogPage({postSummaries, post}: BlogPostParams) {
   const title
     = (post ? `${post.title} ${unicode.emDash} ` : '')
     + `Joe White${unicode.rightSingleQuote}s Blog`;
@@ -49,13 +49,13 @@ export function BlogPage({index, post}: BlogPostParams) {
       <main>
         {post && <>
           <PostContent post={post}/>
-          <OlderNewerNav index={index} currentPath={post.path}/>
+          <OlderNewerNav postSummaries={postSummaries} currentPath={post.path}/>
         </>}
       </main>
       <nav className='full'>
         <div><b>All posts by date</b></div>
         {
-          _(index)
+          _(postSummaries)
             .filter(post => Boolean(post.yyyy))
             .groupBy(post => post.yyyy)
             .toPairs()
