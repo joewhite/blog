@@ -29,42 +29,49 @@ type TimeUnitParams<Name extends string> = {
   readonly [key in Name]: string;
 } & {
   readonly posts: readonly DatedEntry[];
+  readonly currentPost: Post;
 }
 
-function Day({dd, posts}: TimeUnitParams<'dd'>) {
+function Day({dd, posts, currentPost}: TimeUnitParams<'dd'>) {
   return <>
     {dd} ({posts.length})
-    <ul className={styles.childItems}>
-      {posts.map(post =>
-        <li key={post.path} className={styles.postTitle}>{post.title}</li>,
-      )}
-    </ul>
+    {currentPost.dd === dd
+      && <ul className={styles.childItems}>
+        {posts.map(post =>
+          <li key={post.path} className={styles.postTitle}>{post.title}</li>,
+        )}
+      </ul>
+    }
   </>;
 }
 
-function Month({mm, posts}: TimeUnitParams<'mm'>) {
+function Month({mm, posts, currentPost}: TimeUnitParams<'mm'>) {
   return <>
     {getMonthLongName(mm)} ({posts.length})
-    <ul className={styles.childItems}>
-      {groupBy(posts, post => post.dd).map(day =>
-        <li key={day.key}>
-          <Day dd={day.key} posts={day.items} />
-        </li>,
-      )}
-    </ul>
+    {currentPost.mm === mm
+      && <ul className={styles.childItems}>
+        {groupBy(posts, post => post.dd).map(day =>
+          <li key={day.key}>
+            <Day dd={day.key} posts={day.items} currentPost={currentPost} />
+          </li>,
+        )}
+      </ul>
+    }
   </>;
 }
 
-function Year({yyyy, posts}: TimeUnitParams<'yyyy'>) {
+function Year({yyyy, posts, currentPost}: TimeUnitParams<'yyyy'>) {
   return <>
     {yyyy} ({posts.length})
-    <ul className={styles.childItems}>
-      {groupBy(posts, post => post.mm).map(month =>
-        <li key={month.key}>
-          <Month mm={month.key} posts={month.items} />
-        </li>,
-      )}
-    </ul>
+    {currentPost.yyyy === yyyy
+      && <ul className={styles.childItems}>
+        {groupBy(posts, post => post.mm).map(month =>
+          <li key={month.key}>
+            <Month mm={month.key} posts={month.items} currentPost={currentPost} />
+          </li>,
+        )}
+      </ul>
+    }
   </>;
 }
 
@@ -79,7 +86,7 @@ export function NavTree({postSummaries, currentPost}: NavTreeParams) {
     <ul className={styles.childItems}>
       {
         groupBy(postSummaries, post => post.yyyy).map(year =>
-          <Year key={year.key} yyyy={year.key} posts={year.items} />,
+          <Year key={year.key} yyyy={year.key} posts={year.items} currentPost={currentPost} />,
         )
       }
     </ul>
