@@ -1,11 +1,11 @@
 import {Post} from 'contentlayer/generated';
-import _ from 'lodash';
 import {DatedEntry} from 'model/model';
 import Head from 'next/head';
 import Link from 'next/link';
 import {useMDXComponent} from 'next-contentlayer/hooks';
 import {OlderNewerNav} from './older-newer-nav';
 import {unicode} from './unicode';
+import {NavTree} from './nav-tree';
 
 interface PostContentParams {
   post: Post;
@@ -53,16 +53,7 @@ export function BlogPage({postSummaries, post}: BlogPostParams) {
         </>}
       </main>
       <nav className='full'>
-        <div><b>All posts by date</b></div>
-        {
-          _(postSummaries)
-            .filter(post => Boolean(post.yyyy))
-            .groupBy(post => post.yyyy)
-            .toPairs()
-            .sortBy(pair => pair[0])
-            .value()
-            .map(pair => <div key={pair[0]}>{pair[0]} ({pair[1].length})</div>)
-        }
+        <NavTree postSummaries={postSummaries} currentPost={post}/>
       </nav>
       <footer>
         Copyright &copy; Joe White. You are welcome to redistribute this content
