@@ -3,6 +3,8 @@ import _ from 'lodash';
 
 export interface DatedEntry {
   readonly yyyy: string;
+  readonly mm: string;
+  readonly dd: string;
   readonly path: string;
   readonly title: string;
 }
@@ -10,6 +12,8 @@ export interface DatedEntry {
 function toDatedEntry(post: Post): DatedEntry {
   return {
     yyyy: post.yyyy,
+    mm: post.mm,
+    dd: post.dd,
     path: post.path,
     title: post.title,
   };
