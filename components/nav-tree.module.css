@@ -1,11 +1,36 @@
+.navTree {
+  margin-left: 0.25rem;
+}
+
 .header {
   font-weight: bold;
 }
 
 .childItems {
-  margin: 0;
-  padding: 0 0 0 0.5rem;
+  margin: 0 -0.25rem;
+  padding: 0 0.25rem 0 0.5rem;
   list-style-type: none;
+  font-weight: normal;
+}
+
+.active {
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.25);
+  margin-left: -0.25rem;
+  padding-left: 0.25rem;
+  border-radius: 0.25rem;
+}
+
+.active .active {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.active .active .active {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.active .active .active .active {
+  background: rgba(255, 255, 255, 0.75);
 }
 
 .postTitle {

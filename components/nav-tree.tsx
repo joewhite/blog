@@ -33,20 +33,24 @@ type TimeUnitParams<Name extends string> = {
 }
 
 function Day({dd, posts, currentPost}: TimeUnitParams<'dd'>) {
-  return <>
+  return <div className={currentPost.dd === dd ? styles.active : ''}>
     {dd} ({posts.length})
     {currentPost.dd === dd
       && <ul className={styles.childItems}>
         {posts.map(post =>
-          <li key={post.path} className={styles.postTitle}>{post.title}</li>,
+          <li key={post.path}>
+            <div className={`${styles.postTitle} ${currentPost.path === post.path ? styles.active : ''}`}>
+              {post.title}
+            </div>
+          </li>,
         )}
       </ul>
     }
-  </>;
+  </div>;
 }
 
 function Month({mm, posts, currentPost}: TimeUnitParams<'mm'>) {
-  return <>
+  return <div className={currentPost.mm === mm ? styles.active : ''}>
     {getMonthLongName(mm)} ({posts.length})
     {currentPost.mm === mm
       && <ul className={styles.childItems}>
@@ -57,11 +61,11 @@ function Month({mm, posts, currentPost}: TimeUnitParams<'mm'>) {
         )}
       </ul>
     }
-  </>;
+  </div>;
 }
 
 function Year({yyyy, posts, currentPost}: TimeUnitParams<'yyyy'>) {
-  return <>
+  return <div className={currentPost.yyyy === yyyy ? styles.active : ''}>
     {yyyy} ({posts.length})
     {currentPost.yyyy === yyyy
       && <ul className={styles.childItems}>
@@ -72,7 +76,7 @@ function Year({yyyy, posts, currentPost}: TimeUnitParams<'yyyy'>) {
         )}
       </ul>
     }
-  </>;
+  </div>;
 }
 
 export interface NavTreeParams {
@@ -81,7 +85,7 @@ export interface NavTreeParams {
 }
 
 export function NavTree({postSummaries, currentPost}: NavTreeParams) {
-  return <>
+  return <div className={styles.navTree}>
     <div className={styles.header}>All posts by date</div>
     <ul className={styles.childItems}>
       {
@@ -90,5 +94,5 @@ export function NavTree({postSummaries, currentPost}: NavTreeParams) {
         )
       }
     </ul>
-  </>;
+  </div>;
 }
