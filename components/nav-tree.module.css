@@ -1,23 +1,28 @@
 .navTree {
-  margin-left: 0.25rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.header {
+.majorHeader {
+  padding-left: 0.25rem;
   font-weight: bold;
 }
 
-.childItems {
-  margin: 0 -0.25rem;
-  padding: 0 0.25rem 0 0.5rem;
+.navTree ul {
+  margin: 0;
+  padding: 0;
   list-style-type: none;
   font-weight: normal;
+}
+
+.navTree li {
+  padding: 0 0 0 0.25rem;
 }
 
 .active {
   font-weight: 500;
   background: rgba(255, 255, 255, 0.25);
-  margin-left: -0.25rem;
-  padding-left: 0.25rem;
   border-radius: 0.25rem;
 }
 
@@ -31,10 +36,4 @@
 
 .active .active .active .active {
   background: rgba(255, 255, 255, 0.75);
-}
-
-.postTitle {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
 }
