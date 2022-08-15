@@ -15,6 +15,8 @@ export function getStaticPaths(): GetStaticPathsResult {
   const slugs: string[][] = [
     [], // '/'
     ..._.uniqBy(postSummaries, e => e.yyyy).map(e => [e.yyyy]),
+    ..._.uniqBy(postSummaries, e => e.yyyy + e.mm).map(e => [e.yyyy, e.mm]),
+    ..._.uniqBy(postSummaries, e => e.yyyy + e.mm + e.dd).map(e => [e.yyyy, e.mm, e.dd]),
     ...postSummaries.filter(e => Boolean(e.path)).map(e => e.path.split('/')),
   ];
 
@@ -26,12 +28,28 @@ export function getStaticPaths(): GetStaticPathsResult {
 
 export async function getStaticProps({params: {slug}}: GetStaticPropsContext): Promise<GetStaticPropsResult<HomeProps>> {
   const slugAsArray = typeof slug === 'string' ? [slug] : slug ?? [];
+  const slugAsString = slugAsArray.join('/');
+  const post = getPost(slugAsString);
+  const postSummaries = getDatedEntries();
+
+  if (!post) {
+    // We advertised a route for this path, but it wasn't a post; therefore,
+    // it was further up the directory structure. Redirect to the newest post
+    // that fits that directory structure.
+    const lastPost = _.findLast(postSummaries, post => post.path.startsWith(slugAsString));
+    return {
+      redirect: {
+        destination: '/' + lastPost.path,
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {
       slug: slugAsArray,
-      post: getPost(slugAsArray.join('/')),
-      postSummaries: getDatedEntries(),
+      post,
+      postSummaries,
     },
   };
 }
