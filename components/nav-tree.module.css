@@ -14,14 +14,38 @@
   font-weight: normal;
 }
 
-.navTree li {
+.navTree a,
+.navTree ul ul {
   padding: 0 0 0 0.25rem;
   text-overflow: ellipsis;
   overflow: hidden;
 }
 
-.active {
+.navTree a,
+.navTree a:visited {
+  display: block;
+  color: #3656c6;
+  text-decoration: none;
+  border-radius: 0.15rem;
+}
+
+.navTree li {
+  padding: 0;
+}
+
+.navTree .active > a,
+.navTree .active > a:visited {
+  color: #000;
   font-weight: 500;
+}
+
+.navTree a:hover,
+.navTree .active a:hover {
+  color: #ffffffcc;
+  background: #3656c6cc;
+}
+
+.active {
   background: rgba(255, 255, 255, 0.25);
   border-radius: 0.25rem;
 }

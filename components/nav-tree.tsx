@@ -1,6 +1,7 @@
 import {Post} from 'contentlayer/generated';
 import _ from 'lodash';
 import {DatedEntry} from 'model/model';
+import Link from 'next/link';
 import {ReactElement} from 'react';
 import styles from './nav-tree.module.css';
 
@@ -41,9 +42,12 @@ function TimeList({postSummaries, getKey, getPath, getText, renderChildren, curr
     {
       groupBy(postSummaries, getKey).map(slice => {
         const firstPost = slice.items[0];
-        const active = currentPost.path.startsWith(getPath(firstPost));
+        const text = getText(firstPost, slice.items.length);
+        const path = getPath(firstPost);
+        const active = currentPost.path.startsWith(path);
+
         return <li key={slice.key} className={active ? styles.active : ''}>
-          {getText(firstPost, slice.items.length)}
+          <Link href={'/' + path} prefetch={false}><a className={styles.header}>{text}</a></Link>
           {active && renderChildren(slice.items)}
         </li>;
       })
