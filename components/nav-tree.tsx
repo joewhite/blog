@@ -1,6 +1,7 @@
 import {Post} from 'contentlayer/generated';
 import _ from 'lodash';
 import {DatedEntry} from 'model/model';
+import {ReactElement} from 'react';
 import styles from './nav-tree.module.css';
 
 function getMonthLongName(month: string): string {
@@ -9,12 +10,14 @@ function getMonthLongName(month: string): string {
   return date.toLocaleString('en-US', {month: 'long'});
 }
 
+type SortKey = string | number | undefined | (string | number | undefined)[];
+
 interface Group<T> {
   readonly key: string;
   readonly items: readonly T[];
 }
 
-function groupBy<T>(items: readonly T[], getKey: (_item: T) => string): readonly Group<T>[] {
+function groupBy<T>(items: readonly T[], getKey: (_item: T) => SortKey): readonly Group<T>[] {
   return _(items)
     .filter(item => Boolean(getKey(item)))
     .groupBy(getKey)
@@ -24,61 +27,28 @@ function groupBy<T>(items: readonly T[], getKey: (_item: T) => string): readonly
     .value();
 }
 
-type TimeUnitParams<Name extends string> = {
-  // eslint-disable-next-line no-unused-vars
-  readonly [key in Name]: string;
-} & {
-  readonly posts: readonly DatedEntry[];
+interface TimeListParams {
+  readonly postSummaries: readonly DatedEntry[];
+  readonly getKey: (_postSummary: DatedEntry) => SortKey;
+  readonly getPath: (_postSummary: DatedEntry) => string;
+  readonly getText: (_postSummary: DatedEntry, _childCount: number) => string;
+  readonly renderChildren: (_postSummaries: readonly DatedEntry[]) => ReactElement;
   readonly currentPost: Post;
 }
 
-function PostEntry({path, post, currentPost}: {path: string, post: DatedEntry, currentPost: Post}) {
-  const active = currentPost.path === path;
-  return <li className={active ? styles.active : ''}>
-    {post.title}
-  </li>;
-}
-
-function Day({dd, posts, currentPost}: TimeUnitParams<'dd'>) {
-  const active = currentPost.dd === dd;
-  return <li className={active ? styles.active : ''}>
-    {dd} ({posts.length})
-    {currentPost.dd === dd
-      && <ul>
-        {posts.map(post =>
-          <PostEntry key={post.path} path={post.path} post={post} currentPost={currentPost} />,
-        )}
-      </ul>
+function TimeList({postSummaries, getKey, getPath, getText, renderChildren, currentPost}: TimeListParams) {
+  return <ul>
+    {
+      groupBy(postSummaries, getKey).map(slice => {
+        const firstPost = slice.items[0];
+        const active = currentPost.path.startsWith(getPath(firstPost));
+        return <li key={slice.key} className={active ? styles.active : ''}>
+          {getText(firstPost, slice.items.length)}
+          {active && renderChildren(slice.items)}
+        </li>;
+      })
     }
-  </li>;
-}
-
-function Month({mm, posts, currentPost}: TimeUnitParams<'mm'>) {
-  const active = currentPost.mm === mm;
-  return <li className={active ? styles.active : ''}>
-    {getMonthLongName(mm)} ({posts.length})
-    {currentPost.mm === mm
-      && <ul>
-        {groupBy(posts, post => post.dd).map(day =>
-          <Day key={day.key} dd={day.key} posts={day.items} currentPost={currentPost} />,
-        )}
-      </ul>
-    }
-  </li>;
-}
-
-function Year({yyyy, posts, currentPost}: TimeUnitParams<'yyyy'>) {
-  const active = currentPost.yyyy === yyyy;
-  return <li className={active ? styles.active : ''}>
-    {yyyy} ({posts.length})
-    {currentPost.yyyy === yyyy
-      && <ul>
-        {groupBy(posts, post => post.mm).map(month =>
-          <Month key={month.key} mm={month.key} posts={month.items} currentPost={currentPost} />,
-        )}
-      </ul>
-    }
-  </li>;
+  </ul>;
 }
 
 export interface NavTreeParams {
@@ -89,12 +59,12 @@ export interface NavTreeParams {
 export function NavTree({postSummaries, currentPost}: NavTreeParams) {
   return <div className={styles.navTree}>
     <div className={styles.majorHeader}>All posts by date</div>
-    <ul>
-      {
-        groupBy(postSummaries, post => post.yyyy).map(year =>
-          <Year key={year.key} yyyy={year.key} posts={year.items} currentPost={currentPost} />,
-        )
-      }
-    </ul>
+    <TimeList postSummaries={postSummaries} getKey={p => [p.yyyy]} getPath={p => p.yyyy} getText={(p, c) => `${p.yyyy} (${c})`} currentPost={currentPost} renderChildren={yearSummaries =>
+      <TimeList postSummaries={yearSummaries} getKey={p => [p.mm]} getPath={p => `${p.yyyy}/${p.mm}`} getText={(p, c) => `${getMonthLongName(p.mm)} (${c})`} currentPost={currentPost} renderChildren={monthSummaries =>
+        <TimeList postSummaries={monthSummaries} getKey={p => [p.dd]} getPath={p => `${p.yyyy}/${p.mm}/${p.dd}`} getText={(p, c) => `${p.dd} (${c})`} currentPost={currentPost} renderChildren={daySummaries =>
+          <TimeList postSummaries={daySummaries} getKey={p => [p.sort, p.path]} getPath={p => p.path} getText={p => p.title} currentPost={currentPost} renderChildren={_ => undefined} />
+        } />
+      } />
+    } />
   </div>;
 }

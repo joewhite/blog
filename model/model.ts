@@ -5,6 +5,7 @@ export interface DatedEntry {
   readonly yyyy: string;
   readonly mm: string;
   readonly dd: string;
+  readonly sort: number | undefined;
   readonly path: string;
   readonly title: string;
 }
@@ -14,6 +15,7 @@ function toDatedEntry(post: Post): DatedEntry {
     yyyy: post.yyyy,
     mm: post.mm,
     dd: post.dd,
+    sort: post.sort,
     path: post.path,
     title: post.title,
   };

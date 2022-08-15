@@ -1,6 +1,4 @@
 .navTree {
-  text-overflow: ellipsis;
-  overflow: hidden;
   white-space: nowrap;
 }
 
@@ -18,6 +16,8 @@
 
 .navTree li {
   padding: 0 0 0 0.25rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .active {
