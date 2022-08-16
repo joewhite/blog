@@ -13,7 +13,6 @@ interface HomeProps {
 export function getStaticPaths(): GetStaticPathsResult {
   const postSummaries = getDatedEntries();
   const slugs: string[][] = [
-    [], // '/'
     ...postSummaries.filter(e => Boolean(e.path)).map(e => e.path.split('/')),
   ];
 
@@ -33,7 +32,8 @@ export async function getStaticProps({params: {slug}}: GetStaticPropsContext): P
     // We advertised a route for this path, but it wasn't a post; therefore,
     // it was further up the directory structure. Redirect to the newest post
     // that fits that directory structure.
-    const lastPost = _.findLast(postSummaries, post => post.path.startsWith(slugAsString + '/'));
+    const searchPrefix = slugAsString ? slugAsString + '/' : '';
+    const lastPost = _.findLast(postSummaries, post => post.path.startsWith(searchPrefix));
     if (!lastPost) {
       return {notFound: true};
     }
