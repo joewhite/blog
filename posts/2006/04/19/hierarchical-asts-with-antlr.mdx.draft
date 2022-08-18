@@ -34,9 +34,9 @@ IDENTIFIER 'B'
 EQUALS
 NUMBER 6
 SEMICOLON</pre>
-Not a tree at all â€” just a flat list! Having a parser rule that says there's something called a "const_section" does not introduce a parse-tree node called "const_section". That is, the parse tree doesn't automatically reflect the structure of the parser rules.
+Not a tree at all &mdash; just a flat list! Having a parser rule that says there's something called a "const_section" does not introduce a parse-tree node called "const_section". That is, the parse tree doesn't automatically reflect the structure of the parser rules.
 
-In fact, it turns out that the only things that even <em>can</em> appear in the parse tree are tokens â€” the things that come out of the lexer. The parser rules have nothing to do with the parse tree! Near as I can tell, the parser rules are more of a convenience than anything else: a handy way to name different parts of the parser rules, but not to impose any kind of structure per se. They include a bit of scoping, but no AST structure.
+In fact, it turns out that the only things that even <em>can</em> appear in the parse tree are tokens &mdash; the things that come out of the lexer. The parser rules have nothing to do with the parse tree! Near as I can tell, the parser rules are more of a convenience than anything else: a handy way to name different parts of the parser rules, but not to impose any kind of structure per se. They include a bit of scoping, but no AST structure.
 
 You can impose a limited amount of structure if you wish, by marking individual nodes with the ^ suffix, which makes that node into a parent node, and the stuff around it into its children. That's very useful for things like arithmetic expressions (especially handy for infix operators like + and *), where there really isn't any higher-level structure that you care about as long as the order of operations comes out right.
 
@@ -46,7 +46,7 @@ But I do want higher-level structure. An identifier, an equal sign, a constant e
 
 How to do this, when there's no token for "constant"? By definition, a constant isn't one single token; it's a collection of tokens that take on a different meaning in combination.
 
-Well, it took some scratching around, but I got it working. (Test-first, of course, so I'd know when I was done.) You need to use the parser's tokens{} block to introduce an imaginary token â€” one that the lexer won't produce, but that is still technically a token, and so can still appear in the parse tree. Then you can write some funky-looking code at the end of the parser rule. It ends up looking a little like this:
+Well, it took some scratching around, but I got it working. (Test-first, of course, so I'd know when I was done.) You need to use the parser's tokens{} block to introduce an imaginary token &mdash; one that the lexer won't produce, but that is still technically a token, and so can still appear in the parse tree. Then you can write some funky-looking code at the end of the parser rule. It ends up looking a little like this:
 <pre>class DelphiParser extends Parser;
 options {
   buildAST = true;

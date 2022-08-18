@@ -15,7 +15,7 @@ I was mainly interested in the differences between Standard and Professional. Fo
 	<li>Server Explorer (explore remote databases and services)</li>
 	<li>Extra templates:
 <ul>
-	<li>"Database Project" template: a "project template for direct manipulation of database objects and data". I'm not sure what they mean â€” what does it mean to make a database "project"?</li>
+	<li>"Database Project" template: a "project template for direct manipulation of database objects and data". I'm not sure what they mean &mdash; what does it mean to make a database "project"?</li>
 	<li>SQL Server Project template (I think this is for .NET stored procs. You should be able to create them without the template, though.)</li>
 </ul>
 </li>

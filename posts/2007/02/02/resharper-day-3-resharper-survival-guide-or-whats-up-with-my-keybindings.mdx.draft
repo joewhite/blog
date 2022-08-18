@@ -4,11 +4,11 @@ sort: 2298
 ---
 Welcome to day 3 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>. (This is actually Saturday's episode, but I'm posting it Friday evening because I'll be out of town on Saturday.)
 
-ReSharper is awesome. But if you're going to use it â€” especially version 2.5.x (the latest version at this writing) â€” <em>you need to read this Survival Guide first.</em>
+ReSharper is awesome. But if you're going to use it &mdash; especially version 2.5.x (the latest version at this writing) &mdash; <em>you need to read this Survival Guide first.</em>
 
 See, Visual Studio is full of keyboard shortcuts. ReSharper changes a significant number of them. And you need to know what changed and how to deal with it.
 
-ReSharper 2.0 just silently hijacked your key bindings. ReSharper 2.5 asks nicely whether it's OK for it to hijack your keybindings, the first time you use each keystroke; but it gives you no way to go back and change your answer â€” which is almost worse, because you could end up stuck without a good way to access some of ReSharper's best features.
+ReSharper 2.0 just silently hijacked your key bindings. ReSharper 2.5 asks nicely whether it's OK for it to hijack your keybindings, the first time you use each keystroke; but it gives you no way to go back and change your answer &mdash; which is almost worse, because you could end up stuck without a good way to access some of ReSharper's best features.
 
 So before you start using ReSharper, you need a Keybinding Survival Guide. This is it.
 <h4>Surviving ReSharper's politeness</h4>
@@ -30,7 +30,7 @@ Now all you have to do is learn the keystrokes that changed.
 <h4>The changed keybindings, part I: High-traffic keys</h4>
 I did the research, so you don't have to. Here are the keystrokes you need the most:
 <ul>
-	<li><strong>Ctrl+Shift+Space</strong> no longer brings up Parameter Info. Use <strong>Ctrl+P</strong> (ReSharper's enhanced parameter info) instead. It's better anyway â€” especially when you're facing Death By Overload in System.Drawing.
+	<li><strong>Ctrl+Shift+Space</strong> no longer brings up Parameter Info. Use <strong>Ctrl+P</strong> (ReSharper's enhanced parameter info) instead. It's better anyway &mdash; especially when you're facing Death By Overload in System.Drawing.
 <ul>
 	<li><strong>Ctrl+Shift+Space</strong> is now a variation on <strong>Ctrl+Space</strong>, which I'll discuss later in the month when I talk about the Ctrl+Space family.</li>
 </ul>

@@ -4,7 +4,7 @@ sort: 2191
 ---
 After my last post (about <a href="http://blog.excastle.com/2005/07/06/getting-an-interface-back-out-of-a-variant/">getting an interface back out of a Variant</a>), Sebastian asked a question about the code I had posted: "Have you tested that Supports() puts nil to the 'out Intf' parameter if the interface is NOT supported?"
 
-That was a good question â€” I started to answer, and then realized that I <em>didn't</em> know for sure. I thought it was safe, but I hadn't done any detective work to verify that. So I went hunting. Here's the implementation of Supports (the overload that takes an IInterface, which is the one I was using):
+That was a good question &mdash; I started to answer, and then realized that I <em>didn't</em> know for sure. I thought it was safe, but I hadn't done any detective work to verify that. So I went hunting. Here's the implementation of Supports (the overload that takes an IInterface, which is the one I was using):
 <pre>function Supports(const Instance: IInterface; const IID: TGUID;
   out Intf): Boolean;
 begin
@@ -34,7 +34,7 @@ And yes, the compiler does indeed generate magic code to nil out Intf. I was exp
 004603A0 E8CBFFFFFF    call TForm1.Foo</pre>
 Notice those repeated lines. When it compiles the call to Foo (and sees that the interface variable is being passed to an out parameter), the compiler automatically calls @IntfClear before actually calling Foo. So I was wrong about the where, but right about the idea; the compiler does do some magic to nil the out parameter (when it's a magically-memory-managed type, at least).
 
-(Now that I think back on it, of <em>course</em> the interface-clearing happens at the caller. The Foo method has no idea what type is being passed on it, so it <em>can't</em> call @IntfClear â€” the parameter might just as well be a string, a dynamic array, a float, whatever. When it's an untyped out parameter, only the caller knows the type, so it's the caller's responsibility to clear it if need be.)
+(Now that I think back on it, of <em>course</em> the interface-clearing happens at the caller. The Foo method has no idea what type is being passed on it, so it <em>can't</em> call @IntfClear &mdash; the parameter might just as well be a string, a dynamic array, a float, whatever. When it's an untyped out parameter, only the caller knows the type, so it's the caller's responsibility to clear it if need be.)
 
 Okay, so question #1 is answered. Now how about question #2? More hunting...
 
@@ -42,7 +42,7 @@ Okay, so question #1 is answered. Now how about question #2? More hunting...
 
 I found the <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/com/html/54d5ff80-18db-43f2-b636-f93ac053146d.asp">MSDN docs for QueryInterface</a>, and they state: "If the object does not support the interface specified in iid, *ppvObject is set to NULL." So according to the specs, any well-behaved QueryInterface, if asked for a GUID it doesn't support, <em>should</em> both return an error code, and set its out parameter to nil.
 
-Next question: how sure am I that every QueryInterface in existence will always be well-behaved? This gave me pause. I mean, I can look at the way Delphi implements its own QueryInterface stuff, but what about COM objects? Can I be sure that any COM object, written by anybody in any language, is guaranteed to pass back nil? (This is the problem with duplicated information â€” it's obvious from the out parameter whether QueryInterface was successful, but Microsoft chose to also return a flag saying the exact same thing, opening the possibility that those two return values could be inconsistent. Thanks, Microsoft.)
+Next question: how sure am I that every QueryInterface in existence will always be well-behaved? This gave me pause. I mean, I can look at the way Delphi implements its own QueryInterface stuff, but what about COM objects? Can I be sure that any COM object, written by anybody in any language, is guaranteed to pass back nil? (This is the problem with duplicated information &mdash; it's obvious from the out parameter whether QueryInterface was successful, but Microsoft chose to also return a flag saying the exact same thing, opening the possibility that those two return values could be inconsistent. Thanks, Microsoft.)
 
 So I thought through it some more. If QueryInterface is asked for a GUID that a particular object doesn't support, it will return E_NOINTERFACE. In that case, there are four meaningful things it can do with its out parameter:
 <ol>
@@ -63,12 +63,12 @@ There's a local variable of an interface type, so at the end of this method, the
 <ol>
 	<li>When X returns and its teardown code executes, Intf2 is nil. Everything runs successfully.</li>
 	<li>When the teardown code executes, Intf2 is a garbage value, but is not nil. So _Release gets called, and... boom! Virtual method call on a garbage value. If you're lucky, this would result in an Access Violation. More likely, we're talking "Do you want to send this error report to Microsoft?" and an infinite series of exception messages, until you finally get fed up and kill the process.</li>
-	<li>The specs say that QueryInterface should increment the refcount of the object it's returning. If a QueryInterface doesn't do that, then it would return an object with a refcount of zero. When our perfectly reasonable code calls DoSomething, the refcount gets incremented to one, and when DoSomething returns, the refcount gets decremented â€” to zero, so the object frees itself. Then we get to the finalization code. Calling a virtual method on a freed object isn't really any better than calling a virtual method on a garbage reference, so â€” boom!</li>
+	<li>The specs say that QueryInterface should increment the refcount of the object it's returning. If a QueryInterface doesn't do that, then it would return an object with a refcount of zero. When our perfectly reasonable code calls DoSomething, the refcount gets incremented to one, and when DoSomething returns, the refcount gets decremented &mdash; to zero, so the object frees itself. Then we get to the finalization code. Calling a virtual method on a freed object isn't really any better than calling a virtual method on a garbage reference, so &mdash; boom!</li>
 	<li>When X returns and its teardown code executes, Intf2 is non-nil, so its _Release gets called. The object's refcount gets decremented to zero, and it gets freed. But we never called DoSomething, because QueryInterface claimed that it <em>wasn't</em> returning a reference.</li>
 </ol>
 Cases #2 and #3 are wrong in painfully, immediately obvious ways. If somebody actually implemented a QueryInterface that way, they would find out about it, real quick, because all the code that used their object would crash in a hurry.
 
-That leaves us with case #1, which makes perfect sense, and case #4, which is ridiculous â€” but still possible. Code could implement QueryInterface to return a valid reference, but still return E_NOINTERFACE. That's just screwy, and it's not what the specs say you should do, but it <em>could</em> happen.
+That leaves us with case #1, which makes perfect sense, and case #4, which is ridiculous &mdash; but still possible. Code could implement QueryInterface to return a valid reference, but still return E_NOINTERFACE. That's just screwy, and it's not what the specs say you should do, but it <em>could</em> happen.
 
 I suspect that there's some C++ code out there that wouldn't bother to call Release if they'd been told they weren't getting anything back. But that would lead to a memory leak, not a crash. So it's possible that there's some otherwise-valid QueryInterface code out there, somewhere, that implements case #4. It would be stupid, but it probably wouldn't be immediately obvious.
 

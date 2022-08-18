@@ -2,7 +2,7 @@
 title: "If it's important enough to comment, it's important enough to test  #.NET  #Delphi  #automated testing  #comments  #extreme programming"
 sort: 2499
 ---
-Several people <a href="http://blog.excastle.com/2008/02/10/making-comments-less-necessary/#comments">disagreed</a> when I said you should try to <a href="http://blog.excastle.com/2008/02/10/making-comments-less-necessary/">write code that doesn't need comments</a>. I'll be addressing some of their thoughts â€” sometimes by saying they were right, but sometimes with constructive suggestions.
+Several people <a href="http://blog.excastle.com/2008/02/10/making-comments-less-necessary/#comments">disagreed</a> when I said you should try to <a href="http://blog.excastle.com/2008/02/10/making-comments-less-necessary/">write code that doesn't need comments</a>. I'll be addressing some of their thoughts &mdash; sometimes by saying they were right, but sometimes with constructive suggestions.
 
 I'll start with a couple of people who suggested that comments should try to explain code that was put in to fix a bug, or to explain the "tricky code" that you sometimes have to write.
 

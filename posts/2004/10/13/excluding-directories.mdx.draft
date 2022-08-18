@@ -23,6 +23,6 @@ But if I want exclusions, the question arises: Where do I put that logic? There 
 </ul>
 The difference is in whether "exclude directory X" means "ignore X and all its subdirectories", or if it instead means "don't process any of the files in X, but do include its subdirectories (unless I also exclude them specifically)".
 
-Which option do you think would be more useful? The second option gives you more fine-grained control; you can include or exclude individual directories at your discretion. But if what you really want is "exclude this entire directory tree", then the first option would be better â€” unchecking all those directories one by one could be really cumbersome.
+Which option do you think would be more useful? The second option gives you more fine-grained control; you can include or exclude individual directories at your discretion. But if what you really want is "exclude this entire directory tree", then the first option would be better &mdash; unchecking all those directories one by one could be really cumbersome.
 
 What do you think? Would you only use the first option? Only the second? Or would you really need the ability to choose, per exclusion, whether you're skipping that directory tree or just the files in that directory?

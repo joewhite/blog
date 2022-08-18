@@ -6,9 +6,9 @@ So Delphi has several keywords you can use to flag units, methods, classes, etc.
 
 After a debugging session today, I found a situation that calls for a new keyword: <code>broken;</code>.
 
-Delphi 6's TStream, in its Read method, makes use of untyped var parameters â€” one of the few Delphi features that I view with extreme distaste. You pass the variable you want to read data into â€” you don't pass a pointer to it, you pass the variable itself. The compiler sees that the function declares an untyped var parameter, so what the compiler passes, behind the scenes, is a pointer; but you code as if it were a direct variable, rather than a pointer to a variable. (I'd much rather they actually <em>admit</em> it when a function needs to take a pointer. Hence my distaste. But that's how Borland coded TStream, so I'm stuck with it.) The Write method does something similar, although I think it takes untyped const parameters â€” same idea, but the method isn't allowed to change the value.
+Delphi 6's TStream, in its Read method, makes use of untyped var parameters &mdash; one of the few Delphi features that I view with extreme distaste. You pass the variable you want to read data into &mdash; you don't pass a pointer to it, you pass the variable itself. The compiler sees that the function declares an untyped var parameter, so what the compiler passes, behind the scenes, is a pointer; but you code as if it were a direct variable, rather than a pointer to a variable. (I'd much rather they actually <em>admit</em> it when a function needs to take a pointer. Hence my distaste. But that's how Borland coded TStream, so I'm stuck with it.) The Write method does something similar, although I think it takes untyped const parameters &mdash; same idea, but the method isn't allowed to change the value.
 
-Untyped var parameters (and untyped const parameters) are, unfortunately, just that â€” entirely untyped. What the function really gets, aside from syntax, is an untyped pointer. Among other things, that means the function has no way to do a SizeOf on that parameter, so the Read method has to take a second parameter that tells how many bytes to read.
+Untyped var parameters (and untyped const parameters) are, unfortunately, just that &mdash; entirely untyped. What the function really gets, aside from syntax, is an untyped pointer. Among other things, that means the function has no way to do a SizeOf on that parameter, so the Read method has to take a second parameter that tells how many bytes to read.
 
 So in Delphi 6, you would write code like this:
 
@@ -30,7 +30,7 @@ Note the syntax of the third call to <code>Read</code>. Yes, you pass the first 
 
 Well, Delphi 8, being a .NET compiler, doesn't allow untyped var parameters, because (duh) they're untyped, and therefore not typesafe, and therefore very .NET-unfriendly. So the Read and Write methods were changed for D8. Now they're heavily overloaded. There's an overload that takes a byte, an overload that takes an integer, an overload that takes an array of bytes, and it's all good (as long as you're not writing an entire record, which is a no-no in .NET anyway). All good, except for <a href="http://catb.org/~esr/jargon/html/B/backward-combatability.html">backward combatability</a>. See, the new overloads only take one argument. Code written for Delphi 6 always passes two arguments, so if they only gave us the new overloads, old code wouldn't compile.
 
-Borland is usually pretty good about backward compatibility, so every version of <code>Read</code> has two overloads. The byte version can either have one parameter (just the byte â€” the preferred form for .NET) or two parameters (the byte and a length). So your old code compiles. Oh, it compiles just wonderfully (as long as the compiler isn't being too flaky today). But actually, oh, <em>running</em> is a different matter.
+Borland is usually pretty good about backward compatibility, so every version of <code>Read</code> has two overloads. The byte version can either have one parameter (just the byte &mdash; the preferred form for .NET) or two parameters (the byte and a length). So your old code compiles. Oh, it compiles just wonderfully (as long as the compiler isn't being too flaky today). But actually, oh, <em>running</em> is a different matter.
 
 See, if you call the overload that takes a byte and a length, and you give a length of 1, it'll work great. If you call the overload that takes an int and a length, and you give a length of 4, it'll work great. There's even some code in there that lets you call the int overload, and pass a length of 2, or even 1, and it'll only read two (or one) bytes from the stream, then fill the return value's high bytes with zeroes. Cool.
 
@@ -40,7 +40,7 @@ Uh, no. What they don't tell you, when they say it's specific to a platform, is 
 
 If you call the Read overload that takes a byte and a length, and you pass a length of, say, 256, Delphi 8 will read <em>one byte,</em> and then advance the stream position by 256 bytes. If you didn't know how it worked back in Delphi 6, this would almost make sense. Kind of. Handy way to skip over unused areas of the file, maybe.
 
-But this <em>completely breaks</em> the third Read in the sample code above. You try to read an array of 256 values, and you get â€” an array with a good first element, and the rest... zero. Kind of throws off your hash function.
+But this <em>completely breaks</em> the third Read in the sample code above. You try to read an array of 256 values, and you get &mdash; an array with a good first element, and the rest... zero. Kind of throws off your hash function.
 
 Which brings me back to my proposal. Instead of marking the two-parameter overloads as <code>platform;</code>, I suggest a new <code>broken;</code> keyword, with a new compiler warning: "Dude, this method is broken. Don't use it."
 

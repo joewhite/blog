@@ -18,7 +18,7 @@ This <font face="Courier New">expect_exception</font> method actually takes two 
 
 The extra-special parameter, instead of parentheses, is delimited by the "do" and the "end" (or you can use C-style curly braces), and it's actually a block of code (aka lambda, aka closure) that's passed to the method. It's passed sort of like a method pointer, so it's up to the method to decide when and whether to invoke that block. The method might call that block once, twice, hundreds of times, or not at all. In the case of <font face="Courier New">expect_exception</font>, we would call the block once, catch any exceptions thrown by the block, and fail the unit test if the block doesn't raise a DatabaseError.
 
-If we wanted to do the same thing in Delphi â€” pass a block of code to a method â€” we would have to put the "block" in a separate method, and then pass a method pointer. Same thing in .NET 1.x. It's doable, but it separates the code; the outer logic is in one method, and the inner logic is in a different method. Often you'd rather keep all the logic together. C# 2.0 will have some compiler magic for closures, but the syntax isn't as elegant as Ruby's â€” you need extra keywords, and the code block has to be inside the parentheses, which seems really clumsy after you get used to Ruby's syntax. Ruby lets us just write what we mean, and without gunky syntax. It's easy and natural. Expect an exception when you do this.
+If we wanted to do the same thing in Delphi &mdash; pass a block of code to a method &mdash; we would have to put the "block" in a separate method, and then pass a method pointer. Same thing in .NET 1.x. It's doable, but it separates the code; the outer logic is in one method, and the inner logic is in a different method. Often you'd rather keep all the logic together. C# 2.0 will have some compiler magic for closures, but the syntax isn't as elegant as Ruby's &mdash; you need extra keywords, and the code block has to be inside the parentheses, which seems really clumsy after you get used to Ruby's syntax. Ruby lets us just write what we mean, and without gunky syntax. It's easy and natural. Expect an exception when you do this.
 
 Blocks are so ingrained, they're actually the standard way that Ruby handles iteration. Delphi has conventions for indexed properties. .NET has conventions for objects that implement one interface, which instantiates and returns an instance of another object implementing another interface, which then lets you step through the objects in the collection. Ruby cuts through the crap: you call the collection's <font face="Courier New">each</font> method and pass it a block, and that block gets invoked once for each element in the collection.
 <pre>some_list.each do |item|
@@ -32,13 +32,13 @@ Inside the <font face="Courier New">each</font> method, you just use the <font f
   yield self
   right.traverse {|node| yield node }
 end</pre>
-Totally recursive traversal in five lines of code, and the caller doesn't even need to know it's recursive â€” the caller just treats it like any other loop. Do <em>that</em> with Delphi's indexed properties, or with .NET's IEnumerable and IEnumerator.
+Totally recursive traversal in five lines of code, and the caller doesn't even need to know it's recursive &mdash; the caller just treats it like any other loop. Do <em>that</em> with Delphi's indexed properties, or with .NET's IEnumerable and IEnumerator.
 
 Ruby's blocks are just wicked cool, and utterly pervasive throughout the class library. Another of my favorites is File.open:
 <pre>File.open("foo.txt") do |file|
   # do stuff with file
 end</pre>
-This will open the file, run the block, and then close the file. You don't need a try..finally Close. All you need to do is put your file-handling code in the block. The try..finally has already been written for you â€” it's inside File.open.
+This will open the file, run the block, and then close the file. You don't need a try..finally Close. All you need to do is put your file-handling code in the block. The try..finally has already been written for you &mdash; it's inside File.open.
 
 Man, I wish Delphi and C# had that. The easy syntax, the integration into the library, the expressiveness it gives you for writing iterators and fancy unit-test assertions... cool stuff. I can just imagine the Delphi code...
 <pre>CheckThrows(EInvalidOperation) do

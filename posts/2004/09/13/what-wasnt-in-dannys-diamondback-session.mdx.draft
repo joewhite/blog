@@ -12,7 +12,7 @@ Now, don't get your hopes up. There is no official word on this yet. (It may be 
 
 
 
-Yes, you can get partway there with Mono, but there's not much there for GUI. However, when someone was asking Danny about this after the session, he pointed out that Diamondback will be a multi-personality IDE (with the three personalities out of the box â€” Delphi/Win32, Delphi/.NET, and C#/.NET). And personalities will be part of the Open Tools API. (Not sure if that'll be totally cleaned up for Diamondback, but it's there.) Open Personality API?
+Yes, you can get partway there with Mono, but there's not much there for GUI. However, when someone was asking Danny about this after the session, he pointed out that Diamondback will be a multi-personality IDE (with the three personalities out of the box &mdash; Delphi/Win32, Delphi/.NET, and C#/.NET). And personalities will be part of the Open Tools API. (Not sure if that'll be totally cleaned up for Diamondback, but it's there.) Open Personality API?
 
 So, whether Borland writes a Mac personality or not (and mum's the word on that so far, so you can still hold out hope), somebody else might be able to. This is a pretty darned intriguing concept, I think.
 

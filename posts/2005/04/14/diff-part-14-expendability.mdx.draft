@@ -6,7 +6,7 @@ Last time, on the <a href="http://blog.excastle.com/tag/diff/">Diff Chronicles</
 
 But what if we could look at two CSes, and know that one's MaxLength is better than the other's, <em>without actually calculating their MaxLengths?</em>
 
-Let's define a new function, called Expendable(CS<sub><small>1</small></sub>, CS<sub><small>2</small></sub>). We give it two CSes, and it tells us which of them we can throw away. Sometimes it returns nil, meaning we can't throw either of them away. (Thanks to <a href="http://www.alieniloquent.com/">Sam</a> for suggesting that this be a function â€” it simplifies the explanation quite a bit.)
+Let's define a new function, called Expendable(CS<sub><small>1</small></sub>, CS<sub><small>2</small></sub>). We give it two CSes, and it tells us which of them we can throw away. Sometimes it returns nil, meaning we can't throw either of them away. (Thanks to <a href="http://www.alieniloquent.com/">Sam</a> for suggesting that this be a function &mdash; it simplifies the explanation quite a bit.)
 
 
 

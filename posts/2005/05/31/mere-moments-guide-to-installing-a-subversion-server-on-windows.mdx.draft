@@ -54,8 +54,8 @@ And now, on to the Guide.
 	<li>Open a second command window, and type <font face="Courier New">svn mkdir svn://localhost/monkey</font></li>
 	<li>You'll see the text editor you specified in step II.2, with some text already in it. Type a comment, like "Created the monkey project", at the beginning of the file (before the line starting with "--"). Save the file and close the editor.</li>
 	<li>If your Subversion login is the same as your Windows login, then type your password (the one you put in the passwd file) at the prompt, and hit Enter. If your Subversion login is different from your Windows login, then just hit ENTER at the password prompt, and Subversion will then ask for both your login and your password.</li>
-	<li>Subversion should tell you that it "Committed revision 1." Congratulations! You just checked a change into Subversion. Throw yourself a party. (Yes, creating a directory is a revisioned change â€” you can go back and get the repository as of a time before that directory existed. This is novel stuff for folks like me who still use VSS at work.)</li>
-	<li>It's conventional to have /trunk, /branches, and /tags subdirectories for each project (your code goes into trunk, and the others are where you put, well, branches and tags). Go ahead and type <font face="Courier New">svn mkdir svn://localhost/monkey/trunk</font> (and notice that, after you enter a checkin comment, it doesn't prompt you for your password again â€” it's smart like that).</li>
+	<li>Subversion should tell you that it "Committed revision 1." Congratulations! You just checked a change into Subversion. Throw yourself a party. (Yes, creating a directory is a revisioned change &mdash; you can go back and get the repository as of a time before that directory existed. This is novel stuff for folks like me who still use VSS at work.)</li>
+	<li>It's conventional to have /trunk, /branches, and /tags subdirectories for each project (your code goes into trunk, and the others are where you put, well, branches and tags). Go ahead and type <font face="Courier New">svn mkdir svn://localhost/monkey/trunk</font> (and notice that, after you enter a checkin comment, it doesn't prompt you for your password again &mdash; it's smart like that).</li>
 </ol>
 </li>
 	<li><strong>Start the server for real</strong>
@@ -70,18 +70,18 @@ This will list all the files in the root of the repository. If all is well and y
 </ol>
 </li>
 	<li><strong>Install TortoiseSVN
-</strong>Sure, you can get by with a command-line client, but TortoiseSVN is cool â€” it integrates Subversion into Windows Explorer. You get little overlay icons showing the status of each file (in sync, needs to be checked in, not yet in the repository, etc.), and you can do pretty much everything you need by right-clicking on files and folders.
+</strong>Sure, you can get by with a command-line client, but TortoiseSVN is cool &mdash; it integrates Subversion into Windows Explorer. You get little overlay icons showing the status of each file (in sync, needs to be checked in, not yet in the repository, etc.), and you can do pretty much everything you need by right-clicking on files and folders.
 <ol>
 	<li>Run the TortoiseSVN installer you got back in part I.</li>
 	<li>Create a <font face="Courier New">monkey</font> directory somewhere on your hard drive. Right-click somewhere in that folder and select "SVN Checkout..." Type <font face="Courier New">svn://localhost/monkey/trunk/</font> for the repository URL and click OK.</li>
 	<li>Create a file in that directory, any file. Right-click the file and select TortoiseSVN &gt; Add. Notice the little plus-sign icon that appears.
-The file hasn't actually been checked in yet â€” Subversion's commits are both batched and atomic, so this new file, together with any other new files you added, any files you changed, any files you deleted, any files you renamed, any directories you added or deleted or renamed, will all show up on the server all at once, as a single revision and a single checkin, the next time you right-click and select "SVN Commit".</li>
+The file hasn't actually been checked in yet &mdash; Subversion's commits are both batched and atomic, so this new file, together with any other new files you added, any files you changed, any files you deleted, any files you renamed, any directories you added or deleted or renamed, will all show up on the server all at once, as a single revision and a single checkin, the next time you right-click and select "SVN Commit".</li>
 </ol>
 </li>
 	<li><strong>Make it run on the network
-</strong>Are you kidding? You're already networked. Go to another computer on your LAN, install TortoiseSVN, and do an "SVN Checkout...". When you specify the repository URL, use the same URL you did before, but replace "localhost" with the actual name of the computer that's running the Subversion service (so in my case, the repository URL is svn://marsupial/monkey/trunk/ â€” nice little menagerie, there).</li>
+</strong>Are you kidding? You're already networked. Go to another computer on your LAN, install TortoiseSVN, and do an "SVN Checkout...". When you specify the repository URL, use the same URL you did before, but replace "localhost" with the actual name of the computer that's running the Subversion service (so in my case, the repository URL is svn://marsupial/monkey/trunk/ &mdash; nice little menagerie, there).</li>
 </ol>
-And there ya go â€” Subversion up and running on Windows, in mere moments or less.
+And there ya go &mdash; Subversion up and running on Windows, in mere moments or less.
 
 Corrections, questions, etc. on this document are, as always, welcome; just speak up in the comments. Now go forth and control your revisions.
 

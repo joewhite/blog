@@ -4,7 +4,7 @@ sort: 2493
 ---
 Delphinian <a href="http://blog.excastle.com/2008/01/12/game-programming-in-delphi-a-journey-begins/#comment-5763">pointed out two Delphi game-development SDKs</a> I hadn't known about: <a href="http://www.pyrogine.com/">Pyrogine</a> and <a href="http://www.afterwarp.net/">Asphyre</a>.
 
-I'll ignore Pyrogine, since it's still vaporware at this point â€” nothing available to download. But Asphyre has some possibilities.
+I'll ignore Pyrogine, since it's still vaporware at this point &mdash; nothing available to download. But Asphyre has some possibilities.
 <h3>Editions of Asphyre</h3>
 Asphyre comes in four different flavors, and they don't try very hard to help you figure out which one you should use. As far as I can tell, though, it comes down to this:
 <ul>

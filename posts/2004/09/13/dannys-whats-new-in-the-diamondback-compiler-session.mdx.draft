@@ -146,7 +146,7 @@ Therefore, this is going to be a long post.
 </ul>
 <strong>A couple of interesting digressions</strong>
 <ul>
-	<li>Arrays in .NET can't be preinitialized, so if you have a global const array, it's actually initialized <em>in code</em> in the unit's class constructor (I'll have to reread the IL book â€” I know there is global data, since that's where strings are stored, but evidently it can't be used for arrays)</li>
+	<li>Arrays in .NET can't be preinitialized, so if you have a global const array, it's actually initialized <em>in code</em> in the unit's class constructor (I'll have to reread the IL book &mdash; I know there is global data, since that's where strings are stored, but evidently it can't be used for arrays)</li>
 	<li>Note on unit initialization sections: If you have circular unit dependencies, the initialization order may not be the same between Win32 and .NET. This is because, when unit A touches something inside unit B, unit B's class constructor will fire immediately in .NET, whereas in Win32 the initialization section might not fire until later.</li>
 </ul>
 <strong>Function inlining</strong>
@@ -154,7 +154,7 @@ Therefore, this is going to be a long post.
 	<li>Involves persisting the compiler's node tree to the .dcu. Not been done before.</li>
 	<li>Can produce significant speed boost <em>in certain cases</em></li>
 	<li>Caution: Code bloat risk!</li>
-	<li>Not quite like C macros, because these aren't textual replacements â€” instead, it grafts nodes into the syntax tree (it's after parsing, not before)</li>
+	<li>Not quite like C macros, because these aren't textual replacements &mdash; instead, it grafts nodes into the syntax tree (it's after parsing, not before)</li>
 	<li>Works for most anything: procedures, functions, methods, and local procedures</li>
 	<li>'inline;' directive, looks like a calling convention
 <ul>
@@ -189,7 +189,7 @@ Therefore, this is going to be a long post.
 	<li>Best practices:
 <ul>
 	<li>Use only for very small functions</li>
-	<li>Always test performance and measure the benefit â€” don't assume it will speed up your code. It may slow it down!</li>
+	<li>Always test performance and measure the benefit &mdash; don't assume it will speed up your code. It may slow it down!</li>
 </ul>
 </li>
 	<li>Caveats:
