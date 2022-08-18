@@ -2,13 +2,13 @@
 title: "Aborting combobox dropdown, showing dialog box  #.NET"
 sort: 1978
 ---
-So I'm trying to build a UI where the user fills in three edit boxes â€” server name, login, and password â€” and then drops down a combo box to select which "database" they want to use. When the user drops down the combo, the app connects to the server and queries the list of databases. If it can't connect to the server (bad password, server doesn't exist, etc.), the app should show an error message, and the combo box shouldn't open. Nice, compact, convenient â€” not totally elegant (a wizard might be better, since order matters), but you don't really want multiple steps on a login screen. And this should be easy to code. (Right...)
+So I'm trying to build a UI where the user fills in three edit boxes &mdash; server name, login, and password &mdash; and then drops down a combo box to select which "database" they want to use. When the user drops down the combo, the app connects to the server and queries the list of databases. If it can't connect to the server (bad password, server doesn't exist, etc.), the app should show an error message, and the combo box shouldn't open. Nice, compact, convenient &mdash; not totally elegant (a wizard might be better, since order matters), but you don't really want multiple steps on a login screen. And this should be easy to code. (Right...)
 
 
 
-The WinForms ComboBox class has a DropDown event that makes a great place to query the server and populate the dropdown list. And that works just fine, no problems at all â€” as long as there are no errors. It's the "if there's an error, the combo box shouldn't open" bit that gave me headaches. Just how do you tell the combo box that you don't actually want it to drop down?
+The WinForms ComboBox class has a DropDown event that makes a great place to query the server and populate the dropdown list. And that works just fine, no problems at all &mdash; as long as there are no errors. It's the "if there's an error, the combo box shouldn't open" bit that gave me headaches. Just how do you tell the combo box that you don't actually want it to drop down?
 
-I was hoping the DropDown event would take a CancelEventArgs, but nope â€” and not surprising, since after a little digging, I found that CB_SHOWDROPDOWN doesn't give you any way to cancel the dropdown either. There's a Windows message you can send the combo box to close the dropdown, but it doesn't work from inside the DropDown event (no effect; the combo still opens as normal). Throwing in an Application.DoEvents didn't help. Just going ahead and showing the dialog didn't prevent the combo from dropping down â€” the dialog pops up, and then as soon as you close it, <em>then</em> the combo box opens!
+I was hoping the DropDown event would take a CancelEventArgs, but nope &mdash; and not surprising, since after a little digging, I found that CB_SHOWDROPDOWN doesn't give you any way to cancel the dropdown either. There's a Windows message you can send the combo box to close the dropdown, but it doesn't work from inside the DropDown event (no effect; the combo still opens as normal). Throwing in an Application.DoEvents didn't help. Just going ahead and showing the dialog didn't prevent the combo from dropping down &mdash; the dialog pops up, and then as soon as you close it, <em>then</em> the combo box opens!
 
 Okay, try the brutal approach: force the combo box to re-create its window handle. <em>That</em> should darned well keep it from dropping down! RecreateHandle is protected, so I can't call it directly unless I descend a new class from ComboBox (messy if I'm using the form designer), so I opened Reflector and looked for methods that call RecreateHandle. I settled for the property setter for IntegralHeight.
 
@@ -16,7 +16,8 @@ Works great, as long as I don't show the dialog box. If I both recreate the hand
 
 I finally got it to work, by doing a PostMessage (well, BeginInvoke, but that's implemented as a PostMessage), so that I was showing the dialog <em>after</em> the DropDown event returned. And once it actually does work (and once I work around a C# compiler bug with delegates and overloads), it actually works quite nicely. Here's the code:
 
-<pre>private delegate void ShowMessageDelegate(IWin32Window owner, string message);
+```
+private delegate void ShowMessageDelegate(IWin32Window owner, string message);
 ...
 private void ComboBox1_DropDown(object sender, System.EventArgs e)
 {
@@ -46,4 +47,5 @@ private void ComboBox1_DropDown(object sender, System.EventArgs e)
 private void MessageBoxShow(IWin32Window owner, string message)
 {
     MessageBox.Show(owner, message);
-}</pre>
+}
+```
