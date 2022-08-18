@@ -1,0 +1,13 @@
+---
+title: "Delphi macro power tip: Moving to end-of-word  #Delphi  #macros"
+sort: 2514
+---
+Todayâ€™s <a href="http://blog.excastle.com/2008/03/31/delphi-macros-on-recipes-and-power-tips/">Delphi-macro power tip</a>: <b>moving the cursor to the end of the current word.</b>
+
+This isn't an everyday need, but it comes up from time to time, and there's not an immediately obvious way to do it. But it's easy if you know the trick.
+
+The big problem here is that Ctrl+Right arrow won't work, because it moves to the beginning of the <i>next</i> word, not the end of <i>this</i> word. Sometimes you know what you expect the line to look like, and know you can just hit Left arrow twice and be where you want; but then again, sometimes you'd really rather just go to end-of-word and be done with it.
+
+Here's the trick: <b>Ctrl+K, T</b>, <b>Right arrow</b>, <b>Left arrow</b>.
+
+Ctrl+K T selects the word under the cursor -- it's just like double-clicking. And the cursor is left at the end of the selection. So the cursor is left at the end of the word, right where you want it; all you need to do is clear the selection, which is easily accomplished by hitting Right and then Left.

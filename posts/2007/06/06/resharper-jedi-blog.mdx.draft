@@ -1,0 +1,9 @@
+---
+title: "ReSharper Jedi blog  #.NET  #resharper"
+sort: 2446
+---
+<p>If you use <a href="http://www.jetbrains.com/resharper/">ReSharper</a> or think you might someday, you owe it to yourself to check out <a href="http://resharper.blogspot.com/">Ilya Ryzhenkov's ReSharper blog</a>. Ilya is one of the ReSharper developers, and he's also one of the foremost "ReSharper Jedi" &mdash; think power users with light sabers.</p>
+
+<p>I just picked up a sweet trick reading his "<a href="http://resharper.blogspot.com/2007/04/jedi-way-implementing-members.html">Jedi Way -- Implementing Members</a>" post: if you're adding a new method to an interface, you can just go ahead and implement the method <i>right there inside the interface</i>. Of course that won't compile &mdash; you can't have an implementation inside an interface (what do you think this is, Ruby?) &mdash; so ReSharper gives you the expected <a href="http://blog.excastle.com/2007/02/01/resharper-day-1-the-gray-the-red-and-the-squiggly/">red squiggly</a>. But it also gives you a <a href="http://blog.excastle.com/2007/02/17/resharper-day-17-change-all-with-altenter-and-introducing-the-red-light-bulb/">red light bulb</a>, and offers to move the method body into the implementing classes! (He has screenshots &mdash; scroll to the "Jedi Trick Level 3" section in his <a href="http://resharper.blogspot.com/2007/04/jedi-way-implementing-members.html">post</a>.)</p>
+
+<p>(Note: I haven't had a chance to try this yet &mdash; it may only work in the upcoming ReSharper 3.0. Can anyone confirm whether this is available in current versions?)</p>

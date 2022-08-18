@@ -1,0 +1,23 @@
+---
+title: "Refactoring with MVVM is easy!  #.NET  #mvvm  #refactoring  #wpf"
+sort: 3240
+---
+I've built up a kind of intellectual appreciation for some of the things <a href="http://msdn.microsoft.com/en-us/magazine/dd419663.aspx" title="The Model-View-ViewModel pattern"/>MVVM</a> gives you, but today I had a real "wow!" moment.
+
+I've been working on a WPF UserControl, and it was getting kind of big and cumbersome. I wanted to extract some pieces from it into smaller UserControls to make it more manageable (and to make it easier to make some changes to the high-level layout).
+
+So I created a new UserControl, moved my XAML into it, and referenced it from the original spot.
+
+<em>And that was it.</em> I ran it, and it worked. That simple. No worries about moving dozens of code-behind methods onto the new control. No messing with method and field visibilities, and figuring out which objects the new control needed to have references to so it could do its work. No re-hooking event handlers.
+
+Okay, it wasn't quite cut-and-paste -- there was some fixup to be done. The new UserControl needed some xmlns: attributes added. And I wanted the attached layout properties (Grid.Row, Grid.Column) to stay in the original file, not move into the new one (they're part of the parent layout, not intrinsic to the child UI). So it took maybe a minute or so.
+
+But it was <em>nothing</em> like the splitting headache that is extracting a UserControl in WinForms.
+
+And then I extracted another UserControl. And I ran. And it just worked.
+
+Wow.
+
+Just, wow.
+
+But the downside is, now I've got this overwhelming temptation to rewrite our million-line codebase in WPF...

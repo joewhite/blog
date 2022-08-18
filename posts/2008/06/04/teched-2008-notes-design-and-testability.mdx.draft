@@ -1,0 +1,336 @@
+---
+title: "TechEd 2008 notes: Design and Testability  #.NET  #Delphi  #teched2008"
+sort: 2544
+---
+Design and Testability
+Design Dilemmas in the Real World
+Roy Osherove
+Typemock
+Blog: <a href="http://iserializable.com/">ISerializable.com</a> (will have slides there)
+
+<ul>
+  <li>Dilemmas that he's faced, we're probably starting to face, Microsoft is facing</li>
+  <li>Many have to do with change</li>
+  <li>Design has changed very little in the last few years, but maybe it's time for a new thought, or some new compromises, or lack of compromises</li>
+</ul>
+
+Has been on two sides of the same coin
+<ul>
+  <li>Pure design, dependency injection, hardcore freaks</li>
+  <li>Being pragmatic</li>
+</ul>
+
+<ul>
+  <li>What you can do about testability when tooling is not available to help you (or you choose not to use it)</li>
+  <li>Benefits of testable designs</li>
+</ul>
+
+Agenda
+<ul>
+  <li>Why should I care about testability?</li>
+  <li>Defining a testable system</li>
+  <li>Examples of implementing and refactoring testable code</li>
+  <ul>
+    <li>Extract interface, virtual methods...</li>
+    <li>Dependency injection and <acronym title="Inversion of Control">IoC</acronym> containers</li>
+  </ul>
+  <li>Legacy code, and what happens when you can't change your design</li>
+  <li>Silver bullets</li>
+</ul>
+
+<ul>
+  <li>Why current systems make this hard</li>
+  <li>Patterns</li>
+</ul>
+
+Me Me Me
+<ul>
+  <li>The Art of Unit Testing</li>
+  <ul>
+    <li>ArtOfUnitTesting.com</li>
+  </ul>
+  <li>Typemock</li>
+  <ul>
+    <li>Next generation isolation platform (Isolator)</li>
+    <li>Next generation testing tools (shhhh...)</li>
+    <li>Some things are changed, some are a little more powerful, some things feel a little weird</li>
+  </ul>
+</ul>
+
+Before we start
+<ul>
+  <li>This is just one way to do design</li>
+  <li>Assuming you have experience with NUnit or MS Test</li>
+</ul>
+
+Why should I care?
+<ul>
+  <li>Framework authors</li>
+  <li>Maintainable system. Testing is about quality, and a security net that lets you know when you screw up.</li>
+  <li>Extensible system, like LEGOs.</li>
+  <li>Code quality</li>
+</ul>
+
+Automated unit/acceptance testing is important
+<ul>
+  <li>Helps with regression testing</li>
+  <ul>
+    <li>Maintainable system</li>
+  </ul>
+  <li>Finds bugs early</li>
+  <ul>
+    <li>Code quality</li>
+  </ul>
+  <li>Better understanding of requirements</li>
+  <ul>
+    <li>Most people write code from the inside out: write the method, without caring about who's going to be calling it</li>
+    <li>The test is using the API, so you have to think about requirements, design, usability</li>
+    <li>Also means it makes your coding take longer... but code quality and maintenance are better, and release cycle is actually shorter</li>
+  </ul>
+  <li>API documentation</li>
+  <li>"Executable" requirements. It's good for the customers, because they can run actual tests.</li>
+  <li>Big database change -- not a big problem.</li>
+  <li>Even bad tests can help more than you think.</li>
+</ul>
+
+Unit level testing requires testability
+<ul>
+  <li>How easily can you...</li>
+  <ul>
+    <li>Create a new instance? Do you need to create a configuration file first? Configure a third-party library?</li>
+    <li>Get a consistent result? Do methods have side effects? Talk to a database or Web service?</li>
+    <li>Test just X without Y?</li>
+    <li>Control inputs and outputs from X?</li>
+    <li><em>Isolate X from its dependencies?</em></li>
+  </ul>
+</ul>
+
+Two kinds of testability
+<ul>
+  <li>Testable application</li>
+  <li>Test enabling framework</li>
+  <ul>
+    <li>ASP.NET MVC, WebForms. WebForms code depends on the WebForms framework, which is not test enabled. Much easier to test code built on ASP.NET MVC.</li>
+    <li>SharePoint. Untestable by default: lots of statics, global objects. Testing your logic is almost impossible.</li>
+    <li>MS CRM. Even more horrible than SharePoint.</li>
+    <li>WCF, WF. Not test enablers by default. WF has lots of sealed classes, multiple processes, multiple threads, no places to intervene. Lots has to do with security, but lots has to do with the way things are done.</li>
+    <li>If you're a framework author, making your framework test-enabled should be one of your main concerns.</li>
+  </ul>
+</ul>
+
+
+
+What is a unit-testable system?
+<ul>
+  <li>Lets us write good tests easily</li>
+  <li>For each piece of coded logic, a unit test can be written easily enough to verify it works as expected, while keeping the PC-COF rules</li>
+</ul>
+
+PC-COF
+<ul>
+  <li><strong>P</strong>artial runs are possible</li>
+  <li><strong>C</strong>onfiguration is not needed</li>
+  <li><strong>C</strong>onsistent pass/fail result</li>
+  <li><strong>O</strong>rder does not matter</li>
+  <li><strong>F</strong>ast (what is "fast"? We'll talk about that)</li>
+</ul>
+
+Consistent pass/fail result
+<ul>
+  <li>Can you trust your test?</li>
+  <li>Control of dependencies (you want to test a method, but it starts with a call to a static method e.g. to validate)</li>
+</ul>
+
+Interface-based design
+<ul>
+  <li>Design: Extract interface for Validator</li>
+  <li>Test: send in a "fake" validator</li>
+  <ul>
+    <li>He implements with a public field saying what IsValid should return</li>
+  </ul>
+  <li>Inject the IPersonValidator via e.g. a constructor parameter</li>
+  <ul>
+    <li>OO purists are panicking that you're letting someone else decide how to do a core part of your functionality</li>
+  </ul>
+</ul>
+
+Side note: if you write a test, give it a good name. Don't call it Test1, Test2, Test3. He will personally choke you.
+<ul>
+  <li>His name suggested naming convention: <code>MethodBeingTested_UnderTheseCircumstances_DoesThis</code></li>
+  <li>Don't name it starting with "Test", because the attribute already tells you it's a test</li>
+</ul>
+
+This works, but it kind of sucks. You end up with lots of interfaces, and your classes have lots of dependencies.
+
+"Injecting" dependencies
+<ul>
+  <li>Constructor injection</li>
+  <ul>
+    <li>Use for dependencies that are not optional.</li>
+  </ul>
+  <li>Property injection</li>
+  <ul>
+    <li>That means it's an optional dependency.</li>
+  </ul>
+  <li>Factory injection (especially if you already have a factory)</li>
+  <li>Virtual method injection</li>
+</ul>
+
+The dependency problem
+<ul>
+  <li>People just want to use the code that you wrote. They don't care about passing in a logger and a validator.</li>
+  <li>To create a logger, you need an exception handler and a data writer.</li>
+  <li>Etc.</li>
+</ul>
+
+Inversion of Control containers
+<ul>
+  <li>Kind of like really smart factories. You ask them for a new instance of some type, they'll look at the constructor's dependencies, and if you've configured it correctly, it'll know which objects to pass for those dependencies. If those also have dependencies, it handles it recursively.</li>
+  <li>Spring.NET</li>
+  <li>Castle.Windsor</li>
+  <li>StructureMap (not officially released lately, must build from source)</li>
+  <li>Microsoft Unity Application Block -- Unlike many other Application Blocks from Microsoft, it doesn't suck.</li>
+  <li>Very configurable, from XML or from code</li>
+</ul>
+
+Demos: Windsor and Unity
+
+Windsor
+<ul>
+  <li>Create a WindsorContainer</li>
+  <li>Add components -- generic syntax. Either give it a class, or an interface and a class.</li>
+  <li>Have to also add the type you're going to resolve (instantiate).</li>
+  <li>container.Resolve<T>() -- constructs something.</li>
+  <li>Some people believe your tests should call the constructor directly with your fake dependencies, instead of using containers from tests.</li>
+</ul>
+
+Unity
+<ul>
+  <li>Create a UnityContainer</li>
+  <li>Call RegisterType</li>
+  <li>Fluent interface -- you can chain calls to RegisterType.</li>
+  <li>Don't have to register the class you're going to resolve (instantiate).</li>
+  <li>Tries to use the constructor with the most parameters. Gives an exception if the container doesn't know how to create one of thoes parameters.</li>
+</ul>
+
+Important: Need to make sure everyone uses container.Resolve instead of new.
+
+<h3>Fast run times</h3>
+<ul>
+  <li>A test that takes one second is not fast.</li>
+  <li>Want someone to be able to get latest version, right-click, and run all the tests. It should be that simple. And all the tests should pass.</li>
+  <li>If they have to wait a long time, they won't run all the tests.</li>
+</ul>
+
+No configuration needed
+<ul>
+  <li>How easy is it to get latest and run the tests?</li>
+  <li>If a config file is needed, how do you test a bad connection string? It quickly becomes not easy and not fast to write that sort of test.</li>
+</ul>
+
+Solving configuration with override
+<ul>
+  <li>Works if you don't want to add interfaces</li>
+  <li>Extract dependency into a virtual method</li>
+  <ul>
+    <li>This virtual method needs to be the stupidest code you've ever written. Absolutely trivial.</li>
+  </ul>
+  <li>Class can't be sealed, so you can't do this with WCF, WF, SharePoint, etc.</li>
+  <li>Easier; pollutes the code less; but it forces you to make a lot of derived classes in your tests</li>
+  <li>Good for simple scenarios, maybe not when you get more complexity</li>
+</ul>
+
+<h3>Test order should not matter for consistent results</h3>
+<ul>
+  <li>Some people don't mind that tests share data</li>
+  <li>If tests share data, you have dependencies between tests</li>
+  <li>That's BAD, because you'll kill yourself when you need to maintain tests. You remove a test and something fails. You modify a test and something else fails.</li>
+  <li>Debugging test dependencies is awful. You can spend days on this.</li>
+  <li>If tests use a shared resource (e.g. a database), you need to fix the tests, not the application.</li>
+  <li>Need to restore shared state in <code>TearDown</code>. For databases, create a <code>TransactionScope</code> in <code>SetUp</code>, and <code>Dispose</code> it in <code>TearDown</code>.</li>
+</ul>
+
+<h3>Partial runs of tests should produce consistent results</h3>
+<ul>
+  <li>Sometimes you want to run only some of the tests. Sometimes tests do take a long time; that's the real world.</li>
+  <li>Some test frameworks let you re-run just the failed tests.</li>
+</ul>
+
+<h3>Are singletons evil?</h3>
+It depends. <code>.Instance</code> probably is. Getting it from an IoC container, maybe not so much.
+
+<ul>
+  <li>How do you instantiate it for testing? (And re-instantiate it, e.g. if you modify the configuration that it loads on startup)</li>
+  <li>Shared resource between tests</li>
+  <li>Single Responsibility.</li>
+  <ul>
+    <li>There's a class being held, and the one doing the holding and making sure there's one instance.</li>
+    <li>Can refactor into testable ones: separate holder to a separate class, or refactor using a container.</li>
+    <ul>
+      <li>Unity: RegisterType<T>(instance)</li>
+    </ul>
+  </ul>
+  <li>Global variables</li>
+  <li>Tight coupling</li>
+  <li>State that lasts forever</li>
+  <li>Threading?</li>
+</ul>
+
+The GOD Method
+<ul>
+  <li>You know it's important; you don't know why it does what it does; sometimes it's cruel to you</li>
+  <li>One huge do-it-all method</li>
+  <li>Prevents maintenance, impossible to test</li>
+  <li>Can't refactor for testability, because you might introduce bugs. Solution: integration-level tests.</li>
+  <li>Avoid this by design</li>
+  <li>Keep single responsibility principle</li>
+  <li>Calls to little methods</li>
+</ul>
+
+Legacy code
+<ul>
+  <li>Integration testing</li>
+  <li>Refactor only as needed. It works. Don't touch it.</li>
+  <li>Typemock Isolator (typemock.com)</li>
+  <li>Feathers: "<a href="http://www.amazon.com/Working-Effectively-Legacy-Robert-Martin/dp/0131177052">Working Effectively with Legacy Code</a>"</li>
+</ul>
+
+Test Driven Development/Design
+<ul>
+  <li>Tests have to ues a testable class</li>
+  <li>Test-first means testable-design-first</li>
+  <ul>
+    <li>Test can later show you how you'd like the API to be used</li>
+  </ul>
+  <li>Decoupled design and architecture</li>
+  <li>More control on state simulations</li>
+</ul>
+
+Design Guidelines
+<ul>
+  <li>Avoid BDUF (Big Design Up Front). Tends to result in highly untestable code. Do EDUF (Enough Design Up Front) instead, but your design should be able to change as you go.</li>
+  <li>Interface-based designs. Tend to be easier to understand in terms of roles. A Logger is a role.</li>
+  <li>Try to avoid Singletons</li>
+  <li>IoC containers</li>
+  <li>Avoid GOD methods -- use polymorphism instead</li>
+  <li>Virtual by default</li>
+  <li>new X() -> Factory.MakeX(). When you abstract away the creation, you can replace the creation.</li>
+  <li>Single Responsibility for class and method. If our class or method is elaborate and does more than one thing, it's usually a design smell.</li>
+</ul>
+
+Key points
+<ul>
+  <li>Design for testability leads to agility</li>
+  <ul>
+    <li>You need tests when someone changes the requirements</li>
+  </ul>
+  <li>Common patterns</li>
+  <ul>
+    <li>Recognizing test challenges in the design</li>
+    <li>Refactoring the design for testability</li>
+  </ul>
+  <li>Test-driven development leads to a testable design</li>
+  <li>Testable code == well designed, decoupled design</li>
+</ul>
+
+Musical postlude

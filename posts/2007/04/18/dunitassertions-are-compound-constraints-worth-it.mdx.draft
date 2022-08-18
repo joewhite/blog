@@ -1,0 +1,29 @@
+---
+title: "DUnitAssertions: Are compound constraints worth it?  #Delphi  #dunitlite"
+sort: 2429
+---
+<p>I've written enough of DUnitAssertions that you can do <code>Expect.That(Foo, Tis.EqualTo(Bar));</code> You can also use <code>and</code> and <code>or</code> to combine multiple <a href="http://blog.excastle.com/2007/04/04/new-project-dunitassertions/"><code>Tis</code></a> constraints, so you could write an assertion like:</p>
+
+<blockquote><pre>Expect.That(Foo,
+Tis.GreaterThan(20) and
+Tis.LessThan(45));</pre></blockquote>
+
+<p>This kind of <code>and</code> and <code>or</code> stuff seemed like a great idea. You could write your own <code>TisBetween</code> method, implement it in terms of existing constraints, and start using it: <code>Expect.That(Foo, TisBetween(20, 45));</code> And you would just magically get a meaningful failure message like:</p>
+
+<blockquote><pre>Expected: &gt; 20
+and &lt; 45
+but was: 99</pre></blockquote>
+
+<p>Well, it did sound cool at one point. But the more I work on it, the more problems I run into.</p>
+
+<ul>
+<li><p>To start with, "between", my prime example, is a <i>bad</i> example. "Between" is just a bad test. It's sloppy, kind of like an expected-exception check that passes even if a descendant exception is thrown. You should <i>know</i> what the value is supposed to be, and that's what your test should check for. Using something like "between" means you could introduce an off-by-one error in a botched refactoring, and your tests wouldn't tell you about it. (I even hesitated before I added <code>Tis.GreaterThan</code> and friends, for this very reason. Why was I so gung-ho about <code>and</code> and <code>or</code>?)</p></li>
+<li><p>For that matter, giving people the ability to put <code>and</code>s and <code>or</code>s and <code>not</code>s into their tests is just begging the less-unit-test-savvy among them to rewrite their program logic in their tests. That kind of duplication is the last thing the programming world needs. This alone isn't an argument against the feature, but it's a point to consider.</p></li>
+<li><p>What should the failure message look like when you have a complicated expression with <code>and</code>s <i>and</i> <code>or</code>s <i>and</i> <code>not</code>s? How do you visually represent that in the failure message? You'd need to start adding parentheses to show precedence, and that doesn't fit with the one-condition-per-line layout. Things would get messy in a hurry.</p></li>
+<li><p>What happens when you get a tug-of-war over what goes into the "but was:" line? <code>Tis.EqualTo</code> compares the value, but <code>Tis.SameInstanceAs</code> compares the pointer, and <code>Tis.InstanceOf</code> compares the class. If you combine those with <code>and</code> or <code>or</code>, which one shows after "but was:"? Do there need to be multiple paragraphs in the output, each with its own "but was:" line? How does <i>that</i> interact with multiple <code>and</code>s and <code>or</code>s and <code>not</code>s and parentheses?</p></li>
+<li><p>Last but not least, <code>and</code>s and <code>or</code>s will complicate NUnit-style string comparisons. If you haven't seen this, when you use <code>Assert.AreEqual</code> on two strings, NUnit will find the first index where the strings differ, and will show you something like twenty characters of context on either side, with an arrow pointing to the first character that's different. It's really sweet, and I want it for DUnitAssertions... but how does it coexist with, say, the ability to use <code>or</code> to compare against multiple different strings? Which one controls the arrow?</p></li>
+</ul>
+
+<p>I have support for <code>Tis.Not</code>, so you can do things like <code>Tis.Not.Null</code>, and you could use <code>Tis.Not.GreaterThan</code> in those cases where it would increase readability. But beyond that, I'm debating how valuable operator overloads are for constraints, or whether I should just rip them out.</p>
+
+<p>So here's my question to y'all: If you could combine constraints with <code>and</code>, <code>or</code>, and <code>not</code>, <i>would</i> you? What kinds of things might you use it for? (In other words, can you convince me this feature is worth keeping?)</p>

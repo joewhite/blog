@@ -1,0 +1,132 @@
+---
+title: "Agile and Extreme Programming: A Pragmatic Approach (part 4)  #.NET  #Delphi  #borcon2005  #extreme programming"
+sort: 2217
+---
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Stand-Up Meeting</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Every day starts with a stand-up meeting</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Problems</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Solutions</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Obstacles</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">You have to stand up. Otherwise people will get comfortable and it'll take too long.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">More efficient to have one short meeting with everyone, than a lot of little meetings</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Cross-team communication is the primary purpose</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Part of the daily feedback loop</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Substitute with something that provides daily updates, problems encountered and solved, etc. (wiki, information radiators) but these aren't as ruch a communications channel</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Fix XP when it breaks</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Nothing should be prescriptive &#8211; if something isn't working for you, fix it (making sure you're not losing any feedbackloops)</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Build Your Own Tools</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">for tracking projects</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Evolve your approach over time</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Changes from project to project</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">You get better and better at it</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Each PM should create their own tracking sheet &#8211; not take someone else's and mush it around. Psychological &#8211; owning the thing you built.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Project Manager is liaison between programmers and management &#8211; PM's job is to provide facts to management</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Designing Practices</p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Simplicity</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">A simple design takes more time than a complex one</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">When you find something complex, replace it with something simple</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">No substitute!</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">System Metaphor</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Keeps team on the same page by naming classes and methods consistently</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Stick as close to the problem domain as possible</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Take time to do this no matter your methodology</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">CRC Cards (Class, Responsibility, and Collaboration)</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Use for design sessions</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Break away from procedural thought, more fully appreciate OO</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Individual CRC cards represent objects</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Write class name at the top, responsibilities (what it's responsible for) along the left, collaborations along the right</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Shuffle them around on the table to find relationships you like</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Prefer hand-written on paper, instead of something created in Visio (this also applies to UI brainstorming)</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Step through workflow, spot weaknesses and problems</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Easy to change, but pick something flexible, interactive, whole-team, serves stakeholders, allows "What If" games</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Many companies prefer more documentation than CRC cards provide</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">"We have to have documentation so that&#8230;" Make manager finish this sentence</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">&#8230;we can re-create the whole project?</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">&#8230;we can kill more trees?</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">&#8230;we know what it does?</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">The tests are better documentation than any outdated Word document</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">You can verify, at any time, that the code is doing what it's supposed to &#8211; just run the tests</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">If you must write documentation for the code, apply DRY (Don't Repeat Yourself). There should be one canonical source of truth for each piece of information &#8211; if you need it somewhere else, find a way to generate it.</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">yDoc &#8211; tool that creates UML diagrams by looking at the actual code (!)</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">If you really need to manually create developer documentation, make a story card for it in the iteration, so management can see how much more you could be doing if it wasn't required</li></ul></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Spikes</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Proof of concept</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Not called "prototypes" because people try to keep prototypes and turn them into the actual project. Never do this &#8211; always throw spikes away.</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">YAGNI</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">No functionality is added early</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Don't substitute this!</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Refactor</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">whenever and wherever possible</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">You must be willing to change code any time it should be changed</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Don't live with broken windows</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Nobody will bother the abandoned warehouse until the first window gets broken&#8230; then all the windows get broken, graffiti, etc.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">The first broken window means "I don't care."</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Read "The Pragmatic Programmer"</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Too much software becomes brittle because of hundreds of tiny compromises</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Coding Practices</p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Customer is always available</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Business stakeholder must be available</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">If you can't get a business person, get a worthy substitute</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Tell them: requirements docs are out of date as soon as they're written</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Programmers aren't business people</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Coding Standards</p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><o:p>&nbsp;</o:p></p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Test-First Coding</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Least done, most important</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">First write the test, then make it pass</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Helps developer to really consider what needs to be done</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Requirements are nailed down firmly by tests</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Can't misunderstand a spec written in executable code</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">The most effective way to write code. You get feedback right away.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">You get nearly as good feedback if you write tests concurrently. (But do it &#8211; planning to write them next week doesn't count!)</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Tests are the only way you can write code with confidence</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Tell management: "This *is* the set of requirements"; "Here's the coverage test that tells how much of our code is verified."</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Pair Programming</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">The most Extreme practice in XP!</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Two people working at the same computer will add about as much functionality as 2 people working separately &#8211; but it will be much higher quality</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Person at keyboard thinks about low-level details</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Pair thinks about larger context</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Increases software quality without impacting time to deliver</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Works best with 2 developers of more or less equal skill</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Truck number again</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Pair programming feels awkward at first</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">ThoughtWorks has two monitors, two mice, and two keyboards at each station</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Tough to substitute because it's the most immediate code feedback loop (on the order of minutes)</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Try sneaking it in on the hard problems. Then show quantifiable results (bug counts, passed tests).</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Treat it as real-time code review.</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Integration</p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>&nbsp;</o:p></p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Collective Code Ownership</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Hard!</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Try to adopt this whatever your methodology</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Leave optimization to last</p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>&nbsp;</o:p></p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">No overtime</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Sucks the spirit and motivation out of the team</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Write worse code when you're worn out</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Tests</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Unit tests</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Acceptance tests for everything, because that's the only way you know when the story is done</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Demonstrate that XP works! Pilot projects, metrics, etc.</p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>&nbsp;</o:p></p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Substitution Scale: table summarizing what's easy to substitute and what's hard (will post this later today)</p>

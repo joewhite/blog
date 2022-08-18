@@ -1,0 +1,223 @@
+---
+title: "A \"Hello world" (un)DelphiX application  #Delphi  #tyler"
+sort: 2491
+---
+<p>There comes a time, in any development project, where you have to actually write some code. So let's see about doing some of that.</p>
+
+<table cellspacing="0" cellpadding="6" style="border: 1px solid #999999; background-color: #FFFFFF;">
+<tr>
+<td><img src="http://www.excastle.com/tyler/tyler.gif" width="184" height="136"></td>
+<td style="font-size: 80%;">
+<p>This post is part of my "Tyler" series, which aims to make a tile-based game-development engine in Delphi.</p>
+<ul>
+<li>Previous (and first) article: <a href="http://blog.excastle.com/2008/01/12/game-programming-in-delphi-a-journey-begins/">Game programming in Delphi: a journey begins</a></li>
+<li>View <a href="http://blog.excastle.com/tag/tyler/">all Tyler posts</a></li>
+</ul>
+</td>
+</tr></table>
+
+<h4>Why should I read this article, instead of just opening one of the samples that comes with (un)DelphiX?</h4>
+
+<p>How is this article any different from looking at the "Hello, world" (un)DelphiX sample application? Well, three ways:</p>
+
+<ol>
+<li>This doesn't use third-party components on the designer, so it'll work in the free Turbo Delphi Explorer.</li>
+<li>This code uses frames, which may help reusability when it comes time to make a game IDE.</li>
+<li>And last, this code has an author who knows about a bug that needs to be fixed. It's not an (un)DelphiX bug, though, so the (un)DelphiX samples don't fix it.</li>
+</ol>
+
+<h4>Prerequisite #1: a RAR extractor</h4>
+
+<p>(un)DelphiX is available in two forms: as an installer, and as a RAR file. <a href="http://blog.excastle.com/2008/01/06/why-design-time-components-shouldnt-have-install-exes/">Component installers are a huge pain</a>, and probably wouldn't work with Turbo Delphi anyway. So I recommend downloading the RAR. It's a pain too, but less so than an installer.</p>
+
+<p>But most people don't have any programs that can open RAR files. So you'll probably need to install one.</p>
+
+<p>I recommend <b><a href="http://www.7-zip.org/">7-Zip</a></b>. It's free and open-source. It has shell integration (i.e., you get a nifty right-click menu in Explorer). It supports ZIP files, and it can read (but not create) RAR files. And did I mention that it's free?</p>
+
+<h4>Prerequisite #2: (un)DelphiX</h4>
+
+<p>Okay, this one is no surprise: if we're going to use the (un)DelphiX components, we need to download them first.</p>
+
+<p>Find them at the <a href="http://www.micrel.cz/Dx/">(un)DelphiX page</a>; scroll down to the "Source file" section. Decide whether you care about having sample code for the DelphiX components, and download either the "all in one" (includes sample code, much larger) or the "source only" (no sample code) archive. If you're not sure, "source only" is fine.</p>
+
+<p>These directions were written for (un)DelphiX version 1.07f.</p>
+
+<p>Note: I'm <a href="http://blog.excastle.com/2008/01/12/game-programming-in-delphi-a-journey-begins/#designtimecomponents">not going to walk you through installing the design-time components</a>. If you want to look at the sample code, you'll need to install the packages yourself. (Actually, their sample code will <i>compile</i> just fine without the design packages, you just won't be able to use the form designer.)</p>
+
+<h4>Design principles</h4>
+
+<p>Let me explain the ideas behind some of the decisions I made in the following code.</p>
+
+<ul>
+<li><p><b>Use frames.</b> You could create all the (un)DelphiX components directly on the form, but I prefer to put them on a frame. Partly that's because I think the form is going to end up with enough to do, what with supporting fullscreen mode and all. Partly it's because I think I'll want to reuse the animation GUI later, when I make a map designer. I'll let you decide whether that's <a href="http://c2.com/xp/YouArentGonnaNeedIt.html">YAGNI</a> or just good separation of responsibilities.</p></li>
+<li><p><b>Don't drop frames onto other design surfaces at design-time.</b> Delphi's visual form inheritance (and I include "dropping frames onto other design surfaces" into this category) is unusable. I have a theory that one day, the Delphi developers said, "Encapsulation? Pshaw. Who needs it?", and wrote Visual Form Inheritance. I, on the other hand, <i>like</i> to separate concerns, so that my code won't be quite as fragile as VFI-infested code tends to be. In the long run, I find it's far better to instantiate frames in code, rather than using the visual form inheritance and then wondering why my properties aren't updating.</p></li>
+<li><p><b>Enjoy the goodness that is strict private.</b> Encapsulation. Something Delphi should have had from the beginning (see my Theory of Visual Form Inheritance, above). I only use "loose private" and "loose protected" when I absolutely can't get away without "friend" semantics, and for whatever odd reason can't live with something being public either. All other times, I use the real thing. Delphi is the only programming language I know of that makes you add an extra keyword to do the Right Thing (TM).</p></li>
+</ul>
+
+<p>&lt;/rant&gt;</p>
+
+<p>Now, let's make some code happen.</p>
+
+<h4>Setting up a development directory and creating a project</h4>
+
+<ul>
+<li>Create a directory on your hard drive to hold all of the source files. For the sake of discussion, I'll assume you named this folder <code>Tyler</code>.</li>
+<li>Create two subdirectories under <code>Tyler</code> named:</li>
+<ul>
+<li><code>Dcu</code></li>
+<li><code>UnDelphiX</code></li>
+</ul>
+<li>Copy everything from the (un)DelphiX archive's <code>Source</code> directory into your <code>Tyler\UnDelphiX</code> directory. (If you don't plan to install the design-time components, you can leave out the .dcr files and the package files.)</li>
+<li>Open Delphi.</li>
+<li>Create a new app (File &gt; New &gt; VCL Forms Application - Delphi for Win32).</li>
+<li>Go into Project &gt; Options &gt; Directories/Conditionals, and make these changes:</li>
+<ul>
+<li>Unit output directory = <code>Dcu</code></li>
+<li>Search path = <code>UnDelphiX</code></li>
+</ul>
+</ul>
+
+<h4>Creating a frame and setting some properties</h4>
+
+<ul>
+<li>Set the following properties on the <b>form</b>:</li>
+<ul>
+<li>BorderIcons = <code>[biSystemMenu, biMinimize]</code> (i.e., turn off biMaximize)</li>
+<li>BorderStyle = <code>bsSingle</code></li>
+<li>Caption = <code>Tyler</code></li>
+<li>Name = <code>frmMain</code></li>
+</ul>
+<li>Add a new frame with File &gt; New &gt; Frame (or File &gt; New &gt; Other &gt; Delphi Projects &gt; Delphi Files &gt; Frame).</li>
+<li>Set the following property on the <b>frame</b>:</li>
+<ul>
+<li><code>Name = fraViewer</code></li>
+</ul>
+<li>Save the form as <code>Tyler\uiMain.pas</code>.</li>
+<li>Save the frame as <code>Tyler\frViewer.pas</code>.</li>
+<li>Save the project as <code>Tyler\Tyler.dpr</code>.</li>
+</ul>
+
+<h4>Setting up the animation-viewer frame</h4>
+
+<p>Switch to the frame file (<code>frViewer</code>) and make these changes:</p>
+
+<ul>
+<li>Add <code>DXClass, DXDraws</code> to the interface uses clause.</li>
+<li><div>Add the following to the class declaration:</div>
+<pre>strict private
+  FDXDraw: TDXDraw;
+  FDXTimer: TDXTimer;
+  procedure DXDrawFinalize(Sender: TObject);
+  procedure DXDrawInitialize(Sender: TObject);
+  procedure DXTimerTimer(Sender: TObject; LagCount: Integer);
+public
+  constructor Create(AOwner: TComponent); override;
+  procedure Initialize;</pre>
+</li>
+<li><div>Implement the methods:</div>
+<pre>constructor TfraViewer.Create(AOwner: TComponent);
+begin
+  inherited;
+  FDXDraw := TDXDraw.Create(Self);
+  FDXDraw.Align := alClient;
+  FDXDraw.AutoInitialize := False;
+  FDXDraw.AutoSize := False;
+  FDXDraw.OnFinalize := DXDrawFinalize;
+  FDXDraw.OnInitialize := DXDrawInitialize;
+
+  FDXTimer := TDXTimer.Create(Self);
+  FDXTimer.Enabled := False;
+  FDXTimer.Interval := 0;
+  FDXTimer.OnTimer := DXTimerTimer;
+end;
+
+procedure TfraViewer.DXDrawFinalize(Sender: TObject);
+begin
+  if FDXTimer &lt;&gt; nil then
+    FDXTimer.Enabled := False;
+end;
+
+procedure TfraViewer.DXDrawInitialize(Sender: TObject);
+begin
+  if FDXTimer &lt;&gt; nil then
+    FDXTimer.Enabled := True;
+end;
+
+procedure TfraViewer.DXTimerTimer(Sender: TObject; LagCount: Integer);
+begin
+  if not FDXDraw.CanDraw then
+    Exit;
+
+  FDXDraw.Surface.Fill(0);
+  with FDXDraw.Surface.Canvas do
+  begin
+    Brush.Style := bsClear;
+    Font.Color := clWhite;
+    Font.Size := 30;
+    TextOut(30, 30, 'FPS: ' + IntToStr(FDXTimer.FrameRate));
+    Release;
+  end;
+
+  FDXDraw.Flip;
+end;
+
+procedure TfraViewer.Initialize;
+begin
+  FDXDraw.Parent := Self;
+  FDXDraw.Initialize;
+  FDXDraw.SetSize(ClientWidth, ClientHeight);
+end;</pre>
+</li>
+</ul>
+
+<h4>Setting up the form</h4>
+
+<p>Switch to the form file (<code>uiMain</code>) and make these changes:</p>
+
+<ul>
+<li>Add <code>frViewer</code> to the interface section's <code>uses</code> clause.</li>
+<li><div>Add the following to the class declaration:</div>
+<pre>strict private
+  FViewer: TfraViewer;
+public
+  constructor Create(AOwner: TComponent); override;</pre>
+</li>
+<li><div>Implement the constructor:</div>
+<pre>constructor TfrmMain.Create(AOwner: TComponent);
+begin
+  inherited;
+  ClientWidth := 640;
+  ClientHeight := 480;
+  FViewer := TfraViewer.Create(Self);
+  FViewer.Align := alClient;
+  FViewer.Parent := Self;
+  FViewer.Initialize;
+end;</pre>
+</li>
+</ul>
+
+<h4>Just add CPU cycles</h4>
+
+<p>Compile and run. Don't be surprised if you see a lot of hints and warnings from the (un)DelphiX code... it was originally written for Delphi 3, and hasn't had a control freak like me maintaining it.</p>
+
+<p>If all the code is right, you should see a black window with big white text in the top left, saying "FPS:" and a number. That number is the Frames Per Second: how often the screen is getting updated.</p>
+
+<p>No, it's not that fancy, but we do have an animation loop going here. The screen is furiously updating as fast as it can. We're filling in the background with a default color, and we're drawing stuff onto the window. Given the complexity of DirectX, that's not too shabby.</p>
+
+<h4>What we've worked around already</h4>
+
+<p>DelphiX was written with the assumption that it would be put on the form's design surface. That assumption is baked into it pretty deeply, and it's brittle if it's used any other way (like creating it at runtime, or putting it on a frame). A lot of this code is here to work around that weakness. (I already did the troubleshooting and the working-around, so you don't have to.)</p>
+
+<p><code>AutoInitialize</code>, in particular, simply doesn't work if the TDXDraw isn't on a design surface (the auto-initialization happens in <code>Loaded</code>, which is only called by the DFM-loading mechanism), so we set it to False and call <code>Initialize</code> manually.</p>
+
+<p><code>AutoSize</code> is a little weirder. This isn't the usual VCL <code>AutoSize</code> you already know. Instead, it means "automatically set the DirectX drawing surface to be the same size as the TDXDraw control". It would be pretty silly to do anything else, really. But (at least when you're creating controls at runtime) it only seems to work when the TDXDraw is parented directly to the form. If you so much as put it on a panel, things break &mdash; all the DirectX drawing is suddenly on a small square in the middle of the control, instead of filling the entire TDXDraw area. So once again, we turn off the automatic stuff and set the size manually.</p>
+
+<p>The last trick is parenting the TDXDraw to the frame only <i>after</i> the frame is parented to the form. That's because the TDXDraw looks up its parent form, and caches the reference, from its <code>SetParent</code> method. That's the wrong thing to do when you need to support frames. (Handle-creation time would be better. But I digress.) The upshot is that the parentage chain, all the way up to the form, needs to be stable <i>before</i> you ever set the <code>TDXDraw</code>'s <code>Parent</code> property. Otherwise you'll get "Form not found" exceptions.</p>
+
+<p>If you come away from this with the feeling that it's not easy to write high-quality Delphi components, you're right.</p>
+
+<h4>Next time: working around Delphi</h4>
+
+<p>In later posts, I'll talk more about this code and what it does. But I want to talk about <i>working</i> code. This code works okay much of the time, but there's still a bug in here, and this time it's not an (un)DelphiX limitation that needs to be worked around &mdash; it's actually a bug in the VCL.</p>
+
+<p>But this post is long enough already, so I'll save that topic till next time, when I talk about DelphiX's "pause on inactive" feature, and the TApplication bug that gives it grief.</p>

@@ -1,0 +1,45 @@
+---
+title: "WPF oddity of the day: attached/dependency properties and breakpoints  #.NET  #databinding  #wpf"
+sort: 2840
+---
+Silverlight doesn't have any real support for ICommand, so I wrote an attached CommandBinder.Command property. Then it wasn't working (at least when I compiled for WPF, which is a lot easier to debug), so I tried putting breakpoints in my SetCommand and CommandChanged methods. Neither ever got hit.
+
+It turns out that WPF's attached-property pattern is weird: you have to declare a getter and setter method, but they don't get called.
+
+Here's some sample code for an attached property, just for reference:
+
+<pre lang="csharp">public class CommandBinder
+{
+    public static DependencyProperty CommandProperty =
+        DependencyProperty.RegisterAttached(
+            "Command", typeof(ICommand), typeof(CommandBinder),
+            new PropertyMetadata(CommandChanged));
+
+    private static void CommandChanged(DependencyObject d,
+        DependencyPropertyChangedEventArgs e)
+    {
+        // do something
+    }
+    public static ICommand GetCommand(DependencyObject d)
+    {
+        return (ICommand) d.GetValue(CommandProperty);
+    }
+    public static void SetCommand(DependencyObject d, ICommand value)
+    {
+        d.SetValue(CommandProperty, value);
+    }
+}</pre>
+
+
+
+You have to have a setter method; otherwise you get a compiler error. (Apparently the compiler has some logic to enforce the design pattern.) But as far as the XAML parser is concerned, the setter method is more of an attribute -- it says "Yeah, I'm settable." The XAML loader doesn't <em>call</em> SetCommand; it calls SetValue directly on the target object.
+
+I did some experimenting, and it looks like this applies to dependency properties as well. You have to declare a corresponding CLR property, or you'll get a compiler error when you try to set the property in XAML; but the XAML loader never actually uses the property.
+
+In both cases, your setter could actually do nothing at all, and the XAML would still set the property's value correctly. (But then anyone who tried to set the property programmatically would be in for some head-scratching. So don't do that.)
+
+I had wondered, in the past, why you would pass a PropertyMetadata with a change-handler delegate, rather than just putting the on-change logic inside the SetXXX or property setter. Now I know.
+
+(Actually, in my experimenting, I <em>was</em> able to get it to call the property setter. All I had to do was misspell the property name that I passed to DependencyProperty.Register. So <em>that's</em> why I have to tell it the name (something else I had always wondered) -- so it can do a dictionary lookup. If the dictionary lookup fails, it falls back on trusty-but-slow Reflection.)
+
+So that explains why my SetCommand wasn't being called. Why wasn't CommandChanged firing either? Stupid mistake on my part -- I hadn't set the DataContext, so the binding expression failed.

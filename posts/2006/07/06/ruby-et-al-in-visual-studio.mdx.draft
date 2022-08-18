@@ -1,0 +1,7 @@
+---
+title: "Ruby (et. al.) in Visual Studio  #.NET  #Delphi  #ruby"
+sort: 2333
+---
+<p><a href="http://www.sapphiresteel.com/">Sapphire in Steel</a> is a Visual Studio add-on that lets you write <a href="http://www.sapphiresteel.com/">Ruby projects in Visual Studio</a>. Complete with File New support, syntax highlighting, build integration, and even debugging.</p>
+<p>And one of the project's authors has written a three-part series on <a href="http://www.bitwisemag.com/copy/features/dev/visual_studio/vs2005_integration_1.html">how to integrate a new language with Visual Studio</a>.</p>
+<p>Borland, it might be time to take another look at the idea of embedding Delphi into Visual Studio...</p>

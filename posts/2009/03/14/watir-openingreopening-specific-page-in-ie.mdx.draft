@@ -1,0 +1,53 @@
+---
+title: "Watir: opening/reopening specific page in IE  #Programming  #javascript  #watir"
+sort: 2666
+---
+I'm trying to use Watir to load a page in all three browsers (Chrome, FireFox, and IE). In my case, the page runs my JavaScript automated tests. My first step is to get this working with IE. IE runs the slowest, so it's most in need of automation.
+
+When I try the simple thing, I get some behavior that I wouldn't expect. (For the record, I'm running IE7 on 64-bit Vista, with Watir 1.6.2.)
+
+If I do the simple thing:
+
+<pre>require 'watir'
+ie = Watir::IE.new
+ie.goto 'quest/stupid/specs/lib.html'</pre>
+
+then IE opens two windows. Let us call them "the useless empty window" and "the real window". The useless empty window opens first; its address bar says "about:blank". Then the real window opens, pointing to the URL I actually told it to load.
+
+If I run the code again, I get a <em>second</em> useless empty window, and then the URL loads in a new tab in the <em>existing</em> real window.
+
+What's more, if I manually click the address bar in one of the useless empty windows, and type a URL -- say, www.google.com -- IE pops up its "<a href="http://blog.excastle.com/2009/03/13/rant-ie-and-local-javascript/">Internet Explorer needs to open a new window to display this webpage</a>" warning. When I OK that, it opens Google in a new tab in the real window. So when I say "useless empty window", I mean it -- it's useless, it's empty, and it's damn well gonna stay that way.
+
+Okay, so the simple code needs some refinement. I don't want useless empty windows piling up. I also don't want tabs piling up in the real window. If there's already a tab open to the URL I want, I want to reuse that existing tab (but still make it reload, since the point is to make sure I've run the latest and greatest version of my JavaScript unit tests).
+
+Watir supports finding existing tabs through the <code>Watir::IE.attach</code> and <code>Watir::IE.find</code> methods; <code>attach</code> throws an exception if the page isn't already open, while <code>find</code> just returns nil. Since I don't know whether the page is already open, I want <code>find</code>. And if it succeeds, no useless empty window.
+
+If IE isn't even running yet, then there's nothing for it: I have to open a useless empty window, and use that to open the real window. Fortunately, Watir has a <code>close</code> method, so I can close the useless empty window as soon as I have the real window open.
+
+There's another case, where IE is already running but there's no tab that has my page open. I don't want to stomp on an existing tab (unless it's one that's already pointing to my test page -- in that case, I don't mind assuming that it's safe to refresh). In the "IE running but page not open" case, I currently just do the same thing as when IE wasn't running: I open a useless empty window, use that to open a new tab in the real window, and then close the useless empty window so it doesn't clutter up my life. There might be a nicer way to deal with this, but my code's simpler when I only have to deal with two cases instead of three.
+
+Here's the code I settled on for opening a page in IE, or reloading it if it's already open:
+
+<pre>require 'watir'
+
+def open_or_reopen_in_ie(url, url_regex)
+  ie = Watir::IE.find(:url, url_regex)
+  if ie
+    ie.goto url
+  else
+    starter = Watir::IE.new
+    starter.goto url
+    starter.close
+    ie = Watir::IE.find(:url, url_regex)
+  end
+  ie
+end
+
+open_or_reopen_in_ie('quest/stupid/specs/lib.html',
+  /\bquest\/stupid\/specs\/lib\.html\b/)</pre>
+
+<code>open_or_reopen_in_ie</code> needs two parameters: the URL to open, and a regex (or string, but regex lets you match just part of the URL and, for example, ignore the querystring). The regex is used to find an existing tab (or to find the tab we just opened in the real window).
+
+So far, this has worked without a hitch. If the page I want isn't already open, then I get an extra window for a few seconds, but it goes away automatically. If the page is already open, it reloads in its pristine state (no querystring), which is exactly what I want.
+
+Unfortunately, Watir's browser libraries aren't all identical, so I'll have to figure this out all over again for FireFox and Chrome. Stay tuned and I'll relay the details.

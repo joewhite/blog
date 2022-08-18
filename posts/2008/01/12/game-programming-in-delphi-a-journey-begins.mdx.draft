@@ -1,0 +1,57 @@
+---
+title: "Game programming in Delphi: a journey begins  #Delphi  #tyler"
+sort: 2489
+---
+<p>I've always wanted to write a video game. So, never one to start small, I'm going to write a game development kit in Delphi.</p>
+
+<p>I've been wanting to do this for years, ever since I downloaded <a href="http://en.wikipedia.org/wiki/Verge_%28gaming%29">Verge</a> v1 and was sorely disappointed in the development experience. It's entirely possible that there are better game-development engines out there today, but dang it, I still want to write my own. It poses a number of intriguing challenges &mdash; and hey, I've never been one to pass up a chance to overengineer something.</p>
+
+<p>So prepare yourself for a revolutionary, Delphi-like, RAD, OO game development environment. If I ever finish writing it.</p>
+
+<table cellspacing="0" cellpadding="6" style="border: 1px solid #999999; background-color: #FFFFFF;">
+<tr>
+<td><img src="http://www.excastle.com/tyler/tyler.gif" width="184" height="136"></td>
+<td style="font-size: 80%;">
+<p>This post is the first in my "Tyler" series, which aims to make a tile-based game-development engine in Delphi.</p>
+<ul>
+<li>Next article: <a href="http://blog.excastle.com/2008/01/13/a-hello-world-undelphix-application/">A "Hello world" (un)DelphiX application</a></li>
+<li>View <a href="http://blog.excastle.com/tag/tyler/">all Tyler posts</a></li>
+</ul>
+</td>
+</tr></table>
+
+<h4>DelphiX, (un)DelphiX, and beyond</h4>
+
+<p>The first step is figuring out how to do decent animation. Video games kinda need, er, video.</p>
+
+<p>I started tinkering with this last weekend. I had a couple of false starts &mdash; one was overengineered, with background threads (worked, but didn't get good enough performance to be worth the complexity); one was underpowered, with the OnPaint handler ending with a call to Invalidate (so-so performance, too slow at larger window sizes). So I settled on <a href="http://www.micrel.cz/Dx/">(un)DelphiX</a>, a set of Delphi components for DirectX development.</p>
+
+<p>(un)DelphiX has questionable legal status. The original DelphiX was written by <a href="http://www.yks.ne.jp/~hori/index-e.html">Hiroyuki Hori</a>, who ceased development on it sometime in 1998 or 1999. The original included source code, but was not licensed as open source, and did not allow redistribution of modified versions. Later, someone named <a href="http://www.micrel.cz/Dx/">Micrel</a> picked it up, made some enhancements, made it run on the latest versions of Delphi, plugged in the <a href="http://www.delphi-jedi.org/">Jedi</a> header translations, and made it available as the "unofficial version of DelphiX", aka (un)DelphiX. Early versions of (un)DelphiX were distributed as a patch on top of the unmodified DelphiX, and so were clearly legal. But the latest versions just have the updated, (un)DelphiX code &mdash; packaged along with Hori's original copyright notice, and the requirement that Hori's original archive be distributed unmodified. So obviously Hori never gave permission for the new version. But it doesn't look like he's complained, either.</p>
+
+<p>I've decided that, since I'm not the one distributing it, I'm in kind of a light-gray area. But I'm kind of figuring to eventually work my way toward my own implementation, independent of DelphiX. We'll see how it goes.</p>
+
+<h4><a name="designtimecomponents">A note on design-time components</a></h4>
+
+<p>The latest version of Delphi that I personally own is Delphi 3 or 5, I don't remember which. It's in a box somewhere in the basement. And I won't use it anymore. I'm too spoiled by the recent features that made Delphi a reasonably competitive programming language again &mdash; things like strict private and records with methods.</p>
+
+<p>So I'll be developing with the free <a href="http://www.turboexplorer.com/delphi">Turbo Delphi Explorer for Win32</a>. It's not quite the latest and greatest, but it's only one version behind the expensive editions, and it's got the good features.</p>
+
+<p>What it doesn't have is support for third-party design-time components. So I'll be creating the DelphiX components in code, not with drag-and-drop. This raises a few interesting issues, since they weren't designed to be used that way, but they're easily worked around.</p>
+
+<p>It also doesn't have a command-line compiler, so expect me to grumble about that from time to time when I wish I could have a <a href="http://blog.excastle.com/2006/09/05/the-coolness-that-is-rake/">rakefile</a>.</p>
+
+<h4>Every project needs a good name</h4>
+
+<p>And a good logo.</p>
+
+<p>My main goal is to be able to develop tile-based RPGs, along the lines of Final Fantasy 1 through 6. And since it's all about tiles, I'm naming the project "Tyler".</p>
+
+<p>Actually, I started on another, similar (but .NET-based) "Tyler" project back in 2003, so I'm really just recycling the name. And I also get to recycle the spiffy logo I made:</p>
+
+<p style="text-align: center"><img src="http://www.excastle.com/tyler/tyler.gif" width="184" height="136"></p>
+
+<h4>Tune in next time...</h4>
+
+<p>I'll try to keep my game-programming posts from getting too long. This choice was inspired by <a href="http://weblogs.asp.net/scottgu/">Scott Guthrie</a>, who posts absolutely amazing content &mdash; but he does <i>not</i> post articles, he posts <i>chapters</i>. It's impossible to read one of his posts in a single sitting. So I'll err on the side of multiple, shorter posts, so you can read a few at a time (and then mark them as read in your feed reader, so you know where you left off).</p>
+
+<p>So, until <a href="http://blog.excastle.com/2008/01/13/a-hello-world-undelphix-application/">next time</a>, when I build a simple "Hello, world" program with (un)DelphiX, and then work around the Delphi bug that makes it not work quite right.</p>

@@ -1,0 +1,46 @@
+---
+title: "ReSharper, day 23: Introduce Variable (and, introducing Ctrl+Shift+R to refactor)  #.NET  #resharper"
+sort: 2404
+---
+<p>Welcome to day 23 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>Today, and for the rest of the 31 days, I'll be talking about ReSharper's support for refactoring, which is much improved over the handful of refactorings that ship with Visual Studio 2005.</p>
+
+<h4>Refactor This with Ctrl+Shift+R</h4>
+
+<p>ReSharper has a <a href="http://blog.excastle.com/2007/02/11/resharper-day-11-code-navigation/">targeted context menu</a> for refactoring. It contains only the refactorings that make sense at the current cursor position, or based on the current selection. You invoke it with <b>Ctrl+Shift+R</b>.</p>
+
+<p>Here's an example of what it looks like:</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/RefactorThis.png" width="228" height="259" alt="ReSharper's Refactor This context menu, showing refactorings that are available in the current context" border="1"></blockquote>
+
+<p>This menu contains other refactoring commands, and some of them have their own keystrokes defined. (They're full-fledged Visual Studio commands, so you can add or change the keymappings.) You may learn some of those other keystrokes, if there are refactorings that you use often. But I really like the low cost of entry. All you need to remember is Ctrl+Shift+R.</p>
+
+<h4>Introduce Variable</h4>
+
+<p>Introduce Variable creates a new local variable, and initializes it to the selected expression. Then it replaces the selected expression with a reference to the new variable.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/IntroduceVariable.png" width="422" height="225" alt="ReSharper's Introduce Variable refactoring dialog, accessed through Ctrl+Shift+R" border="0"></blockquote>
+
+<p>Here's a rundown of the options:</p>
+
+<ul>
+<li><p><b>Variable type.</b> I don't think I've ever seen this combo box enabled; it's always locked in on the exact type of the expression. If you want to use a base type instead, you'll have to introduce the variable first, and then change the type.</p></li>
+<li><p><b>Variable name.</b> ReSharper's <a href="http://blog.excastle.com/2007/02/14/resharper-day-14-suggested-variable-names/">variable name suggestions</a> kick in here, of course. One suggestion is filled in, and you can see the others by dropping down the combo box.</p></li>
+<li><p><b>Replace all occurrences of expression.</b> Since you're introducing a local variable, this only replaces occurrences within the current method. If the same expression shows up more than once, then you probably want to check this option most of the time; but it can change your code's behavior, through side effects and aliasing and whatnot, which is probably why this option isn't checked by default.</p></li>
+<li><p><b>Introduce constant.</b> This could have been a separate refactoring, but they rolled it into Introduce Variable. This checkbox is only enabled if the <a href="http://www.jaggersoft.com/csharp_standard/14.15.htm">expression can be evaluated at compile time</a>.</p></li>
+</ul>
+
+<h4><a name="blue">Ditching the blues</a></h4>
+
+<p>When you bring up this dialog, if the expression shows up more than once in your method, ReSharper will highlight all the usages in blue. It will also show blue tick marks in the <a href="http://blog.excastle.com/2007/02/02/resharper-day-2-the-color-bar-and-the-green-box/">color bar</a>.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/LeftoverBlue.png" width="328" height="46" alt="A ReSharper 'feature' leaves expressions highlighted in blue even after you cancel out of the Introduce Variable dialog" border="1"></blockquote>
+
+<p>If you Cancel out of the Introduce Variable dialog, the blue highlight doesn't go away, and neither do the blue stripes in the color bar. I reported this as a bug, and they said <a href="http://ubersoft.net/?p=460">nope, not a bug</a>: this is on purpose, so you can look at all the places that expression occurred. This is the first time I've ever heard of using a Cancel button to find usages. (Guys, maybe there should be another button <i>besides</i> OK and Cancel? Maybe a "Show Usages" button?)</p>
+
+<p><b>Update:</b> I didn't realize it when I first wrote this, but the blue highlight also sticks around after you click OK. So no matter what you do, if you bring up this dialog, you need to remember to press Esc after you close it. One extra, needless step, every single time. Isn't ReSharper supposed to be there to make things <i>easier</i>, and make common tasks take <i>less</i> time? Grumble.</p>
+
+<p>So anyway. It took me a couple of months, but I eventually found an easy way to dismiss all the blue: just press <b>Esc</b>. This is a good thing to know, because otherwise, it's pretty stubborn: until you press Esc, that highlight is going to stick around until you either close the file or delete the code.</p>
+
+<p><b>Note:</b> Tomorrow's article isn't quite done yet, and I'll be out of town this weekend. So tomorrow's article will get posted on Sunday.</p>

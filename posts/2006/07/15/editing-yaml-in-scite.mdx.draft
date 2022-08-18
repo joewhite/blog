@@ -1,0 +1,10 @@
+---
+title: "Editing YAML in SciTE  #Programming  #ruby"
+sort: 2337
+---
+I was editing a big YAML file in <a href="http://www.scintilla.org/SciTE.html">SciTE</a> a couple of days ago, and I wanted to be able to collapse one of the sections. SciTE has folding support, but only for languages it recognizes. If it knows you're editing C, it'll fold based on where your braces are; if you're editing Ruby, it'll fold based on do..end and such.
+
+Took me a minute, but I figured out how to get folding for YAML: you just select "Language &gt; Python". Like YAML, Python's structure is defined by indentation, so it works like a charm: little "-" symbols appear in the gutter next to parent elements, and you can collapse away.
+
+If you do a lot of YAML editing, you can tell SciTE to always use the Python highlighting/folding rules for *.yaml. Go to "Options &gt; Open python.properties", and add *.yaml to the file.patterns.py line. Mine now looks like this:
+<pre>file.patterns.py=*.py;*.pyw;*.yaml</pre>

@@ -1,0 +1,13 @@
+---
+title: "Avalon Ho  #.NET  #Delphi"
+sort: 2011
+---
+<p>Microsoft is going to <a href="http://zdnet.com.com/2100-1104_2-5327150.html">strip some features out of Longhorn</a>, the next version of Windows, so that they can release it as early as 2006 (instead of, last I heard, 2007 or later, except in the <em>extremely unlikely</em> event of further schedule slips).</p>
+<p>Interestingly, as part of this announcement, they also did a 180&#176; on their former stand on Avalon, the Longhorn UI library. Avalon will have lots of cool new features like a new document model, full flow layout, and transparent declarative data binding, just to name a few of the more interesting ones off the top of my head. Microsoft has been adamant, up to this point, in saying that Avalon would only be available with Longhorn, that they would not make Avalon available on earlier OSes.</p>
+<p>That had made Avalon a real yawner around here, since we knew that our client base wouldn't even <em>start</em> buying Longhorn until at least a good two or three years after it was released, and there was no way we could start writing Avalon-only software until two or three years after that, when it started to become reasonably prevalent among our clients.</p>
+<p>Well, guess what? Now they're going to backport Avalon to earlier OSes. A quote from the article:</p>
+<blockquote dir=ltr style="MARGIN-RIGHT: 0px">
+<p>By making Avalon and Indigo work on older machines, Microsoft hopes more developers will want to write software that takes advantage of the new technologies. Had they been Longhorn-only features, the concern is that developers would have held off writing software until there was a critical mass of machines running that operating system.</p></blockquote>
+<p>Um. <em>Duh.</em></p>
+<p>It wouldn't have been all bad, because MS was intending to take their time and do it right. ("Microsoft's top executives had characterized Longhorn as a major overhaul of the operating system and stressed that its release would not be determined by trying to hit a specific ship date.") Which would have been a fabulous deal for the engineers actually writing Longhorn. How often do you get that kind of project? Throw in all the bells and whistles you like, make a product that's as mind-blowingly cool and drop-dead sexy as you can imagine, and never worry about deadlines. Sounds like every programmer's dream job.</p>
+<p>Not much of a dream for the rest of us, though, and it looks like they've finally figured that out. Hooray! Only twenty-eight more months until Longhorn! (No estimate given on how much longer after that until Avalon is backported to Windows XP.)</p>

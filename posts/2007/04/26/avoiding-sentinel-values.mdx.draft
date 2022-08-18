@@ -1,0 +1,33 @@
+---
+title: "Avoiding sentinel values  #Delphi  #dunitlite  #extreme programming"
+sort: 2437
+---
+<p>A "sentinel" is any value that means something special. For example, <code>Math.SameValue</code> takes an <a href="http://blog.excastle.com/2007/04/08/dunitassertions-epsilons/">epsilon</a> parameter, but zero means "pick an epsilon for me". So a value of zero doesn't actually mean zero.</p>
+
+<p>Sentinel values, I have come to realize, are a code smell. They're saying, "here's a parameter that has <a href="http://en.wikipedia.org/wiki/Single_responsibility_principle">more than one responsibility</a>."</p>
+
+<p>Last night, I was working on epsilons in DUnitAssertions. TValue, my <a href="http://blog.excastle.com/2007/04/04/dunitassertions-universal-value-type/">universal value type</a>, can compare two numbers with an epsilon, and it follows the SameValue convention of "zero means 'pick for me'". But I wanted to add <a href="http://blog.excastle.com/2007/04/22/dunitassertions-goes-behavioral/">another option</a>:</p>
+
+<blockquote><pre>Specify.That(Foo, Should.Equal(45.0).Exactly); // no epsilon</pre></blockquote>
+
+<p>Really, this should pass zero as its epsilon, but that's already spoken for. So I picked <i>another</i> sentinel (<code><a href="http://en.wikipedia.org/wiki/NaN">NaN</a></code>) to mean "exact comparison", and started writing the tests and making them pass.</p>
+
+<p>It actually took a few minutes before I realized how ridiculous this was. I mean, the body of the method had three completely different code paths, depending on the sentinel values and nothing else. Hello? Polymorphism!</p>
+
+<p>So I'm replacing the epsilon with a comparer. I've made an <code>IValueComparer</code> interface with a <code>CompareExtendeds</code> method, and it's going to have several different implementations. One is the default, which picks an epsilon for you (and never takes an epsilon parameter at all). One is the epsilon-based comparer, which takes an epsilon in its constructor. I probably don't even need another class for the "exact" comparer, since an epsilon of (really and truly) zero will serve quite nicely. And the sentinel logic will all go away.</p>
+
+<p>I'll even put another method on <code>IValueComparer</code> for comparing strings, and have a class that does case-insensitive comparisons. I'd been wondering how I was going to plumb the case-sensitivity option into the comparison, and now I know. (Since no single call to <code>Specify.That</code> will compare both a string and a float, this doesn't pose any duplicate-inheritance-hierarchy problems.) And this will address that nagging doubt I've felt all along about passing a numeric epsilon even when I'm comparing strings. That'll go away entirely; I'll just be passing a comparer.</p>
+
+<p>Now that I think about it, this is exactly the <a href="http://www.dofactory.com/Patterns/PatternStrategy.aspx">Strategy pattern</a>. I'm <a href="http://industriallogic.com/xp/refactoring/">refactoring to patterns</a> and not even realizing it. Cool!</a></p>
+
+<p>One thing that is nice about sentinel values &mdash; as opposed to, say, making several well-named methods &mdash; is that sentinel values are easy to plumb through several layers of code. But a strategy object has the same benefit, and it's more expressive.</p>
+
+<p>So when you see a sentinel value, ask yourself whether a strategy would be better. You might be really pleased with the result.</p>
+
+<p><b>Footnote:</b> Almost five years ago, I wrote a huge <a href="http://c2.com/cgi/wiki?YouArentGonnaNeedIt">YAGNI</a> at work. It was a function that divided one number by another. That's it, really. But it took three, count 'em, three optional parameters (that's five total parameters to divide two numbers), and those three optional parameters were overloaded to bursting with sentinel values. I pulled out all the stops: not just positive and negative infinity, but NaN as well, all had special meanings. Meanings that you could kind of puzzle out, sure, but they were sentinels nonetheless. But it was worth it (so I thought at the time) because this thing was the ultimate in flexibility. It could clamp its results to a range, it could throw exceptions or not, it could return special values when you divided by zero, it even made Julienne fries.</p>
+
+<p>How many lines of code does it take to divide two numbers? Forty-nine. <i>All but nine lines</i> of that was just there to check for sentinels. Those other nine lines were the ones that set the function's return value.</p>
+
+<p>I looked today. Total number of places that actually called this function? One. Another utility function in the same unit, which I had made <i>less readable</i> when I introduced my YAGNI to it five years ago.</p>
+
+<p>So I did some spring cleaning. And that unit is shorter now.</p>

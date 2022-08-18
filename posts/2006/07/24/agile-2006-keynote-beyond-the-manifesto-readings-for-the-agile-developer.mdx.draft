@@ -1,0 +1,150 @@
+---
+title: "Agile 2006 Keynote: Beyond the Manifesto: Readings for the Agile Developer  #Programming  #agile2006  #extreme programming"
+sort: 2344
+---
+<p>At the keynote, with a tenuous hold on Internet access.</p>
+<p>1111 attendees (and still trickling in) from 29 countries. 60% growth over last year. Sold out.</p>
+<p>So what's this "Open Space" thing? Opening today at 11:00. Description on page 7 of the schedule. Room for 150-200 people.</p>
+<p>Peter Coffee's keynote: Beyond the Manifesto: Readings for the Agile Developer</p>
+<p>Talking about books that, if he couldn't find his copy, he would go buy a new one (the oldest and most well-worn on his bookshelf).</p>
+<ul>
+<li>Information is that which consumes attention (if it doesn't change your perceptions, it's background music)</li>
+<li>If it's between hard covers, is it already out of date? (Some books change the questions you ask.)</li>
+<li>Some books, I don't trust to Gutenberg or Amazon</li></ul>
+<p>Let's use the Manifesto as our outline.</p>
+<ul>
+<li>Favor individuals and interactions</li>
+<ul>
+<li>Robert Townsend, "Up the Organization"</li></ul>
+<li>Favor working software (as opposed to...?)</li>
+<ul>
+<li>John Gall, "Systemantics"</li></ul>
+<li>Favor customer collaboration</li>
+<ul>
+<li>Tom Friedman, "The World is Flat"</li></ul>
+<li>Favor response to change</li>
+<ul>
+<li>Tom Peters, "Thriving on Chaos"</li></ul></ul>
+<p>Individuals and Interactions</p>
+<ul>
+<li>Robert Townsend, former CEO of Avis (at a time when Avis had never made a profit)</li>
+<li>There for invention of phrase "We're #2, we try harder"</li>
+<ul>
+<li>Thinks you should fire your advertising department. They'll never understand your business, but you'll never understand theirs. Made this deal with the advertising agency: they'll only bring advertising they recommend running, and you will either reject it, correct factual errors, or say "Okay, we go with it."</li></ul>
+<li><em>Big successful operations aren't successful because of the way they operate, but in spite of it.</em> Don't look at a big successful company and imitate their symptoms. Don't try to learn to become an opera singer by gaining weight.</li>
+<li><em>Each level of management lowers communication effectiveness by 25%.</em> Organizations exist that have 11 levels of organization between the coder and the architect (aack!). How many policies can tolerate losing 90+% of their effectiveness as to what's being done and why?</li>
+<li><em>Disaster potential goes up with the square of communication time.</em> Both inefficiencies and delays. Time constant of successful software development has gone down.</li>
+<ul>
+<li>Merrill Lynch said "Let's let individual investors have the same overnight money-market parking operations that we offer corporations. Let's make it a retail product." (Money-market accounts?) Algorithms already exist, just a question of scale. How many billions of dollars moved from other brokerage firms into Merrill Lynch in the 6-9 months before the rest of the industry said, "Oops, we need to respond?" And when they did, the money didn't go back. Ratchet effect.</li></ul>
+<li><em>Computers just speed up the mess.</em> Computer people like to create new reports, new ways to slice and dice. Would ask managers, "How did you make this decision before computers?" You can't use certain types of information; you can't optimize hour-by-hour. Are we being business-process driven instead of data-capability driven?</li></ul>
+<p>Working Software</p>
+<ul>
+<li>John Gall, retired pediatrician</li>
+<li>Became head of a research institute. After 6 months, he had completely lost touch with current research. Grant writer, professional schmoozer, manager.</li>
+<li>Wrote "Systemantics", now revised as "Systems Bible".</li>
+<li><em>Systems in general work poorly or not at all.</em> Many systems are proposed which either work or do not work, but most systems spend most of their time in some sort of failure mode: not working as they were intended to, most of their time. Imperfections &#8212; working when things are not perfect &#8212; <em>have</em> to be part of the spec.</li>
+<ul>
+<li>Uncertainty analysis in spreadsheets. Hypothetical new product that would make the company $1M in the first year. Throw in some uncertainties, and find a 2/3 probability of loss. Not surprising, but think of the difference in the conversation in the boardroom. Comparing scenario 1, $1M first-year with 2/3 probability of loss, vs. scenario 2, $2M first-year with 90% probability of loss. Totally different conversation!</li>
+<li>Complicated systems seldom exceed 5% efficiency.</li>
+<li>A complex system designed from scratch never works.</li>
+<li>Any large system spends most of its time in failure mode. This does not mean it's failing, just that some piece is failing, and the rest of the system is having to compensate. Has to incorporate areas where correct operation can't be assumed.</li></ul>
+<li><em>Systems develop goals of their own.</em> (Among them, preserving their existence.)</li>
+<ul>
+<li>People in systems don't do what the system says they're doing. Go to a shipyard, you won't find a boat-builder. You'll find welders, electricians, accountants. The system is a boat-builder. You can find a good welder, but is he building good boats? You have to ask this disembodied thing. Once you get over about 15 people, there is no person who does what the system is supposed to produce.</li>
+<li>Need to be able to identify people who are part of the system, not laser-focused on one task.</li>
+<li>It's not "feedback" until the system changes course. Need a way to put that information back into the system and make changes; otherwise it's just backchatter.</li>
+<li>Do it with a small system if you can. (Even the book grew.)</li></ul></ul>
+<p>Customer Collaboration</p>
+<ul>
+<li>Carrying the book starts conversations in airports.</li>
+<ul>
+<li>"So, what's that about?"</li>
+<li>"So, what do you think of it?"</li>
+<li>Everyone he asks, "Have you read it?" has</li></ul>
+<li>Author has been in the call centers in India where they teach people to speak with a Canadian accent.</li>
+<li>Not always correct on technical details. Political analyst or economist or something. Corrections:</li>
+<ul>
+<li>Y2K was about data structures, not PC clocks.</li>
+<li>Excess optical fiber doesn't light up by itself.</li></ul>
+<li>Nonetheless, key points in the book are correct.</li>
+<ul>
+<li>Co-create with the customer. If you get nothing else out of this talk, the whole conference will have been worth it. Sending developers into their cave doesn't work anymore. Involve customers with original concept, feedback that actually matters. Use "stakeholder" as more than just a word.</li>
+<li>Establish trust relationships. (Look back at the "trust your ad agency" above.) Data security. Who are you? What do you do? What do you have reasons to want to know? Difficult to do technically, no obvious payback. But not only do we not have secure systems, we don't have securable systems. How many apps (on a certain platform) won't run unless you're an admin?</li>
+<li>Don't use new technology to cut costs. Example: foreign currency trading. Expert system made correct decisions most of the time, much more quickly. Trained it as time went on. Successful. Fast-forward a year: all foreign-currency-trading firms are using expert systems. Zero-sum game (hey, what happened to ratchet systems?) Nobody cut their costs; they just stayed in the game. In the long run, you can't expect a sustainable profit advantage. Never present technology as a way to get more profit; you'll be wrong in the long run.</li></ul>
+<li>More code is now worth writing. Apps are easier to produce (compare VB to the olden days of coding to the API). Apps that used to be "it's not worth what it would take to write that" are practical now. But you need to rapidly identify the opportunity, get rapid feedback, rapidly get something out there that's good enough for people to start using, even if they want more later.</li></ul>
+<p>Response to Change</p>
+<ul>
+<li>The book Tom Peters <em>didn't</em> retract</li>
+<li>There are no companies that do The One Right Thing and keep doing it forever, and succeed as a result</li>
+<li>Must adapt to change</li>
+<li>The rate of change demanded and the boldness of the goals are unfailingly new &#8212; and frightening. If you present goals and people nod and say, "Yeah, we can do that," you're being too timid.</li>
+<li>The Japanese word for "large" is literally "not delicately crafted". Big OSes don't ship. Huge applications get abandoned. No one wants to talk about project abandonment. Bigness used to be a necessary evil, but it may not be necessary anymore. Go lightweight.</li>
+<li>America can keep high wages only by producing goods with large components of specialized services. Future of mass production in quantities of one. Opportunity to infuse things you know about the business. If you're IT and you don't infuse business knowledge, it's suicide, because you can get outsourced. If you're business and you don't do it, it's business suicide.</li>
+<ul>
+<li>How do people make money on open source? Response: Do lawyers make money? The law is open source. Lawyers make money because they master a body of knowledge, and then they make it work for you. That's what open source does. We can make it the right thing for you when you need it.</li></ul>
+<li>Americans still see automation as a tool to reduce labor, not as a tool to aid labor in adding value. If you go back 15 years and look at development tools, and compare to anything free today, you'd say, "How can this still be hard?" Many problems (prototyping, deployment, the list keeps going) have gone away; why is this still so hard? Because you thought you were developers, but you're really personal counselors.</li>
+<li>Tom Peters' "Prescriptions"</li>
+<ul>
+<li>Obsession with responsiveness. If you contacted a vendor and got an answer back in an hour that said "we can't fix that today, but we'll get you a fix in a week," would you prefer that over waiting four days and getting the fix?</li>
+<li>Constant innovation in all areas</li>
+<li>Partnership among all connected with organization ("stakeholders" again)</li>
+<li>Leadership that loves change. Most people in charge like the Way Things Have Been because it's been good to them. Work on them. Be an example. Never treat the technology you bought into a few years ago as an important aspect of you as a developer. Dijkstra: "Never treat your code base as valuable just because it cost a lot to produce it." What can we do right now?</li>
+<li>Control by means of simple support systems aimed at measuring the "right stuff" for today's environment. Don't make a list of approved PCs; instead appoint someone to find the right solutions for what people need. Make recommendations, not mandates. Not "do this or you will be punished"; instead "do this and you will be rewarded". The former drives away people without creativity; the latter attracts and retains good talent. Nervousness is the enemy of innovation. Make people feel that you understand what they need. Build systems that support doing the right thing, instead of punishing doing the wrong thing.</li></ul></ul>
+<p>Just in the last ten days (breaking news / agility)</p>
+<ul>
+<li>July 14: "Software security provider McAfee fixed a serious flaw in January 2005 with a regular update and didn't even realize it." How can you do something as significant as fixing a security hole <em>and not notice? </em>Six months later they realized, "Oh, we fixed that bug."</li>
+<li>July 17: "The White House has set an early August deadline for government agencies to encrypt sensitive data... slipshod handling, poor training and slow moving bureaucracy are seen as the main causes of vulnerability." Massive deployment of encryption and authentication across government systems in 45 days. But main causes aren't that data isn't encrypted: it's lack of training, lack of caring.</li>
+<li>July 18: "Symantec researchers reported finding three different types of potential flaws in Vista's underlying software code..." Brand-new untested code. Security, stability.</li>
+<li>July 18: "Database and server giant Oracle on July 17 shipped a quarterly critical patch update with fixes for a whopping 65 security vulnerabilities."</li></ul>
+<p>The idea that bugs are inevitable in shipped code has to go away. Wants "bug" in software to become as obsolete as "bloodletting" in medicine.</p>
+<p>Is Your Firm Agility-Impaired?</p>
+<ul>
+<li>Digital Focus survey released today</li>
+<li>Reasons for <em>not</em> adopting agile techniques</li>
+<ul>
+<li>"Lack experience" = "We don't invest in skills"</li>
+<li>"Requires too much business involvement" = "We don't care, just write the code"</li>
+<li>"Code maintenance" = "We don't treat code as an asset"</li></ul>
+<li>Other canaries in the coal mine</li>
+<ul>
+<li>"Projects are too big for agile" = "too big"</li>
+<li>"Projects are too complex for agile" = "too complex"</li>
+<li>"Don't trust agile for mission-critical projects" = "Our mission-critical systems can't quickly evolve". So don't worry about it, because in five years it won't be a problem anymore.</li></ul></ul>
+<p>Innovation that excels</p>
+<ul>
+<li>Sixth annual eWEEK Excellence honorees</li>
+<ul>
+<li>Personal productivity</li>
+<ul>
+<li>ThinkFree Office Server Edition</li>
+<li>NetworkStreaming SupportDesk</li></ul>
+<li>Enterprise Collaboration</li>
+<ul>
+<li>Antepo OPN System XT (instant messaging)</li>
+<li>Intuit QuickBase for Corporations (hosted/managed)</li>
+<li>Salesforce.com AppExchange and Sandbox</li></ul>
+<li>Storage</li>
+<ul>
+<li>SANscreen Replication Assurance</li>
+<li>XOsoft Assured Recovery</li></ul></ul>
+<li>Services and meta-services</li>
+<li>Compliance and trust management</li></ul>
+<p>Escape plans from exclusive choice</p>
+<ul>
+<li>Platform commitments avoidable</li>
+<ul>
+<li>Microsoft upgrade juggernaut slowed</li>
+<li>Web browser interoperability improved</li>
+<li>Cross-platform application interfaces emerging</li></ul>
+<li>Acceptability of external services on the rise</li>
+<ul>
+<li>Bandwidth and reliability still increasing</li>
+<li>Confidence in technologies of trust growing</li>
+<li>Outsoucing better understood as affirmative strategy: increase competitiveness</li>
+<li>Costs of failure to evolve are getting better recognized. No company is too big to fail.</li></ul>
+<li>Tom Friedman (2005): "On day 2, you're multinational"</li>
+<li>Norbert Wiener (1948): shun "mediocre attainments". There's no wage at which a pick and shovel can compete with a bulldozer. In this day and age, nobody mediocre will be able to sell anything that anyone will want to buy. Don't have the best e-mail system in the industry, unless that's what you do. Do the things that make your company a leader in what it does, and apply technology to that goal.</li>
+<li>Robert Townsend: There are too many organizational orthodoxies imposed on people, and I don't want to help the walking dead impose another one.</li>
+<ul>
+<li>Not an orthodoxy. Focus on goals, and add support processes.</li></ul>
+<li>C. Northcote Parkinson: Leadership is the art of so indicating a distant goal as to make all else seem trivial.</li></ul>

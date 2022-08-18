@@ -1,0 +1,74 @@
+---
+title: "ReSharper, day 25: Introduce Parameter  #.NET  #resharper"
+sort: 2406
+---
+<p>Welcome to day 25 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>I've talked about two of the three Introduce refactorings (<a href="http://blog.excastle.com/2007/02/23/resharper-day-23-introduce-variable-and-introducing-ctrlshiftr-to-refactor/">Introduce Variable</a> and <a href="http://blog.excastle.com/2007/02/25/resharper-day-24-introduce-field/">Introduce Field</a>). Today, I'll cover the third: <b>Introduce Parameter</b>.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/IntroduceParameter.png" width="465" height="189" alt="ReSharper's Introduce Parameter dialog box" border="0"></blockquote>
+
+<p>Apart from the top pixel of the "Type" combo getting cut off, and the lack of an "Introduce constant" checkbox, this looks an awful lot like <a href="http://blog.excastle.com/2007/02/23/resharper-day-23-introduce-variable-and-introducing-ctrlshiftr-to-refactor/">Introduce Variable</a>. It works a lot like it, too. <a href="http://blog.excastle.com/2007/02/23/resharper-day-23-introduce-variable-and-introducing-ctrlshiftr-to-refactor/#blue">Stubborn blue highlights</a>, all that stuff.</p>
+
+<p>Sounds pretty mundane. But here's the thing: <i>it works.</i> It's surprisingly smart.</p>
+
+<p>Here's a silly example:</p>
+
+<blockquote><pre>_tilesWide = GetTilesWide(_previewer);
+...
+private int GetTilesWide(Control control)
+{
+return (control.Width + TileWidth - 1) / TileWidth;
+}</blockquote>
+
+<p>Suppose you want to write unit tests for this function, but you don't want to create Control instances in your tests. You could just highlight <code>control.Width</code> and do an Introduce Parameter.</p>
+
+<p>Oddly enough, the first suggestion for a parameter name is <code>i</code>, instead of the more obvious <code>width</code>. (<code>width</code> is available in the combo box dropdown, though.) It's also a bit of a shame that it doesn't suggest <code>controlWidth</code>.</p>
+
+<p>Supposing that I did type in <code>controlWidth</code> for my variable name, the resulting code would look like this:</p>
+
+<blockquote><pre>_tilesWide = GetTilesWide(_previewer, _previewer.Width);
+...
+private int GetTilesWide(Control control, int controlWidth)
+{
+return (controlWidth + TileWidth - 1) / TileWidth;
+}</blockquote>
+
+<p>At that point, the <code>control</code> parameter turns gray &mdash; you aren't using at anymore. So you can cursor onto it and use <a href="http://blog.excastle.com/2007/02/20/resharper-day-20-fix-errors-and-warnings-with-altenter/">Alt+Enter to remove the unused parameter</a>, leaving you with code that doesn't have scary dependencies and is much easier to unit test:</p>
+
+<blockquote><pre>_tilesWide = GetTilesWide(_previewer.Width);
+...
+private int GetTilesWide(int controlWidth)
+{
+return (controlWidth + TileWidth - 1) / TileWidth;
+}</blockquote>
+
+<p>(If the method had been public, then the parameter wouldn't have shown up in gray, because ReSharper isn't brave enough to look at public methods. Hopefully that will be fixed when they add <code>#pragma</code> support to suppress individual warnings, which they tell me will be in the next release. But hang in there; there are other ReSharper features that know how to delete parameters.)</p>
+
+<p>What's cool isn't so much that it adds the parameter. That's really no cooler than adding a local variable. What's cool is that it automatically does the Right Thing at all the call sites. If one of the call sites was passing an arbitrarily complicated expression that resulted in a <code>Control</code> instance, that's fine: it would turn into an arbitrarily complicated expression followed by <code>.Width</code>.</p>
+
+<p>It works for extracting more complicated expressions, too. You can use, not only other parameters, but also static methods, and even instance methods and properties on the current class. ReSharper will just do the right thing.</p>
+
+<p>Here's an example that's a little closer to real life. I may or may not be anywhere close to what we were actually doing in the code, but if the rest of this post is a work of fiction, it doesn't make it any less cool.</p>
+
+<blockquote><pre>processor.ProcessFile(FileType.Foo);
+...
+public void ProcessFile(FileType fileType)
+{
+string fileName = this.Configuration.GetFileName(fileType);
+...
+}</pre></blockquote>
+
+<p>We were trying to get rid of the <code>Configuration</code> property, because it was scary and hard to get instantiated in a test harness. So we started by extracting a parameter for <code>this.Configuration</code>.</p>
+
+<blockquote><pre>processor.ProcessFile(FileType.Foo, processor.Configuration);
+...
+public void ProcessFile(FileType fileType, Configuration configuration)
+{
+string fileName = configuration.GetFileName(fileType);
+...
+}</pre></blockquote>
+
+<p>What really wowed me (and it may seem like a simple thing to you, but I've tried to write a parser before, so I appreciate this kind of stuff) is that it just did the right thing at the call site: it passed <code>processor.Configuration</code>. The parameter was automatically passed in terms of the right instance of the right object.</p>
+
+<p>That's just cool.</p>

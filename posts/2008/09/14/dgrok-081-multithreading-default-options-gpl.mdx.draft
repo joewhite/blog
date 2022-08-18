@@ -1,0 +1,63 @@
+---
+title: "DGrok 0.8.1: multithreading, default options, GPL  #Delphi  #dgrok"
+sort: 2566
+---
+Version 0.8.1 of the DGrok Delphi parser and tools are now available for download. <a href="http://dgrok.excastle.com/downloads/DGrok-0.8.1.zip">Download DGrok 0.8.1 here.</a>
+
+<h3>What is DGrok?</h3>
+
+<a href="http://dgrok.excastle.com/">DGrok</a> is a set of tools for parsing Delphi source code and telling you stuff about it. Read more about it on the <a href="http://dgrok.excastle.com/">DGrok project page</a>.
+
+<h3>What's new in 0.8.1?</h3>
+
+Quick summary of what's new (more information below):
+
+<ul>
+<li>Now <a href="http://www.gnu.org/copyleft/gpl.html">GPL</a>-licensed.</li>
+<li>Reasonable defaults for <code>{$IFOPT}</code>.</li>
+<li>Multithreaded parser.</li>
+<li>Less memory usage when parsing twice.</li>
+<li>Copy tree results to clipboard.</li>
+</ul>
+
+<h3>Now GPL-licensed</h3>
+
+Prior versions of DGrok used <a href="http://www.nunitlite.com/">NUnitLite</a> for their unit tests, and therefore had to ship under the same license as NUnitLite: the <a href="http://www.opensource.org/licenses/osl-3.0.php">OSL (Open Software License)</a>. I've never been happy about that. The world really doesn't need yet another tiny variation on the GPL, especially when that variation isn't GPL-compatible.
+
+So for this release, I dumped NUnitLite and switched to <a href="http://www.nunit.org/">NUnit</a>. That let me drop the OSL and switch to an industry-standard open-source license, the <a href="http://www.gnu.org/copyleft/gpl.html">GPL (GNU General Public License)</a>.
+
+There are a few downsides. NUnit has tremendous overhead; on my laptop, it takes about fifteen seconds just to start the NUnit console runner and load the tests, plus the time to run them (which is also slower than under NUnitLite). It also adds an extra 321 Kb to the download size. And now I have to clutter my test code with a bunch of stupid <code>[Test]</code> attributes.
+
+If I think that's a good trade, then apparently the OSL annoyed me more than I thought.
+
+<h3>Reasonable defaults for "{$IFOPT}".</h3>
+
+An annoyance in previous versions (even to me) was that, if you were parsing code that contained things like <code>{$IFOPT C+}</code>, you would have to switch to DGrok's "Options" page to tell it which compiler settings it should consider to be "on" and which are "off". If it hit an <code>{$IFOPT}</code> you hadn't told it about, it would fail to parse that source file.
+
+
+
+In 0.8.1, that's no longer the case. DGrok knows about the default compiler options in a clean install of Delphi, and by default, it assumes you're using those options. You can still use the Options page to override those settings one by one (e.g. if you compile with range checking on, and want DGrok to parse code inside your <code>{$IFOPT R+}</code> sections), but it's no longer necessary to do it for every single option.
+
+If anyone's curious, here are the settings DGrok uses. I just opened Delphi (actually Turbo Delphi) and pressed Ctrl+O Ctrl+O, which prefixes the current file with all the compiler directives currently in effect. Then I did a bit of testing on the odd cases, like <code>A</code> and <code>Z</code> (which can have numbers in addition to <code>+</code> or <code>-</code>, and which <em>do</em> have numbers when inserted by Ctrl+O Ctrl+O). Here's what I wound up with:
+
+<code>B-, C+, D+, E-, F-, G+, H+, I+, J-, K-, L+, M-, N+, O+, P+, Q-, R-, S-, T-, U-, V+, W-, X+, Y+, Z-</code>
+
+You may notice that <code>A</code> isn't listed. <code>A</code> is an oddball case, in that it's treated as neither on nor off. That is, <code>{$IFOPT A+}</code> and <code>{$IFOPT A-}</code> will <em>both</em> evaluate as "false". There's a compelling reason for that: it's what Delphi does under the default settings! So don't blame me; I'm just being <a href="http://catb.org/jargon/html/B/bug-for-bug-compatible.html">compatible</a> with the real Delphi compiler.
+
+<h3>Multithreaded parser</h3>
+
+When you use the DGrok demo app to parse a source tree, it now spins up multiple threads to do the parsing. There's a setting on the "Options" tab to control how many threads you want it to use.
+
+I actually implemented this a few months back, and since then, it's occurred to me that I was making the problem too complicated -- life would be simpler if I'd just used the ThreadPool, and queued a work item for each file I wanted to parse. Oh well; what's there seems to work. I'll probably do the thread-pool thing in the future, though.
+
+<h3>Less memory usage when parsing twice</h3>
+
+I'm embarrassed by this one. In previous versions, if you clicked "Parse" more than once in the same program run (e.g. if you were tweaking the "Options" to deal with <code>{$IFOPT}</code>s), DGrok would temporarily take twice as much memory as it needed to. That's because I built the new list, and <em>then</em> stored it in the top-level variable... so the old list (stored in that same variable) was still "live" as far as the GC knew, up until the point when I overwrote its reference at the very end.
+
+It's better now -- it nulls out the reference before it starts parsing, so the old list gets GCed as soon as the new parse run starts allocating gobs of memory. So if you regularly parse a million-line code base (like I do), you'll notice significantly less thrashing.
+
+<h3>Copy tree results to clipboard</h3>
+
+Pretty simple. There's a "Copy" button under the tree that shows the parse results. This is mainly useful when you've used DGrok to search for, for example, all the <code>with</code> statements in your code, and now want to copy that list into Excel for easy sorting and printing.
+
+Happy parsing!

@@ -1,0 +1,67 @@
+---
+title: "Unfinished Delphi feature of the day: virtual class helper methods  #.NET  #Delphi  #dgrok"
+sort: 2459
+---
+<p>I've been <a href="http://blog.excastle.com/2007/08/28/generating-the-grammar-document/">researching</a> the syntax for class helpers, and found some very interesting things. First, that class helpers can descend from other class helpers. And second, that they can have virtual methods.</p>
+
+<p>Class helpers, for anyone not familiar with them, are a way of adding methods to an existing class &mdash; or at least, making it look like you do. The existing class is left unchanged; you might just as well be writing unit procedures that take an instance as their first parameter, except that class helpers make the code look nicer because you're actually saying "Foo.NewThing" rather than "NewThing(Foo, ...)".</p>
+
+<p>Now, since you're not actually modyfing the existing class, your class helper can't have any fields (there's no place to store them). Nor can you override methods from the class you're helping (since that would involve changing the VMT). So this whole "virtual" thing really surprised me.</p>
+
+<p>So back to the interesting discoveries. First, class helpers can descend from other class helpers, but the syntax isn't what I would have guessed:</p>
+
+<blockquote><pre>TFooHelper = class helper for TFoo
+...
+end;
+TOtherFooHelper = class helper (TFooHelper) for TFoo
+...
+end;</pre></blockquote>
+
+<p>Presumably this would only make sense if they were helpers for different classes, but that's the syntax: the parent class goes after "helper", not after the entire "class helper for" clause. The parent must be another class helper (not an ordinary class).</p>
+
+<p>Now, the really interesting bit: the compiler lets you put virtual methods on these guys.</p>
+
+<blockquote><pre>TFooHelper = class helper for TFoo
+public
+procedure DoSomething; virtual;
+end;
+
+TBarHelper = class helper (TFooHelper) for TBar
+public
+procedure DoSomething; override;
+end;</pre></blockquote>
+
+<p>Except that as soon as you put "virtual;" on a class helper method, the compiler starts griping:</p>
+
+<blockquote><pre>[Pascal Error] Project3.dpr(29): E2003 Undeclared identifier: 'QueryInterface'
+[Pascal Error] Project3.dpr(29): E2003 Undeclared identifier: '_AddRef'
+[Pascal Error] Project3.dpr(29): E2003 Undeclared identifier: '_Release'</pre></blockquote>
+
+<p>Do <i>what</i> happened?</p>
+
+<p>I was curious; I added those methods. Since you can't add fields (e.g. FRefCount) to a class helper, I made _AddRef and _Release both return -1, to indicate that the class wasn't refcounted. Then I wrote some code that called that virtual method, and ran my app.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/CallVirtualClassHelperMethod.png" width="575" height="139" alt='The instruction at "0x004112f5" referenced memory at "0x00000000". The memory could not be "read".'></blockquote>
+
+<p>Interesting.</p>
+
+<p>So I looked at the assembly code that was generated for that virtual helper call. And sure enough, it was looking for an interface:</p>
+
+<blockquote><pre>Project3.dpr.124: Foo.VirtualHelperMethod;
+004112E2 8D4DEC           lea ecx,[ebp-$14]
+004112E5 8B15B4004100     mov edx,[$004100b4]
+004112EB 8BC3             mov eax,ebx
+004112ED E8F629FFFF       <b>call @GetHelperIntf</b> // emphasis mine
+004112F2 8B45EC           mov eax,[ebp-$14]
+004112F5 8B10             mov edx,[eax]
+004112F7 FF520C           call dword ptr [edx+$0c]</pre></blockquote>
+
+<p>Very interesting, says I. That explains why it wanted me to implement IInterface on the helper: it somehow uses interfaces to deal with this "virtual helper method" business. But exactly which interface was it looking for, and why was it crashing? What else did I need to do? What interfaces did I need to implement? How <i>could</i> I implement interfaces, when the compiler doesn't allow interface syntax ("class helper (TFooHelper, ISomething)" fails with "')' expected but ',' found")?</p>
+
+<p>So I opened up System.pas to look for this @GetHelperIntf method. Here's the lone line of code in its implementation, along with the answer to why the app crashed...</p>
+
+<blockquote><pre>function _GetHelperIntf(Instance: TObject; Cls: TClass): IInterface;
+begin
+
+Result := nil;
+end;</pre></blockquote>

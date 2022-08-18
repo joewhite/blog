@@ -1,0 +1,37 @@
+---
+title: "Keynote (continued)  #Delphi  #borcon2005"
+sort: 2222
+---
+Okay, picking up with this where I left off earlier...
+<ul>
+	<li>C++ will have build configurations (release vs. debug). Not sure whether this will also extend to Delphi.</li>
+	<li>Pre- and post-build events. (Will these be available in Delphi?)</li>
+	<li>Copy requirements from CaliberRM into a comment in your source code. (Isn't this needless duplication?)</li>
+</ul>
+Code Template coolness:
+<ul>
+
+	<li>Define placeholders within a template; then after you insert the template, you can Tab between those placeholders.</li>
+	<li>(in C++ code) Type "switch", then hit some magic keystroke (space? tab?). It will automatically add parentheses, braces, and a "default:" case, and put the cursor inside the parentheses. Then type the name of something that's an enum, like "BorderStyle", and hit some magic keystroke. It will automatically add "case bsNone:", "case bsSingle:", etc., to the body of the switch. (Does this work for Delphi case statements too?)</li>
+	<li>(the rest of these examples are in Delphi code) Type "const Foo = 'This is ", and then hit ENTER without terminating the string constant. The editor will automatically add a close quote and a + to the end of the line, indent the following line, add the opening quote, and position the cursor there.</li>
+	<li>Inside a type section, type "class" (not really valid syntax) and hit some magic keystroke (Tab?). It will automatically expand into a class declaration with private, protected, public, and published sections (seems like a waste since you don't usually need most of those, but you can customize the templates).</li>
+	<li>Type "try" and hit some magic keystroke (Tab?). This automatically expands into something like this (and you can Tab to "SomeVar" and type something different there, then Tab to "TSomeClass" and type something different there...)</li>
+</ul>
+<pre>SomeVar := TSomeClass.Create;
+try
+finally
+  SomeVar.Free;
+end;</pre>
+<p dir="ltr">(Guys, what's up with Free? That should be FreeAndNil! Oh well, you can customize the templates...)</p>
+</blockquote>
+<ul>
+<li dir="ltr">Then once you've added that, and hit another magic keystroke, it automatically adds a local variable called SomeVar of type TSomeClass. Way cool.</li>
+<li dir="ltr">Inside a method body, type "var" and hit a magic keystroke. That expands into a type declaration right there on the current line, inside the method body. You fill in the variable name and the type, hit another magic keystroke, and that variable declaration automatically moves itself up into the var section. Sweeeet.</li>
+</ul>
+ECO stuff:
+<ul>
+	<li>ECO has design patterns now. You can use the default ones or define your own.</li>
+	<li>ECO also has state patterns (for its new state machines).</li>
+	<li>AutoForms will autogenerate a rudimentary UI for your objects, for quick proof-of-concept demos.</li>
+</ul>
+Most amusing side note from the keynote: somebody referring to the Windows XP Luna theme as the "Fisher-Price" look. (grin)

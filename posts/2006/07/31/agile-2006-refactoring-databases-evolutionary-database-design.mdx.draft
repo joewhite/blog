@@ -1,0 +1,203 @@
+---
+title: "Agile 2006: Refactoring Databases: Evolutionary Database Design  #Programming  #agile2006  #extreme programming"
+sort: 2355
+---
+<p>Refactoring Databases: Evolutionary Database Design<br>Scott W. Ambler, IBM<br>Pramod Sadalage, ThoughtWorks</p>
+<p>I was interested to note that our shop already has most of the infrastructure for this. But it had never occurred to me to think of it in terms of ordinary refactoring, i.e., rename = add a new thing that delegates to the old, then migrate stuff, and finally remove the old. Makes it a lot less scary (but does require things like triggers to keep the two fields in sync).</p>
+<p>Okay, enough retrospective introduction. On to the actual notes:</p>
+<p>This stuff works in practice. It is not theory.</p>
+<p>Lot of stuff throughout the session about politics between devs and DBAs. Glad we don't have to deal with that...</p>
+<p>If the devs are delivering working software every iteration, so must everyone else, including the data people. Goal is to give the data community the techniques, and eventually the tools, to do this.</p>
+<p>What you'll see</p>
+<ul>
+<li>Proven techniques for</li>
+<ul>
+<li>Evolutionary database development</li>
+<li>DBAs to be effective members of agile teams</li>
+<li>Improving quality of data assets</li>
+<li>Organizations to improve their approach to data</li></ul></ul>
+<p>Can you rename a column in your production database and safely deploy the change in a single day?</p>
+<ul>
+<li>Most people have no expectations of their data people being able to accomplish the trivial</li>
+<li>The trivial should be trivial</li></ul>
+<p>The Rename Column Refactoring</p>
+<ul>
+<li>Renaming the column would break everything. So don't do that.</li>
+<li>Instead, refactor it:</li>
+<ul>
+<li>Define a transition period. (Specify an end date? esp. if internal app)</li>
+<li>Add the second column, copy the data, add triggers, etc. At this point, from the point of view of people who care, the column is <em>already renamed</em>.</li>
+<li>After the transition period ends, remove the old column and the scaffolding.</li>
+<li>If people whine about the transition period being too short, e.g. we can't possibly update our mission-critical app in two years, then how mission-critical is it, really?</li>
+<li>Can't put your business at risk, but sometimes you've got to motivate people to change</li></ul>
+<li>What happens if there are apps you don't know about?</li>
+<ul>
+<li>You'll take a hit on this. You've gotta take that hit.</li>
+<li>Someone in the organization has to make the conscious decision to stop screwing around.</li>
+<li>If people are doing data stuff, you as an IT professional should be supporting them.</li></ul></ul>
+<ul>
+<li>Change will be easier if you have encapsulation via e.g. stored procs. But what if you want to rename the stored proc?</li></ul>
+<ul>
+<li>Performance hit?</li>
+<ul>
+<li>Yes, but you're already taking a complexity hit, because your apps already have code to clean up the data. By cleaning up the schema, you can get rid of that code.</li></ul></ul>
+<p>The Traditional Database</p>
+<ul>
+<li>Continuous changes not allowed</li>
+<ul>
+<li>Tools are not that good</li></ul>
+<li>Production changes are rare</li>
+<li>Migration is a huge project, if it's attempted at all</li>
+<li>Non-existent change management</li>
+<li>Non-existent testing</li>
+<li>Very few companies are doing database testing</li>
+<ul>
+<li>RDBMSes have been out for what, 30 years, and we still don't have basic stuff like testing tools?</li>
+<li>There are a few, like SQLUnit, but they don't have wide acceptance</li>
+<li>If this up-front stuff doesn't work, and let's face it, we've given it 20-30 years and devs still go around the DBAs, then let's admit it doesn't work.</li></ul></ul>
+<p>The Agile Database</p>
+<ul>
+<li>Slowly and safely changing database</li>
+<li>Functionality added in increments</li>
+<li>Change management</li>
+<li>Facilitates automated testing</li>
+<li>Knowledge by developers of the functionality</li>
+<ul>
+<li>DBAs pair with developers</li></ul>
+<li>Acknowledged importance of team interaction</li>
+<li>DBA = Role != Person</li></ul>
+<p>Philosophies of Agile Data Method (<a href="http://www.agiledata.org">www.agiledata.org</a>)</p>
+<ul>
+<li>Data is important, but it's not the center of the universe.</li>
+<li>Enterprise issues are important. Our apps have to fit with those of other teams. Follow standards.</li>
+<li>Enterprise groups need to be flexible. It is the kiss of death to try to have a consistent repeatable process.</li>
+<ul>
+<li>Repeatable processes have nothing to do with software development success. You want repeatable results.</li></ul>
+<li>Unique situation. Individuals are unique, therefore teams are unique. Problems are unique.</li>
+<li>Work together</li>
+<li>Sweet spot</li></ul>
+<p>Everyone should get their own copy of the database. <a href="http://www.agiledata.org/essays/sandboxes.html">www.agiledata.org/essays/sandboxes.html</a></p>
+<p>First time deployment</p>
+<ul>
+<li>Should be handled almost exactly the same as deploying code</li>
+<li>Database master script to create production instance</li>
+<li>Branch if necessary</li></ul>
+<p>Change scripts for later changes, collected by day/week/iteration/etc.</p>
+<p>Example</p>
+<ul>
+<li>New person joins the team. Make it easy.</li>
+<ul>
+<li>Checks out from source control</li>
+<li>Use make/rake/ant/etc.</li>
+<ul>
+<li>"dbcreate" target to create a new, empty database</li>
+<li>"dbinit" target to create the tables and such</li></ul></ul>
+<li>The code is under source control; why not the schema?</li>
+<li>Should be run every time you test your application</li></ul>
+<p>Agile Model Driven Development (AMDD)</p>
+<ul>
+<li>BDUF only works in academic fantasy-land</li>
+<li>Cycle 0: Initial modeling sessions (days, /maybe/ a week)</li>
+<ul>
+<li>Initial requirements modeling</li>
+<li>Initial architectural modeling</li>
+<li>Reduce the feedback. Get working software sooner.</li></ul>
+<li>Cycle 1..n:</li>
+<ul>
+<li>Model storming (minutes)</li>
+<li>Implementation (ideally test driven) (hours)</li></ul>
+<li>Nobody should be doing big models up front</li></ul>
+<p>Database refactoring</p>
+<ul>
+<li>Simple change to schema that improves design while retaining both behavioral and informational semantics</li>
+<ul>
+<li>Maybe the semantics change at an academic level, but not at a practical level</li></ul>
+<li>Database refactorings are a subset of schema transformations, but they do not add functionality</li>
+<li><a href="http://www.databaserefactoring.com">www.databaserefactoring.com</a></li>
+<li><a href="http://www.agiledata.org/essays/databaseRefactoring.html">www.agiledata.org/essays/databaseRefactoring.html</a></li></ul>
+<p>Why DB refactoring is hard</p>
+<ul>
+<li>Coupling</li>
+<ul>
+<li>Your app</li>
+<li>Other apps you know about</li>
+<li>Other apps you don't know about</li>
+<li>Persistence frameworks</li>
+<li>Other databases</li>
+<li>Test code</li>
+<li>File imports</li>
+<li>File exports</li></ul></ul>
+<p>"Is the design of the code the best design possible to allow me to add this new feature?"</p>
+<p>Example: change customer number to an alphanumeric customer ID</p>
+<ul>
+<li>Add CustomerID varchar field</li>
+<ul>
+<li>But you've got to be able to convert back and forth, to keep the old field in sync</li>
+<li>So you <em>don't allow alphanumerics</em> during the transition period. The new field could hold them, but the old field can't.</li></ul>
+<li>After you are finally able to delete the old field, then you can start using alphanumeric IDs</li></ul>
+<p>Would TDD be a good idea for these refactorings?</p>
+<ul>
+<li>Theoretically, yes.</li>
+<li>Practically, tools may not be there yet.</li>
+<li>If I want to thoroughly test the DB...</li>
+<ul>
+<li>Data going in, data going out: DBUnit works for this</li>
+<li>What about constraints? What about triggers? Can't assume that this stuff works.</li></ul></ul>
+<p>When you're trying to remove a field, you can try removing it, then re-creating your entire schema. The "ant dbinit" will fail if you have e.g. a view that still references that field. (Obviously you still need to find code dependencies.)</p>
+<p>Two things to do to your SQL scripts when you make a change:</p>
+<ul>
+<li>Fix the script that creates all schema from scratch</li>
+<li>Add a script that upgrades from build 635 to 636. Should be hand-coded, and should be done when you make the change (so you still remember what you did).</li>
+<li>Alternative: don't do #1. Your "schema from scratch" is your latest released version, and your automated tests create that and apply all the upgrade scripts to it. (Volunteered from the audience.)</li>
+<li>Change scripts need to be in source control.</li>
+<li>Ant target "dbupgrade". Give it a from version and a to version, it gets that version of the "make fresh" script, and runs all the "upgrade" scripts against it.</li></ul>
+<p>Ruby on Rails has really good database migration support. You define a migration, and you can go forward and backward. Database-agnostic.</p>
+<p>Merge Columns</p>
+<ul>
+<li>Add the new column to be the merged data</li>
+<li>Remove the old columns</li></ul>
+<p>Database things are trivial for the most part, so let's make them trivial.</p>
+<p>If you're not putting it into source control, why are you creating it? If you're not testing it, why are you creating it?</p>
+<p>Other refactorings</p>
+<ul>
+<li>Remove View</li>
+<li>Introduce Surrogate Key</li>
+<li>Replace One-To-Many with Associative Table</li></ul>
+<p>Refactoring is continuous, deployment is controlled (the way they do it, anyway)</p>
+<p>Allow developers to experiment</p>
+<ul>
+<li>Try multiple designs</li>
+<li>Change the model in their local schema</li>
+<li>DBA should be involved in design of functionality</li>
+<li>DBA should help devs design tables, indexes, tune queries for performance</li>
+<li>DBA and devs should pair all the time</li></ul>
+<p>Database threats</p>
+<ul>
+<li>Putting bad data in / getting bad data out</li>
+<li>Database schema (what if someone drops a constraint?)</li>
+<li>Vendor should have a regression testing tool to sell you if not give you</li></ul>
+<p>Encapsulate the database</p>
+<ul>
+<li>Coupling is enemy #1</li>
+<li>Encapsulation strategies:</li>
+<ul>
+<li>Brute force (embedded SQL)</li>
+<li>Data access objects</li>
+<li>Persistence frameworks</li>
+<li>Services</li></ul></ul>
+<p>Infrastructure</p>
+<ul>
+<li>Start converting data when replacing legacy app; day 1 of the project</li>
+<li>If feasible, use lightweight database, e.g. mySQL, in-memory database</li>
+<li>Write a data generator, when needed</li></ul>
+<p>Thinking forward</p>
+<ul>
+<li>New releases can be acceptance tested against current production data</li>
+<li>Migration is a snap, so why not deploy weekly?</li></ul>
+<p>Resources</p>
+<ul>
+<li>groups.yahoo.com/group/agileDatabases</li>
+<li><a href="http://www.agiledata.org">www.agiledata.org</a></li>
+<li><a href="http://www.databaserefactoring.com">www.databaserefactoring.com</a></li>
+<li><a href="http://www.martinfowler.com">www.martinfowler.com</a></li>
+<li><a href="http://www.ambysoft.com/agileDatabaseTechniques.html">www.ambysoft.com/agileDatabaseTechniques.html</a></li></ul>

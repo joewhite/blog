@@ -1,0 +1,77 @@
+---
+title: "Editing CoffeeScript with Sublime Text 2  #Programming  #coffeescript  #icedcoffeescript  #sublime-text-2"
+sort: 3389
+---
+<p>I've been playing with <a href="http://coffeescript.org/">CoffeeScript</a> and <a href="http://maxtaco.github.com/coffee-script/">IcedCoffeeScript</a> lately, and I've been looking for a decent editor for them. Not as easy as you might think.</p>
+
+<p>I wanted an editor that Just Worked. And by "Just Worked", I mean the basics, of course, like syntax highlighting, multiple editor tabs, and all that other stuff you take for granted. But I also mean that the editor should have these two features:</p>
+
+<ul>
+<li>Code folding. If I'm writing <a href="http://visionmedia.github.com/mocha/">Mocha</a> tests (and man, CoffeeScript is <em>awesome</em> for writing Mocha tests!), I want to be able to collapse <code>describe</code>s that I'm not actively working on at the moment.</li>
+<li>Smart indentation. If I type <code>-&gt;</code> and press Enter, I want the editor to indent the next line for me. (This isn't just laziness -- it's also a hint to me when I <em>forget</em> to type <code>-&gt;</code>, which I still do fairly often.)</li>
+</ul>
+
+<p>It's kind of depressing how much those two features narrow the field. Here's all I wound up with:</p>
+
+<ul>
+<li><a href="http://www.scintilla.org/SciTE.html">SciTE</a>. It doesn't actually support smart indentation or CoffeeScript syntax highlighting, but I've been using it for years, it's comfortable, and if you lie and tell it it's editing Python, then you get all the code folding you want. Plus, it's free. Far from great, but it's at least adequate.</li>
+<li><a href="http://c9.io/">Cloud9 IDE</a>. Its smart indentation is great, but when I looked at it last, it didn't support code folding. (They claim that it does now, though they give no details on whether/how it works with CoffeeScript, and I haven't bothered to sign up for an account to try it out.) Freemium, and also Web-based, which is intriguing; I may give this another look at some point.</li>
+<li>JetBrains IDEA-based IDEs (<a href="http://www.jetbrains.com/idea/">IntelliJ IDEA</a>, <a href="http://www.jetbrains.com/pycharm/">PyCharm</a>, <a href="http://www.jetbrains.com/webstorm/">WebStorm</a>, etc.) Commercial, $49 and up. I had already bought a license for PyCharm, and then they released 2.0 and added support for CoffeeScript, and I was eligible for a free upgrade. Code folding and smart indentation are there, all right, but so are a boatload of bugs -- I could never use it without finding four or five bugs at a sitting. I wrote them all up, they fixed some of them in the next update but introduced more. Repeat. And again. I finally got frustrated and gave up.</li>
+<li><a href="http://www.sublimetext.com/2">Sublime Text 2</a> (the subject of the rest of this post). Commercial, $59.</li>
+</ul>
+
+<p>I was a little bit amused to find that, even though I'm only interested in Windows, everything on this short list is cross-platform: Windows, Linux, and Mac OSX.</p>
+
+<h3>ST2</h3>
+
+<p>I've been using the free trial of Sublime Text 2 for the past couple of months (it's fully functional, it just shows the occasional nag screen when you save). And I've been loving it, and finally sprung for a license today. (Note: not a paid advertisement. Just a happy customer.)</p>
+
+<p>ST2 (as the Sublime Text 2 users like to call it) seems to be in perpetual beta. New versions come out every now and then, but the documentation is far from complete and there are the occasional rough edges. But that's easily made up for by the fact that it <em>rocks.</em> It's fast, it's beautiful, it's crazy powerful.</p>
+
+<h3>Package Control</h3>
+
+<p>How powerful? ST2 has a built-in <a href="http://www.python.org/">Python</a> console for scripting the editor. Scripts and customizations can be bundled into add-on packages (it's even mostly-compatible with TextMate bundles, i.e. packages designed for the Mac TextMate editor). Packages can add everything from syntax-highlighting rules for new languages, to entirely new editor commands, to who knows what else (Python scripting, remember?)</p>
+
+<p>Here's the really awesome thing: somebody wrote a free add-on package, called <a href="http://wbond.net/sublime_packages/package_control">Package Control</a>, that is a GUI package manager for ST2, that runs inside ST2. You install it by pasting a single line (okay, a <em>long</em> line) of code into the Python console, which downloads and installs Package Control for you. And forever after, installing a new package is a matter of opening Package Control via ST2's menu, selecting "Install", typing a keyword search into the incremental-search box, and selecting the package you want -- which it then downloads and installs in a second or two, and the new package is instantly live and working. Crazy fantastic.</p>
+
+<h3>Fast, powerful</h3>
+
+<p>The editor is always snappy and responsive -- it scrolls like the scrollbar is glued to the mouse. There's a sidebar that shows a miniature version of your whole file; it updates fast and scrolls fast, and you can recognize the shape of your code even though it's approximately a 1.5-point font. There are a few animations in the editor, but they never slow you down; they just make the editor feel even more responsive.</p>
+
+<p>There's also an optional sidebar on the left, that shows a list of open files (which duplicates the tab bar, but I like it). If you create a "project" (basically just a list of directories you want to work with, which can be as simple as "." or can include filtering and multiple locations), then the sidebar also shows a directory tree, which is a feature I've always liked and seldom found.</p>
+
+<p>(These sidebars are optional, of course. You can turn them off, along with the tab bar and the status bar and even the menu bar. You can run ST2 fullscreen with no window chrome at all, if you like -- they even have a shortcut to get you there called "distraction-free mode".)</p>
+
+<p>Autocomplete is interesting. ST2 is not an IDE; it doesn't parse your code and understand which classes have which methods. Instead, it keeps track of all the different words in the current source file, and when you start typing a word, it will try to complete from that list. It's surprising how well this simple, non-context-sensitive completion can work, especially since it's lightning-quick.</p>
+
+<h3>Keystrokes</h3>
+
+<p>ST2 has a way of making mundane features awesome. For example, if you press Ctrl+D (select word), it also highlights all the other usages of that same word in the file. And then if you press Ctrl+D again, it will add the next one to your selection (that's right, ST2 supports disjoint selection). Keep pressing Ctrl+D until you've highlighted all the usages inside a method, and then start typing a replacement -- and hello, <a href="http://docs.embarcadero.com/products/rad_studio/delphiAndcpp2009/HelpUpdate2/EN/html/devcommon/usingsyncedit_xml.html">Sync Edit</a>.</p>
+
+<p>(I keep trying to use Ctrl+W to select word, because that's what it is in <a href="http://www.jetbrains.com/resharper/">ReSharper</a> at my day job. But of course Ctrl+W is Close File, just like in Web browsers and SciTE and most everything else except Visual Studio. At least, if I close a tab by mistake, I can use Ctrl+Shift+T to reopen it -- hooray for features stolen from Web browsers!)</p>
+
+<p>Then again, there are the keystrokes that are just different for the sake of being different. You can do rectangular selections, but you can't use the usual Alt+Shift+arrow keys; you have to use Ctrl+Alt+Up/Down followed by Shift+Left/Right. And for some reason, Ctrl+Shift+S defaults to Save As, instead of the more familiar (and far more useful) Save All.</p>
+
+<p>You can customize all the keystrokes (and a lot of other things, for that matter) by editing <a href="http://www.json.org/">JSON</a> config files. There are convenient menu items to open these config files for editing right there inside ST2.</p>
+
+<h3>CoffeeScript and beyond</h3>
+
+<p>ST2 doesn't support CoffeeScript out of the box, but there are free <a href="https://github.com/jashkenas/coffee-script-tmbundle">CoffeeScript</a> and <a href="https://github.com/dhoelzgen/iced-coffee-script-tmbundle">IcedCoffeeScript</a> packages. (The IcedCoffeeScript package is a simple superset of the CoffeeScript one, so if you want both languages, it's enough to just install the Iced package.) The easiest way to install them, of course, is via Package Control. Code folding works beautifully, though ST2 hides the folding arrows by default (to reduce screen clutter) -- if you just move the mouse over the gutter, the folding arrows will appear. The smart indentation works great too. With the Iced package, ST2 is a perfect fit what I set out to find.</p>
+
+<p>I've also installed the <a href="https://github.com/samsonw/SublimeTask">Task</a> package (via Package Control, naturally), which gives you syntax highlighting for a minimalist "task" pseudo-language that lets you use ST2 as a to-do list (but without all the stupid limitations that most task-list apps want to give you, like "must be a single flat list" -- here you can easily create hierarchies, multiple lists, whatever). Task highlights lines starting with a hyphen ("-") as "undone tasks" and lines starting with a check mark ("<a href="http://www.fileformat.info/info/unicode/char/2713/index.htm">âœ“</a>") as "done tasks", and it adds an editor command to toggle a line between - and âœ“. This add-on isn't very polished, but it's still pretty nice to have. Unfortunately it's tightly coupled to the color scheme you've selected in ST2; by default, with the Monokai scheme I prefer, everything shows up as plain white. You have to edit the package to make it work with your theme (instructions included in the readme). (For reference: with Monokai, it works well to set Task Title to <code>markup.inserted</code>, Completed Tasks to <code>comment</code>, Action Items to <code>support.function</code>, and the rest to <code>keyword</code>.)</p>
+
+<p>If you use the Task package on Windows, you'll run into the problem that the Consolas font (which ST2 uses by default on Windows) doesn't support the "<a href="http://www.fileformat.info/info/unicode/char/2713/index.htm">CHECK MARK</a>" Unicode character. This is easily fixed: download and install the "<a href="http://dejavu-fonts.org/wiki/Main_Page">DejaVu Sans Mono</a>" font (yes, it distinguishes between O and 0, 1 and I and l; and it's also useful for <a href="http://stackoverflow.com/q/9817926/87399">seeing Mocha's output properly on Windows</a>) and then add <code>"font_face": "DejaVu Sans Mono"</code> to your user settings file (Preferences > Settings - User; the file is in JSON format).</p>
+
+<h3>Where IDEA could win</h3>
+
+<p>The IDEA-based editors (PyCharm, WebStorm, etc.) have a couple of things going for them compared to ST2: IDEA is much more aggressive about highlighting syntax errors and warnings as you type, and it has a feature that auto-formats your code (prettyprinting), either on demand, or as you type. Both would be awesome features if they worked reliably.</p>
+
+<p>Unfortunately, both of those features have been major <a href="http://blogs.msdn.com/b/oldnewthing/archive/2011/09/20/10213768.aspx">bug farms</a> in the IDEA IDEs. They highlight "errors" in code that's perfectly valid, they "reformat" code in ways that cause it to become non-compilable or that subtly change its meaning, etc. And of course, if CoffeeScript adds a new feature (I'll bet <a href="http://coffeescript.org/#changelog"><code>do (x = 1, y = 2) -&gt;</code></a>, just added in CoffeeScript 1.3.1, is going to give them problems), then you have to submit an enhancement request and wait for them to add the feature and ship a new point release -- which means you're stuck with false-positive error highlighting for a good long while. ST2 packages are typically open-source, so can be a lot more agile.</p>
+
+<p>I'm sure IDEA will be pretty awesome for CoffeeScript if JetBrains ever use it to dogfood some real CoffeeScript development of their own, and actually shake out some of the bugs before they ship (and add some actual regression tests, and everything else it would take to make it stable). But until that happens, if you're easily frustrated, then don't use IDEA for CoffeeScript.</p>
+
+<h3>So how about that extensibility?</h3>
+
+<p>I haven't actually done much yet to extend ST2 on my own. The big hurdle here is that, by and large, you extend ST2 by writing TextMate packages, and I haven't been able to find any documentation on how to write a TextMate package, beyond "open TextMate, tell it to create a new package, and use the GUI to specify all the options". Since I don't have a Mac, and since TextMate is Mac-only, that doesn't help me much.</p>
+
+<p>But hey. Even just using extensions other people have written, ST2 is just plain fun to use. I think it's well worth the modest price.</p>

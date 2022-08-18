@@ -1,0 +1,90 @@
+---
+title: "Agile 2006: Agile Estimation Techniques  #Programming  #agile2006  #extreme programming"
+sort: 2352
+---
+<p>Agile Estimation Techniques<br>Owen Rogers<br>Wednesday morning, first half</p>
+<p>Distilling experiences of estimation on agile projects. Specifically estimating stories.</p>
+<ul>
+<li>Mike's session was "fabulous" yesterday.</li>
+<li>Mike has a book, "Agile Estimating and Planning"</li></ul>
+<p>Disclaimers:</p>
+<ul>
+<li>This session contains statistical jargon, charts with curvy lines, and gross generalizations.</li>
+<li>Worked for me. YMMV.</li>
+<li>If this stuff contradicts what you've heard from other people at ThoughtWorks, don't hold it against them.</li></ul>
+<p>Accuracy: How close to target<br>Precision: How big the target is<br>Decrease precision = increase accuracy. Inverse.<br>So, one way to increase accuracy is to go less graunlar.</p>
+<p>Anatomy of an estimate</p>
+<ul>
+<li>What you know</li>
+<li>What you think you know, but don't</li>
+<ul>
+<li>E.g., Integration, customer's intentions</li></ul>
+<li>What you know you don't know.</li>
+<ul>
+<li>E.g., sick time, new technology, changes in requirements.</li></ul>
+<li>What you don't know you don't know</li>
+<li>Estimate what you know, derive what you don't. The first 3 are what you know.</li></ul>
+<ul>
+<li>Pick an "average" story, call it a 3.</li>
+<li>Everyone holds up some number of fingers. 2 = slightly easier than average. 5 = there's sufficient uncertainty that I really can't estimate; we need to split the story.</li>
+<li>Relative, not necessarily linear. If you split a 5 into smaller stories, they won't necessarily be a 3 and a 2.</li>
+<li>Interdependencies? Up to team to decide. If there are interdependencies, make sure they're communicated to the customer.</li>
+<ul>
+<li>Possibility: estimate as if they're not interdependent.</li>
+<li>Possibility: Contingent estimates. If this, then that.</li></ul>
+<li>Estimate size. This includes both time and complexity.</li>
+<li>We're talking about how much work, not how long it would take a particular person to do it.</li></ul>
+<p>Handout: Suggested way to do a planning game.</p>
+<ul>
+<li>Primary goal: produce estimates for a set of work.</li>
+<li>Secondary goal: understand what that work entails.</li>
+<li>Factor out things that don't contribute to those goals, e.g. technical discussions.</li>
+<li>Customer introduces a story.</li>
+<li>Estimators ask business-related questions</li>
+<li>When ready to estimate, hold out fist on top of other flat palm. (Don't bias others with your estimate)</li>
+<li>If everyone picks same number, the estimate stands. Move on to next story.</li>
+<li>If there's disagreement, have a 2-minute time-boxed discussion.</li>
+<li>If we still don't agree, pessimist wins.</li>
+<li>If a story can't be estimated in 10 minutes, drop it from the iteration, and add a spike card focused on splitting the story.</li></ul>
+<ul>
+<li>MeSoLonely: on-line dating service</li>
+<ul>
+<li>As a suitor, I want to register for a new account (username, password, and email address). Estimate: 3.</li>
+<li>As a suitor, I want to change physical details (height, weight, hair color, build, tastes). Our estimate: 3.</li>
+<li>As a suitor, I want to search for a match by physical details. Our estimate: 4.</li>
+<li>As a pharmceutical agent, I want to spam users with ads. Our estimate: 1?</li>
+<li>As a suitor, I want to upload my photo</li>
+<li>As a suitor, I want the system to send an e-mail message to my match</li></ul></ul>
+<p>Easy to get people comfortable producing estimates, even if they don't know much about the system. With only five possibilities, you can't be too far off. You also build coordination skills.</p>
+<p>Can't necessarily compare estimates made far in advance with those made just before you do the work. Different amounts of uncertainty within the project.</p>
+<p>What are story points?</p>
+<ul>
+<li>Uncertainty -&gt; probability distribution. Actually a lognormal distribution (like a normal distribution, but with a long tail).</li>
+<ul>
+<li>Mike's book has an explanation for why it's lognormal.</li>
+<li>Paper by Todd Little: confirmed that it's lognormal. Don't know the paper's title, but it was in last month's IEEE Software.</li></ul>
+<li>Mode (highest point) and mean are different.</li>
+<li>Story points inherently encompass this distribution. Each point value is its own probability distribution; the larger ones have a wider variance, with the mode and mean farther apart.</li>
+<li>4 + 4 != 8 &#8212; Beware of the scaling fallacy. A 4 isn't necessarily 30% larger than a 3. That's why we limit the upper bound to 5 &#8212; so the estimates don't get too large.</li></ul>
+<p>Could drop precision, and say that all stories are the same size. If stories are all about the same order of magnitude, this actually works fairly well.</p>
+<ul>
+<li>The most important estimate is the 5. The others don't matter as much.</li>
+<li>But, wouldn't recommend doing this right off the bat.</li>
+<li>When splitting, do it collaboratively with the customer. That way, they'll learn how to do it.</li></ul>
+<p>Minimizing what you think you know, but don't</p>
+<ul>
+<li>System = overlap between Business Domain and Technical Domain.</li>
+<li>The more we understand about both, the less likely we are to have misunderstandings</li>
+<li>Become a generalizing specialist. Don't just be a DBA.</li>
+<li>Leverage the <a href="http://www.amazon.com/gp/product/0385503865/102-6585604-1339322?v=glance&amp;n=283155">Wisdom of Crowds</a>. Let the testers estimate. Let the customer estimate.</li>
+<ul>
+<li>When the customer estimates, that communicates what they expect the size to be. Can lead to interesting discussions. If the customer thinks it's a 4 and the customer thinks it's a 2, the customer goes away happy. If it's the reverse, maybe the developers don't understand the whole story.</li></ul></ul>
+<p>Who estimates? The more people with different perspectives you can involve, the better your information will be. So by all means, include QA, documentation, support.</p>
+<p>Histograms</p>
+<ul>
+<li>Mostly 3s (i.e., mostly a normal distribution of estimates): Stories fairly well-understood. Lower risk.</li>
+<li>Want to be able to assume the mean, because the mean is what provides you with safety.</li></ul>
+<p>Create a histogram of your release plan. Split stories until you end up with an approximately normal distribution, so you get more safety. Can do this over the course of the release.</p>
+<ul>
+<li>Consistency is more important than accuracy.</li>
+<li>Another argument for splitting: More stories = more consistent velocity.</li></ul>

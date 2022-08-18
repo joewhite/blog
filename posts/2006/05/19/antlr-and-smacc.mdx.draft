@@ -1,0 +1,9 @@
+---
+title: "ANTLR and SmaCC  #.NET  #Delphi  #antlr  #dgrok"
+sort: 2324
+---
+<p><a href="http://www.refactory.com/people/don.html">Don Roberts</a> is consulting for us this week, and I got to talking to him about parsers. I mentioned my <a href="http://blog.excastle.com/2006/04/19/hierarchical-asts-with-antlr/">problems building logical parse trees with ANTLR</a>.</p>
+<p>Turns out I was talking to the right person, because he's one of the maintainers of <a href="http://www.refactory.com/Software/SmaCC/">SmaCC</a>. And SmaCC has built-in support for building parse trees just the way you want them. You can specify that a particular rule should generate a parse-tree node, or not. You can specify the name of the class you want it to generate for that particular rule. You can even name the individual pieces of the parse rule (e.g., leftside, rightside), and those names become the names of methods on the class, which return other nodes.</p>
+<p>SmaCC even generates a base visitor class that you can use to walk the tree. He showed me a simple C-like grammar, and explained how he used multiple visitors: one pass to build the symbol tables, another to do codegen.</p>
+<p>I know very little Smalltalk, which is a big downside in this, since SmaCC (as its name implies) generates Smalltalk code. But that's going to be changing: by the end of this summer, they're going to have it able to create parsers in C#. Sweeeet.</p>
+<p>So I'm about to go download VisualWorks so I can play with the current version of SmaCC. I'm not sure what this means for my current <a href="http://www.excastle.com/dgrok/Grammar.html">Delphi parser</a>. I may go ahead and finish it in ANTLR, since it'll be a few months before SmaCC does C#. Then again, if SmaCC is cool enough, I just might teach myself Smalltalk...</p>

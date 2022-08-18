@@ -1,0 +1,33 @@
+---
+title: "Looking at Delphi game development with Asphyre  #Delphi"
+sort: 2493
+---
+Delphinian <a href="http://blog.excastle.com/2008/01/12/game-programming-in-delphi-a-journey-begins/#comment-5763">pointed out two Delphi game-development SDKs</a> I hadn't known about: <a href="http://www.pyrogine.com/">Pyrogine</a> and <a href="http://www.afterwarp.net/">Asphyre</a>.
+
+I'll ignore Pyrogine, since it's still vaporware at this point â€” nothing available to download. But Asphyre has some possibilities.
+<h3>Editions of Asphyre</h3>
+Asphyre comes in four different flavors, and they don't try very hard to help you figure out which one you should use. As far as I can tell, though, it comes down to this:
+<ul>
+	<li>If you want <strong>bleeding-edge 3D effects</strong>, use Asphyre 4.1. It's not yet release-quality (all they have are snapshots) and it always requires the latest and greatest version of DirectX.</li>
+	<li>If you want something <strong>more stable</strong>, and don't mind requiring DirectX 9, use Asphyre eXtreme. It's billed as their "most stable" version.</li>
+	<li>If you <strong>don't want to require DirectX 9</strong>, use Asphyre Casual or Asphyre 1.5.2. Asphyre Casual is not yet release-quality (all they have are snapshots). Asphyre 1.5.2 is an older version and is no longer in active development. Take your pick.</li>
+</ul>
+Asphyre eXtreme looks like it's probably the preferred choice for most applications.
+<h3>Asphyre license</h3>
+Asphyre is open-source, released under the <a href="http://www.mozilla.org/MPL/">MPL</a>.
+
+This makes it a much better choice than (un)DelphiX, which has a <a href="http://blog.excastle.com/2008/01/12/game-programming-in-delphi-a-journey-begins/">license agreement saying it's illegal</a>. So I'll definitely be looking at using Asphyre going forward.
+<h3>Concerns</h3>
+The big downside I see so far is that Asphyre clearly wasn't written by experienced Delphi developers.
+<ul>
+	<li>They don't throw exceptions. They don't even return numeric error codes. Everything is Boolean result codes: "it worked" or "it didn't work". With a rich exception system just waiting to be used, it's pretty inconsiderate for them to give such crappy feedback, especially with something like DirectX where poor drivers can make so many things go wrong.</li>
+	<li>They don't seem to have heard of try..finally. As a rule, they don't do any resource protection. (This may be because of the previous point, but it's still pretty sloppy coding style.)</li>
+	<li>They seem to like using global variables to hold non-global state. To take one specific example, the "Basic" sample project, in the Asphyre Casual package, stores form state in a unit full of global variables. Shouldn't form state be on the form?</li>
+</ul>
+Less damning, but just as interesting, is the way they don't follow common Delphi coding standards. They indent blocks by one space instead of the usual two. They clutter their code with empty parentheses after method calls and declarations. They don't prefix field names with <code>F</code>. They don't use <code>FreeAndNil</code>. In short, they don't seem to have spent any time looking at Delphi code.
+
+But...
+
+<img src="http://blog.excastle.com/wp-content/uploads/2008/02/asphyreshooter.jpg" alt="Screenshot of the â€œShooterâ€ example, from the sprite engine add-on for Asphyre eXtreme" title="Screenshot of the â€œShooterâ€ example, from the sprite engine add-on for Asphyre eXtreme" />
+
+they certainly can do graphics.

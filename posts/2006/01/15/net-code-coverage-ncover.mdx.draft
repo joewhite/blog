@@ -1,0 +1,23 @@
+---
+title: ".NET code coverage: NCover  #.NET  #extreme programming"
+sort: 2259
+---
+I spent some time today looking at .NET code-coverage tools. (We already know that <a href="http://blog.excastle.com/2006/01/14/visual-studio-2005-still-wondering-where-the-unit-testing-tools-are/">Microsoft's code-coverage tools are a waste of time</a>.) Here's what I dug up.
+
+There are two open-source projects called NCover, and they have nothing to do with each other. One is hosted on SourceForge, the other at NCover.org.
+
+<a href="http://ncover.sourceforge.net/">ncover.sourceforge.net</a> apparently works by instrumenting your source files. You have to run ncover-console on your source code; then you add NCover.dll to your project references, and recompile; then you run your unit tests; then you run nrecover to remove all the extra instrumentation code and put your source code back to its original state. Its <a href="http://ncover.sourceforge.net/sample-output/NCover-report.html">output</a> appears to be HTML-based, and looks decently readable, though fraught with typos.
+
+<a href="http://ncover.org/">ncover.org</a> (which I think is the one that used to be on GotDotNet) works by using the .NET profiling API. You don't have to modify your code; you just point NCover at your compiled assemblies (you also need PDBs for any assemblies you want it to instrument), and it does some profiling voodoo to instrument your code as it runs. Its output is XML, so it wouldn't be too hard to write other tools that read it back in, and it comes with an XSL stylesheet that <a href="http://www.excastle.com/misc/Coverage.xml">makes the output all pretty and collapsible</a> (alas, the prettiness is only pretty in Internet Explorer, but it's still kinda nifty).
+
+I prefer having a tool that uses the profiling API, instead of modifying my source code, so I downloaded the NCover from ncover.org. It has an installer, but it doesn't create any Start Menu icons; it just drops files into Program Files\NCover, and you have to specify the path when you run it. The only thing you need to watch out for is that you need two slashes on the command-line arguments to NCover itself (anything without two slashes is passed through as a command-line parameter to the app being profiled).
+
+I didn't have any unit tests set up yet (well, I did, but they <a href="http://blog.excastle.com/2006/01/14/visual-studio-2005-still-wondering-where-the-unit-testing-tools-are/">weren't usable</a>), so I just ran NCover on my main executable:
+
+<pre>"\program files\ncover\ncover.console" //a Budgeter.Classes Budgeter\bin\debug\budgeter.exe</pre>
+
+It printed some debug output in the console window, and then my app started up. I clicked a few things, closed the app, and NCover generated its report (this is <a href="http://www.excastle.com/misc/Coverage.xml">the NCover output</a> from my little spare-time app).
+
+It's that simple: you run it, and it just works. And it generates useful output, and it isn't nailed to the IDE. My kind of tool. Score yet another point for open-source.
+
+Next up: figuring out which unit-testing framework to use...

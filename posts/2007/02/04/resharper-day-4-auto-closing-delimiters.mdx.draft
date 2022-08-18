@@ -1,0 +1,60 @@
+---
+title: "ReSharper, day 4: Auto closing delimiters  #.NET  #resharper"
+sort: 2300
+---
+<p>Welcome to day 4 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>Here's a feature you'll notice as soon as you start typing: when you type an opening delimiter, ReSharper will type the closing one for you.</p>
+
+<p>It's a simple feature, but not a simple one to do well, and except for a bug that they introduced in 2.5 (and then fixed in 2.5.1), they do it well. Very seldom does it do the Wrong Thing.</p>
+
+<p>This works for the following delimiters: <code>{</code>, <code>(</code>, <code>[</code>, <code>"</code>, and <code>'</code>. It doesn't autocomplete generic syntax, though: <code>&lt;</code> is not on the list.</p>
+
+<p>Here's a sample of it at work.</p>
+
+<blockquote>
+<table cellspacing="8" cellpadding="0" border="0">
+<tr valign="top">
+<td>Starting out with an empty statement.</td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters1.png" width="210" height="16"></td>
+</tr><tr valign="top">
+<td>You type a method name...</td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters2.png" width="210" height="16"></td>
+</tr><tr valign="top">
+<td>and type "(".</td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters3.png" width="210" height="16"></td>
+</tr><tr valign="top">
+<td>You type a subexpression...</td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters4.png" width="210" height="16"></td>
+</tr><tr valign="top">
+<td>and type "(".</td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters5.png" width="210" height="16"></td>
+</tr><tr valign="top">
+<td>Oops. You meant "[", not "(". Backspace...</td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters4.png" width="210" height="16"></td>
+</tr><tr valign="top">
+<td>and type "[".</td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters6.png" width="210" height="16"></td>
+</tr><tr valign="top">
+<td>Once you've typed the parameter...</td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters7.png" width="210" height="16"></td>
+</tr><tr valign="top">
+<td>you type "]"...</td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters8.png" width="210" height="16"></td>
+</tr><tr valign="top">
+<td>then you type ")"...</td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters9.png" width="210" height="16"></td>
+</tr><tr valign="top">
+<td>and then you type ";".</td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters10.png" width="210" height="16"></td>
+</tr>
+</table>
+</blockquote>
+
+<p>They do the things right that need doing right: when you backspace over an opening delimiter, they remove the closing delimiter (assuming you didn't type anything inside the parens yet); and when your cursor is before the closing delimiter and you type the closing delimiter, you don't end up with two. This also applies to semicolons; when the cursor is before a semicolon, you can type a semicolon, and you won't get two. You can just type normally, without having to hit the right arrow all the time.</p>
+
+<p>They're even smart enough to make it work inside arbitrary nesting: if you type the opening delimiter and the closing delimiter is already there, they don't add it. There's got to be some guesswork involved at some point, but I don't remember it being wrong enough to notice.</p>
+
+<p>Note: When you type <code>{</code>, you automatically get the matching <code>}</code> &mdash; meaning, if your intent is to put braces <i>around</i> a block of code, the matching delimiter gets in your way. Instead, you can use Surround With to add the braces around the current selection. The shortcut for adding braces is <b>Ctrl+Alt+J 8</b>. (Ctrl+Alt+J pops up a menu, so you don't need to memorize the "8" part.)</p>
+
+<p>(Update: Ilya, one of the ReSharper developers, notes that you can <a href="http://blog.excastle.com/2007/02/04/resharper-day-4-auto-closing-delimiters/#comment-5544">have ReSharper add the closing brace when you hit Enter</a>, instead of right away, which would make it easier to simply type braces around a block of existing code. Thanks, Ilya!)</p>

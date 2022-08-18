@@ -1,0 +1,29 @@
+---
+title: "Opening keynote  #Delphi  #borcon2005"
+sort: 2221
+---
+<p>A few high points from the opening keynote:</p>
+<ul>
+<li>Borland's SDO (Software Delivery Optimization) is all about adding visibility, control, and predictability to the software development process. Interesting. That's the same things that Extreme Programming tries to do.</li>
+<li>New product in the works: codename Maya. Business &amp; IT alignment, requirements engineering. Elicit and validate requirements. Sounds pretty interesting.</li>
+<li>Software drives the entire economy, so software projects <em>have</em> to succeed.</li>
+<li>AQTime will integrate into the Delphi 2006 IDE.</li>
+<li>JBuilder 2006 has peer-to-peer team collaboration features.</li>
+<ul>
+<li>Share a project with someone else, they can look at the files you have on your screen.</li>
+<li>Only one person (the one with the "token") can edit at a time.</li>
+<li>Clients can put themselves in "Follow mode": as the guy with the token scrolls through the code, highlights text, etc., they scroll along.</li>
+<li>The person who owns the token can revoke it.</li>
+<li>Send a stack trace to the other machine</li>
+<li>Looks really sweet. When's Delphi going to get this?</li></ul>
+<li>VCL Live Guidelines (snap to)</li>
+<li>Live Templates (Allen did some really sweet demos that I'll post later)</li>
+<li>Block Completion (type "begin", it adds the "end" for you... smart about things like if statements)</li>
+<li>New refactorings (Push / Pull members, a few others; they flipped by the slide too fast)</li>
+<li>FastCode MM, in the IDE and in compiled apps. Faster startup times, more responsive IDE.</li>
+<li>ECO "Basics" will be included in all editions of Delphi</li>
+<li>ECO State Machines (will these be in Pro, or just Enterprise?)</li>
+<li>ECO AutoForms will autogenerate a rudimentary GUI for your objects</li>
+<li>They'll be Unicode-enabling everything in Delphi in a phased rollout over the next few years, starting with database.</li>
+<li>Together adds LiveSource class diagramming, UML diagram suite, patterns, audits &amp; metrics, documentation generation</li></ul>
+<p>I'll post more later. Allen's session is starting.</p>

@@ -1,0 +1,32 @@
+---
+title: "Running all the unit tests from Visual Studio  #.NET  #extreme programming"
+sort: 2325
+---
+A while ago, I blogged about my frustration with <a href="http://blog.excastle.com/2006/01/14/visual-studio-2005-still-wondering-where-the-unit-testing-tools-are/">trying to run all the unit tests in Visual Studio</a>. Well, here's how you can do it. Not only can you run all the tests in your entire solution, you can do it with a single keystroke. (Which is handy, since it's the sort of thing you do all day long.)
+
+First, download and install <a href="http://www.testdriven.net/">TestDriven.NET</a>. Go do it now. This thing kicks ass. You can right-click on the solution, or on a project, or even inside a method in the code editor, and say "Run Test". It works flawlessly with NUnit test projects, and I'm told (though I haven't bothered to try it) that it works equally well with Microsoft's testing framework. You can even right-click inside a parameterless method that has nothing to do with any test framework, and select "Run in debugger". I mean, how cool is that?
+
+Okay, moving on: we want an easy way to run all the tests. How you do that depends on which edition of Visual Studio you have.
+
+<strong>If you have full-fledged Visual Studio (not Express)</strong>
+
+Next, you write a macro. Open the Macros IDE (Tools &gt; Macros &gt; Macros IDE). Double-click on MyMacros, then Module1, and type the following macro into the editor between "Public Module Module1" and "End Module". (Yes, it's VB. The sadists who write the Macros IDE won't let you use anything else.)
+<pre>Sub RunAllTests()
+    DTE.Windows.Item(Constants.vsWindowKindOutput).Activate()
+    DTE.Windows.Item(Constants.vsWindowKindSolutionExplorer).Activate()
+    Dim SolutionName As String
+    SolutionName = System.IO.Path.GetFileNameWithoutExtension( _
+        DTE.Solution.FullName)
+    DTE.ActiveWindow.Object.GetItem(SolutionName).Select( _
+        vsUISelectionType.vsUISelectionTypeSelect)
+    DTE.ExecuteCommand("TestDriven.NET.Client")
+End Sub</pre>
+Then just close the Macros IDE, and the macro will be automatically saved. When that's done, you can go into Tools &gt; Options &gt; Environment &gt; Keyboard and bind a keystroke (I use Ctrl+Shift+T) to Macros.MyMacros.Module1.RunAllTests.
+
+<strong>If you have Express</strong>
+
+
+
+Visual C# Express doesn't seem to have a Macros IDE, so you can't run all your tests with a single keystroke. The next best thing is to run the NUnit GUI. (TestDriven.NET installs NUnit to C:\Program Files\TestDriven.NET 2.0\NUnit. You'll want to run nunit-gui.exe.) Then you can build in Visual Studio, and Alt+Tab to NUnit and hit Alt+R to run your tests.
+
+(Another option would be to write a Visual Studio add-in that really does let you run all the tests with a single keystroke, since add-ins do work in Express. If anyone does this, or finds an easier way to run all the unit tests in Express, let me know!)

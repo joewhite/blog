@@ -1,0 +1,86 @@
+---
+title: "Using Together in Delphi  #Delphi  #borcon2005"
+sort: 2227
+---
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Using Together in <?xml:namespace prefix = st1 ns = "urn:schemas-microsoft-com:office:smarttags" /><st1:place>Delphi</st1:place> (<a href="http://blogs.borland.com/johnk/">John Kaster</a>)</p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><o:p></o:p>&nbsp;</p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Together for <st1:place>Delphi</st1:place> (both Win32 and .NET) and C#</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">New LiveSource class diagramming (two-way modeling)</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">New UML diagram suite &#8211; you could use this just as a diagramming tool</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Class, Use Case, Sequence, Collaboration, State Charts, Deployment, Activity, and Component Diagrams</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Design Patterns</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Get started quickly with industry recognized GoF (Gang of Four) design patterns, or add your own (e.g., shopping cart)</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Refactorings</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Audits and Metrics &#8211; static code analysis</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Document generation (generate documentation)</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Together &#8211; Diagramming Types</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Class Diagram (used by ECO)</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Collaboration Diagram (shows how pieces talk to each other)</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Use Case Diagram (avoids talking about terminology that will confuse non-programmers)</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Activity Diagram</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Component Diagram</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Deployment Diagram</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">State-chart Diagram</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Sequence Diagram</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Design Patterns</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Powerful Reuse Capabilities</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Defined in Pattern Registry</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Managed via Pattern Organizer</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Supports C#, <st1:place>Delphi</st1:place>, Design Projects</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Create/Edit Patterns</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">XML File Defines Model and Link Information</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Audits</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Source code conformity rules</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Violations displayed</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">From Design Issues to Naming Conventions</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Descriptions &amp; How to Fix</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Metrics</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Evaluate Object Complexity</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Quantify your code</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Highlight Redesign Needs</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Change Impact Analysis</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Documentation Generation</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">UML Documentation Wizard</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">HTML Generation</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Refactorings</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Safe Delete</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Changing Parameter</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Creating Inline Variables</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Extracting</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Interface</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Method</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Superclass</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Introducing</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Fields</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Variables</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Moving Members</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Pull Members Up</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Push Members Down</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">If you use the Rename refactoring to rename a VCL control, it will change the Name property inside the DFM, and will also rename Button1Click methods.</p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>&nbsp;</o:p></p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Audits &amp; Metrics: can save profiles for which rules you have enabled and disabled; can specify per rule whether it's considered a warning or an error. Actually goes after your code, not the UML.</p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>&nbsp;</o:p></p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Q: Can we run audits from the command line, e.g., as part of an automated build? A: Don't know offhand (the Together team is in <st1:City><st1:place>St. Petersburg</st1:place></st1:City>, so he doesn't talk to them quite as often as the <st1:place>Delphi</st1:place> team). I'll e-mail him and ask.</p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>&nbsp;</o:p></p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Q: Is there a way to disable an audit for a particular block of code (e.g., the way you can disable a particular compiler hint for a block of code)? A: Don't know offhand; have to e-mail him.</p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>&nbsp;</o:p></p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Together diagramming:</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">"Generalize" = drag from one class to another; makes the source descend from the target</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">If you change the code, the diagram doesn't refresh right away &#8211; looks like LiveSource isn't really live</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Documentation generation: same thing as JavaDoc or NDoc, using /// comments in your code. But includes a UML diagram with an imagemap, so you can click on a method name in the UML diagram to jump to its documentation.</p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>&nbsp;</o:p></p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Ten-second feature-matrix summary (not published yet, but this is supposed to be the final version and it'll be up "any day now"): Language-neutral UML is only in Architect. Most diagrams are only in <st1:City><st1:place>Enterprise</st1:place></st1:City>, as are doc generation and audits&amp;metrics. All Professional can do is create and print class diagrams.</p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">&nbsp;</p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">I'm still not particularly clear on when, or how, I would use Together in a Delphi app...</p>

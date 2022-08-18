@@ -1,0 +1,19 @@
+---
+title: "Saving macros for later  #Delphi  #macros"
+sort: 2512
+---
+Several people clued me in on a couple of ways to save macros for later. I haven't had a chance to try either one yet (so someone correct me if I say something wrong about either), but they both sound great -- and both are open-source.
+
+(I'm really curious how they do it... I should look at their code sometime.)
+
+<h3>GExperts Macro Library</h3>
+
+<a href="http://www.gexperts.org/">GExperts</a> includes a dockable Macro Library window. It lets you have multiple macros, lets you assign names and descriptions to them, and automatically saves them when you close the IDE.
+
+I'm not sure where it saves them, though. This would be terrific if we could save them in revision control somehow -- otherwise, with eight development machines, the macro I want would inevitably be on one of the other computers.
+
+<h3>Keyboard macro manager on CodeCentral</h3>
+
+<a href="http://tondrej.blogspot.com/">TOndrej</a> wrote a <a href="http://cc.borland.com/Item/19145">keyboard macro manager</a> that you can compile into a design-time package and register in the IDE.
+
+This one definitely can save the macros to a file, so could probably be used to share macros between computers.

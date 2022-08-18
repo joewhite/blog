@@ -1,0 +1,32 @@
+---
+title: "Installing Subversion 1.4 as a Windows service  #.NET  #Delphi  #extreme programming"
+sort: 2485
+---
+<p>I just upgraded the command-line Subversion on my home laptop. The way you install Subversion as a service has changed since I wrote the <a href="http://blog.excastle.com/2005/05/31/mere-moments-guide-to-installing-a-subversion-server-on-windows/">Mere-Moments Guide to installing a Subversion server on Windows</a>, so it's time for me to blog the details (so I can find them if I need them again).</p>
+
+<h4>If you had an older SVN service</h4>
+
+<p>First, if you used to have Subversion pre-1.4 running as a service (either via the <a href="http://svn1clicksetup.tigris.org/">SVN 1-Click Setup installer</a>, or by following the steps in the <a href="http://blog.excastle.com/2005/05/31/mere-moments-guide-to-installing-a-subversion-server-on-windows/">Mere-Moments Guide</a>), you'll need to uninstall it:</p>
+
+<ul>
+<li>Open a command prompt.</li>
+<li>Change into your Subversion bin directory (probably C:\Program Files\Subversion\bin).</li>
+<li>Type <code>svnservice -remove</code></li>
+<li>It should report that it's stopping (may take a while) and uninstalling the service.</li>
+<li>Delete <code>svnservice.exe</code>.</li>
+<li>Uninstall your old version of Subversion (may not be necessary, but I did).</li>
+</ul>
+
+<h4>Installing the new Subversion service</h4>
+
+<p>Starting with Subversion 1.4, there's built-in support for running as a Windows service &mdash; but not for actually <i>creating</i> a Windows service.</p>
+
+<p>I recommend downloading the Subversion installer directly from the <a href="http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91">Subversion downloads</a> page on tigris.</p>
+
+<p>Then, go read <a href="http://subversion.open.collab.net/articles/svnserve-service.htm">Configuring svnserve to Run as a Windows Service</a>.</p>
+
+<h4>If you have Windows 2000</h4>
+
+<p>The above instructions should work on Windows XP and later. But if you have Windows 2000, you need to download <code>sc.exe</code> from Microsoft's Resource Kit.</p>
+
+<p>I did the research so you don't have to. Here's Microsoft's download for <a href="ftp://ftp.microsoft.com/reskit/win2000/sc.zip">sc.exe for Windows 2000</a>.</p>

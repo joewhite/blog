@@ -1,0 +1,15 @@
+---
+title: "Delphi IDE tricks: Return to previous editor tab  #Delphi  #ctrl+tab"
+sort: 2519
+---
+In Delphi, Ctrl+Tab moves forward to the next editor tab. In Visual Studio, Ctrl+Tab is more like Alt+Tab, moving to the tab you were most recently using.
+
+It looks like Delphi actually supports something similar to the Visual Studio behavior -- just with a different keystroke. If you press <b>Ctrl+B</b>, Delphi pops up the list of files currently open in the editor, sorted by "most recently focused first" -- and when the dialog opens, the second item in the list is selected.
+
+<img src="http://blog.excastle.com/wp-content/uploads/2008/04/delphibufferlist.png" alt="Delphi's &quot;Buffer List&quot; window" title="Delphi's &quot;Buffer List&quot; window" width="415" height="251">
+
+In the screenshot, my current editor tab is SpriteSpecs.pas. Before that, I was working in Screens.pas, and before that, I had done a Project > View Source to edit Tyler.dpr. That's not the order the tabs are listed above the editor -- Ctrl+B shows them in the order I used them last, just like the Alt+Tab window list or Visual Studio's Ctrl+Tab list. And notice that, when the dialog opens, the second item is selected by default.
+
+So the equivalent of Visual Studio's Ctrl+Tab would be <b>Ctrl+B, Enter</b>. The equivalent of holding Ctrl down and pressing Tab twice in Visual Studio would be <b>Ctrl+B, Down arrow, Enter</b>. Not bad. Not bad at all.
+
+The only downside is, Ctrl+B only works when the focus is on the editor window. If the focus is in a docked window, MS Visual Studio is nice enough to let you Ctrl+Tab back to the editor. Delphi isn't so thoughtful; there doesn't appear to be <i>any</i> reliable way to use the keyboard to get the focus from a docked window back to the editor. (If the current editor tab is a form or frame, you can hit F12 once or twice. Otherwise, reach for that mouse.)

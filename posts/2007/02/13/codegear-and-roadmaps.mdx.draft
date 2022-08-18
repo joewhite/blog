@@ -1,0 +1,13 @@
+---
+title: "CodeGear and roadmaps  #.NET  #Delphi"
+sort: 2394
+---
+<p>We've been looking forward to Delphi Highlander &mdash; a Delphi for .NET 2.0 &mdash; since <a href="http://blog.excastle.com/2004/09/13/dannys-whats-new-in-the-diamondback-compiler-session/#dotnet20">before it had a name</a>. You <i>can</i> compile to .NET 2.0 with Delphi 2006 (and we do), but the IDE actively gets in your way, and you can't use generics, which are the whole point of .NET 2.0 in the first place.</p>
+
+<p>CodeGear's "<a href="http://dn.codegear.com/article/33383">Borland [sic] Delphi Roadmap</a>" <i>still</i> says that Highlander will [sic] be released in 2006. Way to keep your roadmap current, guys.</p>
+
+<p>But the <a href="http://blog.marcocantu.com/blog/spacely_screen_shot.html">latest news</a> is that the next release of Delphi will be strictly Win32. Apparently the next couple of releases <a href="http://groups.google.com/group/borland.public.delphi.non-technical/msg/379d36029fc42e74">won't even <i>have</i> a .NET compiler</a>.</p>
+
+<p>And here I was hoping that they would actually ship what they've been promising us for over a year.</p>
+
+<p>Silly me.</p>

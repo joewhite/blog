@@ -1,0 +1,24 @@
+---
+title: "New project: DUnitAssertions  #Delphi  #dunitlite"
+sort: 2418
+---
+<p>With the cats all in the hospital, I've been looking for something to keep me busy, so I don't spend all my time worrying. So it's been a good time to work on one of my latest projects: <b>DUnitAssertions.</b> The goal is to make <a href="http://blog.excastle.com/2007/03/25/nunitlite-embedded-readable-tests/">NUnitLite-style assertions</a> available in Delphi and DUnit.</p>
+
+<p>This was an interesting problem from the beginning, because several of the names used in NUnitLite aren't available in Delphi. Here's what a typical NUnitLite assertion might look like:</p>
+
+<blockquote><code>Assert.That(2 + 2, Is.EqualTo(4));</code></blockquote>
+
+<p>They've got a class called <code>Assert</code> with static methods, and another class called <code>Is</code> with static methods. Neither of those is going to fly in Delphi, because <code>Assert</code> is a semi-magic method, and <code>is</code> is a flat-out keyword. (This is one of those cases where using a case-insensitive language is a major pain!)</p>
+
+<p>So I'm changing the syntax to look like one or the other of these:</p>
+
+<blockquote><pre>Expect.That(2 + 2, Tis.EqualTo(4));
+Expect.That(2 + 2, Be.EqualTo(4));</pre></blockquote>
+
+<p>I was originally going to use the second line, 'cause it sounds all <a href="http://www.talklikeapirateday.com/">pirate-y</a> (though obviously it could use an "Arr!" somewhere). But then <a href="http://blog.briankohrs.com/">Brian</a> suggested "Tis", pointing out that putting a "T" on the beginning of "Is" is more the Delphi way. And it sounds kind of poetic. <i>Two plus two, 'tis four.</i> Classy, no?</p>
+
+<p>Interestingly enough, the following is perfectly valid Delphi syntax, even though <code>not</code> is very much a keyword:</p>
+
+<blockquote><code>Expect.That(2 + 2, Tis.Not.EqualTo(5));</code></blockquote>
+
+<p>I think this became possible in Delphi 8, when they tweaked the naming rules for .NET support. If it's after a dot, they can safely consider it to be an identifier instead of a keyword.</p>

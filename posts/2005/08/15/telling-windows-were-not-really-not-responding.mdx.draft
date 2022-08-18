@@ -1,0 +1,52 @@
+---
+title: "Telling Windows we're not really \"Not Responding"  #Delphi"
+sort: 2201
+---
+Our app does a lot of data processing, and sometimes it goes for long enough that Task Manager will show the app as "Not Responding". Our users tend to assume that "Not Responding" means the app is locked up and not coming back, so they'll hit "End Task", which frequently ends up leaving corrupted files and other such badness in its wake.
+
+Last iteration, I suggested, and got approval for, a one-hour spike to see what we could do about this. I had a suspicion that there was an easy fix. Not a total fix, mind you, but a significant improvement. And so it was.
+
+According to MSDN (in the docs for <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/winui/winui/windowsuserinterface/windowing/windows/windowreference/windowfunctions/ishungappwindow.asp">IsHungAppWindow</a>), Windows considers an application to be "hung" if it goes for more than five seconds without reading anything from its Windows message queue. The idea is to detect apps that are "locked up" from the user's point of view: not redrawing when they should, not able to be resized or minimized, etc.
+
+There are two main approaches to fix this the "right" way:
+<ul>
+	<li>The simple fix is to call Application.ProcessMessages every now and then, to read the next message from the Windows message queue, and process it appropriately.</li>
+	<li>The better fix is to go multithreaded: do all the lengthy processing in a second thread, leaving the main thread free to process whatever messages come its way.</li>
+</ul>
+
+
+
+But we can't really use either of these. The biggest reason is global variables. Our app predates a lot of the current best-practice recommendations, and as a result, it has way too many globals (among other things), which right away rules out multithreading â€” you can't do multiple threads unless you rigidly control who can access any global data. And our global data isn't grouped into objects as well as it might be, so there are places where our app could crash if we handled a paint message at an unexpected time (after we had changed one data structure, but before we had synchronized those changes with another object). For safety's sake, we had to rule out both of those "right way" fixes.
+
+What's left? Well, cheating. There's a clue in that IsHungAppWindow documentation: a window is considered hung if it doesn't call PeekMessage for five seconds. So, we just have to call it more often than that, while avoiding the pitfalls of ProcessMessages. PeekMessage is capable of a non-destructive read, and there's nothing that says the app actually has to <em>do</em> anything with the messages it reads. So this code, if executed more often than once per five seconds, would be enough to suppress the "Not Responding":
+
+<pre>var
+  Msg: TMsg;
+begin
+  PeekMessage(Msg, 0, 0, 0, PM_NOREMOVE);</pre>
+
+This will <em>not</em> cause the app to paint, or to be resizable, or minimizable, or anything like that. The user still sees the app as frozen. The only benefit is that Task Manager will still list the app as "Running", so the user is less likely to kill it. But for us, that was an improvement worthy of an hour's time investment.
+
+The downside to this code is that PeekMessage is on the slow side. Running it 100,000 times in a loop took about half a second. I wanted something that took close enough to zero time that I could call it just about everywhere, including tight calculation loops or anywhere else. So I added some code to call GetTickCount, which has a granularity of about 15 milliseconds. Calling PeekMessage every 15 ms should be <em>plenty</em> good enough.
+
+<pre>var
+  LastPeekMessageTime: Cardinal = 0;
+
+procedure TellWindowsWeArentFrozen;
+var
+  Msg: TMsg;
+begin
+  if GetTickCount &lt;&gt; LastPeekMessageTime then
+  begin
+    PeekMessage(Msg, 0, 0, 0, PM_NOREMOVE);
+    LastPeekMessageTime := GetTickCount;
+  end;
+end;</pre>
+
+Much faster: it takes 15,000,000 calls to this code before it takes half a second, 150 times faster than calling PeekMessage every time.
+
+The remaining work involved calling this procedure frequently during long-running operations. It takes a lot of time to figure out <em>every</em> spot where that would need to be done, but to do it in <em>most</em> spots was no big trick. We already had our own set of wrapper classes around all of our data-access code, and the slowest parts of our program are usually slow because they're accessing a lot of data. So I plugged in calls to TellWindowsWeArentFrozen in strategic spots in our database wrapper classes: in Open, First, Next, Prior, Delete, Post, ExecSql, etc. Boom, the majority of slow spots in our code no longer report the app as "Not Responding". And it only took an hour, including research and optimization.
+
+Not everything is fixed, of course. We have some UPDATE and DELETE queries that take more than five seconds. We have some slow file-access code. We have some slow in-memory calculation code that doesn't touch the database. But in one hour of work, we made a heck of a lot of progress. And it narrowed the field: the testers are already writing up story cards for the specific parts of the program that still give "Not Responding".
+
+All in all, not bad for an hour's work.

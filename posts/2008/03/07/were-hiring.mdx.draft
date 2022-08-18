@@ -1,0 +1,23 @@
+---
+title: "We're hiring  #.NET  #Delphi  #automated testing  #extreme programming  #jobs"
+sort: 2504
+---
+We're <a href="http://jobs.excastle.com/1165/listing.aspx?JobId=1001177">looking for a good programmer</a>, to join our agile team in Omaha, work with great people in our awesome bullpen, and play with our <a href="http://blog.excastle.com/2006/02/08/new-bullpen-with-pictures/">acres of magnetic whiteboard</a>.
+
+(This job is already posted on the "Jobs" sidebar, but since I have a vested interest in this one -- i.e., I'd be working with you -- I figured I'd call it out a little more.)
+
+Delphi and/or C# experience would help, but we're really just interested in someone who's a good programmer. If you can write solid, maintainable OO code, we'd like to hear from you. If you, furthermore, live and breathe refactoring, grok single-responsibility principle in fullness, have a keen nose for code smells (and test smells), and can't imagine writing code without automated tests, we'd absolutely <i>love</i> to hear from you.
+
+A few highlights:
+
+<ul>
+<li>You'd be working in our open <a href="http://blog.excastle.com/2006/02/08/new-bullpen-with-pictures/">bullpen</a> (those pictures are a bit dated -- we have flat-panel LCDs now). Just about the whole team works in the bullpen, so if you have a question -- whether for another programmer, QA, or one of the customers -- you can usually just lean back and yell.</li>
+<li>Dual monitors on every development workstation.</li>
+<li>Fast PCs (4 GB battery-backed <a href="http://blog.excastle.com/2007/07/19/delphi-with-a-ram-disk-whee/">RAMdisks</a>, anyone?).</li>
+<li><a href="http://subversion.tigris.org/">Subversion</a> for revision control. Atomic commits kick ass.</li>
+<li>Management has a clue (programmers help make the release plan, rather than being held to an unrealistic plan made by a non-programmer).</li>
+<li>Development is done via pair programming (two programmers at one keyboard), so there's always someone to brainstorm with, knowledge spreads quickly, and code reviews aren't after-the-fact.</li>
+<li>Between QA, and our four automated-build machines running over 10,000 tests every time code is committed, feedback is usually pretty quick -- it's rare for a bug to go unnoticed for more than a few days or, more typically, a few minutes, so you don't have to re-familiarize yourself with the code again.</li>
+</ul>
+
+The <a href="http://jobs.excastle.com/1165/listing.aspx?JobId=1001177">job posting</a> goes into a fair bit of detail about the position, and about our team. If you have further questions about the job, feel free to post 'em here, and I'll answer what I can. If you want to apply, see the links at the bottom of the <a href="http://jobs.excastle.com/1165/listing.aspx?JobId=1001177">job post</a>.

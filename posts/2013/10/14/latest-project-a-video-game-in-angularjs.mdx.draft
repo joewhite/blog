@@ -1,0 +1,41 @@
+---
+title: "Latest project: a video game in AngularJS  #Programming  #angular  #angular-game  #ng-rpg"
+sort: 3796
+---
+<p>I've been playing with <a href="http://angularjs.org/">AngularJS</a> ("Superheroic JavaScript <acronym title="Model-View-Whatever">MVW</acronym> Framework") for a while. And, as is my wont, I'm trying to learn it by writing a video game with it.</p>
+
+<p>Here's an introduction to what I'm doing. I'll go into more details in the near future.</p>
+
+<h3>The video game</h3>
+
+<p>I've been writing and re-writing the same video game for probably at least ten years now, sometimes in Delphi (with or without DirectX), sometimes in WinForms or XNA or XAML, now in HTML5/JavaScript. (It's a spare-time project, which means I don't do it to finish something; I do it to learn something.)</p>
+
+<p>The game I'm trying to write is a 2D console RPG, in the vein of the early Final Fantasy games. I haven't decided whether I'll target a Web browser, or a Windows Store app; possibly both. Gameplay will be much like Final Fantasy if it were written with a touchscreen in mind. Artwork will come largely from <a href="http://opengameart.org/">OpenGameArt</a>, especially the <a href="http://lpc.opengameart.org/">Liberated Pixel Cup</a>-style artwork (including <a href="http://opengameart.org/users/joe-white">some of my own</a>) and the <a href="https://github.com/makrohn/Universal-LPC-spritesheet">Universal LPC Spritesheet</a>.</p>
+
+<p>And yes, I'm going to try to do this using Angular. Hey, you don't really know a tool until you've tested its limits, right?</p>
+
+<h3>A brief introduction to Angular</h3>
+
+<p>Some JavaScript frameworks, like <a href="http://jquery.com/">jQuery</a> and <a href="http://handlebarsjs.com/">Handlebars</a> and <a href="http://knockoutjs.com/">Knockout</a>, try to solve one small problem and solve it well. Angular, on the other hand, tries to do it all -- everything from templating to two-way databinding to extending HTML to dependency injection to testing. And it does it all with relatively few mechanisms -- you've got services for shared code, directives for manipulating the DOM, and controllers/scopes, and that's about it.</p>
+
+<p>One nice perk is that Angular uses <a href="http://pivotal.github.io/jasmine/">Jasmine</a> for testing, which means you get those <a href="https://github.com/pivotal/jasmine/wiki/Suites-and-specs#nested-describes">beautiful nested describes</a>. God, I wish I could do that in .NET for my day job.</p>
+
+<p>Angular has a fairly steep learning curve, so I'm not going to cover the mechanics here. The Angular web site has good documentation, including a <a href="http://docs.angularjs.org/tutorial">tutorial</a>. There's also some good stuff on YouTube, and I picked up a copy of <a href="http://www.packtpub.com/angularjs-web-application-development/book">"Mastering Web Application Development with AngularJS"</a>, which is pretty decent.</p>
+
+<h3>angular-seed</h3>
+
+<p>The <a href="https://github.com/angular/angular-seed">angular-seed</a> project looks like it's probably the best starting point for writing a generic Angular app. Sure, you could start from zero and reference Angular via CDN, but angular-seed gives you a few niceties like a local Web server (<code>node scripts/web-server.js</code>), and it comes pre-configured for you to be able to run your tests (<code>scripts\test.bat</code>) -- in watch mode, yet, so they automatically re-run whenever you save one of your source files. Pretty nice.</p>
+
+<p>(There are other starting-point projects out there too, so if you want something with <a href="http://getbootstrap.com/">Bootstrap</a> already baked in, or a Node.js/<a href="http://expressjs.com/">Express</a> backend, there may already be something better than angular-seed for you. But I don't want any of that stuff, so angular-seed is great for me.)</p>
+
+<p>My only real complaint about angular-seed is that it doesn't have any <a href="http://gruntjs.com/">Grunt</a> support built-in. It'd be nice to at least have a Grunt task to run the tests, especially since Grunt doesn't look nearly as easy to get started with as something like <a href="http://rake.rubyforge.org/">Rake</a>. But otherwise, angular-seed seems to be a great jumping-off point.</p>
+
+<h3>So... Angular for a video game? Really?</h3>
+
+<p>I don't know whether it would be practical for the overland map, but I think Angular has some potential for the battle screen. There's a lot of state management that would work well with an MV* framework, like showing a hero's menu when it's his turn. And the <a href="http://www.yearofmoo.com/2013/08/remastered-animation-in-angularjs-1-2.html">upcoming Angular 1.2 has some nice support for CSS3 animations</a> -- and there are a lot of little animations during a battle: hero takes a step forward, swings his sword, bad guy flinches from the hit, damage numbers appear, etc. I think I can make all those animations happen with databinding -- which would mean it'd all be just as testable as I wanted it to be.</p>
+
+<p>Of course, if you're just using the built-in databinding, then Angular doesn't tell you when the animation is done so you can start the next one. But Angular is extensible, and if you write your own directive, you can get those notifications easily. I've been working on an animation queue to coordinate all these animations across different scopes and elements, and it'll be interesting to see if I can pull it off.</p>
+
+<h3>What's next?</h3>
+
+<p>Angular-seed gives you a workable start. But to be honest, it's not really a comfortable environment, at least not right out of the box. In particular, Jasmine tests are much nicer in CoffeeScript than they are in JavaScript. And you need a good way to see whether your tests are passing or failing. More on those next time.</p>

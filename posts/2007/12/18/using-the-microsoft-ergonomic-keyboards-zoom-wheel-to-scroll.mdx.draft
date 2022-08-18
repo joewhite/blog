@@ -1,0 +1,7 @@
+---
+title: "Using the Microsoft Ergonomic Keyboard's zoom wheel to scroll  #Delphi  #Life"
+sort: 2483
+---
+<p>Just ran across instructions on <a href="http://oliiscool.blogspot.com/2006/11/hacking-microsoft-natural-ergonomic.html">using the Microsoft Natural Ergonomic Keyboard 4000's "zoom slider" as a scroll wheel instead</a>.</p>
+
+<p>The instructions involve compiling a JScript.NET application and running an XSL transform on the keyboard's config file. But it looks to me like it'd be a whole lot easier to just open the config file in a text editor and make a couple of manual edits. I'll have to try it when I get over this danged cold and get back to the office.</p>

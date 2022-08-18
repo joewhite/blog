@@ -1,0 +1,11 @@
+---
+title: "*Real* regex search-and-replace in Visual Studio  #.NET  #Delphi"
+sort: 2100
+---
+<p>niugang just posted some very cool code on CodeProject: <a href="http://www.codeproject.com/csharp/SearcherAddIn.asp">a Visual Studio add-in that gives you real regex search and replace</a>.</p>
+
+
+
+<p>It's long annoyed me that Visual Studio's regex support is so weird. They have a lot of the features, but their syntax is truly, truly warped. ({} for captures? @ and # and ^ for quantifiers? Needing to either roll a manual character class, or else understand the full Unicode spec, just to do something simple like \w?) And they're missing some of the most interesting and useful features, like lookbehind and positive lookahead. Which is silly, because they have full-fledged Perl-compatible regular expressions sitting <em>right there in the Framework.</em></p>
+<p>Okay. Enough ranting. This add-in should be way cool. Unfortunately, niugang had to create all new UI, since there was no way to reuse the standard Visual Studio search and replace dialogs. This probably means some of the fancier features are missing (I suspect that I won't be able to select two different directories and tell it to search them both, for example). But even so, I'm very much looking forward to real regexes in VS. And hey, it's got source code.</p>
+<p>Now someone just needs to write a real regex search-and-replace for Delphi...</p>

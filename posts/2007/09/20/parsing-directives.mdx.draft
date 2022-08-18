@@ -1,0 +1,47 @@
+---
+title: "Parsing directives  #.NET  #Delphi  #dgrok"
+sort: 2467
+---
+<p>You learn the darndest things about a language when you try to parse it.</p>
+
+<p><a href="http://www.excastle.com/dgrok/Grammar.html#Directive">Directives</a> &mdash; the decorations that go after a method heading, like <code>stdcall</code>, <code>virtual</code>, etc. &mdash; were, I had thought, always set off by semicolons:</p>
+
+<blockquote><pre>procedure Foo; forward;
+procedure Bar; stdcall; deprecated;</pre></blockquote>
+
+<p>Until I ran my parser on Math.pas, and it choked on this:</p>
+
+<blockquote><pre>procedure SinCos(const Theta: Extended; var Sin, Cos: Extended) register;</pre></blockquote>
+
+<p>Well, that's just great. I had thought that directives came after the required semicolon, and that each directive had its own required trailing semicolon. Now I come to find that they come <i>before</i> the required semicolon, and each directive has its own <i>optional, leading</i> semicolon. Which meant I had to spend a couple of hours rearranging my grammar and updating my regression tests, since <i>all</i> directives now needed to use the same class (with its anomalous leading semicolon) and the logical order of MethodHeadingNode's properties had changed.</p>
+
+<p>And then there are procedural types (<code>type TFoo = procedure</code>, <code>procedure of object</code>, etc). I hadn't even realized that they <i>could</i> have directives, since most directives don't make any sense for a procedural type, but I forgot about calling conventions. As it turns out, not only do procedural types support directives, they support three very distinct syntaxes:</p>
+
+<blockquote><pre>type
+TFoo = procedure of object; stdcall;
+TBar = procedure of object stdcall;
+TBaz = procedure stdcall of object;</pre></blockquote>
+
+<p>Yep, any directives can show up either before <i>or</i> after "of object". And the semicolons are optional in the ones after "of object". But no, you can't put any semicolons <i>before</i> "of object". Consistency? Who needs it?</p>
+
+<p>(And no, <a href="http://blog.alieniloquent.com/">Sam</a>, <code>procedure of stdcall object</code> doesn't compile. Sorry.)</p>
+
+<p>You can even mix and match:</p>
+
+<blockquote><pre><a name="see_note_assembler">type
+TFoo = procedure assembler of object cdecl; far; //<sup><a href="#note_assembler">1</a></sup></a></pre></blockquote>
+
+<p>Where this gets <i>really</i> weird (what, it wasn't already?) is where it means that you can have a semicolon <i>in the middle of a variable declaration:</i></p>
+
+<blockquote><pre>var
+Foo: procedure; stdcall = nil;</pre></blockquote>
+
+<p>Try reading <i>that</i> as a <a href="http://stevepeacocke.blogspot.com/2007/08/delphipascal-sentence.html">sentence</a>.</p>
+
+<p>Makes me really glad I'm hand-coding my parser &mdash; automated parsing tools would've gone <i>nuts</i> with the ambiguity in something like "zero or more directives, followed by an optional 'of object', followed by zero or more possibly semicolon-delimited directives". Not to mention the variable declaration with a semicolon in the middle. It might be doable with an automated tool, but not without a lot of pain. With a hand-coded parser, it's just a place to write more automated tests to cover the goofy behavior.</p>
+
+<p>But... goofy or not, it's valid Delphi, so I'm going to do my best to parse it. So my ProcedureTypeNode now has two properties for directives: FirstDirectives (which comes before Of and Object), and SecondDirectives (which comes after). For any non-<code>of object</code> types, SecondDirectives is always empty.</p>
+
+<p>Sheesh.</p>
+
+<p><a name="note_assembler"><small><sup><a href="#see_note_assembler">1</a></sup> No, <code>assembler</code> doesn't make any sense in a procedural type. But that's okay, because <code>far</code> doesn't make any sense in Win32 at all. The compiler just ignores them both, so they're harmless, if meaningless. The only other directives that are allowed on procedural types (besides <code>near</code>) are calling conventions, and I figured an example with <code>assembler</code> and <code>far</code> would be less confusing than an example with two or three contradictory calling conventions. (Which is perfectly valid, by the way, although I have no idea what it does.)</small></a></p>

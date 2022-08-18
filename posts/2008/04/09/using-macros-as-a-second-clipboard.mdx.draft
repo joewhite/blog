@@ -1,0 +1,21 @@
+---
+title: "Using macros as a second clipboard  #Delphi  #macros"
+sort: 2513
+---
+This isn't really either a <a href="http://blog.excastle.com/2008/03/31/delphi-macros-on-recipes-and-power-tips/">macro recipe <i>or</i> a power tip</a>, but it's a useful trick.
+
+Sometimes I'll run into a situation where I want two different things on the clipboard at once. Maybe I'm passing a filename through several layers of methods, and at each layer, I'm typing
+
+<pre>; AFileName: string</pre>
+
+twice (once in the class declaration, once in the method implementation), and
+
+<pre>, AFileName</pre>
+
+
+
+once (where the value needs to be passed along to the next guy). Wouldn't it be nice if I had two clipboards, each with its own "paste" keystroke?
+
+Once you think to use a macro as the second "clipboard", it's trivial. Select <code>; AFileName: string</code> and copy it to the clipboard; then start recording a macro, type <code>, AFileName</code>, and stop recording.
+
+Voila -- two clipboards. Paste one with Ctrl+V, and the other with Ctrl+Shift+P.

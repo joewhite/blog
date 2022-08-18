@@ -1,0 +1,48 @@
+---
+title: "WEBrick: Web-browser GUI for Ruby apps  #Programming  #ruby  #webrick"
+sort: 2560
+---
+I do a fair bit of <a href="http://www.ruby-lang.org/">Ruby</a> hacking. Usually I'm either writing a one-off app, or automating some process I do all the time, and in both cases, I don't need any fancier GUI than STDOUT (via <a href="http://www.scintilla.org/SciTE.html">SciTE</a>â€™s output pane, of course). But occasionally, I'll want a script I'll use more than once -- say, to sift through another app's output, and slice and dice the results different ways. And for those sorts of things, sometimes I'd rather have a nice GUI.
+
+Rather than learn any of the GUI libraries for Ruby, any of which would probably be a lot of work if I wanted to do anything fancy, I decided to try my luck with <a href="http://www.webrick.org/">WEBrick</a>, a lightweight Web server that ships with Ruby. I can still write my little one-off apps, but now they can show their output in HTML.
+
+
+
+With WEBrick, you write a Ruby script, and when you run your script, it starts listening for HTTP connections. Stop the script (Ctrl+Break or close the console window), the server stops with it. No Apache to configure. It's easy. I like easy.
+
+The "it's all one script" thing also means it's trivial to load data and cache it in memory. I'm planning to use that to write a really fast grep through our source code, with a Web GUI. (I've long since lost count of how many times I've written a better grep. I've written grep more times than all other programs put together.)
+
+Here's what I think is a good starting point for WEBrick. It consists of two files: startup and servlet. The startup just starts the Web server. You put the actual logic in the servlet file. The separation is so that the servlet file can get automatically reloaded from disk every time you refresh the page in the browser (idea swiped from <a href="http://microjet.ath.cx/webrickguide/html/Tips_Tricks.html">here</a>).
+
+<code>startup.rb</code>:
+
+<pre>require 'servlet'
+require 'webrick'
+include WEBrick
+
+server = HTTPServer.new(:Port =&gt; 80, :BindAddress =&gt; 'localhost')
+server.mount '/', Servlet
+trap('INT') { server.shutdown }
+server.start</pre>
+
+<code>servlet.rb</code>:
+
+<pre>require 'webrick'
+include WEBrick
+
+class Servlet &lt; HTTPServlet::AbstractServlet
+  def self.get_instance config, *options
+    load __FILE__
+    new config, *options
+  end
+  def do_GET(req, resp)
+    resp['Content-Type'] = "text/html"
+    resp.body = "Hello, world!"
+  end
+end</pre>
+
+This will run on port 80 (edit the <code>:</code><code>Port</code> to change this, e.g. if you already have a Web server running), and it will only be accessible on the local machine (remove the <code>:BindAddress =&gt; 'localhost'</code> to make it accessible from the network).
+
+Put those files in the same directory, run <code>startup.rb</code>, and browse to <code>http://localhost/</code>. Hello, world! Then just change the code in do_GET, save the source file, and reload the browser -- and there's your new page.
+
+But it's still the same process, still the same script. So you can save global state in a <code>@@class_variable</code> or a <code>$global_variable</code> or some such, and it'll still be there the next time you reload the page -- even if you've changed the source code in the meantime. I like static languages for some things, but try doing <em>that</em> in Delphi or C#.

@@ -1,0 +1,5 @@
+---
+title: "Uses Clause Considered Harmful  #Delphi"
+sort: 2000
+---
+<a href="http://hallvards.blogspot.com/">Hallvard</a> suggests that Delphi's <a href="http://hallvards.blogspot.com/2004/08/uses-clause-considered-harmful.html"><font face="Courier New">uses</font> clause be changed to warn you of potential ambiguities</a>, the way C#'s <font face="Courier New">using</font> already does. Go read about it in his blog, and then vote for <a href="http://qc.borland.com/">QC</a> #8761.

@@ -1,0 +1,155 @@
+---
+title: ".NET and CoffeeScript: comparing Jurassic, Jint, and IronJS  #.NET  #coffeescript  #dlr  #ironjs  #javascript  #jint  #jurassic"
+sort: 3328
+---
+Recently I went looking for ways to write a .NET desktop app that could compile CoffeeScript to JavaScript. There are already several NuGet packages for exactly this, but most of them look like they're tightly bound to ASP.NET. So I struck out on my own, following the general steps in â€œ<a href="http://otac0n.com/blog/CommentView,guid,e07b25fa-c17a-4090-93cd-25fefa62b160.aspx">CoffeeDemo â€“ A Simple Demo of IronJS, using CoffeeScript</a>â€. The main CoffeeScript compiler is written in CoffeeScript, but they also provide one written in JavaScript, so my basic outline was:
+
+<ol>
+<li>Instantiate a JavaScript engine.</li>
+<li>Tell the JavaScript engine to run coffee-script.js. This creates the CoffeeScript object and its compile method.</li>
+<li>Tell the JavaScript engine to call CoffeeScript.compile, and pass a string containing the CoffeeScript code to compile.</li>
+</ol>
+
+But my first attempt ran slower than I'd hoped for. (Well, coffee-script.js is 163 KB, and that's the minified version! So I guess it <em>does</em> have a lot to do.)
+
+I decided to find out whether I could do better: I tried several different JavaScript-in-.NET implementations, to see which one would perform the best. I tested <a href="http://jurassic.codeplex.com/">Jurassic</a>, <a href="http://jint.codeplex.com/">Jint</a>, and <a href="https://github.com/fholm/IronJS">IronJS</a>. My results are below, along with the C# code in case anyone is interested in seeing the minor differences between the APIs.
+
+In all three cases, the coffeeCompiler parameter contains the <a href="https://raw.github.com/jashkenas/coffee-script/1a652a9736e104359251107f92b6e97409bdb5de/extras/coffee-script.js">1.1.2 version of coffee-script.js</a>, as downloaded from GitHub; and the input parameter contains a one-line CoffeeScript script:
+
+<pre>
+alert "Hello world!"
+</pre>
+
+<h3>Jurassic</h3>
+
+<a href="http://jurassic.codeplex.com/">Jurassic</a> dynamically compiles JavaScript to CLR code at runtime, so you take a performance hit the first time you run some JS, but it should be pretty fast after that. Jurassic is available via <a href="http://nuget.org/">NuGet</a>.
+
+<pre lang="csharp">
+private void CompileCoffeeScriptUsingJurassic(
+    string coffeeCompiler, string input)
+{
+    Console.WriteLine("Jurassic");
+    var stopwatch = Stopwatch.StartNew();
+    Console.WriteLine(stopwatch.Elapsed + ": Creating engine");
+    var engine = new ScriptEngine();
+    Console.WriteLine(stopwatch.Elapsed + ": Parsing coffee-script.js");
+    engine.Execute(coffeeCompiler);
+    Console.WriteLine(stopwatch.Elapsed + ": Adding compile wrapper");
+    engine.Execute("var compile = function (src) " +
+        "{ return CoffeeScript.compile(src, { bare: true }); };");
+    Console.WriteLine(stopwatch.Elapsed + ": Compiling CoffeeScript input");
+    var output = engine.CallGlobalFunction("compile", input);
+    Console.WriteLine(stopwatch.Elapsed + ": Done");
+    Console.WriteLine("Output:");
+    Console.WriteLine(output);
+    Console.WriteLine();
+}
+</pre>
+
+<h3>Jint</h3>
+
+<a href="http://jint.codeplex.com/">Jint</a> is a JavaScript interpreter. It's not available through NuGet yet, but it's a single DLL.
+
+<pre lang="csharp">
+private void CompileCoffeeScriptUsingJint(
+    string coffeeCompiler, string input)
+{
+    Console.WriteLine("Jint");
+    var stopwatch = Stopwatch.StartNew();
+    Console.WriteLine(stopwatch.Elapsed + ": Creating engine");
+    var engine = new JintEngine();
+    Console.WriteLine(stopwatch.Elapsed + ": Parsing coffee-script.js");
+    engine.Run(coffeeCompiler);
+    Console.WriteLine(stopwatch.Elapsed + ": Adding compile wrapper");
+    engine.Run("var compile = function (src) " +
+        "{ return CoffeeScript.compile(src, { bare: true }); };");
+    Console.WriteLine(stopwatch.Elapsed + ": Compiling CoffeeScript input");
+    object output = null;
+    try
+    {
+        output = engine.CallFunction("compile", input);
+    }
+    catch (JsException ex)
+    {
+        Console.WriteLine("ERROR: " + ex.Value);
+    }
+    Console.WriteLine(stopwatch.Elapsed + ": Done");
+    Console.WriteLine("Output:");
+    Console.WriteLine(output);
+    Console.WriteLine();
+}
+</pre>
+
+<h3>IronJS</h3>
+
+<a href="https://github.com/fholm/IronJS">IronJS</a> is based on the <a href="http://en.wikipedia.org/wiki/Dynamic_Language_Runtime">DLR</a>, so it seemed like it might strike a great balance between upfront compile time and runtime -- after all, that's what the DLR is all about.
+
+IronJS is available through NuGet -- there's both an IronJS.Core (standalone) and an IronJS (depends on IronJS.Core), with nothing to explain the difference between the two; but at least for this code, you only need IronJS.Core.
+
+<pre lang="csharp">
+private void CompileCoffeeScriptUsingIronJs(
+    string coffeeCompiler, string input)
+{
+    Console.WriteLine("IronJS");
+    var stopwatch = Stopwatch.StartNew();
+    Console.WriteLine(stopwatch.Elapsed + ": Creating engine");
+    var engine = new CSharp.Context();
+    Console.WriteLine(stopwatch.Elapsed + ": Parsing coffee-script.js");
+    engine.Execute(coffeeCompiler);
+    Console.WriteLine(stopwatch.Elapsed + ": Adding compile wrapper");
+    engine.Execute("var compile = function (src) " +
+        "{ return CoffeeScript.compile(src, { bare: true }); };");
+    Console.WriteLine(stopwatch.Elapsed + ": Fetching compile wrapper");
+    var compile = engine.GetGlobalAs<FunctionObject>("compile");
+    Console.WriteLine(stopwatch.Elapsed + ": Compiling CoffeeScript input");
+    var result = compile.Call(engine.Globals, input);
+    var output = IronJS.TypeConverter.ToString(result);
+    Console.WriteLine(stopwatch.Elapsed + ": Done");
+    Console.WriteLine("Output:");
+    Console.WriteLine(output);
+    Console.WriteLine();
+}
+</pre>
+
+<h3>The results</h3>
+
+<pre>
+Jurassic
+00:00:00.0000063: Creating engine
+00:00:00.1540545: Parsing coffee-script.js
+00:00:03.4346969: Adding compile wrapper
+00:00:03.4408860: Compiling CoffeeScript input
+00:00:05.3466983: Done
+Output:
+alert("Hello world!");
+
+Jint
+00:00:00.0000019: Creating engine
+00:00:00.2617049: Parsing coffee-script.js
+00:00:02.5270733: Adding compile wrapper
+00:00:02.5295317: Compiling CoffeeScript input
+ERROR: Parse error on line 2: Unexpected 'STRING'
+00:00:02.5832895: Done
+Output:
+
+
+IronJS
+00:00:00.0000019: Creating engine
+00:00:00.2282421: Parsing coffee-script.js
+00:00:55.5590620: Adding compile wrapper
+00:00:55.5629230: Fetching compile wrapper
+00:00:55.5642908: Compiling CoffeeScript input
+00:01:17.8580574: Done
+Output:
+alert("Hello world!");
+</pre>
+
+
+
+Jint wasn't up to the task -- it got a weird error when trying to call CoffeeScript.compile. I played with this a bit, and found that it would work if I passed an empty string, but give errors with non-blank CoffeeScript to compile; sometimes a string error like above, sometimes a weird error about multiline comments. It's too bad, because Jint shows a lot of promise, speed-wise. I don't know what the problem is; the error didn't give me much to go on, and I'm not terribly motivated to pursue the problem when the other libraries work. (I did write this up in their bugtracker, though -- it's <a href="http://jint.codeplex.com/workitem/6928">issue #6928</a>.)
+
+I was surprised that IronJS was so much slower than the others -- about 20x slower than Jint at running coffee-script.js, and about 10x slower than Jurassic. This is especially puzzling since the <a href="http://otac0n.com/blog/CommentView,guid,e07b25fa-c17a-4090-93cd-25fefa62b160.aspx">article I based my code on</a> mentions a "compilation lag". To me, 55 seconds is hardly "lag"!
+
+The winner here (and coincidentally the first one I tried) is Jurassic -- so the performance that disappointed me is also the best I'm likely to get. On my laptop, you take about a 3.5-second penalty to compile coffee-script.js, and then another two seconds to run CoffeeScript.compile on a one-line script.
+
+I did find that subsequent calls to CoffeeScript.compile were nearly instantaneous with all three libraries. So Jurassic's 2 seconds is probably due to the JIT compiler running for the first time on that runtime-generated code. Not sure what to make of the 20 seconds for IronJS; is the DLR just that big?

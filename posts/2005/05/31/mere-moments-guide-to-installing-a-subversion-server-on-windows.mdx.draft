@@ -1,0 +1,88 @@
+---
+title: "Mere-Moments Guide to installing a Subversion server on Windows  #.NET  #Delphi  #extreme programming  #ruby"
+sort: 2180
+---
+<font size="4"><strong><font color="#ff0000">Update:</font></strong> This Guide is now largely obsolete, because </font><a href="http://blog.briankohrs.com/"><font size="4">Brian</font></a><font size="4"> wrote an installer that will do all this stuff for you. Check out his </font><a href="http://blog.briankohrs.com/2005/09/06/less-than-mere-moments-installation-of-subversion/"><font size="4">annoucement</font></a><sup>*</sup><font size="4">, or go straight to the </font><a href="http://svn1clicksetup.tigris.org/"><font size="4">svn1clicksetup project page on tigris</font></a><font size="4">.</font>
+
+<font size="1">* Or you can check out </font><a href="http://blog.excastle.com/2005/09/07/subversion-in-n-moments-where-n-is-less-than-mere/"><font size="1">my announcement about his announcement</font></a><font size="1">. It'll work either way.</font>
+
+
+
+Subversion sounds pretty cool. It's a mature, powerful revision-control system that acts a lot like CVS, adds support for atomic commits and real renames, just <a href="http://www.sdmagazine.com/documents/s=9785/sdm0506b/0506b4.html">won the Jolt award</a>, and is free. What more can you ask for?
+
+I've been intending to install Subversion for quite a while, but I kept putting it off, because it looked like a daunting task. But when I actually decided to go do it, it took me all of an hour and a half to get it installed and working. If somebody had just written down what I needed to do to set up Subversion on Windows, with a real server running as a real Windows service, then it probably would've only taken me ten minutes, and I would've done it weeks ago.
+
+Here, then, is the <strong>Mere-Moments Guide to installing a Subversion server on Windows</strong>. (It may look a bit intimidating, but really, it's not.)
+
+Some quick notes on the Guide:
+<ul>
+	<li>These instructions assume you're using Windows 2000 or XP. (You'd better be; the Subversion server won't run on Win9x.)</li>
+	<li>If you want to know more about Subversion than just how to install it, check out the free <a href="http://svnbook.red-bean.com/">O'Reilly Subversion book online</a> and the not-free <a href="http://www.pragmaticprogrammer.com/titles/svn/">Pragmatic Version Control using Subversion</a>.</li>
+	<li>For Subversion to do you much good, you'll have to add a new "project" (essentially a directory) to your repository, to put files in. In these instructions, I'm assuming that your new project will be called <font face="Courier New">monkey</font> (because mine was).</li>
+	<li>Feel free to skip steps and to play around; you'll learn more that way, because things won't work right and you'll have to figure out why.</li>
+</ul>
+And now, on to the Guide.
+<ol type="I">
+	<li><strong>Download everything</strong>
+<ol>
+	<li>Go to <a href="http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91">http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91</a> and download the most recent <strong>svn-<em>x.y.z</em>-setup.exe</strong>. At the time of this writing, the latest version was <a href="http://subversion.tigris.org/files/documents/15/23230/svn-1.2.0-setup.exe">svn-1.2.0-setup.exe</a>.</li>
+	<li>Go to <a href="http://dark.clansoft.dk/~mbn/svnservice/">http://dark.clansoft.dk/~mbn/svnservice/</a> and download <strong>SVNService.zip</strong>.</li>
+	<li>Go to <a href="http://tortoisesvn.tigris.org/download.html">http://tortoisesvn.tigris.org/download.html</a> and download the most recent installer. At the time of this writing, the latest version was <a href="http://tortoisesvn.tigris.org/files/documents/406/22868/TortoiseSVN-1.1.7-UNICODE_svn-1.1.4.msi">TortoiseSVN-1.1.7-UNICODE_svn-1.1.4.msi</a>. (It doesn't have to be the exact same version as the svn installer you got in step 1. See the <a href="http://tortoisesvn.tigris.org/compatibility.html">compatibility chart</a>.)</li>
+</ol>
+</li>
+	<li><strong>Install the server and the command-line client</strong>
+<ol>
+	<li>Run svn-x.y.z-setup.exe and let it install stuff.</li>
+	<li>Go to Control Panel &gt; System, go to the Advanced tab, and click the "Environment Variables" button at the bottom. Click the "New" button (either one, but if you're undecided, use the one under "System variables"), set "variable name" to <font face="Courier New">SVN_EDITOR</font>, and "variable value" to the path and filename of a text editor of your choice (e.g., <font face="Courier New">C:\Windows\Notepad.exe</font>). OK all the way out.</li>
+</ol>
+</li>
+	<li><strong>Create a repository and configure access</strong>
+<ol>
+	<li>Create a new directory somewhere out of the way; this is where your repository will live, but you'll almost never actually open the files directly. I made a directory called <font face="Courier New">svn_repos</font> directly under my C:\Documents and Settings, just so it'd be out of the way.</li>
+	<li>Open a command prompt and type: <font face="Courier New">svnadmin create "C:\Documents and Settings\svn_repos"</font></li>
+	<li>In Windows Explorer, browse to the C:\Documents and Settings\svn_repos\conf directory (which svnadmin just created for you), and edit a couple of config files:
+<ol type="a">
+	<li>Open the svnserve.conf file in a text editor, and uncomment the <font face="Courier New">[general]</font>, <font face="Courier New">anon-access = read</font>, <font face="Courier New">auth-access = write</font>, and <font face="Courier New">password-db = passwd</font> lines. Save.</li>
+	<li>Open the passwd file in a text editor, uncomment the [users] line, and add the username and password you want to use when connecting to your subversion server. Save.</li>
+</ol>
+</li>
+</ol>
+</li>
+	<li><strong>Start the server manually, and create a project</strong>
+<ol>
+	<li>In your command window, type: <font face="Courier New">svnserve --daemon --root "C:\Documents and Settings\svn_repos"</font></li>
+	<li>Open a second command window, and type <font face="Courier New">svn mkdir svn://localhost/monkey</font></li>
+	<li>You'll see the text editor you specified in step II.2, with some text already in it. Type a comment, like "Created the monkey project", at the beginning of the file (before the line starting with "--"). Save the file and close the editor.</li>
+	<li>If your Subversion login is the same as your Windows login, then type your password (the one you put in the passwd file) at the prompt, and hit Enter. If your Subversion login is different from your Windows login, then just hit ENTER at the password prompt, and Subversion will then ask for both your login and your password.</li>
+	<li>Subversion should tell you that it "Committed revision 1." Congratulations! You just checked a change into Subversion. Throw yourself a party. (Yes, creating a directory is a revisioned change â€” you can go back and get the repository as of a time before that directory existed. This is novel stuff for folks like me who still use VSS at work.)</li>
+	<li>It's conventional to have /trunk, /branches, and /tags subdirectories for each project (your code goes into trunk, and the others are where you put, well, branches and tags). Go ahead and type <font face="Courier New">svn mkdir svn://localhost/monkey/trunk</font> (and notice that, after you enter a checkin comment, it doesn't prompt you for your password again â€” it's smart like that).</li>
+</ol>
+</li>
+	<li><strong>Start the server for real</strong>
+<ol>
+	<li>Go back to the command window that's running svnserve. Hit Ctrl+C to stop it.</li>
+	<li>Open the SVNService.zip that you downloaded earlier. Extract SVNService.exe into your Subversion bin directory (Program Files\Subversion\bin). Yes, it's important that you put it in this directory; it has to be in the same place as svnserve.exe from the Subversion distribution.</li>
+	<li>In a command prompt, type <font face="Courier New">svnservice -install --daemon --root "C:\Documents and Settings\svn_repos"</font></li>
+	<li>Go to Control Panel &gt; Administrative Tools &gt; Services, double-click the SVNService service, and change its startup type from "Manual" to "Automatic". Now Subversion will start every time you start Windows.</li>
+	<li>Start the SVNService service (by selecting it in the Services list, and clicking the "play" toolbar button).</li>
+	<li>Go back to a command prompt, and type <font face="Courier New">svn ls svn://localhost/</font>
+This will list all the files in the root of the repository. If all is well and you've got a real Subversion server running now, you should see: <font face="Courier New">monkey/</font></li>
+</ol>
+</li>
+	<li><strong>Install TortoiseSVN
+</strong>Sure, you can get by with a command-line client, but TortoiseSVN is cool â€” it integrates Subversion into Windows Explorer. You get little overlay icons showing the status of each file (in sync, needs to be checked in, not yet in the repository, etc.), and you can do pretty much everything you need by right-clicking on files and folders.
+<ol>
+	<li>Run the TortoiseSVN installer you got back in part I.</li>
+	<li>Create a <font face="Courier New">monkey</font> directory somewhere on your hard drive. Right-click somewhere in that folder and select "SVN Checkout..." Type <font face="Courier New">svn://localhost/monkey/trunk/</font> for the repository URL and click OK.</li>
+	<li>Create a file in that directory, any file. Right-click the file and select TortoiseSVN &gt; Add. Notice the little plus-sign icon that appears.
+The file hasn't actually been checked in yet â€” Subversion's commits are both batched and atomic, so this new file, together with any other new files you added, any files you changed, any files you deleted, any files you renamed, any directories you added or deleted or renamed, will all show up on the server all at once, as a single revision and a single checkin, the next time you right-click and select "SVN Commit".</li>
+</ol>
+</li>
+	<li><strong>Make it run on the network
+</strong>Are you kidding? You're already networked. Go to another computer on your LAN, install TortoiseSVN, and do an "SVN Checkout...". When you specify the repository URL, use the same URL you did before, but replace "localhost" with the actual name of the computer that's running the Subversion service (so in my case, the repository URL is svn://marsupial/monkey/trunk/ â€” nice little menagerie, there).</li>
+</ol>
+And there ya go â€” Subversion up and running on Windows, in mere moments or less.
+
+Corrections, questions, etc. on this document are, as always, welcome; just speak up in the comments. Now go forth and control your revisions.
+
+<em>Also in the Mere Moments series: <a href="http://blog.excastle.com/2007/10/07/mere-moments-guide-to-creating-custom-ring-tones-for-your-verizon-razr-v3m/">Mere-moments guide to creating custom ring tones for your Verizon RAZR V3m</a></em>

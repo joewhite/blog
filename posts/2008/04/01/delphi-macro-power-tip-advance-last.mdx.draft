@@ -1,0 +1,66 @@
+---
+title: "Delphi macro power tip: Advance last  #Delphi  #macros"
+sort: 2510
+---
+Today's <a href="http://blog.excastle.com/2008/03/31/delphi-macros-on-recipes-and-power-tips/">Delphi-macro power tip</a>:
+
+<b>Your macro should usually end with something that advances the cursor.</b>
+
+<i>Important note:</i> This only applies when you trust the macro to do what you want it to do. If you're not sure you got it right, then you should advance the cursor manually between playbacks. But if you're pretty confident that you did it right, this tip will speed you up greatly.
+
+<h3>Example</h3>
+
+Take a look back at the <a href="http://blog.excastle.com/2008/03/30/delphi-macro-recipes-fields-to-properties/">Fields to Properties macro recipe</a>. The last step, before ending the macro recording, was pressing <b>Down arrow</b>.
+
+<h3>Why?</h3>
+
+You wouldn't record a macro for something you only do once. The whole point is to do something to the code, then do it again somewhere else.
+
+If you can automate the thing about finding the next "somewhere else", then playing back is much faster. You can just hit <b>Ctrl+Shift+P</b> repeatedly.
+
+<h3>Why at the end?</h3>
+
+So it makes sense to put cursor advancement inside the macro. Why at the end, rather than at the beginning?
+
+You can do either, but I've found that putting it at the end usually works better, because you can see the next place it's going to run, before you run it.
+
+Let's say you're transforming a long list of field declarations into properties. What if there are comments in the middle of that list? Your macro probably won't do the right thing if you run it on a comment line. But if you advance at the end, there's no problem: after you play the macro on the previous line, you'll see that the cursor is now on a comment line. All you need to do is press Down arrow before you hit Ctrl+Shift+P again.
+
+If you advanced the cursor at the beginning of the macro, the editor window might not have scrolled the next line into view yet (especially true if you're operating on multi-line constructs). And if you're moving by an irregular amount (e.g., with F3), you might not even know the next place it's going to play back. So all you can do is hit Ctrl+Shift+P, realize that it screwed up, hit Undo, figure out where you need to move the cursor so it'll be in the right spot <i>after</i> it advances, and try again. Advancing at the end is just simpler.
+
+Advancing at the end also makes it easy to tell when your work is done. If you're operating on a list of fields, you stop hitting Ctrl+Shift+P as soon as you end up on a line that's not a field anymore. When you advance at the beginning of the macro, it's harder to tell when you're done.
+
+<h3>Horizontal vs. vertical</h3>
+
+When you're writing a line-oriented macro, you'll generally have both horizontal and vertical positioning to do. Just because you do your vertical positioning at the end of the macro, doesn't mean you need to do the horizontal positioning there as well.
+
+It really comes down to confidence. If you know that, for every line you'll be operating on, <b>Home</b> and <b>Ctrl+Right arrow</b> will get you to the place you want to start, then put the horizontal positioning at the beginning of the macro. But if you want to be able to see the horizontal position before you play back, put it at the end.
+
+<h3>Doing it twice</h3>
+
+If you do your horizontal positioning at the end of the macro, there is one downside: the horizontal positioning, at least, usually needs to be done twice. You need to get the cursor to the right spot before you start recording, and again at the end of the macro.
+
+If your horizontal positioning was done with <b>Home</b> followed by <b>Ctrl+Right arrow</b>, the sequence would look like this:
+
+<ol>
+<li>Press <b>Home</b>.</li>
+<li>Press <b>Ctrl+Right arrow</b>.</li>
+<li>Press <b>Ctrl+Shift+R</b> to start recording.</li>
+<li>...</li>
+<li>Press <b>Down arrow</b> to move to the next line.</li>
+<li>Press <b>Home</b>.</li>
+<li>Press <b>Ctrl+Right arrow</b>.</li>
+<li>Press <b>Ctrl+Shift+R</b> to stop recording.</li>
+</ol>
+
+If you trust your horizontal positioning, then don't bother repeating it; just put it at the start of the macro. It makes life a bit simpler.
+
+<h3>Not just Down arrow</h3>
+
+Ending with <b>Down arrow</b> only makes sense when you're operating on a line at a time. If you're writing a different kind of macro, you need a different kind of advancement.
+
+<ul>
+<li>If your macro operates on each value in a list (e.g., say you're changing the Hungarian prefix on each value in an enum), you might end with <b>Ctrl+Right arrow</b>.</li>
+<li>If your macro operates on a bunch of empty method bodies (e.g., say you've just Class Completed a bunch of methods, and want to insert code inside each one to throw an exception), you might end by pressing <b>Down arrow</b> five times -- just the right amount to <i>usually</i> get you to the blank line in the next method body. You can always adjust the cursor before the next Ctrl+Shift+P if, for example, the next one is <i>six</i> lines away because its parameter list wrapped onto two lines.</li>
+<li>If your macro operates on each place a particular method is called, you might end with <b>F3</b>. (Do your Find <i>before</i> you start recording the macro -- it doesn't work properly if you do a Find while you're recording. But F3 -- Find Next -- works quite nicely in a macro.)</li>
+</ul>

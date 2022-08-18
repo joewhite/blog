@@ -1,0 +1,271 @@
+---
+title: "Agile 2006: Working Effectively with Legacy Code  #Programming  #agile2006  #extreme programming"
+sort: 2356
+---
+Working Effectively with Legacy Code
+Michael Feathers
+<ul>
+	<li>Traditional definition of "Legacy Code": if you need to find your compiler on Ebay</li>
+	<li>Feathers' definition: Legacy code = code without tests
+<ul>
+	<li>How you test around your code influences what you can do with that code</li>
+	<li>If you have no tests, you pay a price for that</li>
+	<li>Hard to modify, hard to refactor</li>
+</ul>
+</li>
+</ul>
+Unit testing
+<ul>
+	<li>Allows rapid change of existing code</li>
+	<li>Meaningful regression</li>
+	<li>Always been around, but we've heard a lot more about it lately because of Agile</li>
+	<li>Enables refactoring (safety net)</li>
+</ul>
+Testability
+<ul>
+	<li>"I thought I was a good designer until I tried to take arbitrary classes I'd written and place them under test"</li>
+	<li>Easy to talk about cohesion and coupling, but unit testing forces you to deal with them
+<ul>
+	<li>Cohesion = are things that should be together together?</li>
+	<li>Coupling = are things that should be able to vary independently separate?</li>
+</ul>
+</li>
+</ul>
+How testable is your code?
+<ul>
+	<li>Most real-world (and non-unit-tested) code has very tangled dependencies: "glued together"</li>
+	<li>We usually don't know this until we try to test pieces in isolation</li>
+</ul>
+Kinds of Glue
+<ul>
+	<li>Singletons aka Global Variables
+<ul>
+	<li>If there can only be one of an object, you'd better hope that one is good for your tests too</li>
+	<li>Problem: it's something your unit can touch that's outside that unit, and that can affect that unit. Hard to test a single unit of code.</li>
+</ul>
+</li>
+	<li>Internal instantiation
+<ul>
+	<li>When a class creates an instance of a hard-coded class, you'd better hope that class runs well in tests</li>
+	<li>What if that class modifies global state?</li>
+	<li>Opens a socket? (The Internet isn't part of a unit.)</li>
+	<li>Watch out for setup and speed</li>
+</ul>
+</li>
+	<li>Concrete Dependency
+<ul>
+	<li>Depending on a concrete class instead of an interface (see Dependency Inversion Principle, Dependency Injection)</li>
+	<li>When a class uses a concrete class, you'd better hope that class lets you know what's happening to it.</li>
+</ul>
+</li>
+	<li>How to fix these kinds of things?
+<ul>
+	<li>Design for tests</li>
+	<li>TDD pushes this</li>
+</ul>
+</li>
+</ul>
+A Set of Unit Testing Rules
+<ul>
+	<li>A test is not a unit test if:
+<ul>
+	<li>It talks to the database</li>
+	<li>It communicates across the network</li>
+	<li>It touches the file system</li>
+	<li>It can't run at the same time as any of your other unit tests</li>
+	<li>You have to do special things to your environment (like editing configuration files) to run it</li>
+	<li>These things can all happen in integration tests, etc., but keep them out of unit tests as a general rule</li>
+</ul>
+</li>
+</ul>
+Breaking Dependencies
+<ul>
+	<li>Seams: Places where you can plug in different functionality
+<ul>
+	<li>Object seam / virtual function dispatch: use virtual methods</li>
+	<li>Macro expansion seam: can use #define to redefine a function</li>
+	<li>Template instantiation seam</li>
+	<li>Link seam: can link to a different library</li>
+	<li>Some can be varied on a test-by-test basis, some can't be varied without recompiling</li>
+</ul>
+</li>
+</ul>
+Uninstantiable class #1
+<ul>
+	<li>Constructor depends on a constructor that depends on a constructor that depends on a constructor that depends on a constructor that depends on a...</li>
+	<li>Foo constructor takes a Config, whose constructor takes a Reader, whose constructor takes a FileProvider...</li>
+</ul>
+Uninstantiable class #2
+<ul>
+	<li>Constructors that do something nasty that shouldn't happen in a test</li>
+	<li>Example: Foo constructor creates a database connection
+<ul>
+	<li>Code smell: This violates Single-Responsibility Principle</li>
+</ul>
+</li>
+</ul>
+Uncallable method
+<ul>
+	<li>Parameters you can't instantiate or things you shouldn't do in a test</li>
+</ul>
+Breaking dependencies
+<ul>
+	<li>Manifest dependencies
+<ul>
+	<li>Dependency which is present at the interface of a class. You can see some parameter of some method being problematic.</li>
+	<li>Extract interface / extract implementer (make the class actually implement the interface)</li>
+	<li>Adapt parameter (add a wrapper)</li>
+	<li>Choice between these two may depend on whether you have the source, and can change the class to implement a new interface</li>
+</ul>
+</li>
+	<li>Hidden dependencies
+<ul>
+	<li>Things hidden inside the class that you don't see at the interface</li>
+	<li>Introduce static setter</li>
+	<li>Parameterize constructor / method</li>
+	<li>Extract and override getter</li>
+	<li>Introduce instance delegator</li>
+	<li>...</li>
+</ul>
+</li>
+</ul>
+Working with Care
+<ul>
+	<li>"Oh crap, I could be breaking that!"</li>
+	<li>Mitigating practices
+<ul>
+	<li>Lean on the compiler (aka Ask the compiler)
+<ul>
+	<li>Introduce deliberate errors, so you can find places you need to make changes</li>
+	<li>Example: Change one B reference to IB, then compile, and fix everything that breaks: change types, add methods to the interface, etc.</li>
+	<li>Problematic when you have a descendant class that shadows the method from the base class (and even worse in Java, where overrides are problems too)</li>
+</ul>
+</li>
+	<li>Preserve signatures
+<ul>
+	<li>Copy/paste parameter lists verbatim. Minimal editing.</li>
+	<li>Prevents errors</li>
+	<li>Makes it easy to change calls to X into calls to a delegating method</li>
+	<li>Don't do too much at once</li>
+</ul>
+</li>
+	<li>Pair programming</li>
+</ul>
+</li>
+</ul>
+Parameterize Constructor
+<ul>
+	<li>Inject dependencies through a constructor</li>
+	<li>Consider using a default constructor to avoid affecting non-test clients</li>
+</ul>
+Encapsulation
+<ul>
+	<li>We're breaking encapsulation. This object that used to read its own configuration file now takes the config as a parameter. Callers now need to care about how this class is implemented.</li>
+	<li>We're going to break encapsulation even more as we break dependencies</li>
+	<li>Why is encapsulation important?
+<ul>
+	<li>Encapsulation helps you understand your code</li>
+	<li>So do tests, so it's not that bad a tradeoff</li>
+</ul>
+</li>
+</ul>
+
+
+
+Parameterize Method
+<ul>
+	<li>Same as Parameterize Constructor: if a method has a hidden dependency on a class because it instantiates it, make a new method with an argument</li>
+	<li>Call it from the other method</li>
+	<li>Steps:
+<ul>
+	<li>Create a new method with the internally created object as an argument</li>
+	<li>Copy all the contents into the new one, deleting the creation code</li>
+	<li>Delete the contents of the old one, replacing with a call to the new one</li>
+</ul>
+</li>
+</ul>
+Extract and Override Getter
+<ul>
+	<li>If a class creates an object in its constructor and doesn't use it, you can extract a getter and override it in a testing subclass</li>
+	<li>Make the getter lazy-initialize the field and return it</li>
+	<li>Change everyone to use the getter instead of the field</li>
+	<li>Override the getter in the testing subclass, and do something different</li>
+	<li>Parameterize Constructor is usually preferable</li>
+</ul>
+Extract and Override Call
+<ul>
+	<li>When we have a bad dependency in a method and it is represented as a call</li>
+	<li>Can extract the call to a method and override it in a testing subclass</li>
+	<li>E.g., replace Banking.RecordTransaction(...) with delegating method RecordTransaction(...), with same name and same arguments (Preserve Signatures)</li>
+</ul>
+Expose Static Method
+<ul>
+	<li>If the class is hard to instantiate, you may be able to extract some of the logic into a static method</li>
+	<li>Is making the method static a bad thing?
+<ul>
+	<li>No. The method will still be accessible on instances. Depending on the language, clients of the class might not even know the difference.</li>
+</ul>
+</li>
+</ul>
+Introduce Instance Delegator
+<ul>
+	<li>Static methods are hard to fake because you don't have a polymorphic call seam (unless you're using class methods in Delphi)</li>
+	<li>Add an instance method that calls the static method</li>
+	<li>Have clients call the instance method instead</li>
+</ul>
+Development Speed
+<ul>
+	<li>Mars Spirit Rover</li>
+	<li>Signal takes 7 minutes to get to Mars, 7 minutes to get back</li>
+	<li>In languages like C++, build times can be like this</li>
+	<li>But if you break dependencies so you can unit-test each class in isolation, you can build those unit tests quickly and remove the whole problem</li>
+</ul>
+Supercede Instance Variable
+<ul>
+	<li>Supply a setter, instead of passing to the constructor</li>
+	<li>Good way to get past the construction issue</li>
+	<li>Seems horrible from an encapsulation point of view, but becoming more popular among the greenhorns who use Dependency Injection</li>
+	<li>Supply defaults</li>
+	<li>"SupercedeFoo" naming convention, to suggest that it's not an ordinary set-me-anytime setter</li>
+</ul>
+Proactively Making Design Testable
+<ul>
+	<li>TDD</li>
+</ul>
+"The Deep Synergy"
+<ul>
+	<li>Whatever you do to make your code testable invariably makes it better
+<ul>
+	<li>Forces decoupled construction</li>
+	<li>Forces fine-grained factoring (which leads to better cohesion)</li>
+	<li>Global state is painful</li>
+	<li>The list goes on</li>
+	<li>A test is a microcosm</li>
+</ul>
+</li>
+</ul>
+Avoid "iceberg classes"
+<ul>
+	<li>Number/weight of private methods overcomes the public methods. Most of its mass is underwater.</li>
+	<li>Usually (always?) has single-responsibility violations</li>
+	<li>You can /always/ extract a class.</li>
+	<li>Again, encapsulation is good, but it is not an unqualified good.</li>
+</ul>
+Rules for designing an API
+<ul>
+	<li>Leave your users an "out"
+<ul>
+	<li>Provide them with interfaces and stubs if you can</li>
+</ul>
+</li>
+	<li>Make sure you provide sufficient seams</li>
+	<li>Be very conscious of your use of:
+<ul>
+	<li>Non-virtuals</li>
+	<li>Static methods (esp. creational methods)</li>
+	<li>Mutable static data</li>
+	<li>Classes that users must inherit</li>
+</ul>
+</li>
+	<li>Don't just write tests for your code; also write tests for code that uses your code</li>
+</ul>

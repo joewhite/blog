@@ -1,0 +1,25 @@
+---
+title: "Readable behavior-driven tests for DUnit: DUnitLite  #Delphi  #dunitlite"
+sort: 2441
+---
+<p><a href="http://code.google.com/p/dunitlite/">DUnitLite</a> (formerly DUnitAssertions<sup>*</sup>) version 0.1 is now available. (<a href="http://code.google.com/p/dunitlite/downloads/list">downloads</a>, <a href="http://code.google.com/p/dunitlite/">documentation</a>) It's open-source (<a href="http://www.mozilla.org/MPL/MPL-1.1.html">MPL</a>).</p>
+
+<p>DUnitLite is similar to <a href="http://blog.excastle.com/2007/04/19/dspec-for-readable-dunit-assertions/">dSpec</a>, except for the placement of parentheses:</p>
+
+<blockquote><pre>// dSpec:
+Specify.That(TheAnswer).Should.Equal(42);
+// DUnitLite:
+Specify.That(TheAnswer, Should.Equal(42));</pre></blockquote>
+
+<p>But I think my approach has a few advantages (which is why I <a href="http://blog.excastle.com/2007/04/19/dspec-for-readable-dunit-assertions/">kept working</a> on my version even after I found out about dSpec). As I see it, DUnitLite currently has <s>two things</s> <u>one thing</u> going for it that dSpec doesn't have:</p>
+
+<ul>
+<li><p><s><b>Support for an optional "message" parameter,</b> so that if a test does more than one Specify, you can tell which one it failed on. Just like the optional third parameter to DUnit's CheckEquals(). dSpec doesn't currently support this, and it's not clear (to me) how its syntax could even be extended to support it.</s> <a href="http://blog.excastle.com/2007/05/21/correction-dspec-does-have-the-optional-message-parameter/">Correction: dSpec does support the "message" parameter.</a></p></li>
+<li><p><b>Support for enums and records.</b> Okay, "support" is a strong word; you have to write code to support the types you care about &mdash; but not much. In DUnit or dSpec, you'd have to write lots of methods to make this work (trust me, I've done it many times with DUnit). But in DUnitLite, the duplication has been pulled out. Once you write the code once, the new type is supported everywhere: Specify.That(), Should.Equal(), Should.Not.Equal(), Should.Be.GreaterThan(), Should.Not.Be.Between(), etc. dSpec's current class structure would make this more work. I think.</p></li>
+</ul>
+
+<p>There's also an interesting issue with dSpec's .Unless() syntax, which can't be ported to .NET because it relies on a clever deterministic-finalization hack. And if I implemented the same feature in DUnitLite, I think it would work just fine in .NET, just because of the difference in where the parentheses go. But that's a story for another day, when I haven't stayed up until after 5:00am trying to release a project.</p>
+
+<p>So anyway. <a href="http://code.google.com/p/dunitlite/downloads/list">DUnitLite is out there</a>, and it even has a little bit of <a href="http://code.google.com/p/dunitlite/">documentation</a>. It's an early version (it's just whatever I had working when I finally got the intellectual-property waiver back from my employer this week), but all of the supported <a href="http://code.google.com/p/dunitlite/wiki/SupportedSyntax">syntax</a> and <a href="http://code.google.com/p/dunitlite/wiki/SupportedTypes">types</a> should be fully working. Go check it out, and let me know what you think. Enjoy!</p>
+
+<p><small><sup>*</sup> The reason for changing the project's name is explained in <a href="http://blog.excastle.com/2007/04/22/dunitassertions-goes-behavioral/">another footnote</a>. "DUnitLite" isn't <i>that</i> much better, but at least it hasn't got "Assert" in its name.</small></p>

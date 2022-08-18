@@ -1,0 +1,26 @@
+---
+title: "Poor man's Find References  #Delphi"
+sort: 2435
+---
+<p><a href="http://17slon.com/blogs/gabr/blogger.html">gabr</a> wrote a post yesterday titled <a href="http://17slon.com/blogs/gabr/2007/04/when-changing-semantics-make-sure-that.html">When changing semantics, make sure that existing code will break</a>: basically another post about <a href="http://blog.excastle.com/2007/04/20/using-descriptive-data-types/">leaning on the compiler</a>. It reminded me of a trick I often use in Delphi, which I thought I'd pass along.</p>
+
+<p>Delphi's refactorings don't work. At least, not for us. Delphi's refactorings only seem to pay attention to files that have been explicitly added to the project, which in our case is about six out of thousands. We don't add every single file to the project, because we have thirty-something different projects that share a great deal of code, and it would be impractical for us to manually keep track of which projects use which files. The compiler can keep track of it for us just fine. The IDE's refactoring tools, of course, don't actually use the compiler, so they're busted.</p>
+
+<p>(Yes, we should use packages. It's not feasible at the moment, for historical reasons that we are gradually eliminating. But I digress.)</p>
+
+<p>Delphi's Find References doesn't do squat for us. So when I must find references, and a grep isn't good enough (because the method name is too common of a word), I like to do a "poor man's Find References". There are two variations on the theme:</p>
+
+<ul>
+<li><p>Rename the method. If it's called <code>Foo</code>, rename it to <code>Foo2</code>. Consider making the new name something that <i>will</i> be unique enough to grep on.</p></li>
+<li><p>Add an extra parameter. I like to add a parameter at the end called <code>X: Boolean</code>. This one is handy if you're planning to change the parameter list anyway, and are doing a Find References to see where all you'd have to change.</p></li>
+</ul>
+
+<p>Once you've made the change, then you start making everything compile. Everyplace the compile breaks, you change to call the new method signature. Once you can build everything with no errors, your Find References is done.</p>
+
+<p>If you did all this on a clean checkout, then all you need to do to see your Find References is to view the diffs (if you're using Subversion, then you probably want either TortoiseSVN &gt; Show Modifications or <a href="http://blog.excastle.com/2007/04/09/subversion-in-delphis-tools-menu/">Tools &gt; Svn Modifications</a>). Or, if you chose the "rename" path, then hopefully the new name is unique, and you can grep for it.</p>
+
+<p>Then you probably revert all of those messy changes you just made. But (hopefully) you learned what you set out to learn.</p>
+
+<p>In occasional cases, Poor Man's Find References is actually better than a working IDE Find References would be. The fact that you actually touch every call site can make it easier to do <a href="http://blog.excastle.com/2007/03/02/resharper-day-30-rename-including-viral-rename/">viral</a> reference searching, i.e. tracing it back multiple levels where you need to. A standard Find References doesn't give you a good way to branch out &mdash; e.g., you can't say "okay, take these three places it's used, and find references to all of <i>them</i> now". A standard Find References is one search at a time; no branching, no backtracking to continue an earlier search. But a Poor Man's Find References gives you all the depth (and backtracking) you need.</p>
+
+<p>(Mind you, most of the time I'd rather have an IDE that can actually <i>do</i> a Find References.)</p>

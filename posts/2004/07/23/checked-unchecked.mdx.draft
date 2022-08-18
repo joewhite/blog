@@ -1,0 +1,5 @@
+---
+title: "checked / unchecked  #.NET"
+sort: 1988
+---
+Good article on CodeProject explaining the <a href="http://www.codeproject.com/csharp/overflow_checking.asp">nuances and limitations of C#'s <font face="Courier New">checked</font> and <font face="Courier New">unchecked</font> keywords</a>.

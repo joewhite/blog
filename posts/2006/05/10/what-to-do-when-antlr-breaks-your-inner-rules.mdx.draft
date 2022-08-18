@@ -1,0 +1,43 @@
+---
+title: "What to do when ANTLR breaks your inner rules  #.NET  #Delphi  #antlr  #dgrok"
+sort: 2320
+---
+Three or four times now, I've written one parser rule, test-first, and gotten everything working; and then used that rule from another rule, and watched the original tests all fail. For example:
+
+<pre>parameter:
+  parameter_style
+  ident_list
+  (COLON parameter_type)?
+  (EQUAL expression)?;</pre>
+
+Worked great. It would match <font face="Courier New">A: Integer</font>, it would match <font face="Courier New">const Foo</font>, it would match <font face="Courier New">A, B: array of const</font>. Passed all the tests I could throw at it.
+
+Then I added a rule that used it:
+
+<pre>formal_parameters:
+  OPEN_PAREN
+  (p:parameter)?
+  CLOSE_PAREN;</pre>
+
+(This new rule isn't finished yet. Yes, it will accept multiple parameters by the time it's done.)
+
+As soon as I defined the <font face="Courier New">formal_parameters</font> rule in my grammar, my <font face="Courier New">parameter</font> tests started failing with errors like this:
+
+<pre>antlr.NoViableAltException: unexpected token: ["",&lt;1&gt;,line=1,col=17]</pre>
+
+I did some digging and some diffing, and found the problem. To take one particular example, the test was trying to parse <font face="Courier New">var Foo: Integer</font>. <font face="Courier New">var</font> matched <font face="Courier New">parameter_style</font>; <font face="Courier New">Foo</font> matched <font face="Courier New">ident_list</font>; and the colon and <font face="Courier New">Integer</font> matched <font face="Courier New">COLON parameter_type</font>. Then it tried to look for <font face="Courier New">EQUAL expression</font>, and it broke.
+
+It was looking at the next token in the input and deciding what to do. If the next token was <font face="Courier New">EQUAL</font>, then it would take the optional <font face="Courier New">EQUAL expression</font> branch. If the next token was something that could validly come after the <font face="Courier New">parameter</font> rule (which it figured out by looking at every other rule in the grammar that could possibly use <font face="Courier New">parameter</font>), then it would skip the optional branch and return. And if neither of those cases held â€” if the next token was neither <font face="Courier New">EQUAL</font> nor a token that could possibly come after a <font face="Courier New">parameter</font> â€” then it would throw a NoViableAltException.
+
+The problem was, somehow ANTLR got confused, and forgot that <font face="Courier New">EOF</font> was one of those somethings that could validly come after the <font face="Courier New">parameter</font> rule. After all, you might call the <font face="Courier New">parameter</font> rule all on its own, and it's perfectly legit for it to match everything in the input stream.
+
+ANTLR gets confused this way, every now and then. Most likely some bug in its "look at every other rule in the grammar that could possibly use <font face="Courier New">parameter</font>" logic. Fortunately, I don't expect to use the <font face="Courier New">parameter</font> rule on its own, except in tests; it'll always be part of some larger construct that <em>does</em> still work. So I used to just shrug helplessly, and move my <font face="Courier New">parameter</font> unit tests onto <font face="Courier New">formal_parameters</font>. Made the tests messier, because now they were testing two levels deep, but I got adequate coverage.
+
+This latest time, though, a light bulb went off: I could easily force ANTLR to recognize <font face="Courier New">EOF</font> as something that can come after the parameter rule. I wrote another rule, like so, and with no other changes, magically my tests started passing:
+
+<pre>parameter_with_eof:
+  parameter EOF;</pre>
+
+I don't even need to <em>use</em> this new rule, in my tests or anywhere else. But it gives ANTLR a clue-by-four that yes, <font face="Courier New">EOF</font> can come after <font face="Courier New">parameter</font>. So everywhere I use <font face="Courier New">parameter</font>, it recognizes <font face="Courier New">EOF</font> as a valid signal to skip the optional bits. And everything starts working again.
+
+It'd be nice if ANTLR worked right in the first place, of course. But it is at least encouraging to know that I've been able to work around every one of its bugs that I've found so far.

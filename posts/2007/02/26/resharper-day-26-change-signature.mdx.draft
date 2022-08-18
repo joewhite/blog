@@ -1,0 +1,36 @@
+---
+title: "ReSharper, day 26: Change Signature  #.NET  #resharper"
+sort: 2407
+---
+<p>Welcome to day 26 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>Ever had three functions that all take the same parameters, but each one in a different order? If so, Change Signature is the feature for you.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/ChangeSignature.png" width="541" height="579" alt="ReSharper's Change Signature dialog box" border="0"></blockquote>
+
+<p>ReSharper's <b>Change Signature</b> dialog lets you change anything and everything about a method signature. There are other ReSharper features for changing a method signature in specific ways, such as <a href="http://blog.excastle.com/2007/02/25/resharper-day-25-introduce-parameter/">Introduce Parameter</a>. But this is where you go for stuff there isn't a shortcut for. Here, you can:</p>
+
+<ul>
+<li><p><b>Rename the method.</b> If you select <b>Delegate via overloading method</b>, it will even put in a method with the old name, that does nothing but call the new one. In case that's ever useful.</p></li>
+<li><p><b>Change the return type.</b></p></li>
+<li><p><b>Add a parameter.</b> You must specify a default value, which is what will be passed at all the call sites. But sometimes you don't want to pass a constant value every time, in which case, see the next section.</p></li>
+<li><p><b>Remove a parameter.</b> ReSharper will not check to make sure the parameter is unused, so this may result in non-compilable code. (They do have a feature for safely deleting parameters, among other things, which I'm saving to cover on Day 31.)</p></li>
+<li><p><b>Rename a parameter.</b> Alas, ReSharper does not provide variable-name suggestions here, even if you press Ctrl+Space.</p></li>
+<li><p><b>Reorder parameters.</b></p></li>
+</ul>
+
+<p>In all of these cases, ReSharper takes care of updating all the call sites.</p>
+
+<h4>Non-constant values for new parameters</h4>
+
+<p>When you add a new parameter, ReSharper wants to keep your code compilable, so it needs to modify all the call sites that already call this method. That means it needs something to pass. This is a required field; you have to specify <i>something</i> to pass from all the call sites.</p>
+
+<p>So what happens if you don't want to pass the exact same thing from every call site? You have a few options:</p>
+
+<ul>
+<li><p><b>Don't use Change Signature; manually add the parameter instead.</b> Then the compiler will take you to all of the call sites &mdash; probably. (I've been bitten by this one when there turned out to be other overloads.) Not recommended in any but the simplest of cases; that's why we have tools to do this stuff for us.</p></li>
+<li><p><b>Use a default value, and remember to go back and change it.</b> Also not recommended. Human memory is not that good. That's why you're using ReSharper in the first place. You should only use a default value like <code>null</code> if it really is the most reasonable thing to pass.</p></li>
+<li><p><b>Use a nonsense expression,</b> like <code>asdfjkl</code>, that won't exist at any of the call sites. ReSharper will let you do this, but (no surprise) you'll end up with non-compilable code. This is actually good, in this case: it guarantees that the compiler will take you to every call site, where you can make a case-by-case determination of what to pass in.</p></li>
+<li><p><b>Use an expression that you hope will work most places.</b> If you're passing a <code>Foo</code> object, you can just type <code>Foo</code> as the default value, in the hopes that most of the call sites will be on classes that already have a <code>Foo</code> property. We've often had decent luck with this one.</p></li>
+<li><p><b>Use <a href="http://blog.excastle.com/2007/02/25/resharper-day-25-introduce-parameter/">Introduce Parameter</a> instead.</b> If you can use Introduce Parameter, it's better than Change Signature, because Introduce Parameter will do the right thing. But it only works if you can express the new parameter in terms of things the method knows about.</p></li>
+</ul>

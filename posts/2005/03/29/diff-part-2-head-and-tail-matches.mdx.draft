@@ -1,0 +1,13 @@
+---
+title: "Diff, part 2: Head and tail matches  #.NET  #Delphi  #diff"
+sort: 2130
+---
+<p>Last time, I <a href="http://blog.excastle.com/2005/03/29/diff-part-1-a-definition-and-a-stupid-implementation/">defined the diff algorithm, and gave a stupid implementation of it</a>. Here, I'll add improvement #1: better results by cheating (only I'll call it "optimizing").</p>
+<p>We're still very much in the realm of the mundane, here. But we can improve our diffs, a little, by first looking for head and tail matches, and then doing a <a href="http://blog.excastle.com/2005/03/29/diff-part-1-a-definition-and-a-stupid-implementation/">stupid diff</a> on what's left. If the first twenty elements in list A are exactly the same as the first twenty elements in list B, and the last twenty elements in list A are exactly the same as the last twenty elements in list B, then you don't need to bother comparing anything except what's in between.</p>
+
+
+
+<p>If we start by looking for head and tail matches, and then apply our <a href="http://blog.excastle.com/2005/03/29/diff-part-1-a-definition-and-a-stupid-implementation/">stupid diff algorithm</a> to what's left, then (in our simple example, where list B simply added two consecutive lines in the middle) we get the ideal diff results: two inserts.</p>
+<p>Of course, this breaks down pretty quickly. Suppose list A is the lines from a source file. List B is the same file, but with a comment added at the beginning, a blank line deleted at the end, and no other changes. Now head and tail matches are no help; our stupid algorithm will still give stupid results.</p>
+<p>That doesn't mean that head and tail matches are worthless. In fact, they're still very valuable. Looking for head and tail matches is an O(N) operation, which is substantially more efficient than any good diff algorithm is going to be &#8212; and reduces the number of lines you need to run through the more expensive (something like O(N&#178;), I think, or O(ND), or something like that) operation, which is a huge win. Head and tail matches aren't very valuable on their own, but they're the first step in any reasonable diff implementation, even a stupid one.</p>
+<p>Next time, we'll make things a little more interesting, by turning the lists inside-out.</p>

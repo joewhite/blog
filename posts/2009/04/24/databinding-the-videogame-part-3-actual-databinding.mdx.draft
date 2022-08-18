@@ -1,0 +1,55 @@
+---
+title: "Databinding the videogame, part 3: actual databinding  #.NET  #databinding  #databinding the videogame  #game-programming  #wpf"
+sort: 2736
+---
+Last time, I <a href="http://blog.excastle.com/2009/04/22/databinding-the-videogame-part-2-mapping-terrain-types-to-gui/">mapped terrain objects to pretty pictures</a> -- but only one terrain square at a time. And despite the title, it wasn't really databinding as such.
+
+This time, I fix one of those two problems... the databinding one. â€™Cause it turns out it's not hard -- I just needed to figure out the right way to do it. And of course, I figured it out after I had already posted part 2.
+
+
+
+Databinding happens through the magic of the <code>{Binding ...}</code> extension syntax in XAML. (Yeah, you can also do it in code, but I don't need that today.) I already knew about some of the settings you could put between the braces; for example, <code>{Binding Path=PropertyName}</code> will databind to the property named PropertyName on whatever object is in the DataContext. But I couldn't figure out how to bind my control's Content to the DataContext <em>itself.</em>
+
+Well, somehow it hadn't occurred to me that I could just use <code>{Binding}</code> by itself, without any parameters inside the curly braces. But of course you can, and poof -- whatever property you used <code>{Binding}</code> on is thenceforth bound to the DataContext, and changes whenever the DataContext changes. Once I finally figured <em>that</em> out, the switch to databinding was just a three-line diff (well, okay, four if you're being picky -- there was a line break):
+
+<a href="http://svn.excastle.com/databinding_the_videogame/tags/part3/Game.Core/GameViews/MapView.xaml ">MapView.xaml</a>:
+<pre lang="diff">@@ -3,7 +3,8 @@
+     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+     xmlns:TerrainDataModels="clr-namespace:Game.Core.TerrainDataModels"
+     xmlns:TerrainViews="clr-namespace:Game.Core.TerrainViews"
+-    MinWidth="40" MinHeight="40" Background="Gray">
++    MinWidth="40" MinHeight="40" Background="Gray"
++    Content="{Binding}">
+     <UserControl.Resources>
+         <DataTemplate DataType="{x:Type TerrainDataModels:Dirt}">
+             <TerrainViews:DirtView/></pre>
+
+<a href="http://svn.excastle.com/databinding_the_videogame/tags/part3/Game/Window1.xaml.cs ">Window1.xaml.cs:</a>
+<pre lang="diff">@@ -15,11 +15,11 @@
+
+         private void Dirt_Click(object sender, RoutedEventArgs e)
+         {
+-            mapView.Content = new Dirt();
++            mapView.DataContext = new Dirt();
+         }
+         private void SteelPlate_Click(object sender, RoutedEventArgs e)
+         {
+-            mapView.Content = new SteelPlate();
++            mapView.DataContext = new SteelPlate();
+         }
+     }
+ }</pre>
+
+Voil&agrave; -- databinding. Of course, it still does the exact same things as before, but at least I made the title honest.
+
+<h3>Today's test project</h3>
+
+Today's project is the same as <a href="http://blog.excastle.com/2009/04/22/databinding-the-videogame-part-2-mapping-terrain-types-to-gui/">yesterday's</a>, but with real databinding. You can <a href="http://svn.excastle.com/databinding_the_videogame/tags/part3/">browse today's code online</a>, or check it out from my Subversion repository:
+
+<pre>svn co http://svn.excastle.com/databinding_the_videogame/tags/part3</pre>
+
+<h3>What's next?</h3>
+
+I'm thinking the next thing is to bind to a whole collection of terrain objects.
+
+Yes, I know that's what I said last time. But I'm learning this WPF stuff as I go, and on the off-chance somebody might someday stumble on this while <em>they're</em> learning WPF, I think it's worth blogging in small increments. This post is about binding a single object, which is useful info in its own right. The next one will be about binding a collection. I'm blogging in <a href="http://www.conifersystems.com/2008/11/05/the-benefits-of-small-commits/">small commits</a>.

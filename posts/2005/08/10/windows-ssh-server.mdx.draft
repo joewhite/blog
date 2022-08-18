@@ -1,0 +1,5 @@
+---
+title: "Windows SSH server  #Life"
+sort: 2199
+---
+I've used SSH before (it's darned cool â€” I need to do another Mere Moments Guide sometime), but I've always used Linux for the server side. Today, Bill MacMillan, from the church technology committee (which I'm co-chair of, by the way), told me about a Windows SSH server he found. It's called <a href="http://freesshd.com/">freeSSHd</a>, and in his words, "I got it to work â€” almost too easily." Link hereby filed for future reference.

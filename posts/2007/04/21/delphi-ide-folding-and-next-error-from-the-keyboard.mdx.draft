@@ -1,0 +1,38 @@
+---
+title: "Delphi IDE: Folding and Next Error from the keyboard  #Delphi"
+sort: 2433
+---
+<p>I wish one of the CodeGear bloggers would blog about new keystrokes they're adding to the IDE with each new version. Once I finally managed to dig up the Help for keyboard shortcuts (<a href="http://qc.codegear.com/wc/qcmain.aspx?d=44790">such as it is</a>), I found some that I never knew about. Put these in some RSS, man!</p>
+
+<p>Better yet: I wish one of the CodeGear bloggers would blog about new keystrokes they're <i>thinking</i> about adding, <i>before</i> they actually add them, so there's some sort of comment period. These keystrokes are atrocious! Honestly, Ctrl+Shift+K T? Think about the amount of finger travel on that one, as your left hand has to move from the farthest left it can go (to hold down Ctrl and Shift) to the farthest right it can go (to press T). Seriously, somebody needs to be publicly flogged for that one.</p>
+
+<p>So here are some keystrokes you probably never knew about. Did you know you can <i>(allegedly)</i> control code folding from the keyboard? And that Delphi actually has a keystroke to jump to the next compiler error?</p>
+
+<p>Here are the most important code-folding keystrokes (Expand All, Collapse All, and Toggle Current, the only ones I've ever seen anyone actually use):</p>
+
+<ul>
+<li><b>Toggle Current:</b> Ctrl+Shift+K T.</li>
+<li><b>Expand All:</b> Ctrl+Shift+K A.</li>
+<li><b>Collapse All:</b> They make this one painful; you have to specify what you want to collapse.
+<ul>
+<li><b>Collapse all classes:</b> Ctrl+Shift+K C.</li>
+<li><b>Collapse all methods:</b> Ctrl+Shift+K M.</li>
+<li><b>Collapse namespace/unit:</b> Ctrl+Shift+K N.</li>
+<li><b>Collapse nested procedures:</b> Ctrl+Shift+K P.</li>
+<li><b>Collapse regions:</b> Ctrl+Shift+K R.</li>
+</ul>
+</li>
+</ul>
+
+<p>Note that none of the code-folding keystrokes seem to actually do anything at all, but those are the keys you're supposed to have to hit, according to the documentation.</p>
+
+<p>And here are the keystrokes for jumping to the next compiler error. They're also rumored to work for Find in Files results, if you use that instead of <a href="http://www.gexperts.org/">GExperts</a> Grep. (And I do, on rare occasions, since Delphi's regular expression support sucks less than GExperts', as long as you have the Delphi 6 Help files where Delphi's goofy regex syntax was actually documented.)</p>
+
+<ul>
+<li><b>Next error / next item in Messages window</b>: Alt+F8.</li>
+<li><b>Previous error / previous item in Messages window</b>: Alt+F7.</li>
+</ul>
+
+<p>Note that the "next / previous error" keystrokes aren't actually documented (at least in Delphi 2006); the only way I was able to find out about them was to <a href="http://qc.codegear.com/wc/qcmain.aspx?d=44400">file an enhancement request, and then read the reason why it was closed</a>. (Although later I did find them included in a <a href="http://dn.codegear.com/article/33805">list of interesting, and mostly undocumented, Delphi IDE keystrokes</a>.)</p>
+
+<p>The Twister award, for most useful yet most contorted keystroke, would have to go to Ctrl+Shift+K T, if it worked. But these are all pretty lousy. Alt+Function key, for something you would do repetitively? Eww. Couldn't CodeGear take a page from <a href="http://www.jetbrains.com/resharper/">ReSharper</a>, and make the most-used keystrokes easier to type?</p>

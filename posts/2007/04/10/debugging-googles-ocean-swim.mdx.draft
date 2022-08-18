@@ -1,0 +1,21 @@
+---
+title: "Debugging Google's ocean swim  #Life  #ooo pretty"
+sort: 2425
+---
+<p><a href="http://www.marcocantu.com/">Marco Cantù</a> today <a href="http://blog.marcocantu.com/blog/australia_pictures_maps.html">mentioned</a> that Google Maps will give you <a href="http://maps.google.com/maps?f=d&hl=en&saddr=29100+Piacenza,+Italy&daddr=new+york&sll=37.0625,-95.677068&sspn=50.37814,92.8125&layer=&ie=UTF8&z=4&ll=45.39845,-32.167969&spn=44.9805,92.8125&om=1"> driving directions from Italy to New York</a>. Included in the directions is a step that says "<b>Swim across the Atlantic Ocean &mdash; 5,572 km</b>".</p>
+
+<p>To give you an idea of the kind of geek I am, I went on to look for other ocean routes that they support. Mainland to Hawaii? <a href="http://maps.google.com/maps?f=d&hl=en&saddr=Omaha&daddr=Honolulu&sll=45.39845,-32.167969&sspn=24.241055,59.0625&layer=&ie=UTF8&z=4&om=1"> Nope, they can't do it</a>. U.S. to Australia? <a href="http://maps.google.com/maps?f=d&hl=en&saddr=Omaha&daddr=Sydney&sll=45.39845,-32.167969&sspn=24.241055,59.0625&layer=&ie=UTF8&z=4&om=1"> No can do</a>.</p>
+
+<p>Then I tried using Florida instead of New York. They routed me <a href="http://maps.google.com/maps?f=d&hl=en&saddr=Omaha&daddr=Sydney&sll=45.39845,-32.167969&sspn=24.241055,59.0625&layer=&ie=UTF8&z=4&om=1"> all the way up the East Coast</a>. So apparently they only have a single route across the ocean, a single "road" if you will.</p>
+
+<p>So then I tried to narrow down where this "road" starts and ends. (Am I scaring you yet?) I had two reasons for this: one, because I was curious; and two, because I wanted to know how long they thought the swim would take, so I could figure out how fast they think I can swim.</p>
+
+<p>At this point, I found two bugs in Google Maps.</p>
+
+<p>Bug #1: If you ask for a route directly from the starting point (Long Wharf, Boston) to the ending point (Terminal Grande-Bretagne, Le Havre, France), it doesn't tell you to swim. It just tells you to "<a href="http://maps.google.com/maps?f=q&hl=en&q=long+wharf,+boston,+ma+to+terminal+grande-bretagne,+le+havre,+france&sll=37.95364,-39.667685&sspn=53.487835,118.125&layer=&ie=UTF8&z=3&ll=46.195042,-35.507812&spn=47.743462,118.125&om=1">head south</a>". (Here's a <a href="http://maps.google.com/maps?f=q&hl=en&q=central+wharf+and+long+wharf,+boston,+ma+to+terminal+grande-bretagne,+le+havre,+france&layer=&sll=46.234105,-35.46866&sspn=47.743462,118.125&ie=UTF8&z=3&om=1"> better version of the Google Maps swimming directions</a>; it starts a block away, and does tell you to swim.)</p>
+
+<p>Bug #2: They think you can make the 3,462-mile swim in 29 days 0 hours. Which means they think you can manage an average sustained pace of <a href="http://www.google.com/search?hl=en&safe=off&client=firefox-a&rls=org.mozilla%3Aen-US%3Aofficial&hs=oz8&q=3462+miles+%2F+29+days+in+miles+per+hour&btnG=Search"> 5 miles an hour</a>, or <a href="http://www.google.com/search?hl=en&safe=off&client=firefox-a&rls=org.mozilla%3Aen-US%3Aofficial&hs=xLo&q=3462+miles+%2F+29+days+in+m%2Fs&btnG=Search"> 2.2 meters per second</a>, or <a href="http://www.google.com/search?hl=en&safe=off&client=firefox-a&rls=org.mozilla%3Aen-US%3Aofficial&hs=OMo&q=3462+miles+%2F+29+days+in+knots&btnG=Search"> 4.3 knots</a>. Swimming. Average. If you swim 24 hours a day.</p>
+
+<p>I mean, come on, guys. You could have at least done some research. The swim across the Atlantic actually takes <a href="http://en.wikipedia.org/wiki/Benoit_Lecomte">72 days</a>.</p>
+
+<p>(They also got the start and end cities wrong &mdash; it should have been <a href="http://www.ambafrance-us.org/news/statmnts/2002/franceus082802.asp">Cape Cod, Massachusetts to Quiberon, France</a>. But one mustn't be too picky.)</p>

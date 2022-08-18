@@ -1,0 +1,15 @@
+---
+title: "Parallel processing made easy  #.NET  #Delphi  #dgrok"
+sort: 2482
+---
+<p>Microsoft Research and the CLR team are working on something called the <a href="http://msdn.microsoft.com/msdnmag/issues/07/10/Futures/default.aspx">Task Parallel Library</a>, which looks like it will make .NET-based parallel processing a whole lot easier than it is today. The library is supposed to be released as a CTP sometime yet this year.</p>
+
+<p>The <a href="http://msdn.microsoft.com/msdnmag/issues/07/10/Futures/default.aspx">article in MSDN Magazine</a> has all the details, and is a great read. The parallel "for" loop looks extremely useful, and accordingly gets a lot of column inches in the article &mdash; including some tips on how much parallelism is too much, and things to think about when you tune its performance. They've also got a convenient way to execute two (or more) methods in parallel. The higher-level stuff is all implemented in terms of task and <a href="http://en.wikipedia.org/wiki/Futures_and_promises">future</a> classes that you can use on their own.</p>
+
+<p>One of the best things about this library is that it handles exceptions nicely. If you run a loop in parallel, and any of the parallel threads throws an exception, all the other threads are canceled, and the exception is re-thrown in the place you originally started the loop &mdash; just like it would be if you'd used an ordinary "for" loop. This exception handling is baked into the base Task class, so it's there for everything in the library.</p>
+
+<p>I particularly liked some of the ways they squeeze the best performance out of the library. For example, if you create a future, and later you ask for its return value, but it hasn't yet started to run, it'll just be run immediately on the calling thread. No task switching. That's kinda cool! They also optimize for single-core (e.g., Parallel.For just runs as a simple loop if you only have a single-core processor), and they scale up the number of worker threads if there's a lot of blocking going on.</p>
+
+<p>All in all, this looks like it'll be a terrific library when it ships. Of course, I found this article <i>after</i> I'd put experimental multithreading support into DGrok! I'll probably rip out my code and use theirs when they ship &mdash; they're much more expert at multithreading than I am, so not only are they a lot more likely to get all the fringe cases right than I am, but they should be faster than mine as well.</p>
+
+<p>Thanks to <a href="http://blogs.codegear.com/abauer/">Allen Bauer</a> for the link to the MSDN article.</p>

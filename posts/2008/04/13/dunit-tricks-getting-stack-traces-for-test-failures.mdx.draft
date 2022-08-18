@@ -1,0 +1,61 @@
+---
+title: "DUnit tricks: Getting stack traces for test failures  #Delphi  #automated testing  #dunit  #dunitlite"
+sort: 2516
+---
+<a href="http://dunit.sourceforge.net/">DUnit</a> has an option to use <a href="http://homepages.codegear.com/jedi/jcl/">JCL</a> to generate stack traces. The idea is that, whenever there's an exception or a test failure, DUnit will show a stack trace right along with the failure message. The only problem is, it doesn't work.
+
+There's no problem getting stack traces for unexpected exceptions. This is really useful; you get the address, unit name, method name, and even the line number of the line that threw an exception, together with the call stack that led to that code getting called. Immensely useful.
+
+The problem is, you don't get the same thing for test failures -- even though <code>Fail</code> and <code>CheckEquals</code>, and even <a href="http://code.google.com/p/dunitlite/">DUnitLite's</a> <code>Specify.That</code>, operate by throwing exceptions (they've got their own exception class, <code>ETestFailure</code>). You <i>should</i> be able to get a stack trace that shows the exact line of code that contained the failing assertion. In fact, we're using older versions of DUnit and JCL at work, and we get stack traces just fine.
+
+Unfortunately, stack traces for test failures are broken by default in the latest versions of DUnit and JCL. But there's hope -- notice that I said "by default". Below, I'll tell you how to fix that default.
+
+
+
+<h3>Enabling DUnit stack tracing</h3>
+
+First of all, here's how to get DUnit to show stack traces in the first place.
+
+You'll need to download the source code for both <a href="http://dunit.sourceforge.net/">DUnit</a> and the <a href="http://homepages.codegear.com/jedi/jcl/">Jedi Code Library</a>. (Recent versions of Delphi ship with an older version of DUnit, but I only tested this with the latest version.)
+
+Add the <code>DUnit</code>, <code>JCL</code>, <code>JCL\Common</code>, and <code>JCL\Windows</code> directories to your project's search path.
+
+Then make the following changes in Project > Options:
+
+<ol>
+<li>On the Directories/Conditionals page, set "Conditional defines" to: <code>USE_JEDI_JCL</code></li>
+<li>On the Linker page, set "Map file" to "Detailed".
+</ol>
+
+Now write a test that throws an unexpected exception, compile, and run. Here's a contrived example, but it'll give you an idea of what it looks like:
+
+<a href='http://blog.excastle.com/wp-content/uploads/2008/04/dunit-exception-stack-trace1.png'><img src="http://blog.excastle.com/wp-content/uploads/2008/04/dunit-exception-stack-trace1-300x115.png" alt="Screenshot of the DUnit GUI showing an exception stack trace" title="dunit-exception-stack-trace" width="300" height="115" class="alignnone size-medium wp-image-2518" /></a>
+
+<h3>Enabing stack tracing for test failures</h3>
+
+We don't get unexpected exceptions in our tests very often. More often, it's test failures. And when we have more than one assertion in the same test (not the ideal, but it happens a lot), sometimes it's hard to know which assertion failed. Or rather, it's always <i>easy</i> to know, if you have stack traces.
+
+The problem is with JCL's exclusion list. The latest version of JCL keeps a configurable list of exception types that it shouldn't generate stack traces for. Seems like a reasonable feature. But the JCL and DUnit teams made three important design decisions, at various points in time:
+
+<ol>
+<li>JCL's exclusion list, by default, contains one class: <code>EAbort</code>.</li>
+<li>JCL ignores not just the classes in the exclusion list, but any of their descendant classes as well.</li>
+<li>DUnit's <code>ETestFailure</code> descends from... yep, you guessed it, <code>EAbort</code>.</li>
+</ol>
+
+Put all three together, and stuff doesn't work.
+
+But, all that said, it's easy to work around. Just add the following code to your project file, before you call one of the <code>RunRegisteredTests</code> routines:
+
+<pre>uses
+  ...,
+  JclDebug,
+  ...;
+
+begin
+  ...
+  JclDebug.RemoveIgnoredException(EAbort);
+  ...
+end.</pre>
+
+And bask in the goodness that is stack traces.

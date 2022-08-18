@@ -1,0 +1,30 @@
+---
+title: "ReSharper, day 27: Extract Method  #.NET  #resharper"
+sort: 2408
+---
+<p>Welcome to day 27 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>Today's topic is <b>Extract Method</b>, arguably the second most useful refactoring of all time. (Rename, of course, is the first. I'll cover it in a couple of days.)</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/ExtractMethod.png" width="541" height="439" alt="ReSharper's Extract Method dialog box" border="0"></blockquote>
+
+<ul>
+<li><p><b>Method name</b> is pretty obvious.</p></li>
+<li><p><b>Declare static</b> is automatically grayed out if the expression uses any instance fields, methods, or properties. I'm not sure why this is. When you're calling a method, it makes sense, but fields and properties could just get passed into the newly-extracted method, if ReSharper allowed it.</p></li>
+<li><p><b>Return value</b> seems to serve no purpose whatsoever. I've never seen it enabled. And it either says "No return value", or it's blank (even though ReSharper clearly does know the return type &mdash; it's shown correctly in the "Signature preview" box). I don't know if it's just buggy, or if it was a deliberate design decision to put a blank combo box here.</p></li>
+<li><p><b>Parameters.</b> ReSharper decides which parameters you need, and fills them in. While the grid looks like the one in the <a href="http://blog.excastle.com/2007/02/26/resharper-day-26-change-signature/">Change Signature</a> dialog, it's nowhere near as full-featured: here all you can do is rename and reorder. You can't change parameters' types or anything like that.</p>
+<p>ReSharper suggests names for the parameters it decides you need, but that's a one-time thing when the dialog opens. You have no way of dropping down a list of other suggestions.</p>
+<p>If you uncheck a parameter, it won't be passed; instead ReSharper will generate a local variable and initialize it to three dots, <code>...</code>, which guarantees that the compiler will gently suggest that you fill in something else.</p></li>
+</ul>
+
+<h4>Extracting with extra parameters</h4>
+
+<p>I've often wished that ReSharper's (and Delphi's, too, for that matter) Extract Method dialog had an option to add more parameters. But I was thinking about it this evening, and realized that &mdash; with ReSharper, at least &mdash; it's unnecessary.</p>
+
+<p>Suppose I've got some setup code for a test, and it does this:</p>
+
+<blockquote><pre>_foo = new Foo(42);</pre></blockquote>
+
+<p>And suppose I want to pull that line of code into a new method, <code>InitializeFoo()</code>, that takes an <code>int</code> parameter. What I wanted was for the Extract Method dialog to show me the code it was going to write, and for it to let me highlight the <code>42</code> and say "hey, tack on another parameter for this expression."</p>
+
+<p>Well, duh. They've already got a feature for doing exactly that! I have to actually hit OK to extract the method first, but then I can highlight the <code>42</code> in the code editor and do an <a href="http://blog.excastle.com/2007/02/25/resharper-day-25-introduce-parameter/">Introduce Parameter</a>. And it'll automatically update the call site to pass in the literal <code>42</code>, so everything just works.</p>

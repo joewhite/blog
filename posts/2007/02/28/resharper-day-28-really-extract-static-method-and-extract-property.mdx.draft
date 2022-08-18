@@ -1,0 +1,23 @@
+---
+title: "ReSharper, day 28: Really Extract Static Method and Extract Property  #.NET  #resharper"
+sort: 2409
+---
+<p>Welcome to day 28 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>Today, I'll touch on a couple more refactorings (besides Introduce Parameter, discussed yesterday) that you can use in conjunction with Extract Method.</p>
+
+<h4>Really Extract Static Method</h4>
+
+<p>ReSharper won't always let you extract a static method (e.g., if the code references instance fields or methods). But you can get there in two steps, by first extracting the method, and then using the <b>Make Method Static</b> refactoring.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/MakeMethodStatic.png" width="421" height="357" alt="ReSharper's Make Method Static dialog box" border="0"></blockquote>
+
+<p>I haven't used this refactoring much, so I won't go into details. I just wanted to note that it's there.</p>
+
+<h4>Extract Property</h4>
+
+<p>ReSharper doesn't have an "Extract Property" refactoring. But you can get there in two steps: first you extract a method, and then you use <b>Method to Property</b>.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/MethodToProperty.png" width="428" height="153" alt="ReSharper's Method to Property dialog box" border="0"></blockquote>
+
+<p>There's also a <b>Property to Method</b> refactoring, if you ever need to go the other way.</p>

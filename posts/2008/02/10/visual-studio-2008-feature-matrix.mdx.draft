@@ -1,0 +1,43 @@
+---
+title: "Visual Studio 2008 Feature Matrix  #.NET"
+sort: 2495
+---
+At long last, the <a href="http://msdn2.microsoft.com/en-us/vstudio/products/cc149003.aspx">Visual Studio 2008 feature matrix</a> is available.
+
+I was mainly interested in the differences between Standard and Professional. For my own use to play around with at home, it looks like Standard would be plenty good enough: the only thing it's missing that I find even remotely interesting is <a href="http://blogs.msdn.com/danielfe/archive/2005/01/26/361375.aspx">Object Test Bench</a>.
+
+(Now I just need to find the cash to buy it, since they refused to honor my certificate that was supposed to be good for employee pricing.)
+<h3>Things that are only in Professional</h3>
+<ul>
+	<li><a href="http://blogs.msdn.com/danielfe/archive/2005/01/26/361375.aspx">Object Test Bench</a></li>
+	<li> 64-bit C++ compiler</li>
+	<li>Crystal Reports</li>
+	<li>Server Explorer (explore remote databases and services)</li>
+	<li>Extra templates:
+<ul>
+	<li>"Database Project" template: a "project template for direct manipulation of database objects and data". I'm not sure what they mean â€” what does it mean to make a database "project"?</li>
+	<li>SQL Server Project template (I think this is for .NET stored procs. You should be able to create them without the template, though.)</li>
+</ul>
+</li>
+	<li>Office 2003 Add-in support:
+<ul>
+	<li>Office 2003 Add-in project templates (Standard does have the Shared Add-in template, but not the Excel-, Outlook-, etc.-specific ones)</li>
+	<li>Action Pane designer</li>
+	<li>Outlook Form Region</li>
+	<li>Ribbon designers</li>
+</ul>
+</li>
+	<li>Windows Mobile development tools</li>
+	<li>Visual Studio Team System stuff (Microsoft's test framework, etc.)</li>
+</ul>
+
+<h3>Things that are only in Standard</h3>
+<ul>
+	<li>MSDN Express Library (the one tailored for the Express SKUs). Is this a typo? They do say that the full MSDN Library is also available.</li>
+	<li>Database Explorer (presumably Professional's "Server Explorer" is meant to be a superset of this)</li>
+</ul>
+<h3>Other differences</h3>
+<ul>
+	<li>Professional's installer is supposed to give you more control over which optional components you install. It's not clear whether this is just marketing-speak for "there's more stuff so there are more checkboxes".</li>
+</ul>
+<a href="http://msdn2.microsoft.com/en-us/vstudio/products/cc149003.aspx">Full Visual Studio 2008 feature matrix</a>

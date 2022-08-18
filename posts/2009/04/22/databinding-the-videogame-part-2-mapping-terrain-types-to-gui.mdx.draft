@@ -1,0 +1,75 @@
+---
+title: "Databinding the videogame, part 2: mapping terrain types to GUI  #.NET  #databinding  #databinding the videogame  #datatemplate  #game-programming  #wpf"
+sort: 2690
+---
+When I <a href="http://blog.excastle.com/2009/04/20/databinding-the-videogame-part-1/">started trying to write a databound video game</a>, my first thought was to use databinding for movement and scrolling. Which is all well and good, and I'll cover them later. But I quickly hit on a more interesting problem (and solution).
+
+My game needed to know which areas the hero could move through. This is a simple tile-based game, so each 40x40 map square is either passable or not. So my back-end logic needed a Map object to hold that "passability" data. It could be something as simple as a two-dimensional array of Booleans. Except that in my game, there are varying degrees of passability -- for example, some terrains <em>are</em> passable, you just have to be moving at terminal velocity before you can crash through them. So it's not just a Boolean; more like an enum, or, better yet, a Terrain object. So far so good.
+
+And whenever the hero enters a new randomly-generated part of the map, I need to do two things: I need to add some new objects to this Terrain array, and I also need to add the corresponding GUI tiles on the screen.
+
+"Aha!" thinks I. "Why should I waste ten minutes writing a simple method that adds something to two different data stores, when I could instead spend all weekend figuring out how to use an immensely complicated, nigh-impossible-to-troubleshoot databinding system that can automatically do that boring work for me?"
+
+And so I databound the map to the GUI. And it worked. Eventually.
+
+
+
+(If you've done much with WPF, this may not seem very interesting. You might even know better ways of doing it -- and if so, please feel free to let me know in the comments. But I'm still learning this stuff, so I thought it was pretty cool.)
+
+<h3>Starting small: mapping a class to a control</h3>
+
+I won't databind the whole map today; I'll start with a small part -- displaying one terrain square.
+
+I'm being a good boy and writing my code in layers. The lower layer has the data model, which (for now) is just <a href="http://en.wikipedia.org/wiki/POCO" title="Plain Old CLR Objects">POCOs</a>. The upper layer has the GUI. The data objects know nothing about anything GUI. So far so good -- textbook stuff.
+
+In the data model, I have classes to represent different terrains. At the moment there are only two -- Dirt and SteelPlate. At the moment, they know nothing. Here are their declarations:
+
+<pre lang="csharp">public class Dirt
+{
+}
+public class SteelPlate
+{
+}</pre>
+
+Not a typo. They're both <a href="http://svn.excastle.com/databinding_the_videogame/tags/part2/Game.Core/TerrainDataModels/Dirt.cs">empty</a> <a href="http://svn.excastle.com/databinding_the_videogame/tags/part2/Game.Core/TerrainDataModels/SteelPlate.cs">classes</a>. Hey, come on, it's only part 2 of the series.
+
+The cool thing is, if I create an instance of this empty Dirt class, and try to show that object instance in the GUI, I don't get a compile error, or an exception, or an empty screen, or the text "Game.Core.TerrainDataModels.Dirt". I get a pretty picture of a square piece of dirt. (Or as close as my limited artistic ability will allow.) If I push a SteelPlate instance into the GUI, I get a pretty picture of a steel plate, with rivets in the corners and everything.
+
+Okay, WPF doesn't come with built-in knowledge of know to map a class called Dirt to a picture of dirt. How did I set up the mappings from those empty objects to GUI representations? Well, let's start with this: it's not in code. I'll show you the <a href="http://svn.excastle.com/databinding_the_videogame/tags/part2/Game/Window1.xaml.cs">only two lines of actual code</a> I wrote in this test app (in the handlers for the "Dirt" and "Steel Plate" buttons, respectively):
+
+<pre lang="csharp">mapView.Content = new Dirt();
+// ...
+mapView.Content = new SteelPlate();</pre>
+
+The magic is in the way WPF can render any arbitrary object to the screen. There are a bunch of ways to tell it how to turn that POCO into a GUI control, but in this case, DataTemplate seems like the best fit. I just give it one DataTemplate that's keyed to the Dirt class, that says "when you want to display the Dirt class on the screen, do it by creating and displaying a DirtView control", and another one for SteelPlate that says "create and display a SteelPlateView control". I defined a UserControl named MapView, which has the magic XAML to set up these mappings:
+
+<pre lang="xml"><UserControl x:Class="Game.Core.GameViews.MapView" ...boring XML stuff...>
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type TerrainDataModels:Dirt}">
+            <TerrainViews:DirtView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type TerrainDataModels:SteelPlate}">
+            <TerrainViews:SteelPlateView/>
+        </DataTemplate>
+    </UserControl.Resources>
+</UserControl></pre>
+
+Then all the code has to do is add a Dirt or a SteelPlate somewhere inside a MapView, and the appropriate DirtView or SteelPlateView is created and displayed automatically.
+
+You can see the full MapView code in <a href="http://svn.excastle.com/databinding_the_videogame/tags/part2/Game.Core/GameViews/MapView.xaml">MapView.xaml</a>, but the interesting part is above -- the rest of the file is XML namespace definitions, the control's size, and its background color.
+
+Interesting note: when I was thinking about what I wanted my classes to look like, I debated whether I should use a different class for each different type of terrain, or just have one Terrain class with an enum property. WPF decided that one for me, at least for now. It's much easier to select a DataTemplate based on class. It's <em>possible</em> to select a DataTemplate based on the value of a property, but it's nowhere near as simple. So I'm keeping it simple.
+
+<a href="http://blog.excastle.com/wp-content/uploads/2009/04/databindingthevideogamepart2.png"><img src="http://blog.excastle.com/wp-content/uploads/2009/04/databindingthevideogamepart2-150x150.png" alt="Databinding the Videogame part 2: Sample project" title="Databinding the Videogame part 2: Sample project" width="150" height="150" class="size-thumbnail wp-image-2691" style="float:right" /></a>
+
+<h3>Today's test project</h3>
+
+For today's post, I wrote a test project with two buttons: Dirt and Steel Plate. Each button has one line of code (excerpted above) that creates a POCO and pushes it into the GUI, there to be displayed as a pretty picture. Nice and simple so far.
+
+You can <a href="http://svn.excastle.com/databinding_the_videogame/tags/part2/">browse today's code online</a>, or check it out from my <a href="http://subversion.tigris.org/">Subversion</a> repository:
+
+<pre>svn co http://svn.excastle.com/databinding_the_videogame/tags/part2</pre>
+
+<h3>What's next?</h3>
+
+So far, I can show a single terrain square at a time. I'm thinking the next thing is to bind to a whole collection of them, and actually show a whole map (or a subset of it) on the screen. Stay tuned.

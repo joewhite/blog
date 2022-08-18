@@ -1,0 +1,44 @@
+---
+title: "TechEd 2008 notes: Understanding C# Lambda Expressions  #.NET  #teched2008"
+sort: 2549
+---
+This was a lunch session, so pretty short. It turned out to be pretty introductory-level, just about grokking the syntax (which I pretty much already did).
+
+Understanding C# Lambda Expressions
+Scott Cate
+myKB.com
+
+Operators: most are very mnemonic, very self-explanatory. But what about <code>=&gt;</code>?
+
+Read <code>=&gt;</code> as "reads into" or "feeds into".
+
+<pre>BuildMatrix((a, b) =&gt; (a+b).ToString());</pre>
+
+
+
+History of Delegates in .NET
+<ul>
+  <li>Forget the compiler for a minute. What does the word "delegate" mean? "I don't have time to (or don't know how to) do this; I'm going to offload it to someone else and take the credit."</li>
+  <li>You've mastered delegates if you could write a class with an event, and wire up that event, in Notepad, without Intellisense.</li>
+  <li>Define the delegate type. No implementation, just a signature.</li>
+  <li>.NET 1.0: Pass the method name as a parameter (or whatever). (Actually, in 1.0 I think maybe you had to do <code>new DelegateType(MethodName)</code>.)</li>
+  <li>.NET 2.0: anonymous delegates. <code>BuildMatrix(delegate(int a, int b) { return (a+b).ToString(); }</code></li>
+  <ul>
+    <li>Return type is inferred.</li>
+  </ul>
+  <li>.NET 3.0: <code>BuildMatrix((a, b) =&gt; (a+b).ToString());</code></li>
+  <ul>
+    <li>The stuff after <code>=&gt;</code> is an anonymous delegate. The stuff before it is the parameter list.</li>
+    <li>You can define the parameter types, or the compiler can infer them.</li>
+    <li>Can omit parentheses if there's only one parameter.</li>
+  </ul>
+  <li>Same thing without predefining the delegate type: <code>void BuildMatrix(Func&lt;int, int, string&gt; operate)</code></li>
+  <li>Don't need curly braces and don't need <code>return</code> -- can just put an expression. You can also put braces with statements (in which case you do need <code>return</code>).</li>
+</ul>
+
+Errata -- details the presenter got mixed up:
+<ul>
+  <li>Built a grid in HTML, and it looks like he got his X and Y loops reversed. Yes, this is nitpicky.</li>
+  <li>Told us you can make two delegates with the same name but different parameters (one with two ints and one with two decimals). You can't; it won't compile (I double-checked). They can have the same name if they have a different number of generic parameters (since the number of generic parameters is part of the name), but you can't do it if they're non-generic.</li>
+  <li>Told us the compiler generates a new delegate type behind the scenes when you pass an anonymous delegate (it doesn't, it uses the actual delegate type that the function expects; I double-checked)</li>
+</ul>

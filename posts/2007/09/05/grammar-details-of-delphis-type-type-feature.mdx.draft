@@ -1,0 +1,31 @@
+---
+title: "Grammar details of Delphi's \"type type" feature  #.NET  #Delphi  #dgrok"
+sort: 2461
+---
+<p>If you're a hardcore VCL geek like me, you probably already know about Delphi's "type type" feature. But I learned some interesting details about it last night while <a href="http://blog.excastle.com/2007/08/28/generating-the-grammar-document/">discovering</a> the <a href="http://www.excastle.com/dgrok/Grammar.html">Delphi grammar</a>.</p>
+
+<p>The documentation doesn't give a name to this language construct, so "type type" is a name I made up. It's when you prepend "type" to a type declaration to give it its own type identity:</p>
+
+<blockquote><pre>type
+TColor = type Integer;</pre></blockquote>
+
+<p>I won't go into any details on what you would use this for, because it's not that useful for anything outside the Object Inspector. You probably wouldn't even notice it was a different type if you never used it as a <code>var</code> parameter. But it's more useful than <code>goto</code>, and I've got <i>that</i> in my parser...</p>
+
+<p>Anyway, I found some interesting details about "type type" in my research. Specifically, there are only three type constructs that allow you to prepend "type" to them: identifiers, string, and file.</p>
+
+<blockquote><pre>type
+TTypeQualId = type System.Integer; // or any (qualified) identifier
+TTypeString = type string;
+TTypeFile = type file;</pre></blockquote>
+
+<p>No variations on these are allowed, and no other types are allowed (I tried <a href="http://www.excastle.com/dgrok/Grammar.html#Type">every type in the Delphi grammar</a>):</p>
+
+<blockquote><pre>type
+TTypeStringOfLength = type string[42]; // compiler error
+TTypeFileOfType = type file of Integer; // compiler error</pre></blockquote>
+
+<p>I suspect the reason for this is that (according to the documentation) every time you declare something like <code>string[42]</code>, it's <i>automatically</i> considered a distinct type from every other <code>string[42]</code> you've ever defined &mdash; and therefore has its own RTTI identity, and isn't <code>var</code>-parameter compatible with the others. You don't need to declare <code>type string[42]</code> because it's already distinct.</p>
+
+<p>I found <code>type file</code> to be particularly interesting. Even if you're dealing with an untyped file &mdash; the ones where you have to pass that second parameter to Reset and Rewrite to make them even remotely useful, the ones that have been utterly replaced by TStream &mdash; you can still make distinct types, and let the compiler make sure you pass the right ones to your <code>var</code> parameters. That's actually an interesting feature, since file parameters always have to be <code>var</code>. I wonder if anybody has ever used this.</p>
+
+<p><b>Update:</b> <a href="http://sjrd.developpez.com/">S&#233;bastien Doeraene, alias sjrd</a>, posted some good <a href="http://blog.excastle.com/2007/09/05/grammar-details-of-delphis-type-type-feature/#48723">details about "type type" in the comments</a>, including how this construct affects the IDE's autocompletion features and the distinction with type aliases.</p>

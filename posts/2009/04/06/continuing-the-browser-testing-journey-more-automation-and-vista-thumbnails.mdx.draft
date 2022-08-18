@@ -1,0 +1,51 @@
+---
+title: "Continuing the browser-testing journey: more automation and Vista thumbnails  #Programming  #automated testing  #javascript"
+sort: 2671
+---
+I've been continuing my <a href="http://blog.excastle.com/2009/03/14/watir-openingreopening-specific-page-in-ie/">quest to easily run my unit tests in multiple browsers</a>. Obviously, anything that takes more than 30 seconds is worth burning a couple of weeks trying to automate.
+
+I originally thought I could do what I wanted with a Ruby script, using <a href="http://wtr.rubyforge.org/">Watir</a> (for IE), <a href="http://code.google.com/p/firewatir/">FireWatir</a> (for FireFox), and <a href="http://code.google.com/p/chrome-watir/">ChromeWatir</a> (for Google Chrome). I planned to run the script on demand, e.g. from my editor's Tools menu, to (a) launch the browsers if they weren't already running, (b) find an existing tab that was already open to the tests, or open a new tab if needed, and (c) (re)load the test page.
+
+Worked great -- for IE. (I posted <a href="http://blog.excastle.com/2009/03/14/watir-openingreopening-specific-page-in-ie/">sample code</a> last time.) But FireWatir wasn't able to re-use existing windows/tabs. And ChromeWatir is very pre-alpha and didn't have anywhere near the feature set I needed.
+
+Strike the *Watirs as a solution.
+
+So let's step back. What steps do I really want to automate?
+
+<ol>
+<li>For each browser (Chrome, FireFox, and IE):</li>
+<li>If the browser is already running, Alt+Tab to it. Otherwise, launch it.</li>
+<li>If the tests are already open, Ctrl+Tab to the correct tab. If not, Ctrl+T to open a new tab, type in the URL, and hit Enter.</li>
+<li>Press Ctrl+R (or Ctrl+Shift+R in FireFox).</li>
+<li>Watch the screen while the tests run, to see whether they all pass.</li>
+</ol>
+
+Step 2 is automatable, and so is step 4. The others pose a bit more of a problem.
+
+Then I stumbled across a solution for step 3. All three browsers, of course, support Ctrl+Tab and Ctrl+Shift+Tab to move between open tabs. It turns out they also all support Ctrl+&lt;tab number&gt; to jump to a tab by position. For example, Ctrl+1 to move to the first tab. Hey, I'm running these tests in a controlled environment -- I can just say that I'll keep the tests open in the first tab in each browser!
+
+
+
+Okay, so that takes care of 3(a), of switching to the right existing tab. What about 3(b), opening a new tab? Ah, but why should I even need to do that? When I launch the browser, I can just pass the URL on the command line. Presto -- my tests open in the first tab. As long as I'm smart enough not to close that tab, I'm set.
+
+This is looking better and better. But there's still that pesky matter of waiting for the tests to run in each browser, before I move on to the next one.
+
+Or is there?
+
+See, Windows Vista has this feature where, when you hover the mouse over a taskbar button, it shows a little thumbnail of the window. And that thumbnail is live -- as long as the window isn't minimized, the thumbnail stays updated in real-time as the window repaints, even if the window is fully covered by another maximized window. And this feature <a href="http://community.bartdesmet.net/blogs/bart/archive/2006/10/05/4495.aspx">has an API</a>.
+
+If you have a window handle, you can put a live thumbnail of that window anywhere in your application, and any size you like. You don't even have to write timer code to keep it updated -- it just happens. It's maaaagic.
+
+I wound up going one step better than window handles and FindWindow: I wrote code that takes the fully-qualified path to the browser EXE, and automatically finds the main window for the running process. That way, I can have one thumbnail for the 32-bit IE, and another for the 64-bit IE, even though they both use the same window class. It's pretty slick.
+
+I wrapped it all up into a WinForms control called WindowThumbnail. Here's a screenshot of my app with four thumbnails: Google Chrome, FireFox, 32-bit IE, and 64-bit IE:
+
+<a href="http://blog.excastle.com/wp-content/uploads/2009/04/windowthumbnailsactionshot.png"><img src="http://blog.excastle.com/wp-content/uploads/2009/04/windowthumbnailsactionshot-300x181.png" alt="WindowThumbnails action shot" title="WindowThumbnails action shot" width="300" height="181" class="alignright size-medium wp-image-2672" /></a>
+
+The code isn't polished enough to release yet, but if you drop me a note in the <a href="http://blog.excastle.com/contact/">contact form</a> I can e-mail you the rough code as it stands.
+
+I was trying to enhance this app to be able to send the Ctrl+R keystrokes to the apps -- ideally without focusing the other windows -- but haven't had much luck yet (turns out some apps don't expect to get keystrokes when they're not the foreground window). But I've realized that really, I can simplify that some more. There are tools that can launch apps, change focus, send keys; I don't need to write C# code for that. I've heard good things about <a href="http://www.autohotkey.com/">AutoHotkey</a>, and it looks insanely scriptable, as well as making it trivial to bind the script to a shortcut key on the keyboard.
+
+I might well be able to get this to the point where I press one key, and my computer automatically launches the browsers, Alt+Tabs through them, sends the tab-switch and refresh keystrokes, then switches to my dashboard app where I can watch the tests scroll by on all the browser windows at once.
+
+Man, this is what being a geek is all about.

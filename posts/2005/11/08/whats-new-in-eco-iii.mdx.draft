@@ -1,0 +1,83 @@
+---
+title: "What's New in ECO III  #.NET  #Delphi  #borcon2005"
+sort: 2226
+---
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">What's New in ECO III (<a href="http://blogs.borland.com/MalcolmGroves/">Malcolm Groves</a>)</p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><o:p></o:p>&nbsp;</p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">A Brief History of ECO (since they cleverly scheduled the What's New session for today, and the Introduction session for tomorrow)</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo2; tab-stops: list .5in">Borland bought BoldSoft, ported Bold to .NET, and renamed it ECO.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo2; tab-stops: list .5in">When you move up from C++ to <?xml:namespace prefix = st1 ns = "urn:schemas-microsoft-com:office:smarttags" /><st1:place>Delphi</st1:place>, there's a lot of code you don't have to worry about anymore &#8211; you don't have to write message handlers anymore, etc. ECO does the same thing: raise the level of abstraction, free you up from writing plumbing code.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo2; tab-stops: list .5in">Modeling tool at design time (the Together part). ECO is a runtime framework that executes that model at runtime. Because you have that modeling info at runtime, it can provide a bunch of services for you.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo2; tab-stops: list .5in">The actual introduction session will be tomorrow.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo2; tab-stops: list .5in">ECO is a model powered framework. .NET only. First showed up in C#Builder. ECO 1.1 in <st1:place>Delphi</st1:place> 8. Delphi 2005 added ECO II with lots of new stuff: people said "I can use this for real".</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo2; tab-stops: list .5in">ECO III is available in all editions: Professional, <st1:City><st1:place>Enterprise</st1:place></st1:City>, and Architect. (Used to just be in Architect) Feedback from people saying this makes them dramatically more productive. Not all features are in all editions (will have list at the end of the session).</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">What's New?</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">Option to create one file/unit per class (used to be one file per UML package)</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">This option is turned off by default</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Can define the naming convention for the file</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Potentially much nicer for team development</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Applies to both <st1:place>Delphi</st1:place> and C#</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">ECO Package in a Package wizard (i.e., put the ECO classes in a separate assembly)</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">No ECO space, no UI</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Create a new ECO application, add a reference to your package, edit the ECO space, add the package</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Can have a Customer object in the package, and use it or descend from it in the EXE</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">Improved OCL Editor</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Harder to confuse the parser</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Editor available in Modeling surface</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Categorized right-hand stuff</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">Domain Pattern support</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Right-click on surface, Create by Pattern</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Create Custom Patterns &#8211; select a set of classes, right-click, Save As Pattern; give it a name, description, etc.</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">Design surface is cleaner &#8211; doesn't display names where there are no names, etc.</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Auto-names associations &#8211; adds plurals when you make it one-to-many</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">Type names configuration</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Allow user specification of type, models language independent</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Example: if you declare an attribute as type "Integer", it won't compile in C#</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Fun: if you often mistype "Integer" as "Intgeer", you can tell ECO that's an alternate name for the same type, and it'll change it back to the canonical name</li>
+<ul style="MARGIN-TOP: 0in" type=square>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level3 lfo1; tab-stops: list 1.5in">Also fun: You can do the same thing in the Code Editor with LiveTemplates</li></ul></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">Overloaded OCL Operations</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">ECO Action Language</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Derivative of OCL to allow side-effects (adds ":="; can call methods)</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Implement more business logic in your model, instead of in <st1:place>Delphi</st1:place> or C# code</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Suggest using OCL when the logic is easy, and use Delphi/C# code if it's complicated or you might want a debugger</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Can call other methods (including methods implemented in Delphi/C#)</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">Extenders Extended</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Supports menu items (TMainMenu, etc.)</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">EnableOCL and VisibleOCL &#8211; evaluated, must return Boolean. Think TAction.OnUpdate, but not centralized like actions &#8211; defined on each button/etc.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Execute Action Language</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Invoke Debugger</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">Multiple DB support</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Persist some classes via one PersistenceMapper and others via another PersistenceMapper</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Combine this with Package In Package, and you can start building domain components</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">Enhanced DB reverse engineering</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">State Machine execution</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">State Diagram with Effects, Triggers, Guards, etc.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Define even more of your business logic graphically, and the framework executes it.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Define states (e.g., Requested, Canceled, Approved, Denied, Completed), then define triggers on each transition (Approve, Deny, Cancel, Complete). It knows which triggers are available based on the current state.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Effects are code that's fired on a state change.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Guards say, "Don't take this transition unless this expression evaluates to True." Detects which triggers will violate guards, and will automatically disable those triggers.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">States can also have entry actions and exit actions.</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">ASP.NET AutoForms</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Go from model to execution in one step in ASP.NET (functionality already exists for GUI; this adds it for Web)</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Add New &gt; Other &gt; ASP.NET AutoForm</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Helps you start testing the model, see what it means. Shortens the feedback loop.</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">ECO in every version of <st1:place>Delphi</st1:place></li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Professional: Class modeling, WinForms only (not ASP.NET), O/R mapping, OCL, XML persistence</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in"><st1:City><st1:place>Enterprise</st1:place></st1:City>: WinForms, WebServices, WebForms, Database persistence (1 database, 1 ECO server)</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Architect: State diagramming/execution, multi database, multi-ECO servers</li></ul></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Too bad. That state stuff was looking fairly interesting, but I think buying a dozen copies of Architect is probably a bit out of our reach right now. And the Professional version can't even do databases. Sigh.</p>

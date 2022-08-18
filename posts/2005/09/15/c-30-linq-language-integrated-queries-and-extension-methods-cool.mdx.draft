@@ -1,0 +1,25 @@
+---
+title: "C# 3.0, Linq (language-integrated queries), and extension methods - Cool!  #.NET"
+sort: 2205
+---
+I've heard a few things about how C# 3.0 has this feature called "Language INtegrated Queries" (Linq). (Actually, I think I've been hearing about it for longer than it's had a name.)
+
+Linq will let you (effectively) write your SQL (or XML) queries in C#, and have them type-checked by the compiler, which sounds kind of cool; but I haven't had any idea what that meant or what it would look like. Well, Cyrus <a href="http://blogs.msdn.com/cyrusn/archive/2005/09/13/465390.aspx">posted an explanation and some examples</a> that show quite nicely what it means (for querying objects, at least; still not sure how it'll apply to SQL) and what it looks like. Pretty slick, actually; it builds on top of C# 2.0's iterator syntax in a very neat way. As an example, code that used to look like this:
+
+<pre>Customer[] customers = GetCustomers();
+ArrayList namesInSeattle = new ArrayList();
+foreach (Customer customer in customers) {
+    if (customer.City == "Seattle")
+        namesInSeattle.Add(customer.Name);
+}</pre>
+
+now looks like this:
+
+<pre>Customer[] customers = GetCustomers();
+var namesInSeattle = customers.Where(c =&gt; c.City == "Seattle").Select(c =&gt; c.Name);</pre>
+
+
+
+The "var" syntax is new, and means "let the compiler use type inference to figure out what type the variable should be" (but it's still strongly typed). In this case, namesInSeattle is an IEnumerable&lt;T&gt;. The "=&gt;" syntax (called a "lambda expression") is the really fun part: it's a shorthand for defining an iterator, with type inferencing all the way. Check out his post for more details.
+
+He also mentions C# 3.0's "extension methods", which are a piece of compiler magic that lets you (appear to) add new methods to existing classes. IEnumerable&lt;T&gt; doesn't have a Where or Select method? Okay, we'll add them; just write a bit of code, use the right namespace, and the compiler takes care of the rest. (Mixins, anyone?)

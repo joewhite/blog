@@ -1,0 +1,83 @@
+---
+title: "ReSharper, day 3: ReSharper survival guide, or, What's up with my keybindings?  #.NET  #resharper"
+sort: 2298
+---
+Welcome to day 3 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>. (This is actually Saturday's episode, but I'm posting it Friday evening because I'll be out of town on Saturday.)
+
+ReSharper is awesome. But if you're going to use it â€” especially version 2.5.x (the latest version at this writing) â€” <em>you need to read this Survival Guide first.</em>
+
+See, Visual Studio is full of keyboard shortcuts. ReSharper changes a significant number of them. And you need to know what changed and how to deal with it.
+
+ReSharper 2.0 just silently hijacked your key bindings. ReSharper 2.5 asks nicely whether it's OK for it to hijack your keybindings, the first time you use each keystroke; but it gives you no way to go back and change your answer â€” which is almost worse, because you could end up stuck without a good way to access some of ReSharper's best features.
+
+So before you start using ReSharper, you need a Keybinding Survival Guide. This is it.
+<h4>Surviving ReSharper's politeness</h4>
+Really, there are only two things to worry about. One is the changes in high-traffic shortcuts, of which there are only a few; I cover them below. The other is the ReSharper Shortcut Conflict dialog.
+
+As I noted above, ReSharper asks nicely whether it can take over any given shortcut. The problem is, it asks you the first time you use that shortcut, at which point you're almost certainly in the middle of actually <em>doing</em> something, and in no mood to answer a silly question. Add in the fact that there's no undo for whatever answer you give, <em>and</em> that they don't even tell you what other key you should use <em>instead,</em> and you're left with a pretty lousy user experience.
+
+(Don't get me wrong. ReSharper is an awesome tool. You just have to get past this dialog box before you can start using it.)
+
+Based on my own experience, I think your best bet is to accept all of ReSharper's shortcuts. Then you can either learn the new shortcuts for anything that changed, or go back in and re-map anything you can't live without. And you can tell ReSharper to quit interrupting you with this silly dialog box.
+
+So after you install ReSharper, I suggest opening up a solution, putting the cursor in a parameter list somewhere, and hitting Ctrl+Shift+Space. The "ReSharper Shortcut Conflict" dialog will pop up.
+<blockquote><img src="http://blog.excastle.com/images/resharper/ReSharperShortcutConflict.png" alt="ReSharper Shortcut Conflict dialog" height="431" width="478" /></blockquote>
+Leave the setting at "Use ReSharper command", check the "Apply to all ReSharper shortcuts" checkbox, and hit OK.
+
+And there you go. One problem survived: it won't be bugging you again.
+
+Now all you have to do is learn the keystrokes that changed.
+<h4>The changed keybindings, part I: High-traffic keys</h4>
+I did the research, so you don't have to. Here are the keystrokes you need the most:
+<ul>
+	<li><strong>Ctrl+Shift+Space</strong> no longer brings up Parameter Info. Use <strong>Ctrl+P</strong> (ReSharper's enhanced parameter info) instead. It's better anyway â€” especially when you're facing Death By Overload in System.Drawing.
+<ul>
+	<li><strong>Ctrl+Shift+Space</strong> is now a variation on <strong>Ctrl+Space</strong>, which I'll discuss later in the month when I talk about the Ctrl+Space family.</li>
+</ul>
+</li>
+	<li><strong>F12</strong> (Go to Definition) and <strong>Ctrl+F12</strong> (Go to Declaration) (what's the difference, anyway?) are replaced by <strong>Ctrl+B</strong>. You can also use <strong>Ctrl+Click</strong>.</li>
+	<li><strong>Shift+F12</strong> (Find References) is now <strong>Alt+F7</strong> (Find Usages). Usually they found alternate shortcuts that were better than the originals... obviously not in this case. Honestly, F7?
+<ul>
+	<li><strong>F12</strong> and <strong>Shift+F12</strong> now step forwards and backwards through the errors and warnings in a document.</li>
+</ul>
+</li>
+	<li><strong>Ctrl+Shift+R</strong> to record a temporary macro, and <strong>Ctrl+Shift+P</strong> to play it back, are no longer available. This one hurts; I wish they'd kept them as Ctrl+Alt+Shift+R or something.
+<ul>
+	<li><strong>Ctrl+Shift+P</strong> is now Parameter Info - Go to Previous Signature.</li>
+	<li><strong>Ctrl+Shift+R</strong> is now Refactor This, and is the main reason I'm not <em>too</em> upset about losing the keystroke for recording macros. You'll use this far more often than macros, trust me.</li>
+</ul>
+</li>
+</ul>
+<h4>Part II: Other notable changes</h4>
+
+
+
+Here are some other things that most people probably don't use every day, but that are still significant enough to be worth noting.
+<ul>
+	<li>Some Ctrl+key prefixes (<strong>Ctrl+B</strong>, <strong>Ctrl+D</strong>, <strong>Ctrl+E</strong>, <strong>Ctrl+F1</strong>, and <strong>Ctrl+W</strong>) are now commands in their own right, not prefixes. For example, Ctrl+B Ctrl+C used to clear bookmarks, but Ctrl+B is now Go to Declaration, so multi-key Ctrl+B commands are no longer available. Visual Studio already provides alternate keystrokes for many of these (e.g., many of the Ctrl+B commands are also available through Ctrl+K), and ReSharper adds its own alternate keystrokes for a handful of them.
+<ul>
+	<li><strong>Ctrl+B</strong> is now Go to Declaration.</li>
+	<li><strong>Ctrl+D</strong> is now Duplicate Text.</li>
+	<li><strong>Ctrl+E</strong> is now Go to Recent Files.</li>
+	<li><strong>Ctrl+F1</strong> is now Help - How Do I (formerly Ctrl+F1 H).</li>
+	<li><strong>Ctrl+W</strong> is now Select Word / Extend Selection.</li>
+</ul>
+</li>
+	<li>If you used <strong>Ctrl+Alt+Down Arrow</strong> to show the MDI list (same as clicking the down arrow at the top right of the document area), that keystroke is no longer available.
+<ul>
+	<li><strong>Ctrl+Alt+Up Arrow</strong> and <strong>Ctrl+Alt+Down Arrow</strong> are now Go to Previous Occurrence and Go to Next Occurrence.</li>
+</ul>
+</li>
+	<li><strong>Ctrl+/</strong> to go to the Find combo (did anybody actually use that?) isn't there anymore. Ctrl+D still brings it up, but only if the focus isn't in the editor window.
+<ul>
+	<li><strong>Ctrl+/</strong> is now Comment / Uncomment Selection.</li>
+</ul>
+</li>
+	<li><strong>F7</strong> (View Code) and <strong>Shift+F7</strong> (View Designer) are now just <strong>F7</strong> to toggle between the two. Yay!</li>
+	<li><strong>F6</strong> no longer builds the solution. Use <strong>Ctrl+Shift+B</strong> instead.
+<ul>
+	<li><strong>F6</strong> is now mapped to a command simply called "Move". I don't know what it does; I couldn't get it to come up enabled. (Update: <a href="http://blog.excastle.com/2007/02/02/resharper-day-3-resharper-survival-guide-or-whats-up-with-my-keybindings/#comment-5540">Maruis explains ReSharper's F6 Move command.</a> Thanks, Maruis!)</li>
+</ul>
+</li>
+</ul>
+Those are the short lists. I also made a complete list of <a href="http://blog.excastle.com/2007/02/04/full-list-of-keystrokes-changed-by-resharper-251/">every keybinding that changed when I installed ReSharper</a>. This list only shows the keys that were changed or removed, not the ones that were completely added. Even so, it's a long list. But if you find a keystroke that used to work and now does something weird, check out the full list. (Note that I had Ctrl+Shift+T bound to a macro to run tests; I think that Visual Studio binds it to something else by default, Swap Words or something weird like that.)

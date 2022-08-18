@@ -1,0 +1,48 @@
+---
+title: "Allen Bauer's \"What's New in Diamondback" session  #Delphi  #borcon2004"
+sort: 2028
+---
+<p>Covering <a href="http://blogs.borland.com/abauer/">Allen Bauer</a>'s BorCon session on what's new in the Diamondback IDE.</p>
+<p>Looks like <a href="http://www.lemanix.com/nick/">Nick</a> wasn't doing a live blog of this one, so I'll post my comments.</p>
+<p>Consider this to be a follow-up to my notes from <a href="http://blog.excastle.com/2004/09/12/john-kasters-diamondback-talk/">John Kaster's preconference tutorial</a> on Diamondback. I won't cover any of the overlap here.</p>
+
+
+
+<p>Allen started by saying he would mostly cover IDE features. Fair enough. Danny (who knows me by name, BTW) will cover the compiler stuff this afternoon, and the "Meet the Team" tonight will cover even more.</p>
+<p>He's talking about features in a product that's not finished yet, BTW. Ship dates haven't been decided yet, features haven't been decided yet. This is a very new thing for Borland. (He mentioned that he's allowed to talk about <em>anything</em> except release dates, product names, and bundling/pricing. Very cool.)</p>
+<ul>
+<li>Debugging features
+<ul>
+<li>Debug .NET code <em>hosted within</em> a Win32 process
+<ul>
+<li>May not be able to seamlessly "Step Into" from Win32 code into .NET code</li></ul>
+<li>AppDomain support in Module view
+<li>Better stack traces in Win32 for frames without debug info. Think EnumFonts; you didn't used to be able to see a stack trace when Windows calls your callback function, but now you will.
+<li>Locals view and stack frames: Yes, it will work <em>even after exceptions!</em> Woot!
+<li>Look at different threads' call stacks and Locals views
+<li>Same operations in both Win32 and .NET debuggers</li></ul>
+<li>Refactoring
+<ul>
+<li>No <a href="http://blog.excastle.com/2004/07/02/distributed-refactoring/">distributed refactoring</a> in Diamondback, but they have underlying architecture to support it
+<li>Refactoring works across projects within a project group, even between C# and .NET
+<li>Based on actual uses list, not just what's in the .dpr
+<li>Only works within current IFDEFs
+<li>Sync edit: Can Tab through distinct symbols
+<li>"Live Templates" (Ctrl+J templates with this Tabbing to fill gaps) won't be in Diamondback but are on the plate</li></ul>
+<li>IDE is theme-enabled! Transparent panels & checkboxes, even at design time
+<li>Component palette is drag-and-drop even in VCL
+<ul>
+<li>Marketing has always claimed that Delphi supports "drag-and-drop" GUI development, but Allen commented that it was really "click-and-click"
+<li>Now you can actually drag a component off the palette and onto the form
+<li>Yes, click-and-click development still works. So do double-click and Shift+click.</li></ul>
+<li>Component Palette in Diamondback probably won't support one component in multiple categories, yet.
+<li>Object Inspector shows properties for files and projects. Can rename a file using Object Inspector, even if it's not saved yet!
+<ul>
+<li>Carries rename through to the disk file
+<li>Doesn't do anything to the old .dcu file (alas)</li></ul>
+<li>Rename Class refactoring even reaches into the .dfm
+<ul>
+<li>Also, if you rename a form class, it will rename the global Form1 variable in that unit</li></ul>
+<li>History view: If you had 30 revs of a file, and you change the setting to only save 10 revs, it will not delete the old revs, and will continue to keep 30 revs <em>for that file.</em>
+<li>Borland devs use <a href="http://www.automatedqa.com/">AutomatedQA</a> apps (I should've asked which apps)
+<li>IDE uses <a href="http://www.delphi-gems.com/VirtualTreeview/VT.php">VirtualTreeView</a></li></ul>

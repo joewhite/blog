@@ -1,0 +1,16 @@
+---
+title: "Promiscuous Pairing and Beginner's Mind  #Programming  #agile2006  #extreme programming"
+sort: 2348
+---
+<p>I had heard that someone had done some research on optimal pairing times. Last night I found the original research paper, entitled "<a href="http://www.google.com/url?sa=t&amp;ct=res&amp;cd=1&amp;url=http%3A%2F%2Fwww.agile2005.org%2FXR4.pdf&amp;ei=1BvGRKCSMdCaaM7mkZkM&amp;sig2=Gd2KQiefBKV9xdYHqlhu-Q">Promiscuous Pairing and Beginner's Mind</a>" [PDF]. I found it because there's another research paper being presented this year, on someone who tried the same thing, and is presenting their own results.</p>
+<p>The original team found they achieved the highest velocity when they:</p>
+<ul>
+<li>Assigned tasks to the least-qualified person
+<li>Swapped people out as the tasks went on, i.e., there was no one person who stayed with the task from start to finish
+<li>Switched pairs every 90 minutes</li></ul>
+<p>New people ramped up very quickly. A new hire, after three weeks, was expert enough to mentor another new hire. Wow.</p>
+<p>The devs reported that they felt frustrated with the 90-minute pair switching, as if they weren't getting much done, but in fact they got the highest velocity that way.</p>
+<p>One of the things that I found really interesting was that, when they were switching pairs every 90 minutes, they didn't get tired. But when one person on their (then-small) team went on vacation, they couldn't swap, so they just stuck with the same pair all day. And they couldn't sustain it, because it was just exhausting.</p>
+<p>I can attest that pairing all day can be very draining. Would shorter pair cycles work for us, at keeping the energy up? Have to talk to our team about it when we get back.</p>
+<p>This year, there's an Experience Report from a team at Microsoft who tried it. It reads a bit like "<a href="http://www.xprogramming.com/xpmag/jatBaseball.htm">We Tried Baseball and It Didn't Work</a>", but they ended on a positive note, saying they think it would've worked if outside issues hadn't forced them to stop early. But they did say they thought it was a 400 or 500-level technique, not good to try unless your team was already really good at pairing. They compared it to a roller-coaster ride.</p>
+<p>Our team has been doing pairing for about a year and a half now. Would this stuff work for us? Definitely going to talk to the team when we get back, and weigh the pros and cons. If we do try it, I'll definitely let y'all know how it works.</p>

@@ -1,0 +1,39 @@
+---
+title: "Diff, part 19: De-dup by length?  #.NET  #Delphi  #diff"
+sort: 2161
+---
+Today in the <a href="http://blog.excastle.com/tag/diff/">diff series</a>, I'll start in on what I think will be the last major optimization in our <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">LCS</a> <a href="http://blog.excastle.com/2005/04/18/diff-part-16-a-look-back-and-a-big-o/">algorithm</a>.
+
+Recall that we may have multiple same-length <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">common subsequences</a> in our "best CSes so far" pool. For example, we may have <font face="Courier New">[0,0] [1,2]</font> and <font face="Courier New">[0,0] [2,1]</font>. We've been keeping both because the next <a href="http://blog.excastle.com/2005/03/31/diff-part-4-matches/">match</a> might be <font face="Courier New">[2,3]</font>, or <font face="Courier New">[3,2]</font>, or maybe even <font face="Courier New">[128,2]</font>. We can't throw away any CS that we might reasonably be able to build upon later (unless we can make an ironclad guarantee that it's <a href="http://blog.excastle.com/2005/04/14/diff-part-14-expendability/">expendable</a>).
+
+
+
+Also recall that, when we generate a new CS, we do so by adding a new match onto an existing CS; specifically, <a href="http://blog.excastle.com/2005/04/20/diff-part-18-optimizing-the-third-loop/">the longest one that we <em>can</em> append our new match to</a>. When we look for an existing CS to extend, the only thing we care about is: for the given match, will this CS<sub><small><em>k</em></small></sub> give us the longest CS<sub><small><em>new</em></small></sub> that we can possibly generate?
+
+We don't actually care whether CS<sub><small><em>k</em></small></sub> ends in <font face="Courier New">[1,2]</font> or <font face="Courier New">[2,1]</font>, as long as we can guarantee that when we append the current match &mdash; be it <font face="Courier New">[2,3]</font>, <font face="Courier New">[3,2]</font>, <font face="Courier New">[3,3]</font>, or whatever else &mdash; we'll end up with the longest CS<sub><small><em>new</em></small></sub> we can get. Anywhere and everywhere along the way, we can throw away as many CSes as we want (just like we did <a href="http://blog.excastle.com/2005/04/20/diff-part-18-optimizing-the-third-loop/">yesterday</a>), as long as we never compromise that guarantee. Never throw a CS away unless you can prove it has less <a href="http://blog.excastle.com/2005/04/14/diff-part-14-expendability/">growth potential</a> than something else you already have; otherwise, anything goes.
+
+These two properties &mdash; length is all-important, yet we keep multiple CSes of the same length &mdash; seem to be in a bit of tension with each other. Which suggests an intriguing question: can we get to the point where length alone is a good enough guarantee? Can we get to the point where we hang onto just one length-1 CS, one length-2 CS, one length-3 CS, etc., at a time?
+
+If that were possible, it would mean that we could make a big optimization to our <a href="http://blog.excastle.com/2005/04/18/diff-part-16-a-look-back-and-a-big-o/">fourth loop</a> &mdash; the one where we call <a href="http://blog.excastle.com/2005/04/15/diff-part-15-implementing-expendable/">Expendable</a> to compare our CS<sub><small><em>new</em></small></sub> to each and every CS<sub><small><em>k</em></small></sub>, so we can see if there's anything (including possibly CS<sub><small><em>new</em></small></sub>) that we can throw away. That fourth loop could, in fact, stop being a loop. It could become a <em>single call</em> to Expendable, comparing CS<sub><small><em>new</em></small></sub> to the CS<sub><small><em>k</em></small></sub> of the same length. (Of course, if CS<sub><small><em>new</em></small></sub> is the longest CS so far, then there would be no CS<sub><small><em>k</em></small></sub> of the same length, and we wouldn't need to call Expendable at all.) And that call to Expendable would always have a definitive result: either you throw away CS<sub><small><em>k</em></small></sub>, or you throw away CS<sub><small><em>new</em></small></sub>. Only one CS of any given length would be left standing at any given time.
+
+A worthy optimization, to be sure. But is it doable? We would have to throw away one of those CSes-of-the-same-length, but Expendable(<font face="Courier New">[0,0] [1,2]</font>, <font face="Courier New">[0,0] [2,1]</font>) returns nil, meaning we need both CSes at one time or another. How could we reconcile this?
+
+By siezing on that "at one time or another", and making this into a timing issue. Then we can control the timing, by controlling the way we iterate. How, and in what order, do we generate our matches?
+
+We would be home free if we could generate our matches in this order:
+<ul>
+	<li><font face="Courier New">[0,0]</font></li>
+	<li><font face="Courier New">[2,1]</font></li>
+	<li>Every possible match that could extend <font face="Courier New">[2,1]</font> but not <font face="Courier New">[1,2]</font></li>
+	<li><font face="Courier New">[1,2]</font></li>
+</ul>
+Or perhaps:
+<ul>
+	<li><font face="Courier New">[0,0]</font></li>
+	<li><font face="Courier New">[1,2]</font></li>
+	<li>Every possible match that could extend <font face="Courier New">[1,2]</font> but not <font face="Courier New">[2,1]</font></li>
+	<li><font face="Courier New">[2,1]</font></li>
+</ul>
+As long as our algorithm can consistently return matches in one of these orders (and can be consistent about which one), then when we get to the point where <font face="Courier New">[0,0] [1,2]</font> and <font face="Courier New">[0,0] [2,1]</font> are our CS<sub><small><em>new</em></small></sub> and CS<sub><small><em>k</em></small></sub> (in whichever order), we know with absolute certainty that we can throw the old one away, replace it with the new one, and be sure that we're still going to find the longest possible CS when we're done.
+
+So how do we handle the third bullet point in either of the above orderings? That third bullet is kind of the "and then a miracle occurs" stage. Next time, I'll start to nail down what "every possible match that could extend <em>x</em> but not <em>y</em>" really means, and how we can possibly hope to pull it off.

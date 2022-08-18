@@ -1,0 +1,13 @@
+---
+title: "TechEd 2008 overheard: Historical debugger  #.NET  #Delphi  #teched2008"
+sort: 2539
+---
+On the escalator, I overheard someone telling his colleague about an upcoming feature, the <a href="http://blogs.microsoft.co.il/blogs/maordavid/archive/2008/04/21/Rosario-Preview-_2300_3-_2D00_-Developer-Edition.aspx"> Visual Studio Historical Debugger</a>.
+
+It'll let you <strong>step backward in time</strong>. Program threw an exception? You don't have to just look at where it stopped; you'll actually be able to <em>step backward</em> to find out how the program got into that state.
+
+I asked the guy about it, and he said it'll be in the next version of Visual Studio, code-named Rosario. Since I only overheard part of a conversation, and didn't actually attend the session where he'd seen the demo, that's about all I know, so don't ask me for details or release dates. I assume you'll have to tell it when to start and stop recording, but that's just an educated guess. The above link has a tiny bit more info and a couple of screenshots.
+
+This isn't a new idea; there's been an <a href="http://www.lambdacs.com/debugger/debugger.html"> "omniscient debugger" for Java</a> for at least a year. But it'll be pretty awesome to have it available for a language I use.
+
+So... any chance of Delphi ever getting this? (grin)

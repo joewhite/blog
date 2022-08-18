@@ -1,0 +1,19 @@
+---
+title: "NUnit and Silverlight  #.NET  #automated testing  #nunit  #silverlight"
+sort: 3007
+---
+Unit testing in Silverlight is a persnickety business. The NUnit.Framework binary is built for full .NET, so you can't easily use it to test Silverlight assemblies. I tried a few different things, but kept running into walls.
+
+Fortunately, smarter people have already figured it all out. Jamie Cansdale made a <a href="http://weblogs.asp.net/nunitaddin/archive/2008/05/01/silverlight-nunit-projects.aspx">Silverlight NUnit project template</a> that gets you started right. It's intended for TestDriven.NET, but it works great with ReSharper's test runner too. Just download and open his template, and it'll add itself to Visual Studio. Then the next time you do New Project, there's an extra "Silverlight NUnit Project" option available under the Visual C# > Silverlight project type. Very cool.
+
+However, the nunit.framework assembly in Jamie's template is from some unidentified, but old, version of NUnit. There's no version info in the DLL, but I know it's gotta be 2.4.x or earlier, because its <code>Is</code> class (from the fluent assertions -- <code>Assert.That(2 + 2, Is.EqualTo(4));</code>) is in a different namespace, whereas I know that 2.5 moved it into the main NUnit.Framework namespace.
+
+
+
+Since I use the fluent assertions all the time, and since I just don't want to use an old version, I went hunting again, and found Wes McClure's <a href="http://wesmcclure.tumblr.com/post/152727000">NUnit.Framework 2.5.1 for Silverlight 3</a>. It's only a little old -- right now the latest version is 2.5.2 -- and <s>his binaries are working out quite nicely so far.</s>
+
+So I use Jamie's template to create a new project, which includes a <code>lib</code> directory with the old version of nunit.framework.dll; then I grab Wes's nunit.framework.dll and drop it into the lib directory, replacing the older version. <s>And I'm good to go.</s>
+
+Now, back to those fiddly trig calcs... (See, there was a <em>reason</em> I wanted to add a test project!)
+
+<strong>Update</strong>, Oct 10 7:30am... Intellisense works great with Wes's assembly. Building and running are a different story. Much unexplainable behavior from Visual Studio. Short version: I couldn't get Wes's assembly to work with the ReSharper test runner. But Jamie's template is working fine so far.

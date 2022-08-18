@@ -1,0 +1,21 @@
+---
+title: "Comments on the survey #2: Refactorings  #Delphi  #delphi survey  #refactoring"
+sort: 2502
+---
+The survey had little room for comments, so here are mine, starting with refactorings.
+
+Delphi's refactorings are crap. They leave you with non-compilable code more often than not.
+
+
+
+A few examples of brokenness off the top of my head:
+
+<ul>
+<li>Class Completion got broken in CDS 2007. It usually completes stuff into the wrong class.</li>
+<li>Class Completion mangles your visibilities if you ever try to use strict private or strict protected.</li>
+<li><a href="http://blog.excastle.com/2007/07/01/delphis-refactorings-only-work-in-current-unit-bug/">Delphi's refactorings still don't work across units</a> if you don't have every single unit explicitly added to your project file, so a Rename will usually break the build.</li>
+</ul>
+
+And that's just the brokenness, not the suckiness. Extract Method still won't do functions, but that's just an annoyance. Automatic variable declarations usually get the wrong type, but that doesn't break code that already compiled. What's utterly unacceptable is that there are cases where the "refactorings" actually make previously-working code <i>stop compiling.</i>
+
+Pretty much our entire team just ignores Delphi's refactorings, because we know they'll usually break our code. Please, please, please, put some effort toward making the refactorings <i>work.</i> In this day and age, we should not have to refactor by hand.

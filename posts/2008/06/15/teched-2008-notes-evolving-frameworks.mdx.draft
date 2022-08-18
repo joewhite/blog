@@ -1,0 +1,251 @@
+---
+title: "TechEd 2008 notes: Evolving Frameworks  #.NET  #Delphi  #teched2008"
+sort: 2557
+---
+This session was aimed at people who write frameworks: low-level code used by thousands of people. When you're writing a low-level framework, you have to be very cautious about how you change APIs, lest you break code in the field. If nobody outside your department consumes your code, and you compile all your code every time you build -- probably the most common case -- then most of this stuff is only of academic interest to you. But it's interesting nonetheless.
+
+This is my last session-notes post about TechEd 2008. I'll probably post more about the con later -- I think it'd be interesting, for example, to contrast the philosophies different presenters had about unit-testing best practices -- but it'll probably be a few days or weeks before I get back to that; writing 22 blog posts that are up to my own editorial standards is a lot of work, and I need a break!
+
+Once again, those of you reading via <a href="http://www.delphifeeds.com/">DelphiFeeds</a> are only getting the posts about general programming topics. If you want to also see the ones about features not likely to be directly relevant to Delphi anytime soon (e.g., lambda expressions, expression trees, LINQ, .NET-style databinding, add-ins, F#, the Provider pattern), you can look at my entire list of <a href="http://blog.excastle.com/tag/teched2008/">TechEd 2008 posts</a>.
+
+Evolving Frameworks
+Krzysztof Cwalina
+Program Manager, .NET Framework team
+Microsoft
+
+Team has dual charter:
+<ul>
+  <li>Basic APIs (used to be on BCL team, now on higher-level application model, cross-cutting features)</li>
+  <li>Architectural and design quality of the whole framework</li>
+  <li>Framework produced by many (over 1,000) people. Goal to make it look like it was designed by one person. Consistency guidelines.</li>
+  <li>More recently looking into evolving APIs and improving the evolution process.</li>
+</ul>
+
+Frameworks deteriorate over time
+<ul>
+  <li>OO design community has already done much research into how to change requirements</li>
+  <li>It's even worse with APIs</li>
+  <li>Still many forces require changes over time</li>
+  <ul>
+    <li>Requirements change</li>
+    <li>Ecosystem changes: new tools, language changes</li>
+    <li>People change</li>
+  </ul>
+</ul>
+
+No silver bullet. But there are some techniques to design APIs that will be easier to evolve, and some tricks that allow modifications that used to be breaking.
+
+Slow down framework deterioration
+<ul>
+  <li>With thoughtful architecture</li>
+  <li>With proper API design (micro-design guidelines)</li>
+  <li>With framework evolution idioms</li>
+</ul>
+
+Libraries, Abstractions, Primitives
+<ul>
+  <li>Three different kinds of types in frameworks</li>
+</ul>
+
+Library types
+<ul>
+  <li>Definition: types that are not passed between components. Instantiate, use, then maybe keep a reference or maybe let the GC collect it.</li>
+  <li>Examples: EventLog, Debug.</li>
+  <li>Easy to evolve: leave old in, add new one.</li>
+  <li>Cost to consumers, of introducing duplication, is nonzero. Shouldn't be done lightly, but is doable.</li>
+</ul>
+
+Primitive types
+<ul>
+  <li>Definition: types that are passed between components and have very restricted extensibility (i.e., no subtype can override any members).</li>
+  <li>Examples: Int32, String, Uri</li>
+  <li>Hard to evolve</li>
+  <li>Little need to evolve. Usually very simple. Not much policy went into designing them.</li>
+</ul>
+
+Abstractions
+<ul>
+  <li>Definition: types that are passed between components and support extensibility (i.e., interfaces or classes with members that can be overridden)</li>
+  <li>Examples: Stream, IComponent</li>
+  <li>Lots of policy; contracts usually quite strict</li>
+  <li>Hard to evolve</li>
+  <li>Unfortunately, there's quite a bit pressure to evolve abstractions</li>
+  <li>Extremely difficult to design abstractions out of the blue</li>
+  <ul>
+    <li>The most successful abstractions in the .NET Framework are those that have been around for many years</li>
+    <li>"What should a stream do?" is pretty well established.</li>
+    <li>Interface with too few members won't be useful. Interface with too many members will be hard to implement.</li>
+  </ul>
+</ul>
+
+Evolving libaries
+<ul>
+  <li>Can write a new class and tell people to start using it. Problematic if there isn't a good migration path.</li>
+  <li>Architecture</li>
+  <ul>
+    <li>Dependency management</li>
+  </ul>
+  <li>Design</li>
+  <li>Toolbox</li>
+  <ul>
+    <li>Type forwarders -- lets you move a type from one assembly to another without breaking binary compatibility</li>
+    <li>EditorBrowsableAttribute</li>
+    <li>ObsoleteAttribute</li>
+  </ul>
+  <li>Some people say a library should be at least 10 times better before you should consider replacing the old one.</li>
+</ul>
+
+Dependency management
+<ul>
+  <li>Mostly applicable to APIs with more than one feature area, esp. if they evolve at a different pace or are used for different scenarios.</li>
+</ul>
+
+Framework Layering
+<ul>
+  <li>Within each layer, have "components" (groups of classes) that each evolve together</li>
+  <li>Manage dependencies between the components</li>
+  <li>Lower layers shouldn't depend on higher layers</li>
+</ul>
+
+Basics of dependency management
+<ul>
+  <li>API dependency: A depends on B if a type in B shows in the publicly accessible (public or protected) API surface of a type in A. Might be parameter type, base type, even an attribute.</li>
+  <li>Implementation dependency: type in A uses a type in B in its implementation.</li>
+  <li>Circular dependency (including indirectly)</li>
+</ul>
+
+<ul>
+  <li>Dependency going to a lower layer: OK</li>
+  <li>Dependency going to a higher layer: Not allowed</li>
+  <li>Dependency within a layer: discussed by architects to see if it makes sense</li>
+</ul>
+
+Design principles
+<ul>
+  <li>Focus on concrete customer scenarios</li>
+  <ul>
+    <li>Much easier to add to something simple</li>
+    <li>Does this minimal component meet your needs?</li>
+  </ul>
+  <li>Keep technology areas in separate namespaces</li>
+  <ul>
+    <li>Mainly applies to libraries</li>
+    <li>Single namespace should be self-contained set of APIs that evolve on the same time schedule and in the same way</li>
+  </ul>
+  <li>Be careful with adopting higher level APIs (usually libraries) for lower layers</li>
+  <ul>
+    <li>E.g., Design a high-level API, then realize you can make it general, so you try to move it to a lower layer.</li>
+    <li>This rarely works when it's not thought through from the beginning.</li>
+    <li>Don't do it just because you can.</li>
+  </ul>
+  <li>Don't assume that your library is timeless</li>
+  <ul>
+    <li>XML DOM should not be in System.Xml namespace</li>
+  </ul>
+</ul>
+
+Toolbox: Type forwarders
+<pre>[assembly:TypeForwardedTo(typeof(SomeType))]</pre>
+<ul>
+  <li>Lets you move a type to a different assembly without breaking already-compiled code</li>
+  <li>Put in assembly where the type used to be</li>
+  <li>Forces a compile-time dependency on the assembly the type has been moved to</li>
+  <ul>
+    <li>Can only be used to move a type down?</li>
+  </ul>
+</ul>
+
+Toolbox: ObsoleteAttribute
+<pre>[Obsolete(...)]
+public void SomeMethod() {...}</pre>
+<ul>
+  <li>Take the API out of developers' minds. Present simplified view over time of "This is the framework".</li>
+  <li>Caution: many people think Obsolete is non-breaking, but that's not entirely true because of "Treat warnings as errors".</li>
+  <ul>
+    <li>"Yes," you may say, "but that's only when you recompile." True, but some application models, like ASP.NET, recompile on the fly.</li>
+  </ul>
+</ul>
+
+Toolbox: EditorBrowsableAttribute
+<pre>[EditorBrowsable(EditorBrowsableState.Never)]</pre>
+<ul>
+  <li>Hides from Intellisense, but you can still use it without warnings.</li>
+  <li>Often this is good enough.</li>
+</ul>
+
+Evolving primitives
+<ul>
+  <li>Minimize policy (keep them simple)</li>
+  <ul>
+    <li>Int32 should be no more than 32 bits on the stack</li>
+  </ul>
+  <li>Provide libraries to operate on primitives</li>
+  <ul>
+    <li>Consider using extension methods to get usability</li>
+  </ul>
+</ul>
+
+Extension methods and policy
+<pre>// higher level assembly (not mscorlib)
+namespace System.Net {
+    public static class StringExtensions{
+        public static Uri ToUri(this string s) {...}</pre>
+<ul>
+  <li>Policy-heavy implementation in a library that's isolated from the primitive</li>
+  <li>High usability because it's an extension method</li>
+</ul>
+
+Evolving abstractions
+<ul>
+  <li>HARD!</li>
+  <li>Plan to spend ~10x as long designing abstractions as you do designing policies or libraries</li>
+  <li>Right level of policy</li>
+  <li>Right set of APIs</li>
+</ul>
+
+Interfaces vs. abstract classes
+<ul>
+  <li>Classes are better than interfaces from an evolution point of view</li>
+  <li>Can't add members to interfaces, but can add them to classes</li>
+  <li>That's why it's Stream instead of IStream</li>
+  <li>Were later able to add timeouts to streams, and it was much easier to add than it would have been with an IStream.</li>
+  <li>Imagine that it <em>had</em> been IStream from the beginning, and later they'd decided to add timeouts.</li>
+  <ul>
+    <li>Adding members to an existing framework interface is never allowed.</li>
+    <li>When adding timeout, would have had to make a new descendant interface ITimeoutEnabledStream.</li>
+    <li>Wouldn't need CanTimeout.</li>
+    <li>Problem is, base types proliferate (e.g. <code>Stream</code> property on a <code>StreamReader</code>). So casts would proliferate as well. And your "is it the right type" is effectively your <code>CanTimeout</code> query.</li>
+    <li>Less usability, since new member doesn't show up in Intellisense.</li>
+  </ul>
+</ul>
+
+Summary
+<ul>
+  <li>Primitives, abstractions, libraries</li>
+  <li>Dependency management</li>
+  <li>Controlling policy</li>
+  <li>API malleability</li>
+  <ul>
+    <li>Classes over interfaces, type forwarders, etc.</li>
+  </ul>
+</ul>
+
+Q&amp;A:
+
+Q: Have there been times you did an abstract class and later wished it had been an interface?
+A: Really not yet; he's still waiting to hear from a team who's done a class and later wishes they hadn't. There are some situations where you do need interfaces (e.g. multiple inheritance). Sometimes it's still a judgement call.
+
+Q: Guidance on when to use extension methods?
+A: Working on some guidelines for the next version of the Framework Design Guidelines book. There are some proposed guidelines at <a href="http://blogs.msdn.com/mirceat/archive/2008/03/13/linq-framework-design-guidelines.aspx"> LINQ Framework design guidelines</a> (scroll down to section 2, then look for the list of "Avoid" and "Consider" bullet points); if those stand the test of time, they'll eventually become official guidelines.
+
+Q: When would you split a namespace into a separate assembly?
+A: When you design assemblies and namespaces, they should be two separate design decisions. Feature areas have a high correlation with namespaces. Assemblies are for packaging, servicing, deployment, performance. Make the decisions separately.
+
+Q: Why not fix design flaws when moving from 1.1 to 2.0?
+A: As current policy, they don't remove APIs. (Not promising that it will never happen.) They think they can evolve the framework in a relatively healthy way. They're even brainstorming ways to add more things like type mappers, e.g. moving static methods from one type to another (but no, it's not in a schedule). Didn't have some of these mechanisms when they were writing 2.0.
+
+Q: How does the CLR team resolve conflicts when reviewing a design? Consensus? Vote?
+A: Many processes at MS revolve around "orb". One for compatibility, one for side-by-side, etc. Groups of four roles: owner, participants, reviewers, approver (escalation point). Try to concentrate on owner and participants, to reach a conclusion by consensus. When that fails, go to the reviewers, then the approver. Approver rarely has to make the decision; more likely to educate than override.
+
+Q: Long overloaded parameter lists vs. parameter objects?
+A: They've done overloads in that case. Ideally, each shorter one just loses one parameter from a longer one (be consistent about ordering, etc.) Best if the leading parameters are similar, for Intellisense usability reasons. They do use parameter objects in a few cases, but mostly in cases where you don't want to, or cannot, have overloads; e.g., an event. Also don't want an interface with lots of overloads.

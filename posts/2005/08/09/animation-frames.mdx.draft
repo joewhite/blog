@@ -1,0 +1,5 @@
+---
+title: "Animation frames  #.NET  #Delphi"
+sort: 2197
+---
+Just a random interesting tidbit: <a href="http://blogs.msdn.com/oldnewthing/default.aspx">Raymond Chen</a> posted about why, when you put multiple animation frames into a single bitmap, it's <a href="http://blogs.msdn.com/oldnewthing/archive/2005/08/05/448073.aspx">better to use a vertical layout</a> rather than a horizontal one.

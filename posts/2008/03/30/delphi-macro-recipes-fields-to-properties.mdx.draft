@@ -1,0 +1,75 @@
+---
+title: "Delphi macro recipes: Fields to properties  #Delphi  #macros"
+sort: 2508
+---
+Today I'm going to share a Delphi IDE macro that I record and use several times a week: transforming fields to properties.
+
+The basic idea is: You've just added seven fields to your class, and you want to make properties for all of them.
+
+<h3>Why not use Class Completion?</h3>
+
+If you declare the property first, Class Completion will add the field (and, optionally, the setter as well) for you, right? So why use a macro instead?
+
+First and foremost, Class Completion for properties is horribly, horribly broken in Delphi 2006 and in BDS 2007. We use <code>strict private</code> in our code, which means we run up into the <a href="http://qc.codegear.com/wc/qcmain.aspx?d=58323">Delphi bug that makes Class Completion unusable</a>. It also tends to <a href="http://qc.codegear.com/wc/qcmain.aspx?d=58322">complete to the wrong class</a>. And I'm sure there are other bugs that I just don't remember, because I never use it. I've learned better than to complete properties.
+
+A macro also gives you more control. It's easy to tune it to make read-only properties, or read and write the field with no <code>SetXXX</code> method. You can do that with Class Completion too (if you can get it to work), but you have to do extra typing for every property. With a macro, you just cut a swath through the code.
+
+<h3>What it looks like</h3>
+
+You start by copying your field declarations to the end of the public section (or wherever you want your properties to go). Then the macro transforms those field declarations into property declarations.
+
+For today's example, we'll do read-only properties. So this:
+
+<pre>FFoo: Integer;
+FBar: string;
+FBaz: TPoint;</pre>
+
+will become:
+
+<pre>property Foo: Integer read FFoo;
+property Bar: string read FBar;
+property Baz: TPoint read FBaz;</pre>
+
+
+
+Note some limitations. With imagination, you can get around some of these, but the simple recipe I'll give here won't deal with anything complex.
+
+<ul>
+<li>You need one complete field declaration per line. This won't deal with <code>FFoo, FBar: Integer;</code>.</li>
+<li>It won't turn array declarations into indexed properties, or anything uber-fancy like that. You need to write a method to make that work, and this is simple text transformation, not code generation.</li>
+<li>This assumes no comments on the same line with the variable declarations.</li>
+<li>The steps, as written, assume that you follow the Delphi convention of prefixing field names with <code>F</code>. If you have some other convention, alter the steps accordingly.</li>
+</ul>
+
+So, nothing too fancy. But macros make short work of simple, repetitive stuff. Let's get started.
+
+<h3>The setup</h3>
+
+Highlight the lines with your field declarations. Copy them. Paste where you want your properties to end up (usually the end of one of the visibility sections, e.g. at the end of the <code>public</code> section).
+
+Now put the cursor back on the first line you pasted. The macro will transform each line into a property declaration, then move to the next line.
+
+<h3>The macro</h3>
+
+<ol>
+<li>Press <b>Ctrl+Shift+R</b> to start recording.</li>
+<li>Press <b>Home</b> to go to the beginning of the line.</li>
+<li>Press <b>Ctrl+Right arrow</b> to go to the beginning of the field name.</li>
+<li>Press <b>Ctrl+K, T</b> to select the field name.</li>
+<li>Press <b>Ctrl+C</b> to copy the field name to the clipboard.</li>
+<li>Press <b>Ctrl+Left arrow</b> to go back to the beginning of the field name.</li>
+<li>Press <b>Del</b> to delete the <code>F</code> off the beginning of the field name.</li>
+<li>Type <code><b>property</b></code> and hit the <b>Space bar</b>.</li>
+<li>Press <b>End</b> to move to the end of the line, just after the semicolon.</li>
+<li>Press <b>Left arrow</b> to move just before the semicolon.</li>
+<li>Type <b>Space bar</b>, <code><b>read</b></code>, <b>Space bar</b>.</li>
+<li>Press <b>Ctrl+V</b> to paste the field name.</li>
+<li>Press <b>Down arrow</b> to move to the next line.</li>
+<li>Press <b>Ctrl+Shift+R</b> to stop recording.</li>
+</ol>
+
+Of course, with macros, you always do the first one by hand. The first line should now be a property declaration just like you wanted.
+
+Now press <b>Ctrl+Shift+P</b> to play back the macro. The next line will be transformed from a field declaration into a read-only property declaration. Keep hitting Ctrl+Shift+P, and you're in business.
+
+One last cute trick: If there's a line you want to skip -- maybe you copied some comment lines along with the variable declarations -- just hit <code>Down arrow</code> before your next Ctrl+Shift+P.

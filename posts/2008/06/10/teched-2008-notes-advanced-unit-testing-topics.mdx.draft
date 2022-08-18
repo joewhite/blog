@@ -1,0 +1,229 @@
+---
+title: "TechEd 2008 notes: Advanced Unit Testing Topics  #.NET  #Delphi  #teched2008"
+sort: 2551
+---
+He repeated a lot of his favorite patterns that I already took notes about in his earlier session, "<a href="http://blog.excastle.com/2008/06/04/teched-2008-notes-design-and-testability/">Design and Testability</a>". If you haven't read that one yet, go check it out.
+
+Advanced Unit Testing Topics
+Ray Osherove
+<a href="http://www.typemock.com/">Typemock</a>
+Blog: <a href="http://iserializable.com/">http://iserializable.com/</a>
+
+The Art of Unit Testing (book he's working on)
+<ul>
+  <li><a href="http://the.artofunittesting.com/">the.artofunittesting.com</a></li>
+</ul>
+
+Assumption for this session: You have some experience with writing tests
+
+<h3>Mocking 101</h3>
+<ul>
+  <li>Replace dependencies with fakes so you can test something</li>
+  <li>If the Storage class calls a non-virtual void method on EmailSender, you can't test that interaction.</li>
+  <li>Pass an interface instead of a class. "Dependency injection". Then we can write a FakeEmailSender and pass that in, and it can do whatever we want.</li>
+  <ul>
+    <li>Do nothing</li>
+    <li>Set a flag saying "I got asked to send the e-mail"</li>
+  </ul>
+  <li>Can create the fake manually or with a mock-object framework</li>
+</ul>
+
+<ul>
+  <li>Fake vs. mock</li>
+  <ul>
+    <li>Fake: fake to make the system more testable. They won't fail your test. (In another session, I heard this called a "stub", with "fake" as a top-level term for both stubs and mocks.)</li>
+    <li>Mock: something we will assert against. These can be used to detect conditions where your test should fail.</li>
+  </ul>
+</ul>
+
+<ul>
+  <li>More complex scenario: force EmailSender to throw an exception, so you can test how StorageManager interacts with ILogWriter.</li>
+  <ul>
+    <li>FakeEmailSender, FakeLogWriter -- where the LogWriter is a mock (you'll assert that it actually got asked to log the error), and the e-mail sender is a fake (you don't assert against it, it just replaces the real one)</li>
+    <li>Usually, in a test, you'll only have one mock, and maybe many fakes</li>
+  </ul>
+</ul>
+
+Side note: Test names should be extremely readable. Imagine that the person reading your code is a serial killer who knows where you live. Don't make him mad.
+
+<h3>Mock-object libraries</h3>
+
+TypeMock:
+<pre>[Test]
+[VerifyMocks]
+public void Typemock_Store_StringContainsStar_WritesToLog()
+{
+    ILogger log = RecorderManager.CreateMockedObject(typeof(ILogger));
+    // Tell the mock object what you expect to happen in the future
+    using (var r = new RecordExpectations())
+    {
+        log.Write("*");
+        // Tell it to check parameter values, rather than just expecting
+        // the method to be called
+        r.CheckArguments();
+    }
+    // Now run the code under test
+    var sm = new StorageManager(log);
+    sm.Store("*");
+}</pre>
+
+<ul>
+  <li>The assert isn't in the code -- it's implicit in the <code>[VerifyMocks]</code> attribute. Can also do it explicity through a method call.</li>
+</ul>
+
+RhinoMocks:
+<pre>[Test]
+public void Typemock_Store_StringContainsStar_WritesToLog()
+{
+    MockRepository mocks = new MockRepository();
+    ILogger log = mocks.CreateMock<ILogger>();
+    using (mocks.Record())
+    {
+        log.Write("*");
+        // RhinoMocks checks arguments by default.
+    }
+    // Now run the code under test
+    var sm = new StorageManager(log);
+    sm.Store("*");
+}</pre>
+
+<ul>
+  <li>Looking back at that, I wonder if I missed something, because I don't see any sort of VerifyMocks() call in that code snippet. I probably missed copying it down from the slide.</li>
+</ul>
+
+What happens when you can't extract an interface?
+<ul>
+  <li>Derive from the class under test</li>
+</ul>
+What happens when you can't change the design?
+<ul>
+  <li>Can cry to our managers</li>
+  <li>Typemock lets you mock things that are static or private, without modifying the design.</li>
+  <ul>
+    <li>So suppose the Storage class instantiates the Logger itself, and you can't change it. How do you break the dependency so you can test the code?</li>
+  </ul>
+</ul>
+
+<pre>[Test]
+[VerifyMocks]
+public void Typemock2_Store_StringContainsStar_WritesToLog()
+{
+    using (var r = new RecordExpectations())
+    {
+        new Logger().Write("*");
+        r.CheckArguments();
+    }
+    var sm = new StorageManager2();
+    sm.Store("*");
+}</pre>
+
+<ul>
+  <li>Yep, it can record, and later fake out, a <code>new</code> call.</li>
+  <li>Uses the .NET Profiling API to do this. Deep black magic.</li>
+</ul>
+
+Mock object frameworks save time and coding, but sometimes fake objects are the simpler solution
+
+<h3>Testing ASP.NET WebForms</h3>
+
+<ul>
+  <li>Integration testing: use tools that invoke the browser and check stuff out</li>
+  <li>To test it in-process, and fake out the HttpContext and all that: <a href="http://www.sm-art.biz/Ivonna.aspx">Ivonna</a> (which uses Typemock underneath)</li>
+  <ul>
+    <li>Lets you set values on controls, and then process postbacks in-process</li>
+  </ul>
+</ul>
+
+<h3>Extending the test framework with extension methods</h3>
+
+<ul>
+  <li>Create a domain-specific language on your objects</li>
+</ul>
+<pre>"abc".ShouldMatch("\\w");
+List&lt;int&gt; ints = new List&lt;int&gt; { 1, 2, 3, 4, 5, 6 };
+ints.ShouldContain(4);
+3.ShouldBeIn(ints);
+5.ShouldBeIn(ints);</pre>
+
+<ul>
+  <li>Make a static class with static methods</li>
+  <li>First parameter has <code>this</code></li>
+  <li>Call asserts from the extension method</li>
+  <li>Import the namespace in order to be able to use the extension methods</li>
+</ul>
+<pre>public void ShouldBeIn(this object o, IEnumerable items)</pre>
+
+<h3>Testing (and Mocking) LINQ Queries</h3>
+
+<ul>
+  <li>LINQ is not a test-enabling framework by default</li>
+  <li>Use Typemock, then duplicate the LINQ query in your test (to record the calls)</li>
+  <li>The problem is, you're over-specifying your tests, because you have to know what query is being run underneath -- you're specifying the internal behavior</li>
+  <li>So, avoid doing this unless you have to</li>
+  <li>May be better to abstract away the queries</li>
+  <li>What about projections? E.g. selecting an anonymous type?</li>
+  <ul>
+    <li>Typemock can record anonymous types. He already had a demo for this.</li>
+    <li>Can be really, really weird.</li>
+  </ul>
+</ul>
+<pre>using (RecordExpectations rec = new RecordExpectations())
+{
+    var p1 = new { Name = "A", Price = 3 };
+    rec.CheckArguments();
+    string a = p1.Name;
+    rec.Return("John");
+}
+var target = new { Name = "A", Price = 3 };
+Assert.AreEqual("John", target.Name);</pre>
+<ul>
+  <li>The above actually passes. Yes. Look closer. They're mocking the return value of the anonymous type, so even though you construct it with "A", it returns "John". Like I said above, deep black magic.</li>
+</ul>
+
+<h3>Testing WCF</h3>
+
+<ul>
+  <li>Again, maybe the best thing is not to unit-test it. Consider an integration test instead.</li>
+  <li>Integration test: create a <code>ServiceHost</code>, <code>ChannelFactory</code></li>
+  <ul>
+    <li>Still might want to use Typemock for things like the security context</li>
+    <li>Be pragmatic about things. If it's one line of code to use Typemock, vs. introducing lots of interfaces, maybe it's worthwhile (as long as it's maintainable).</li>
+  </ul>
+  <li>Worth making a <code>WCFTestBase&lt;T, TContract&gt;</code> to pull out common code.</li>
+  <ul>
+    <li>If you do integration testing, get used to base test-fixture classes to remove duplication.</li>
+  </ul>
+</ul>
+
+<h3>Database-related testing</h3>
+<ul>
+  <li>To mock or not to mock the database?</li>
+  <ul>
+    <li>Mock:</li>
+    <ul>
+      <li>Tests will be fast, no configuration, don't need a real database.</li>
+      <li>But the database itself also has logic. Keys, indexes, integrity rules, security, triggers, etc.</li>
+    </ul>
+  </ul>
+  <li>Team System has a tool for testing against databases, but it's not really "there" yet.</li>
+  <li>Can do an integration test against the database.</li>
+  <li>If you change external data, roll back between tests. Good solution: lightweight transactions with TransactionScope. Create in SetUp (with TransactionScopeOption.RequiresNew), and call Dispose in TearDown.</li>
+  <ul>
+    <li>Will work even if the test creates its own transaction (as long as it doesn't also do RequiresNew).</li>
+  </ul>
+</ul>
+
+Put integration tests in a separate project, so it's easy to run the unit tests (which are fast) all the time, without being slowed down by the integration tests (which are slow, require configuration, etc.)
+
+<h3>Testing events</h3>
+
+<ul>
+  <li>Hook the event as usual</li>
+  <li>Hook it with an anonymous delegate</li>
+  <li>Do your asserts inside that anonymous delegate</li>
+  <li>Make an <code>eventFired</code> variable and set it true from inside the delegate</li>
+  <li>Assert <code>eventFired</code> in the main test body</li>
+  <li>Yay closures!</li>
+</ul>
+
+Musical postlude

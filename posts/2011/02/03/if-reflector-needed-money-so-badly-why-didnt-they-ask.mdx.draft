@@ -1,0 +1,31 @@
+---
+title: "If Reflector needed money so badly, why didn't they ask?  #.NET  #empathy  #redgate  #reflector"
+sort: 3279
+---
+<a href="http://www.red-gate.com/products/dotnet-development/reflector/announcement">Your copy of Reflector will self-destruct at the end of February... unless you pay the ransom.</a>
+
+This is depressing, not because of the money -- I could easily pay $35 for a kick-ass tool like Reflector -- but because of the betrayal of trust.
+
+It's not unlike the way Borland repeatedly betrayed their users' trust with crap like "Inprise" and "Application Lifecycle Management". (What's left of Borland just got <a href="http://www.microfocus.com/aboutmicrofocus/pressroom/releases/pr20090727756498.asp">bought out</a>. Good riddance.) Or the way Embarcadero <a href="http://blog.excastle.com/2009/09/24/kinda-wishing-i-could-keep-using-delphi/">priced me out of the Delphi market</a> a couple of years ago. (They've since decided that was a bad move and started selling a <a href="http://www.embarcadero.com/products/delphi/starter">starter edition</a>. Some people learn from their mistakes, though sometimes too late.)
+
+When RedGate bought Reflector, they said that they would <a href="http://www.simple-talk.com/opinion/opinion-pieces/the-future-of-reflector-/">continue to offer a free version</a>. Now they admit that they lied. Well, actually, they don't admit anything; they just repeatedly say that they never "promised" a free version. I guess that interview, and the "Red Gate will continue to offer the tool for free to the community" soundbite, were imaginary.
+
+But wait! You can <em>buy</em> a version that will continue to work forever! Honest! They promise! Well, no, actually. If you search their <a href="http://www.red-gate.com/products/dotnet-development/reflector/announcement">open letter</a> for the word "promise", you'll find it conspicuously absent.
+
+I've been reading the reactions on <a href="http://stackoverflow.com/">StackOverflow</a>, and even finally got a <a href="http://twitter.com/">Twitter</a> account so I could follow the news there. Some people say "suck it up, it's worth it". More people say "that's not the point, RedGate has proven they can't be trusted". I lean toward the latter camp.
+
+Then, across the Twitter feed comes a link to <a href="http://www.youtube.com/watch?v=TKnEjiSGZLA">a YouTube interview with Simon Galbraith, one of the co-founders of RedGate, about the decision to charge for Reflector</a>. Apart from again going on about the word "promise", he explains something that should have been forefront of their announcement: keeping up with new frameworks and new platforms is a big deal. They want to make Reflector an even more awesome tool, and people haven't been paying for Reflector Pro <em>(our department actually did buy it, BTW)</em> so they can't bankroll what they want to do.
+
+But instead of actually talking to the community about this, they kept it quiet. They "agonized" over it for about six months, and then decided that the right move was to break their word, antagonize the community, and try to extort the money, at the cost of their professional reputation.
+
+They forgot two things that should have made this easy.
+
+One, they forgot to ask. <a href="http://www.wikipedia.org/">Wikipedia</a> isn't afraid to ask for donations, and they get them. <a href="http://www.nanowrimo.org/">NaNoWriMo</a> isn't afraid to ask for donations, and they get them. Granted, there are plenty of open-source projects with "Donate" buttons that probably never see a dime. But for a tool like Reflector, if they had said, "Hey, we want to do X and Y and Z to make this great tool even better, but we can't do it without your help. We need to raise this many dollars to make it happen. Who's with us?" I think people would have responded.
+
+And two, <a href="http://blog.excastle.com/2004/11/20/the-stuff-leaders-are-made-of/">empathy matters</a>. Putting up a cold, faceless, impersonal warning icon that says "<a href="http://www.red-gate.com/products/dotnet-development/reflector/">Screw you, we know we said we wouldn't do this but we're sticking it to you anyway</a>" is not going to earn you many friends.
+
+Compare that to: "We need your help. We want to keep up with new platforms and features, and we want to do more than keep up: we want to make an awesome tool even more awesome. But we can't do it without you. We know you've always had Reflector for free -- and we <em>promise</em> that won't change -- but if this tool is going to survive the changes Microsoft has in store and still get even better than it's ever been, if this tool that's satisfied your curiosity, and taught you loads, and, yes, saved your butt time and time again, is going to stay relevant, we need you. Think back over the questions you've answered with Reflector, the number of people you've recommended Reflector to, the times you've sworn you couldn't do your job without Reflector, and then just tell us this: Can we count on your help?"
+
+Sigh.
+
+Okay, that's enough of that. Off to check out <a href="https://github.com/jcdickinson/Monoflector">Monoflector</a>.

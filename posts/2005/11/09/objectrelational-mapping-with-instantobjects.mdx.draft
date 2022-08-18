@@ -1,0 +1,97 @@
+---
+title: "Object/Relational Mapping with InstantObjects  #Delphi  #borcon2005"
+sort: 2229
+---
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Okay, I'm finally getting a chance to catch up on my blogging. Here are my notes from the "Object/Relational Mapping with InstantObjects" Birds-of-a-Feather session this morning, led by <a href="http://blog.marcocantu.com/">Marco Cant&#249;</a>.<span style="FONT-SIZE: 12pt"><?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><o:p></o:p></span></p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>&nbsp;</o:p></p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Object Persistence Framework
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Software layer that persists the objects in the model into a storage medium (decouple model from storage)
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Standard implementation of O/R mapping techniques</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Advantages
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Not locked into a specific vendor's SQL dialect (database vendors are your enemies)
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Ability to leverage the OO methodology
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Reduction of redundancies in the application code</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Disadvantages
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Steeper learning curve
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Inability to use some features of the DB server
+<ul style="MARGIN-TOP: 0in" type=square>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">Server-side programming, locking, transactions&#8230;</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Possibly slower and memory-hungry applications</li></ul></li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">OPFs in <?xml:namespace prefix = st1 ns = "urn:schemas-microsoft-com:office:smarttags" /><st1:place>Delphi</st1:place></p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Bold (Win32) / ECO (.NET)
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">More than a simple OPF, <st1:City><st1:place>Enterprise</st1:place></st1:City> class, MDA and OCL support, ECO only available in .NET</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">InstantObjects
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Open source; soft learning curve
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Based on Scott Ambler's approach (see <a href="http://www.ambysoft.com/">www.ambysoft.com</a>)</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">TechInsite OPF (tiOPF)
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Open source; steeper learning curve; high rate of project activity</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Roll-Out-Your-Own
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Maybe not the best place to start &#8211; try something else first
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">See oodesign newsgroup
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Joanna Carter's Web site
+<ul style="MARGIN-TOP: 0in" type=square>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">She used to host a similar BOF at past conferences&#8230;</li></ul></li></ul></li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">InstantObjects</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Main advantages of InstantObjects
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Nice integration with <st1:place>Delphi</st1:place>'s IDE
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Very flexible at the Business Object Model level
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Supports standard data-aware controls
+<ul style="MARGIN-TOP: 0in" type=square>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">through TInstantSelector and TInstantExposer</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Solid base of users and developers</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">&#8230;and current drawbacks:
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Constraints on the database structure
+<ul style="MARGIN-TOP: 0in" type=square>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">Structure and names of keys and relationship tables are currently fixed
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">V2 improves things through the "external storage" feature
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">Was originally designed for Paradox tables &#8211; some stuff was stored in BLOB fields. In v2 it's a memo with XML.</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Data access is not always very fast
+<ul style="MARGIN-TOP: 0in" type=square>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">Again, things get better in v2 thanks to new brokers and new optimizations</li></ul></li></ul></li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Model Explorer pane in IDE</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Add new class &#8211; looks like it may need to descend from TInstantObject
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Can put class in new unit or in existing unit
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Add attributes via GUI dialogs. You need to have an ID in every table, but you can add other attributes.
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Name of database field doesn't have to be the same as the property name.
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Generates code with magic comments.
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">For every field, you get an attribute object (TInstantString, TInstantInteger, etc., and you can add your own). It doesn't try to rely on RTTI, partly because you need more info than RTTI can provide, partly because you may want to create rich types (like Address that contains street address, city, etc.)
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Creates a class with properties (with getters and setters that read/write the embedded attribute object).
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Some extra metadata (max length of string fields, etc.) is put into a comment inside the class declaration. Not actually used directly at design time, except that it's used to generate the persistence code.
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">The new class doesn't have a constructor &#8211; just published fields for the attribute objects. Presumably the base class constructor uses RTTI to instantiate those attribute objects.
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">It isn't smart enough to automatically quote field names when they're reserved words. You'll have to manually specify the storage name for that attribute.
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">TInstantSelector is a TDataSet descendant. Lets you pick which object type it contains. You pick the object class, not the table name.
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Got a Stack Overflow in the demo (oops). Well, it's a beta version of InstantObjects running on a beta version of <st1:place>Delphi</st1:place>&#8230;</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Developing InstantObjects</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Project organization
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Ethea is a company backing it
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Marco is hosting the support site</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Roadmap
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Finally getting v2.0 out (still beta 1 stage)
+<ul style="MARGIN-TOP: 0in" type=square>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">Arrays of objects</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Restructuring and improving documentation
+<ul style="MARGIN-TOP: 0in" type=square>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">Both user and developer documentation</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Recruiting new developers and contributors
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Getting work done on new features</li></ul></li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Q&amp;A</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Q: How do you handle inheritance? Base class and descendant classes?<br>A: Single table can host multiple datatypes &#8211; class name is stored in each row.
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">If you're coming from a relational background, read Fowler's "Analysis Patterns". (Read it several times &#8211; it'll be pretty scary the first time or two.)</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><a href="http://www.instantobjects.org">www.instantobjects.org</a></p>

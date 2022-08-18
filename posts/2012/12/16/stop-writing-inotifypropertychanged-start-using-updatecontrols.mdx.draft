@@ -1,0 +1,199 @@
+---
+title: "Stop writing INotifyPropertyChanged, start using UpdateControls  #.NET  #inotifypropertychanged  #updatecontrols  #winrt  #winrt-xaml  #wpf  #xaml"
+sort: 3553
+---
+<p>If you use <a href="http://msdn.microsoft.com/en-us/magazine/dd419663.aspx">MVVM</a>, you know all about <a href="http://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanged(v=vs.110).aspx"><code>INotifyPropertyChanged</code></a>, and mostly you know that it's a pain. Simple properties are a lot of code, but otherwise not too bad; but once you start having derived properties, it's hard to make sure you fire all the right change events at the right time (and even harder to <em>keep</em> it right as you refactor).</p>
+
+<p>Can't we do things the way <a href="http://knockoutjs.com/">Knockout.JS</a> does, with a framework that automatically discovers the dependencies for you?</p>
+
+<p>Why yes, yes we can. Last weekend I discovered <a href="http://updatecontrols.net/cs/">UpdateControls</a>.</p>
+
+<ul>
+<li><a href="#intro">Introduction to UpdateControls</a></li>
+<li><a href="#api-drift">API drift, or, an UpdateControls documentation survival guide</a></li>
+<li><a href="#gotchas">Gotchas</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+<h3><a name="intro">Introduction to UpdateControls</a></h3>
+
+<p>UpdateControls is free and open-source (MIT license), is available via <a href="http://nuget.codeplex.com/">NuGet</a>, and works pretty much everywhere: WinRT, WPF, Silverlight, Windows Phone 7 -- even WinForms! <strong>Update:</strong> <a href="http://blog.excastle.com/2012/12/16/stop-writing-inotifypropertychanged-start-using-updatecontrols/#comment-642326">WP8 is supported too.</a></p>
+
+<p>The idea is:</p>
+
+<ul>
+<li><em>Don't</em> implement <code>INotifyPropertyChanged</code> on your viewmodel.</li>
+<li>Wrap each of your independent variables inside an <code>Independent&lt;T&gt;</code> instance. Expose the underlying value through properties.</li>
+<li>For computed properties, just write the code to compute the values.</li>
+<li>Before you assign your top-level viewmodel to a DataContext, wrap it with a call to <code>ForView.Wrap</code>.</li>
+</ul>
+
+<p>And that's it. You don't need to fire notifications manually; UpdateControls does it for you.</p>
+
+<p>An example:</p>
+
+<pre><code>public class MyViewModel {
+    private Independent&lt;string&gt; _firstName = new Independent&lt;string&gt;("");
+    private Independent&lt;string&gt; _lastName = new Independent&lt;string&gt;("");
+    private Independent&lt;bool&gt; _lastNameFirst = new Independent&lt;bool&gt;();
+
+    // Expose independent values through simple wrapper properties:
+    public string FirstName {
+        get { return _firstName; }
+        set { _firstName.Value = value; }
+    }
+    public string LastName {
+        get { return _lastName; }
+        set { _lastName.Value = value; }
+    }
+    public bool LastNameFirst {
+        get { return _lastNameFirst; }
+        set { _lastNameFirst.Value = value; }
+    }
+
+    // Dependent (computed) properties are just code:
+    public string Name {
+        get {
+            if (LastNameFirst)
+                return string.Format("{0}, {1}", LastName, FirstName);
+            else
+                return string.Format("{0} {1}", FirstName, LastName);
+        }
+    }
+}
+
+// And in the view:
+DataContext = ForView.Wrap(new MyViewModel());
+</code></pre>
+
+<p>And like magic, <em>all</em> your properties, <em>all</em> your logic, will start notifying the UI of changes. Between the <code>ForView.Wrap</code> wrapper at the top and the <code>Independent&lt;T&gt;</code> at the bottom, UpdateControls is able to automatically track all the dependencies, and triggers change events for computed properties whenever their ingredients change. This even works if a property changes <em>which</em> ingredients it uses.</p>
+
+<p><code>ForView.Wrap</code> wraps your top-level viewmodel in an internal class called <code>DependentObject&lt;T&gt;</code>. The first time a databinding asks for a property, the <code>DependentObject&lt;T&gt;</code> switches into recording mode, and then invokes your viewmodel property. Until that property returns, the <code>DependentObject&lt;T&gt;</code> takes note of every time you read the value from any <code>Independent&lt;T&gt;</code> anywhere; and whenever you do, it hooks that <code>Independent&lt;T&gt;</code>'s change event.</p>
+
+<p>Then the <code>DependentObject&lt;T&gt;</code> caches the property value and returns. Next time XAML asks for the value, it just returns it. (Its ingredients haven't changed, so why not?) But as soon as any of the ingredients change, it clears its cache and fires <code>PropertyChanged</code>. There's a lot of magic under the covers, but using it is dead simple. In principle.</p>
+
+<p>As with any magic, there are some subtleties and <a href="#gotchas">gotchas</a>, which I go into below. But first, some important notes about the documentation.</p>
+
+<h3><a name="api-drift">API drift, or, an UpdateControls documentation survival guide</a></h3>
+
+<p>UpdateControls has a fair bit of <a href="http://updatecontrols.net/doc/">documentation</a>, including several good <a href="http://updatecontrols.net/cs/videos.shtml">videos</a>. Unfortunately, the API has changed in a couple of significant ways over time, but a lot of documentation still refers to the old APIs. So some places you see it one way, and some places you see it the other way, which is <a href="http://en.wikipedia.org/wiki/Hella#SI_prefix">hella</a> confusing.</p>
+
+<p>The old APIs do still work (though not on every platform and not with every edition of Visual Studio), but there are easier -- and more universal -- ways to do things now.</p>
+
+<p>Here are the two things you really need to know before you start reading the UpdateControls documentation:</p>
+
+<h4>Codegen vs. Independent&lt;T&gt;</h4>
+
+<p>Independent properties used to take more code than what I showed above. It was so tedious that the author even wrote a Visual Studio add-in to do the code generation for you. But now we have <code>Independent&lt;T&gt;</code>, which is enough simpler that you don't need codegen. The old way still works (as long as you don't have Visual Studio Express, which doesn't support add-ins), but <code>Independent&lt;T&gt;</code> does a better job of encapsulating the boilerplate code, so IMO it's the way to go.</p>
+
+<p>Unfortunately, most of the code samples and screencasts still use the old way. You'll see (and hear, in the videos) lots of references to <kbd>Ctrl+D G</kbd>, which tells the VS add-in to do its code generation. And you'll see a lot of code like this:</p>
+
+<pre><code>private string _firstName;
+
+#region Independent properties
+// Generated by Update Controls --------------------------------
+private Independent _indFirstName = new Independent();
+
+public string FirstName
+{
+    get { _indFirstName.OnGet(); return _firstName; }
+    set { _indFirstName.OnSet(); _firstName = value; }
+}
+// End generated code --------------------------------
+#endregion
+</code></pre>
+
+<p>My advice: Don't install the MSI (in these days of <a href="http://nuget.codeplex.com/">NuGet</a>, the MSI is really just there to install the VS add-in). Ignore the VS add-in entirely. Tune out whenever the videos talk about <kbd>Ctrl+D G</kbd>.</p>
+
+<p>Just add the NuGet package to your project, and then use <code>Independent&lt;T&gt;</code>. The above code becomes this, which is simple enough to write and maintain by hand:</p>
+
+<pre><code>private Independent&lt;string&gt; _firstName;
+
+public string FirstName {
+    get { return _firstName; }
+    set { _firstName.Value = value; }
+}
+</code></pre>
+
+<p>By the way, that's not a typo in the getter. You can return <code>_firstName.Value</code> if you like, but <code>Independent&lt;T&gt;</code> also has an implicit conversion to <code>T</code>, so as long as it's not <code>Independent&lt;object&gt;</code> you can indeed just <code>return _firstName;</code>.</p>
+
+<h4>{u:Update} vs. plain old bindings</h4>
+
+<p>Originally, UpdateControls had a XAML markup extension (<code>{u:Update}</code>) that you were supposed to use in place of <code>{Binding}</code>. It took care of turning on dependency-recording mode whenever values were bound to the UI, so that it knew how to watch for changes and update the UI when ingredients change later.</p>
+
+<p>Unfortunately, not all the XAML platforms support markup extensions. Silverlight didn't get them until v5. Windows Phone 7 doesn't have them; not sure about 8. WinRT doesn't support them. <code>{u:Update}</code> isn't going to cut it for those platforms. I suspect that <code>{u:Update}</code> also wouldn't play well with visual designers like Blend; they're all about the <code>{Binding}</code>.</p>
+
+<p>So UpdateControls added <code>ForView.Wrap()</code>, which you can use in combination with plain old <code>{Binding}</code>. If the objects you expose to your XAML and your DataContexts and your Bindings are wrapped for view, you get the same magic, but without needing markup extensions.</p>
+
+<p>Any time you see <code>{u:Update}</code> in the documentation, just mentally substitute <code>{Binding}</code>, and make sure the viewmodel gets wrapped with <code>ForView.Wrap</code> before the view sees it. For example:</p>
+
+<pre><code>// Using the PersonViewModel class from the first code sample, above:
+var viewModel = new PersonViewModel();
+view.DataContext = ForView.Wrap(viewModel);
+
+&lt;!-- This will automatically update whenever ingredients (FirstName, LastName) change. --&gt;
+&lt;TextBlock Text="{Binding Name}"/&gt;
+</code></pre>
+
+<h3><a name="gotchas">Gotchas</a></h3>
+
+<p>If you're starting with UpdateControls on a new project, I would imagine it's not too hard to follow the rules and have things work well. If you're integrating it into an existing code base, you're more likely to run into gotchas. Here are some of the problems I ran into when trying to refactor <a href="http://blog.excastle.com/2012/12/12/my-current-project-stupid-quest/">my project</a> to use UpdateControls.</p>
+
+<h4>Don't use INotifyPropertyChanged</h4>
+
+<p>If your viewmodel implements <code>INotifyPropertyChanged</code>, UpdateControls assumes you know what you're doing, and <code>ForView.Wrap</code> won't wrap that class; instead it presents your class as-is to the view. The consequence is that the computed-property notification magic won't work for your INPC class or anything inside it. If you implement <code>INotifyPropertyChanged</code>, it's all on you.</p>
+
+<p>Which means that, if you're trying to refactor from INPC to UpdateControls, you can't do it one property at a time. To use <code>Independent&lt;T&gt;</code>, you can't have INotifyPropertyChanged. You'll have to change your entire viewmodel class at once: remove INotifyPropertyChanged, add <code>Independent&lt;T&gt;</code>s for everything, all in one fell swoop.</p>
+
+<p>If you do viewmodel composition -- where one viewmodel exposes other viewmodels as properties (think nested panels inside a larger screen) -- then you probably want to start at the top level (the whole screen), and work toward the leaves (nested panels).</p>
+
+<h4>Corollary: Don't use ObservableCollection&lt;T&gt;</h4>
+
+<p>I had viewmodels that exposed collections, and nothing was happening when the collection items' properties changed. It turns out that <code>ObservableCollection&lt;T&gt;</code> implements <code>INotifyPropertyChanged</code> (makes sense when you think about it; you might want to bind to its <code>Count</code>) -- so UpdateControls just exposed the collection instance directly to the UI, without attaching any of the dependency-recording logic: not for the collection itself, and not for the items inside it, either.</p>
+
+<p>So don't use <code>ObservableCollection&lt;T&gt;</code> with UpdateControls. Use <code>IndependentList&lt;T&gt;</code> instead (it's the UpdateControls equivalent of an observable collection). Or just a plain old <code>List&lt;T&gt;</code> if the contents aren't going to change. Or even a LINQ query (great for filtering -- as long as the filter conditions boil down to <code>Independent&lt;T&gt;</code>, changing them will automatically re-run the LINQ query). But if you start using UpdateControls, you should get rid of all your references to <code>ObservableCollection&lt;T&gt;</code>.</p>
+
+<h4>ForView.Wrap and dependency properties</h4>
+
+<p>This one may be peculiar to my code, but I had some custom dependency properties whose value was a custom class. Once I started using UpdateControls, their value wasn't that custom class anymore; the view layer (where dependency properties live) operates on the wrapper objects, not the actual viewmodels. Since my <code>DependencyProperty.Register</code> call specified that the property value should be of type MyCustomClass, but the actual instance was a <code>DependentObject&lt;MyCustomClass&gt;</code>, the bindings saw a type mismatch and never set my property. To get around this, I had to change my <code>DependencyProperty.Register</code> call to specify <code>object</code> as the property's value type. (And of course my property's change event had to use <code>ForView.Unwrap&lt;T&gt;</code> instead of casting directly to the class type.) This probably won't affect many people, but it's worth noting since I burned some time trying to figure it out.</p>
+
+<h4>Debugging wrapper objects</h4>
+
+<p>If you're in the debugger, and you're looking at a wrapper object (from <code>ForView.Wrap</code>), the tooltip will show the ToString() from the wrapped class -- which is often the <em>name of the wrapped class.</em> It can be hard to even realize that the object you're looking at is a wrapper, and not the viewmodel itself.</p>
+
+<p>It's not hard if you know how, though. If you expand the tooltip, wrappers will have a "HasErrors" property, and not much else. That should be easy to tell apart from your actual viewmodel (which will typically have <em>lots</em> of properties).</p>
+
+<p>If you then want to drill down to see the properties of the wrapped instance, you can expand "Non-Public Members", then "_wrappedObject".</p>
+
+<blockquote>
+  <p><a href="http://blog.excastle.com/2012/12/16/stop-writing-inotifypropertychanged-start-using-updatecontrols/debugger-tooltip-with-updatecontrols/" rel="attachment wp-att-3568"><img src="http://blog.excastle.com/wp-content/uploads/2012/12/Debugger-tooltip-with-UpdateControls.png" alt="Debugger tooltip with UpdateControls" width="482" height="136" class="alignnone size-full wp-image-3568" /></a></p>
+</blockquote>
+
+<h4>Integrating with Caliburn.Micro</h4>
+
+<p>I tried combining both UpdateControls and Caliburn.Micro in the same project, mostly because I was already using Caliburn.Micro's <code>IViewAware</code> so my viewmodels could fire animations on the view and wait for them to complete. Here's what I learned:</p>
+
+<ul>
+<li>Don't use Caliburn.Micro's base viewmodel classes, because they implement <code>INotifyPropertyChanged</code> (see above).</li>
+<li>Caliburn.Micro doesn't know about UpdateControls' wrapper classes. If you're doing viewmodel-first (where Caliburn.Micro automatically discovers and instantiates the correct view type for you), and your DataContext is a <code>DependentObject&lt;PersonViewModel&gt;</code>, Caliburn.Micro's conventions will probably look for a <code>DependentObjectView</code> or something -- it doesn't know that it's supposed to look for a <code>PersonView</code>. This isn't hard to deal with, though; Caliburn.Micro has good extensibility points for this sort of thing.</li>
+<li>The <code>IViewAware</code> stuff won't work out of the box either, because Caliburn.Micro takes the DataContext and says "does it implement IViewAware?" and of course it doesn't, because it's got the wrapper object, not your viewmodel. None of the lifecycle stuff (<code>IGuardClose</code> and the like) would work either, because it's also based on interfaces. Again, you could hook CM's extensibility points to make this work.</li>
+<li>No idea how Caliburn.Micro's <code>{x:Name}</code>-based binding conventions would play with UpdateControls. I didn't get that far.</li>
+</ul>
+
+<p>In the end, I decided not to use Caliburn.Micro for this app. I had a lot of custom UI, so the conventions weren't much use to me; I was really only using CM for IViewAware, which would require some coding to integrate with UpdateControls. Easier to roll my own at that point.</p>
+
+<p>But I'm confident you could use the two together. If anyone digs into this further and wants to share their code, drop me a line and I'll either post it or link to you.</p>
+
+<h3><a name="conclusion">Conclusion</a></h3>
+
+<p>I'm pretty excited about UpdateControls. Yeah, I spent a lot of time here talking about the downsides and gotchas. But I wouldn't have bothered if it didn't show so much promise.</p>
+
+<p>If you've used <a href="http://knockoutjs.com/">Knockout</a>, or if you're tired of keeping track of which calculated properties to fire PropertyChanged events for whenever something changes, you owe it to yourself to take a look at UpdateControls.</p>
+
+<p>Here's where to start:</p>
+
+<ul>
+<li>First, look through the notes above about <a href="#api-drift">API drift</a>. You'll want to be able to mentally translate the out-of-date code samples as you see them.</li>
+<li>Then head over to the <a href="http://updatecontrols.net/doc/">UpdateControls documentation</a> and read through all half-dozen or so pages; they're short. Also take a quick look through the other sections in the sidebar ("Examples", "Tips", "Advanced Topics").</li>
+<li>Then check out the <a href="http://updatecontrols.net/cs/videos.shtml">videos</a>, which cover different material than the docs, and which dig a lot deeper. They'll really give you an idea of what UpdateControls can do.</li>
+</ul>

@@ -1,0 +1,310 @@
+---
+title: "Agile 2006: Coaching Software Development Teams  #Programming  #agile2006  #extreme programming"
+sort: 2353
+---
+<p>Coaching Software Development Teams<br>Michael Feathers<br>Wednesday morning, second half</p>
+<p>Not a Grand Unified Theory of Coaching. Just observations.</p>
+<p>Coaching and Change</p>
+<ul>
+<li>Coach</li>
+<ul>
+<li>Team advocate: thinks about what's good for the team</li>
+<li>Coaches aid change and provoke change</li>
+<li>Coaching has ethical responsibilities</li></ul></ul>
+<p>Coaching</p>
+<ul>
+<li>All coaching relies on some model of human behavior</li>
+<ul>
+<li>It's hard to talk about human behavior frankly without offending people</li>
+<li>Have to live with the fact that there are "Things You Can't Say" &#8212; Paul Graham</li></ul>
+<li>Pitfalls</li>
+<ul>
+<li>Objectifying people</li>
+<li>Labeling &#8212; disrespectful, barrier to communication</li></ul></ul>
+<p>The Dilemma of Work</p>
+<ul>
+<li>Asks self: Would I like to work in this team?</li>
+<li>The necessary evil? The necessary good?</li>
+<ul>
+<li>If you didn't need the money, would you work as you do now?</li>
+<li>Why? Why not? What about your coworkers?</li>
+<ul>
+<li>Some people become passionate about the work they have to do</li>
+<li>Others just see it as a job</li>
+<li>Can't assume that everyone will be passionate about what they do</li></ul>
+<li>Who are we at work?</li>
+<ul>
+<li>What matters to this person? What motivates them? Can I get them tied into the passion of doing this stuff?</li></ul></ul></ul>
+<p>Organizational and Personal Values</p>
+<ul>
+<li>In any social setting, there can be conflicts between our personal values and those of our surrounding organization</li>
+<ul>
+<li>Company can assume that you're available to the company all the time</li>
+<li>These conflicts determine the character of organizations and how well they function</li>
+<li>They are hard to talk about</li>
+<li>Can be a core issue with morale</li></ul></ul>
+<p>Introducing "Pat"</p>
+<ul>
+<li>Emergent personality</li>
+<li>From a teacher: "Every class has its own personality"</li>
+<li>Backronym: Personal Anthropomorphization of the Team</li>
+<li>When we're together, we're something different than what we are separately</li>
+<li>Super-Organism theory:</li>
+<ul>
+<li>"A group is its own worst enemy" &#8212; Clay Shirky</li>
+<li>The Lucifer Principle &#8212; Howard Bloom</li></ul>
+<li>Is Pat happy today? Is Pat sad? Apprehensive?</li>
+<ul>
+<li>Individual people might be happy, but the group might be depressed</li></ul>
+<li>"Pat" does not embody organizational goals; "Pat" is an amalgam of the team</li>
+<li>People outside your department do view your department as a single entity</li></ul>
+<p>Organizational Stance</p>
+<ul>
+<li>Who does "Pat" work for?</li>
+<ul>
+<li>Core values (inferred from action)</li>
+<li>Typical behaviors</li>
+<li>Reasonableness of Expectations</li>
+<ul>
+<li>E.g., overtime, blogging and smoking</li></ul></ul></ul>
+<p>Personal Stance</p>
+<ul>
+<li>Who we are (individual members of the team):</li>
+<ul>
+<li>Our personal lifecycle, our personal experience (how old? have a family? what kind of commitments outside work?)</li>
+<ul>
+<li>Can make educated guesses, but really need to talk to people</li></ul>
+<li>Our history in the organization</li>
+<li>Our level of commitment</li>
+<ul>
+<li>No judgment here</li>
+<li>In many organizations, default assumption is that everybody is totally committed to the organization</li>
+<li>But if people are doing what they need to do and aren't getting in the way, they can be effective even if they aren't totally committed</li></ul></ul></ul>
+<p>Anatomy of Learning</p>
+<ul>
+<li>Learning involves a Tension/Release Cycle</li>
+<ul>
+<li>Needing to know something, not knowing what to do: tension</li>
+<li>Learning how to do it: release</li>
+<li>As a coach, need to surf on that wave</li>
+<li>There's usually a source of tension you can work with</li></ul>
+<li>The thing we work for, we remember</li>
+<ul>
+<li>Self-investment</li>
+<li>If the team wants to work to get something done, let them</li>
+<li>If necessary, show them how to fix it. They won't be as invested in the result, but you do still get that release.</li>
+<li>Pay attention to the mood of the room. Find a tense moment to help introduce something, and help them learn.</li></ul>
+<li>The job of a coach is to find teachable moments, and help team members release the tension productively</li>
+<ul>
+<li>Places where people are receptive</li></ul>
+<li>Chaos aids learning</li>
+<ul>
+<li>Can be more effective to tell someone to eat right when they're in the emergency room after a heart attack</li></ul></ul>
+<p>Conflict Identification</p>
+<ul>
+<li>One of our jobs as coaches is to identify the conflicts / problems</li>
+<li>Think about the team, think about its health, and identify problems that may not yet be recognized</li>
+<ul>
+<li>When you identify, you can</li>
+<ul>
+<li>Address and fix it, or</li>
+<li>Lead people to find and fix it themselves</li>
+<li>To know which, ask "Pat"</li></ul></ul>
+<li>Page on Ward's Wiki, has "Genius" in the title. Points toward this: you may have a solution, but it's better if you can lead others to find it themselves.</li></ul>
+<p>Go Sideways</p>
+<ul>
+<li>Recognizing when people are stuck, and offer alternatives</li>
+<li>Keep some distance, but watch progress</li>
+<li>Problems are enticing and captivating, but every moment you spend captivated is wasted if you're going down the wrong path</li>
+<ul>
+<li>When problems don't yield to pressure, help people switch gears, to try a similar but smaller problem</li>
+<li>Often this is enough to make the original problem yield</li></ul>
+<li>Help people step back; sometimes some distance will solve the problem</li></ul>
+<p>Go Home</p>
+<ul>
+<li>Well, not really, but...</li>
+<li>Pay attention to progress on problems.</li>
+<li>Cultivate a sense of when people or problems are overloaded.</li>
+<li>"Guys, you can't have fifteen people working on this."</li>
+<li>Sometimes you have too many people working on too few things. Help redirect them to other things.</li></ul>
+<p>"Antennae Up"</p>
+<ul>
+<li>When you're a coach, you have to develop a sensitivity to what's actually happening.</li>
+<ul>
+<li>Who's working with whom, how they're interacting</li>
+<li>What work is being avoided</li>
+<li>Just be aware of these things</li>
+<li>Can be draining to do this as well as work on software</li></ul></ul>
+<p>Pair Coaching</p>
+<ul>
+<li>Have someone else who knows the team available to bounce ideas off of</li>
+<ul>
+<li>You might not have the right interpretation</li>
+<li>In consulting, this works very well</li>
+<li>Internal coaches can use peers on other teams, or trusted members of the team</li></ul></ul>
+<p>Ask the Room</p>
+<ul>
+<li>When the team adopts a new rule, ask them to call a huddle when tempted to break it, to see if there are alternatives</li>
+<ul>
+<li>Leverages the whole team and builds a sense of how the team works</li></ul></ul>
+<p>Make It Physical</p>
+<ul>
+<li>A key coaching technique is to take the abstract and make it tangible</li>
+<ul>
+<li>Information Radiators</li>
+<li>Design: CRC cards, etc.</li></ul></ul>
+<p>Active Listening</p>
+<ul>
+<li>Single most powerful thing you can do as a coach</li>
+<li>It is hard</li>
+<li>Listening with minimal judgment is harder</li>
+<ul>
+<li>Keep it centered on work</li>
+<li>Balancing judgment ("Pat" vs. Person)</li>
+<li>Pitfalls</li></ul>
+<li>When you listen and it isn't recognized, you identify resistance</li>
+<li>Listening is deep respect.</li></ul>
+<p>Advance / Retreat</p>
+<ul>
+<li>Work with someone initially on some task, but selectively withdraw support</li>
+<li>When you know how to do something, it's easy to just do it. Resist temptation, especially when you're trying to teach practices.</li>
+<li>A way of gauging engagement and aiding initiative</li>
+<li>By letting them take the lead, you're helping them develop initiative in other situations</li></ul>
+<p>Tending "Pat"</p>
+<ul>
+<li>Imagining what Pat is like right now. Visualization. Is s/he tired? Scared, relaxed? What's the feel of the room?</li>
+<li>What is Pat afraid of?</li>
+<ul>
+<li>Losing job?</li>
+<li>Extra work?</li>
+<li>Is Pat nervous?</li></ul>
+<li>May miss things if you're looking at individuals</li></ul>
+<p>Personal Encouragement / Discouragement</p>
+<ul>
+<li>Most coaching work is one-on-one</li>
+<li>You can't address "Pat" directly</li>
+<li>Coach has to be able to address things no one wants to address</li>
+<ul>
+<li>Active Listening and Respect are your tools</li>
+<ul>
+<li>Know the person</li>
+<li>Know the feeling</li>
+<li>Feel it first</li>
+<li>Address</li></ul></ul></ul>
+<p>Name It</p>
+<ul>
+<li>Often the first step in solving a problem is naming it</li>
+<li>May not even have to say what needs to be done in response</li>
+<li>If it's an "elephant in the living room", this is doubly true</li>
+<li>Name problems and coach others to name them</li>
+<li>This teaches the team reflection</li>
+<li>Don't always have to have a solution right away</li></ul>
+<p>"The Flounce"</p>
+<ul>
+<li>Identifying the "Elephant in the Living Room"</li>
+<li>Obeys "tension / release"</li>
+<ul>
+<li>Pointed questions, soliciting comments... ending with silence. (tension) Then stark honest assessment of the problem, usually with emotional gravitas. (release)</li></ul>
+<li>There's some drama to doing this</li></ul>
+<p>Team Surgery</p>
+<ul>
+<li>The most effective way to change "Pat" is surgery</li>
+<ul>
+<li>Most companies loathe the idea of moving people from one team to another</li></ul>
+<li>Team surgery is hard: politics, fiefdoms</li>
+<ul>
+<li>Internal sub-teaming</li></ul>
+<li>The surgery that changes "Pat" the most is "Add Person"</li>
+<ul>
+<li>Removing people doesn't force as many differences in relation</li></ul>
+<li>Unfortunately, results are unpredictable</li>
+<ul>
+<li>Try moving someone to a different task for a while, see what happens to the team</li></ul></ul>
+<p>Push in the Water</p>
+<ul>
+<li>Coach has to be able to ask people to go beyond their limits</li>
+<ul>
+<li>Part of "Tending Pat"</li></ul></ul>
+<p>Self-Disintermediation</p>
+<ul>
+<li>If coach knows more than the rest of the team, team can rely on coach for answers. Pull yourself out of the loop.</li>
+<li>"I think Sara knows about that, check with her."</li>
+<li>Can work well with a tension/release cycle</li>
+<ul>
+<li>"Of only we spoke to Sara first"</li></ul>
+<li>Be aware of your desire to be in all loops</li>
+<li>When the work gets done without drama and you didn't do any coaching, that's success</li>
+<li>Most important when you're dealing with a bunch of individuals, as opposed to a team</li></ul>
+<p>Cheerleading</p>
+<ul>
+<li>Doesn't have to be very overt</li>
+<li>Part of being a coach is identifying what has gone well</li>
+<li>There are successes on all teams in all situations. Tie back to goals.</li>
+<li>Before cheerleading, decide whether it's appropriate. Think about how it's going to be received. Don't come across as a Pollyanna.</li></ul>
+<p>Cultivate Respect</p>
+<ul>
+<li>Especially in a dysfunctional team</li>
+<li>People on teams will objectify each other (build a picture of another person based on a few experiences)</li>
+<li>They will attempt to develop intimacy by complaining to you about others on the team</li>
+<li>Your reaction is *important*.</li>
+<ul>
+<li>Make it clear (without pushing them away) that you can't look at people that way</li>
+<li>Have to see them as a person too. Where are they coming from?</li></ul></ul>
+<p>Ethical Questions in Coaching</p>
+<ul>
+<li>When is "Pat" asking for too much?</li>
+<li>When is an organization asking for too much for a team?</li>
+<ul>
+<li>Fall back on honesty</li>
+<li>Worst thing a coach can do is accept an organizational goal they don't believe in, and go back to the team as if they believe it</li>
+<li>Say you think it's problematic, but we still have to do the best we can</li></ul>
+<li>Manipulation</li>
+<ul>
+<li>Not every intervention has to be completely above board</li>
+<li>Advance-Retreat.</li>
+<li>Don't always need full disclosure about why you're doing a particular thing, when it's in the best interest of the team.</li></ul></ul>
+<p>Team Health</p>
+<ul>
+<li>Intimacy and Unguarded Moments</li>
+<ul>
+<li>Do team members know each other's kids' names? Do they talk about what they're doing on the weekend?</li>
+<li>When people know a bit more, things are a bit more at ease at work</li></ul>
+<li>No Emotional Steady-State</li>
+<ul>
+<li>In a healthy team, the emotional state will change</li>
+<li>If the emotional state is stuck, something's wrong</li></ul>
+<li>Goal Achievement Record. How often do they meet their commitments?</li>
+<li>Have people personalized their space?</li>
+<li>Do people solve problems, or wait for someone to come save them?</li>
+<li>The Role of Rules</li>
+<ul>
+<li>Zero tolerance for zero tolerance</li></ul></ul>
+<p>Dealing with Resistance</p>
+<ul>
+<li>Sometimes people will act counter to the team's interest</li>
+<li>Advance/Retreat</li>
+<li>Ignore. Some things will sort themselves out. Takes a lot of judgment.</li></ul>
+<p>Dealing with Personality Conflicts</p>
+<ul>
+<li>Levels of relatedness:</li>
+<ol>
+<li>could hang out and talk about things outside work</li>
+<li>can work with for a couple of hours a day</li>
+<li>No, get me away from this guy/gal.</li></ol>
+<li>What is the relationship like from the other point of view?</li>
+<li>Does everyone else have the same problem with that person?</li>
+<li>Remedies:</li>
+<ul>
+<li>Team Surgery</li>
+<li>Align on communication boundaries</li>
+<li>Let them go</li></ul>
+<li>Hiring is the most important decision an organization ever makes</li></ul>
+<p>Politics and Cliques</p>
+<ul>
+<li>"Us versus Them" is natural, get used to it.</li>
+<li>Generally shouldn't happen inside the team.</li>
+<li>Doesn't have to be pathological.</li>
+<ul>
+<li>Can be galvanizing</li>
+<li>If the surrounding organization is dysfunctional, might not be all bad</li>
+<li>Can be dissolved at times (team surgery)</li></ul></ul>

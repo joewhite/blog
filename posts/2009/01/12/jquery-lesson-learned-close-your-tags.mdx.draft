@@ -1,0 +1,27 @@
+---
+title: "jQuery lesson learned: Close your tags  #Programming  #javascript  #jquery  #screw.unit"
+sort: 2618
+---
+I've been playing around with JavaScript, so of course I've been looking for a JavaScript unit-testing framework -- or better yet, a <acronym title="Behavior-Driven Development">BDD</acronym> framework, since they tend to make the assertions much more readable. I found <a href="http://pivotallabs.com/users/nick/blog/articles/433-screw-unit-a-new-js-testing-framework-version-0-1">Screw.Unit</a>, and fell in love with it for its nested describes, which definitely merit their own blog post.
+
+But I kept using <a href="http://jania.pe.kr/aw/moin.cgi/JSSpec">JSSpec</a> for a while, because Screw.Unit is still pretty buggy. JSSpec isn't a resounding win by any means; its assertion syntax is merely okay, and it leaves you stuck with the traditional test-suite mentality. But it's got a fantastic test-runner GUI that scales well as you add lots of tests.
+
+
+
+Well, this weekend, after writing tests for one of my classes in both JSSpec and Screw.Unit, I finally decided the nested describes were <em>so</em> worth it. So I checked the Screw.Unit distro into my svn repository and started making the Screw.Unit runner better. I made it so you can tell when the tests are done, and whether any failed. I made it automatically scroll to the first failure on the page. I converted all my tests over to Screw.Unit. And I checked it all into my repository.
+
+Then I tried running it in IE. Whoops. Blank page with nothing but some Roman numerals. Guess I should've done some cross-browser checking a little sooner...
+
+I did some digging and some troubleshooting, and found that this jQuery syntax:
+
+<pre>$('#myDiv').append($('&lt;h2&gt;'));</pre>
+
+doesn't work in IE. Dynamically-created nodes (the <code>$('&lt;h2&gt;')</code>) weren't being added to the page -- the <code>append</code> was doing nothing.
+
+So I posted a question yesterday night on the jQuery list (â€œ<a href="http://groups.google.com/group/jquery-en/browse_thread/thread/0e4517face6306ae">append() not working on dynamically-created nodes in IE</a>â€), and by this morning, I already had an answer: close the tag.
+
+<pre>$('#myDiv').append($('&lt;h2&gt;<strong>&lt;/h2&gt;</strong>'));</pre>
+
+Explains why some of my own code that created images <em>was</em> working in IE -- I was using XHTML <code>&lt;img/&gt;</code> syntax, so my tags were closed.
+
+I tried closing all the tags Screw.Unit was dynamically creating, and it worked like a champ. So there's my jQuery lesson learned for today: always close your tags. If you don't, things May Not Just Work.

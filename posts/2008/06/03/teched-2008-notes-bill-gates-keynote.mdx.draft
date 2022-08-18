@@ -1,0 +1,79 @@
+---
+title: "TechEd 2008 notes: Bill Gates' keynote  #.NET  #teched2008"
+sort: 2537
+---
+Bill Gates keynote
+
+This is Bill's last public appearance as a full-time Microsoft employee.
+
+Video: Bill Gates' Last Full Day
+
+Technology Megatrends
+<ul>
+  <li>Hardware performance: Moore's Law, multi-core</li>
+  <li>Ubiquitous broadband, RPC</li>
+  <li>Unlimited storage</li>
+  <li>Mobility & new devices</li>
+  <li>Natural user interface: touch screen, speech recognition</li>
+  <li>High fidelity displays</li>
+</ul>
+
+Opportunities for Developers
+<ul>
+  <li>Presentation</li>
+  <li>Business Logic</li>
+  <li>Data</li>
+  <li>Services</li>
+</ul>
+
+<h3>PRESENTATION</h3>
+Silverlight demo (S. Somasegar)
+<ul>
+  <li>Crossfader: social networking media sharing site</li>
+  <li>Silverlight is a true subset of WPF, so Silverlight controls can be reused in WPF</li>
+  <li>Silverlight 2 Beta 2 should be delivered by the end of this week, with a Go-Live license</li>
+</ul>
+
+<h3>BUSINESS LOGIC</h3>
+Modeling demo (Brian Harry)
+<ul>
+  <li>View > Architecture Explorer: class diagram (design as it actually is)</li>
+  <li>Architecture Layer diagram (design as it was meant to be: diagram of layers; can be validated against actual code by right-clicking in designer; can be a check-in policy)</li>
+  <li>Upcoming release of VSTS for Database Professionals: can maintain DB2 databases from Visual Studio</li>
+  <li>Database refactorings: rename field in database, renames in code (available today)</li>
+  <li>Codename "Oslo": modeling tools, modeling language, model repository</li>
+</ul>
+
+<h3>DATA</h3>
+SQL Server 2008 demo (Dave Campbell)
+<ul>
+  <li>Spatial data</li>
+  <li>File integration: VARBINARY has an attribute saying "store it as a file stream"; still gets backed up</li>
+  <li>Full timezone support: can store timestamps along with the timezone</li>
+  <li>Available in the next month or two</li>
+</ul>
+
+<h3>SERVICES</h3>
+
+<h3>FUTURE OF APPLICATION DEVELOPMENT</h3>
+<ul>
+  <li>Design</li>
+  <ul>
+    <li>Analysis & design tools</li>
+    <li>Next generation declarative languages</li>
+  </ul>
+  <li>Execution</li>
+  <ul>
+    <li>Process aware engines/platforms</li>
+    <li>Self-aware system management</li>
+  </ul>
+</ul>
+
+Microsoft Robotics demo (Tandy Trower)
+<ul>
+  <li>Robotics are expensive and require specialty maintainers</li>
+  <li>Just emerging at the personal level -- about where PCs were in the early 1980s</li>
+  <li>Microsoft Robotics Developer Studio: development for robots, including simulation</li>
+  <li>Self-balancing robot with dextrous arms and a picture of Steve Ballmer's face</li>
+  <li>RoboChamps competition: program simulated robots, win real robots (<a href="http://www.robochamps.com/">www.robochamps.com</a>)</li>
+</ul>

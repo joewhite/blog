@@ -1,0 +1,36 @@
+---
+title: "ReSharper, day 24: Introduce Field  #.NET  #resharper"
+sort: 2405
+---
+<p>Welcome to day 24 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>Yesterday I talked about ReSharper's <a href="http://blog.excastle.com/2007/02/23/resharper-day-23-introduce-variable-and-introducing-ctrlshiftr-to-refactor/">Introduce Variable refactoring</a>. Today's topic is <b>Introduce Field</b>.</p>
+
+<p>Adding a field is a lot like adding a variable, but there are extra options:</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/IntroduceField.png" width="421" height="396" alt="ReSharper's Introduce Field refactoring dialog, accessed through Ctrl+Shift+R" border="0"></blockquote>
+
+<p>It does the usual <a href="http://blog.excastle.com/2007/02/14/resharper-day-14-suggested-variable-names/">variable name suggestions</a> (which follow the naming conventions you specify in ReSharper Options).</p>
+
+<p>Like <a href="http://blog.excastle.com/2007/02/23/resharper-day-23-introduce-variable-and-introducing-ctrlshiftr-to-refactor/">Introduce Local Variable</a>, it has a <b>Replace all occurrences of expression</b> checkbox. But because Introduce Field affects an entire class, the <a href="http://blog.excastle.com/2007/02/23/resharper-day-23-introduce-variable-and-introducing-ctrlshiftr-to-refactor/#blue">blue highlights, and the blue stripes in the color bar</a>, become more useful in seeing how many places the expression will be replaced (although the fact that they won't go away is still annoying).</p>
+
+<p>Introduce Field also has that goofy behavior where they <a href="http://blog.excastle.com/2007/02/23/resharper-day-23-introduce-variable-and-introducing-ctrlshiftr-to-refactor/#blue">use Cancel to mean Highlight All</a>, instead of using it to mean Cancel. If you want the thing that's really Cancel, you need to click Cancel and then press Esc. (And if you want the thing that's really OK, you need to click OK and then press Esc. Eww.)</p>
+
+<p>Not much more to be said about the basic settings. The options speak for themselves fairly well.</p>
+
+<h4>Trying to write tests</h4>
+
+<p>If you write unit tests, you'll notice that none of the "Initialize in" options are much good in a test-fixture class. "Current member" might be useful on occasion, but it's not usually what you want. (And "Constructor" and "Field declaration" shouldn't even be <i>available</i> if you're working in a <code>[TestFixture]</code> class, IMHO. They're just begging for inter-test dependencies.)</p>
+
+<p>I sent in a feature request to <a href="http://www.jetbrains.net/jira/browse/RSRP-35421">add "Initialize in [SetUp] method" to ReSharper</a>, but they closed it as "Won't Fix", claiming that it could be implemented as a plug-in. If that's true, they have got a long way to go on the <a href="http://www.jetbrains.net/confluence/display/ReSharper/ReSharper+Plugin+Development">documentation for the ReSharper plug-in API</a>, because they don't have <i>any refactoring samples at all.</i> It doesn't even look like they're planning to write any; they don't have a section for them. So if anyone wants to write a ReSharper plug-in that adds a radio-button choice to an existing dialog box, and uses that new choice to change the behavior of an existing refactoring, I'll just wish you the best of luck right now.</p>
+
+<p>It's not the end of the world; you can still do an Introduce Field properly. It's just not as nice as most things in ReSharper. You have to manually scroll to the SetUp method, and stuff like that. (grin)</p>
+
+<p>If you want to use Introduce Field in a test fixture, here's how to make it work, until and unless they get around to writing those plug-in docs:</p>
+
+<ol>
+<li><p>Use Introduce Field, and select "Current member".</p></li>
+<li><p>Cut the assignment that ReSharper just generated, and paste it into your <code>[SetUp]</code> method.</p></li>
+</ol>
+
+<p>Not that hard, really. Just irritating. They've spoiled me by making everything so easy, that it's frustrating when they take something I do all the time and flat-out refuse to make it as easy as it should be.</p>

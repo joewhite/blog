@@ -1,0 +1,25 @@
+---
+title: "ReSharper, day 14: Suggested variable names  #.NET  #resharper"
+sort: 2395
+---
+<p>Welcome to day 14 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>ReSharper replaces <b>Ctrl+Space</b> with its own version. It mostly does the same thing as Visual Studio's Ctrl+Space, but it has one additional feature: it can suggest variable names for you.</p>
+
+<p>If you type a variable declaration, and hit Ctrl+Space...</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/VariableNameSuggestion.png" width="166" height="56" alt="ReSharper suggesting variable names" hspace="12" border="1"></blockquote>
+
+<p>ReSharper shows an AutoComplete dropdown with suggested names, based on the type name. The dropdown list behaves like any other AutoComplete dropdown, so you can cursor to an item and hit Enter, or you can just type <code>;</code> and it will accept the current selection and type a semicolon.</p>
+
+<p>It's smart enough to ignore the leading <code>I</code> on interface names. And if the type is only one word, it won't bother with the dropdown. So if you type <code>ISprite <i>(space)</i></code> and hit Ctrl+Space, it will go ahead and fill in <code>sprite</code>.</p>
+
+<p>Of course, this isn't just for local variables; it also works for parameters and fields. You can even teach it your naming conventions, e.g. if all your fields' names should start with <code>_</code>; see the Naming Convention page in ReSharper Options.</p>
+
+<p>You can also type in a prefix before you press Ctrl+Space:</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/VariableNameSuggestionWithPrefix.png" width="202" height="56" alt="ReSharper suggesting variable names after you specify a name prefix" hspace="12" border="1"></blockquote>
+
+<p>Unfortunately, this has a bug in ReSharper 2.5.1. Notice that the suggestions have turned my prefix into all-lower-case, instead of keeping the camelCase that I had originally typed. (They've <a href="http://www.jetbrains.net/jira/browse/RSRP-35566">created a ticket</a> for the bug.)</p>
+
+<p>The variable name suggestions aren't limited to Ctrl+Space when you're declaring a variable; they appear other places in ReSharper as well. For example, when you're introducing a parameter, you get a combo box where you can either type a name, or select one of the suggestions. When you're renaming a variable, the name suggestions pop up. When you're extracting a method, the suggestions kick in for the parameter names. Etc.</p>

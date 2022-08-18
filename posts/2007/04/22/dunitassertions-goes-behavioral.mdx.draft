@@ -1,0 +1,63 @@
+---
+title: "DUnitAssertions goes behavioral  #Delphi  #dunitlite  #extreme programming"
+sort: 2434
+---
+<p>The more I look at <a href="http://sourceforge.net/projects/dspec">dSpec</a>, the more I like its syntax. <code>Should.Equal</code> and <code>Should.Be.AtLeast</code> are much better than my <code>Tis.EqualTo</code> and <code>Tis.GreaterThanOrEqualTo</code>.</p>
+
+<p>And I like the <a href="http://behaviour-driven.org/">behavior-driven</a> bent: encouraging the coder to think in terms of specifications ("specify that it should do this") rather than tests ("test to see if it does this"). I was actually leaning a bit in that direction already &mdash; that's why I picked <code>Expect</code> instead of <code>Check</code> or <code>Assert</code> &mdash; but I like <code>Specify</code> better yet.</p>
+
+<p>So I'm stealing it.</p>
+
+<p>None of these are implemented yet (I still need to rip out the operator overloads and do a bit more refactoring before I can move on to this), but here's how I see the new syntax for DUnitAssertions<sup><small>*</small></sup>:</p>
+
+<blockquote><pre>// All specifications support messages:
+Specify.That(Foo, Should.Equal(45), 'Frequency');
+
+// All specifications support Should.Not:
+Specify.That(Foo, Should.Not.Equal(45));
+
+// Floating-point comparisons support "ToWithin":
+Specify.That(Foo, Should.Equal(45.0)); // default epsilon
+Specify.That(Foo, Should.Equal(45.0).ToWithin(0.00001));
+Specify.That(Foo, Should.Equal(45.0).Exactly); // no epsilon
+
+// Equality and inequality:
+Specify.That(Foo, Should.Equal(45));
+Specify.That(Foo, Should.Be.AtLeast(45));
+Specify.That(Foo, Should.Be.AtMost(45));
+Specify.That(Foo, Should.Be.From(45).To(48).Inclusive);
+Specify.That(Foo, Should.Be.From(45).To(48).Exclusive);
+Specify.That(Foo, Should.Be.GreaterThan(45));
+Specify.That(Foo, Should.Be.LessThan(45));
+
+// Type:
+Specify.That(Foo, Should.Be.OfType(TComponent));
+Specify.That(Foo, Should.DescendFrom(TComponent));
+Specify.That(Foo, Should.Implement(IBar));
+
+// String:
+Specify.That(Foo, Should.Contain('Bar'));
+Specify.That(Foo, Should.StartWith('Bar'));
+Specify.That(Foo, Should.EndWith('Bar'));
+
+// All string comparisons support IgnoringCase:
+Specify.That(Foo, Should.Equal('Bar').IgnoringCase);
+Specify.That(Foo, Should.Contain('Bar').IgnoringCase);
+Specify.That(Foo, Should.StartWith('Bar').IgnoringCase);
+Specify.That(Foo, Should.EndWith('Bar').IgnoringCase);
+
+// Numeric:
+Specify.That(Foo, Should.Be.Composite);
+Specify.That(Foo, Should.Be.Even);
+Specify.That(Foo, Should.Be.Negative);
+Specify.That(Foo, Should.Be.Odd);
+Specify.That(Foo, Should.Be.Positive);
+Specify.That(Foo, Should.Be.Prime);
+
+// Specific values:
+Specify.That(Foo, Should.Be.False);
+Specify.That(Foo, Should.Be.Nil);
+Specify.That(Foo, Should.Be.True);
+Specify.That(Foo, Should.Be.Zero);</pre></blockquote>
+
+<p><small><sup><small>*</small></sup> If it's going to be for behavior-driven development instead of test-driven development, then it really needs a new name now...</small></p>

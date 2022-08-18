@@ -1,0 +1,11 @@
+---
+title: "Aptana, GPL, and the definition of \"intact"  #Programming  #fail  #python"
+sort: 3304
+---
+I'm looking at Python IDEs and decided to try <a href="http://aptana.com/products/studio3">Aptana</a>, but their installer isn't giving the best first impressions. First it did nothing but peg my CPU for half a minute or so, without so much as a splash screen. Then, when it finally showed some GUI, the very first screenful of text was downright incomprehensible:
+
+<a href="/images/Aptana-License-Agreement.png"><img src="/images/Aptana-License-Agreement-med.png" width="532" height="411" alt="Aptana License Agreement" /></a>
+
+No, there's no horizontal scrollbar to explain why the beginnings of words are cut off.
+
+What I love most is how that last line insists that this victim of random hack-and-slash copy/paste must be kept... "intact".

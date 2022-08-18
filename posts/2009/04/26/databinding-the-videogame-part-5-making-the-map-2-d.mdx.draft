@@ -1,0 +1,139 @@
+---
+title: "Databinding the videogame, part 5: making the map 2-D  #.NET  #databinding  #databinding the videogame  #game-programming  #wpf"
+sort: 2771
+---
+Last time, I <a href="http://blog.excastle.com/2009/04/25/databinding-the-videogame-part-4-terrain-collection/">added the ability to have multiple Terrain objects in my map</a>. Today I'll take this into 2-D, so that the map is divided into logical squares, each with its own Terrain.
+
+<h3>Enter the Square</h3>
+
+I thought about adding X and Y properties to Terrain, but that felt wrong for a lot of reasons. For one thing, it's awkward to talk about having a Dirt terrain here and another Dirt terrain right next to it. It just doesn't sound right: the English word "terrain" refers to a general set of characteristics, not a specific location. It also introduced some duplication into the code that I didn't like, both in the Terrain classes and in the construction logic. And the "Terrain has X and Y" pattern would have made it hard for a spot on the map to change its terrain type at runtime, which is a feature I want to add later.
+
+So instead, I came up with a scheme that feels "right": the map is a collection of <a href="http://svn.excastle.com/databinding_the_videogame/tags/part5/Game.Core/TerrainDataModels/Square.cs">Square</a>s. Each Square has a location and a Terrain.
+
+<pre lang="csharp">
+public class Square
+{
+    public Square(Terrain terrain, int x, int y)
+    {
+        Terrain = terrain;
+        X = x;
+        Y = y;
+    }
+
+    public Terrain Terrain { get; private set; }
+    public int X { get; private set; }
+    public int Y { get; private set; }
+}</pre>
+
+I also considered using a Dictionary&lt;Point, Terrain&gt;, rather than an ObservableCollection&lt;Square&gt;. I went with the flat list of Squares for pragmatic reasons: it's a lot easier to set up dynamic databinding to a flat ObservableCollection&lt;T&gt; than to a Dictionary.
+
+It was pretty straightforward to change <a href="http://svn.excastle.com/databinding_the_videogame/tags/part5/Game/Window1.xaml.cs">Window1</a>'s test buttons to add Squares to the map, instead of Terrains. Since this is still just a test project, I made it assign a random X and Y to each square it adds, each in the range 0..199.
+
+<pre lang="diff">+using System;
+ using System.Collections.ObjectModel;
+ using System.Windows;
+ using Game.Core.TerrainDataModels;
+
+ namespace DatabindingTheVideogame
+ {
+     /// <summary>
+     /// Interaction logic for Window1.xaml
+     /// </summary>
+     public partial class Window1
+     {
+-        private readonly ObservableCollection<Terrain> m_map =
+-            new ObservableCollection<Terrain>();
++        private readonly ObservableCollection<Square> m_map =
++            new ObservableCollection<Square>();
+
+         public Window1()
+         {
+             InitializeComponent();
+             mapView.DataContext = m_map;
+         }
+
++        private void AddTerrain(Terrain terrain)
++        {
++            var random = new Random();
++            var x = random.Next(200);
++            var y = random.Next(200);
++            m_map.Add(new Square(terrain, x, y));
++        }
+         private void Dirt_Click(object sender, RoutedEventArgs e)
+         {
+-            m_map.Add(new Dirt());
++            AddTerrain(new Dirt());
+         }
+         private void SteelPlate_Click(object sender, RoutedEventArgs e)
+         {
+-            m_map.Add(new SteelPlate());
++            AddTerrain(new SteelPlate());
+         }
+     }
+ }</pre>
+
+With these changes, the program is broken. The MapView doesn't yet know how to bind to Squares, so if you run it now and click the buttons a few times, all you get are lines of text saying "Game.Core.TerrainModels.Square". Let's tackle that first, and get back to working code before we go for the new feature of 2-D.
+
+<h3>Picking a DataTemplate based on a property</h3>
+
+
+
+Square really has nothing to say about which GUI control to instantiate. That's all up to the Terrain. But the GUI is bound to a collection of Squares, so it's going to be asking the Square what it wants to put on the screen. The Square's answer is really just going to be, "Geez, man, don't ask me. Talk to the Terrain."
+
+Having a collection of X, but wanting to render X.Y, seems like it should be a common enough thing that WPF would have a built-in way to do it. And indeed it does, but only sort of. <a href="http://msdn.microsoft.com/en-us/library/system.windows.controls.itemscontrol.aspx">ItemsControl</a> has a <a href="http://msdn.microsoft.com/en-us/library/system.windows.controls.itemscontrol.displaymemberpath.aspx">DisplayMemberPath</a> property that sounds like just the ticket. Unfortunately it's both poorly named and poorly documented. It seems that it's really more of a Display<em>String</em>MemberPath, because it <a href="http://www.beacosta.com/blog/?p=8">renders a TextBlock</a> with the member's value converted to a string (a fact not clear from the <a href="http://msdn.microsoft.com/en-us/library/system.windows.controls.itemscontrol.displaymemberpath.aspx">docs</a>). It ignores DataTemplates and always renders text.
+
+So if I want <a href="http://svn.excastle.com/databinding_the_videogame/tags/part5/Game.Core/GameViews/MapView.xaml">MapView</a> to render a sub-property, while still actually using DataTemplates, I have to do it myself. It's not hard, though; I just add a DataTemplate for Square, give it a ContentPresenter, and bind the Content property:
+
+<pre lang="diff">@@ -5,6 +5,9 @@
+     xmlns:TerrainViews="clr-namespace:Game.Core.TerrainViews"
+     MinWidth="40" MinHeight="40" Background="Gray">
+     <UserControl.Resources>
++        <DataTemplate DataType="{x:Type TerrainDataModels:Square}">
++            <ContentPresenter Content="{Binding Path=Terrain}"/>
++        </DataTemplate>
+         <DataTemplate DataType="{x:Type TerrainDataModels:Dirt}">
+             <TerrainViews:DirtView/>
+         </DataTemplate></pre>
+
+This brings things back to where they were <a href="http://blog.excastle.com/2009/04/25/databinding-the-videogame-part-4-terrain-collection/">last time</a>: clicking one of the buttons adds a new Terrain to the bottom of the column.
+
+Now to go 2-D.
+
+<h3>Taking it to the second dimension</h3>
+
+There are two parts to showing the terrains in two dimensions: specifying which Panel type to use, and binding the attached properties to set the position.
+
+By default, ItemsControl renders its children using a <a href="http://msdn.microsoft.com/en-us/library/system.windows.controls.stackpanel.aspx">StackPanel</a>, which gives us the top-to-bottom column we've seen so far. To go two-dimensional, we need a different type of panel. <a href="http://msdn.microsoft.com/en-us/library/system.windows.controls.grid.aspx">Grid</a> would be a possibility, but to make that work you really need to predefine all your rows and columns, which sounds like a pain. So I went with <a href="http://msdn.microsoft.com/en-us/library/system.windows.controls.canvas.aspx">Canvas</a>: the ultimate in free-form.
+
+To tell the ItemsControl to use a different Panel type, you set its ItemsPanelTemplate:
+
+<pre lang="xml"><ItemsControl.ItemsPanel>
+    <ItemsPanelTemplate>
+        <Canvas/>
+    </ItemsPanelTemplate>
+</ItemsControl.ItemsPanel></pre>
+
+Then you need to bind each Square's X and Y to something. You can't do this in the Square's DataTemplate, because, as far as I can tell, the Left and Top properties can only be set on immediate children of the Canvas. DataTemplate is not added as an immediate child of the Canvas; instead each item gets an ItemContainer (which <em>is</em> added as the immediate child of the Canvas), and then the DataTemplate goes inside the ItemContainer. So the Left and Top need to be set on the ItemContainer, which is done using an ItemContainerStyle:
+
+<pre lang="xml"><ItemsControl.ItemContainerStyle>
+    <Style>
+        <Setter Property="Canvas.Left" Value="{Binding Path=X}"/>
+        <Setter Property="Canvas.Top" Value="{Binding Path=Y}"/>
+    </Style>
+</ItemsControl.ItemContainerStyle></pre>
+
+Honestly, I don't fully understand why this needs a Style with Setters, rather than the same straightforward DataTemplate that's so useful everywhere else. This is just one of those dark corners of WPF that I figure I'll learn more about eventually, so I won't bust my brain figuring it out now. It works, and that's the important thing.
+
+<a href="http://blog.excastle.com/wp-content/uploads/2009/04/databindingthevideogamepart5.png"><img src="http://blog.excastle.com/wp-content/uploads/2009/04/databindingthevideogamepart5-150x150.png" alt="databindingthevideogamepart5" title="databindingthevideogamepart5" width="150" height="150" class="alignright size-thumbnail wp-image-2772" style="float:right;" /></a>
+
+And there you go: a two-dimensional map. If you make these changes and run, then every time you click "Dirt" or "Steel Plate", a new square gets added at a random position within the MapView. All it takes to make a real map is to use something more interesting than Random.Next() for the X and Y.
+
+<h3>Today's test project</h3>
+
+You can <a href="http://svn.excastle.com/databinding_the_videogame/tags/part5/">browse todayâ€™s code online</a>, or check it out from my Subversion repository:
+
+<pre>svn co http://svn.excastle.com/databinding_the_videogame/tags/part5</pre>
+
+<h3>What's next?</h3>
+
+Right now, squares' X and Y properties are in pixel coordinates, not logical coordinates. Among other things, that means the squares aren't square with each other. I could just hack the random number generation, but I'll do better: next time I'll introduce coordinate systems.

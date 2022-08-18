@@ -1,0 +1,6 @@
+---
+title: "Live Templates for parameters  #Delphi"
+sort: 2251
+---
+<p><a href="http://blogs.borland.com/adammarkowitz/">Sparky</a> tells about a <a href="http://blogs.borland.com/adammarkowitz/archive/2005/12/09/22423.aspx">nifty undocumented feature</a> in Delphi 2006: when you write a method call, the editor can put in placeholders for all the parameters, and you can Tab between them and stuff, just like with all the other Live Templates. Looks pretty nifty.</p>
+<p>Now, if Borland could just be bothered to <em>ship</em> our copies of Delphi 2006 (now that everyone else has had it for, what, three weeks now?), I could try it out...</p>

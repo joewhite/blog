@@ -1,0 +1,12 @@
+---
+title: "Bathrooms, toilet paper, and thread synchronization  #.NET"
+sort: 2118
+---
+<p>I was working on my coroutine library this afternoon, and found myself reading (not for the first time) the docs for System.Threading.Monitor.Pulse and System.Threading.Monitor.Wait, and not understanding them <em>at all.</em></p>
+<p>So I went in search of some more info, and ran across a post by <a href="http://pluralsight.com/blogs/mike/">Mike Woodring</a> called "<a href="http://pluralsight.com/blogs/mike/archive/2004/12/13/3905.aspx">Of bathrooms, toilet paper, and thread synchronization</a>". He comes up with a pretty good (and amusing) analogy, which does a good job of explaining things. (He actually uses PulseAll instead of Pulse, but once you understand one, the other is easy.)</p>
+<p>I would extend the analogy a little further, though, because it took me a while to figure out the difference between the two different wait states. I think naming those two states, instead of just saying "you're in a different line now", would help a little:</p>
+<ul>
+<li>If you want to go to the bathroom, and you find out someone already has the bathroom pass, then you stand in the <strong>Hallway</strong> and wait.</li>
+<li>If you get the bathroom pass and go into the bathroom, and discover there's no toilet paper, then you return the pass and go wait in the <strong>Lounge</strong>.</li>
+<li>When the maintenance guy replaces the toilet paper, he dials the P.A. system in the lounge, and announces that he's refilled the toilet paper. Hearing this, everyone leaves the Lounge and returns to the Hallway. (Then the usual precedence takes over: everyone waits for the maintenance guy to leave the bathroom; then one person grabs the pass and goes into the bathroom; everyone else waits for them to leave; etc.)</li></ul>
+<p>In any case, though, Mike's post does quite well at explaining Thread.Pulse, Thread.PulseAll, and Thread.Wait (a helluva lot better than the example in the documentation, which is such a pitiful attempt at producer/consumer that it has to rely on a thread timeout (!) to tell that the other side is done producing).</p>

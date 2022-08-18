@@ -1,0 +1,16 @@
+---
+title: "Making ANTLR able to fail unit tests  #.NET  #Delphi  #antlr  #dgrok"
+sort: 2315
+---
+I'm writing my ANTLR grammar test-first. I'll write an NUnit test method that parses a particular string and checks the resulting parse tree; then I'll run the test and watch it <a href="http://blog.excastle.com/2005/06/27/xp-fail-first/">fail first</a>; and then I'll start writing the lexer and parser rules to make that test pass.
+
+This is an awesome way to write a grammar. It's already saved me several times (it was my unit tests that caught the hiccup with ANTLR confusing "<font face="Courier New">.</font>" with "<font face="Courier New">..</font>"). But the thing I learned early on is that it doesn't work out of the box.
+
+ANTLR's base lexer and parser classes throw exceptions when they encounter errors. This is great; I want my tests to fail if there are parse errors (except for the tests that <em>expect</em> parse errors, naturally). But by default, all of the code ANTLR generates will include try..catch blocks, which catch those exceptions, output messages to the console, and then backtrack in an attempt to continue parsing past the error. So as far as unit tests (which don't even look at the console) are concerned, exceptions basically get swallowed, and you can't tell whether the parse succeeded or not.
+
+Turns out this is easy to change. If you're writing your grammar test-first, you'll want to disable the parser's defaultErrorHandler option. Then ANTLR won't generate its try..except blocks all over the place, so any parse errors will propagate back up the call stack, and cause your test to fail like you'd expect.
+
+<pre>class DelphiParser extends Parser;
+options {
+  defaultErrorHandler = false;
+}</pre>

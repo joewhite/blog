@@ -1,0 +1,8 @@
+---
+title: "Ruby and .NET  #.NET  #ruby"
+sort: 2358
+---
+<p>There's a Ruby package called <a href="http://thinkchiro.com/">RubyCLR</a>. With it, you can write Ruby code that uses .NET assemblies.</p>
+<p>It looks pretty amazing. Charlie Poole has a post on how to use it to <a href="http://nunit.com/blogs/?p=30">run NUnit tests from Ruby</a>, and he has code samples. It's just like using Ruby classes, except they're written in .NET. All you need to do is reference the assemblies; the rest is just magic.</p>
+<p>Imagine writing a Ruby app that shows a WinForms GUI. Wow.</p>
+<p>As <a href="http://blog.briankohrs.com/">Brian</a> just said while looking over my shoulder, "This will have to be played around with."</p>

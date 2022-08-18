@@ -1,0 +1,8 @@
+---
+title: "Advanced Treeview for WinForms  #.NET  #Delphi"
+sort: 2339
+---
+<p>Found a WinForms control called <a href="http://www.codeproject.com/cs/miscctrl/treeviewadv.asp">Advanced Treeview</a>. It looks like it might be able to do most of what we currently do in Delphi with <a href="http://www.lischke-online.de/VirtualTreeview/VT.php">VirtualTree</a>. It's got multi-select, multi-columns, drag-and-drop, and something resembling owner-draw, among other things. And it looks like it's entirely owner-data, which all by itself is reason to use it instead of the standard WinForms TreeView.</p>
+<p>I am a little scared by what the author refers to as NodeControls (which represent everything drawable in the grid: the little plus sign, the checkboxes, the node text, etc.), but the fact that there's a Draw method on the NodeControl class suggests that they don't all <em>have</em> to be individual WinForms controls (but can be, e.g. in the case of an edit box or combo box).</p>
+<p>I haven't actually used this control yet, but it looks intriguing. It looks like it may have a steep learning curve, but if you actually needed some level of flexibility, it looks like it might be a winner.</p>
+<p>If anyone has used both VirtualTreeView and Advanced TreeView, I'd be very interested in hearing how they compare.</p>

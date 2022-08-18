@@ -1,0 +1,272 @@
+---
+title: "TechEd notes: 10 Ways To Improve Your Code  #.NET  #Cats  #Delphi  #teched2008"
+sort: 2541
+---
+10 Ways To Improve Your Code
+Neal Ford
+Sr. Software Architect / Meme Wrangler
+ThoughtWorks
+
+Where did this topic come from?
+Book: "The Productive Programmer", Neal Ford
+Exists in two parts, "mechanics" and "practices".
+Mechanics: how to speed you up, learning keyboard shortcuts.
+Today is more Practical (and philosophical).
+
+"The unexamined life is not worth living." -- Socrates
+
+"Unexamined code isn't worth executing." -- Neal, stealing from Socrates
+
+<h3>1. Test driven <em>design.</em></h3>
+
+When you're really rigorous at test-driven development, it has effects on your design. You're creating the first consumer of your code.
+
+<ul>
+  <li>Consumption awareness. You're aware of how the rest of the world will use the code, before they use it.</li>
+  <li>Mocking of dependent objects. If you're really unit testing, you're mocking out the dependencies, which forces you to think about the collaboration between these objects.</li>
+  <li>Introverted vs. extroverted objects:</li>
+  <ul>
+    <li>If you do TDD, you'll learn to avoid "extroverted objects" that reach out to create other objects, fire constructors, allocate resources, etc.</li>
+    <li>Instead, you'll use "introverted objects" where all dependencies are injected via parameters, properties, etc. You tend to move object creation to a few simple places, and can use things like real dependency injection. Also called "shy objects".</li>
+  </ul>
+</ul>
+
+<h3>2. Metrics and static analysis.</h3>
+Compilation is a really, really weak form of unit testing. You can compile any sort of trash. "It compiles" doesn't tell you much.
+
+<a href="http://www.campwoodsw.com/">Source Monitor</a> (can do many languages including C# and Delphi). Lots of metrics, including cyclomatic complexity. Can set thresholds and have it show the outliers. Has both GUI and command line. Costs you virtually nothing, and will help you find problem spots.
+
+Cyclomatic complexity (1978): measure the complexity of your code. Has to do with the number of paths through the code, though it's not quite that simple; it's based on number of branches and decisions. But higher cyclomatic complexity tends to correlate to more bugs.
+
+<a href="http://msdn.microsoft.com/en-us/library/bb429476(vs.80).aspx">FxCop</a>.
+
+<h3>3. Good Citizenship.</h3>
+
+Cooperation with the rest of the world.
+
+Properties != Encapsulation.
+<ul>
+  <li>See too many devs who use a tool to spit out public read/write properties for every one of their fields, and <em>then</em> engage their brain.</li>
+  <li>"Knee-jerk propertiation."</li>
+  <li>Much better off passing values to a setter method like SetAddress, which means you can't be a bad citizen by e.g. setting City without setting State -- your object should go atomically from one good state to another good state.</li>
+  <li>Objects are the keepers of state, and they should guard that jealously.</li>
+  <li>Only create properties when you need to call them from <em>real</em> code.</li>
+</ul>
+
+Constructors
+<ul>
+  <li>Specific contract for how to create valid objects.</li>
+  <li>How often is a valid object blank? (from a business standpoint) ... Never!</li>
+  <li>Don't provide default constructors for domain objects.</li>
+  <li>Push back on frameworks that try to require this</li>
+  <li>If you need a null object (and have a language that requires you to have a stateful object to say you have no state)...</li>
+</ul>
+
+Static methods
+<ul>
+  <li>Should be a black box</li>
+  <li>You never worry, when you call the <code>sqrt</code> function, that the next time you call it it's going to give you the cube root.</li>
+  <li>Statics should be non-stateful.</li>
+  <li>Where you get problems is when you mix statics with state.</li>
+</ul>
+
+Mixing static + state
+<ul>
+  <li>The Evil Singleton Pattern</li>
+  <li>Bad because</li>
+  <ul>
+    <li>Mixes responsibilities (doing stuff and maintaining its instance)</li>
+    <li>Untestable</li>
+    <li>Object version of global variables</li>
+  </ul>
+  <li>Better: object and factory, where the factory handles the instantiation policing</li>
+  <ul>
+    <li>Factory can even call object's private constructor through reflection. Then you're enforcing that nobody can instantiate the singleton accidentally.</li>
+  </ul>
+</ul>
+
+<h3>4. YAGNI</h3>
+
+Picture of gold-plated toilet
+
+Discourage gold-plating.
+<ul>
+  <li>Build simplest thing we need right now!</li>
+  <li>No speculative development. Speculative development:</li>
+  <ul>
+    <li>Increases software entropy. The more code, the more complexity, even if you aren't using it.</li>
+    <li>Only saves time if you can <em>guarantee</em> you won't have to change it later</li>
+    <li>Leads to frameworks.</li>
+    <ul>
+      <li>Frameworks are not inherently bad, but we have framework-itis.</li>
+      <li>Let's face it, building a framework is cooler than what you should be doing right now.</li>
+      <li>Frameworks are written by people engaged in ivory-tower building.</li>
+      <li>The best frameworks are not created by somebody who wants to build a framework. The best are extracted from working code.</li>
+    </ul>
+  </ul>
+</ul>
+
+Changeability. Code with anticipatory design is larger and harder to refactor and maintain.
+
+<h3>5. Shaving with Occam</h3>
+
+
+
+Sir William of Occam: "Given multiple explanations, the simplest is best."
+
+Simplest is really hard to come by.
+
+Dave Thomas was brought in to solve problem with volume of internal mail. Inter-office memos were constantly getting misrouted. So they brought in an OCR machine, and brought Dave in to write software for this thing. At one point, Dave said, "Couldn't you solve this problem with colored envelopes?"
+
+It's really hard to understand the essence of the problem and address that.
+
+We are drowning in complexity.
+<ul>
+  <li>Essential complexity: We have a hard problem that we're trying to solve.</li>
+  <li>Accidental complexity: We've made the problem hard.</li>
+</ul>
+
+The Goal
+<ul>
+  <li>Simplify essential complexity</li>
+  <li>Kill accidental complexity</li>
+</ul>
+
+This also affects the kind of tools you use. E.g., "static" vs. "dynamic" languages. (I already noted this "<a href="http://blog.excastle.com/2008/06/03/teched-2008-notes-design-patterns-in-dynamic-languages/"> essence vs. ceremony</a>".) Something nasty and multithreaded would be better written in something like F#.
+
+<h3>Interlude: the Top Ten Corporate Code Smells</h3>
+<ol>
+<li value="10">We invented our own web / persistence / messaging / caching / logging framework because none of the existing ones was good enough.</li>
+<li value="9">We bought the entire tool suite (even though we only needed about 10% of it) because it was cheaper than buying the individual tools.</li>
+<li value="8">We use BizTalk because... (I always stop listening at this point) Okay, it has some legitimate uses, but it's been much abused.</li>
+<li value="7">We can't use any open source code because our lawyers say we can't.</li>
+<li value="6">We have an Architect (note the capital A) who reviews all code pre-checkin and decides whether or not to allow it into version control. (New feature in VSTS.)</li>
+<li value="5">The only XmlDoc is the default message explaining how to change your default XmlDoc template.</li>
+<li value="4">We keep all of our business logic in stored procedures... for performance reasons. There is some tortured logic at work here, but that ignores that dealing with stored procs will slow down your development. Let's have a talk about <a href="http://blog.alieniloquent.com/2005/08/23/the-progammers-litany.html">premature optimization</a>.</li>
+<li value="3">We don't have time to write unit tests -- we're spending too much time debugging.</li>
+<li value="2">The initial estimate must be within 15% of the final cost, the post-analysis estimate must be within 10%, and the post-design estimate must be within 5%. (Punished for coming in too low as well as for coming in too high. The team will overestimate on purpose, get done early, not tell you about it, twiddle their thumbs until they hit the golden window, and then say, "Okay, all done!")</li>
+<li value="1">Blue Screen of Death.</li>
+</ol>
+
+Side note: Unless you work for NASA, your problem isn't harder than everyone else's. You're just doing it wrong.
+
+<h3>6. Question authority.</h3>
+
+Dave Thomas' story of angry monkeys. (The story of the stepladder, the bananas, and the ice water. "That's the way we've always done it.")
+
+<pre>[Test]
+public void UpdateCacheAndVerifyThatItemExists()</pre>
+
+Long camel-cased names are hard to read, and test names tend to be long. Neal's suggestion: use underscores just for test names.
+
+<pre>[Test]
+public void Update_cache_and_verify_that_item_exists()</pre>
+
+Fluent interface:
+<pre>ICar car = Car.describedAs()
+              .Box
+              .Insulated
+              .Includes(Equipment.Ladder)
+              .Has(Lining.Cork);</pre>
+instead of setting lots of properties, to make it more readable for non-programmers. Thing is, it violates the rules of properties, by making a property getter (Box) that mutates the object. But in the context, it makes for much clearer code.
+
+Killing I
+<ul>
+  <li>Interfaces define semantic intent</li>
+  <li>No implementation details...</li>
+  <li>...except in the name!</li>
+  <li>Don't name interfaces with a leading "I"</li>
+  <li>Name concrete classes with a naming pattern</li>
+  <li>(I'm not sure that I would agree with Neal on this, but it's worth thinking about)</li>
+</ul>
+
+What's Bad About Standards?
+<ul>
+  <li>Forces you to create default constructors</li>
+  <li>Property setters return void</li>
+  <li>Can't use PONOs for fluent interfaces</li>
+</ul>
+
+Non-intuitive
+<ul>
+  <li>Pair programming (seems like it would be 50% slower, but in reality, once you settle into it, you develop 15% slower, but have 50% fewer defects)</li>
+</ul>
+
+Read <a href="http://c2.com/cgi/wiki?AntiPatternsCatalog">AntiPatterns</a>.
+<ul>
+  <li><a href="http://c2.com/cgi/wiki?GiveMeEstimatesNow">GiveMeEstimatesNow</a>. Presented with a problem, asked for an estimate out of the blue; you don't know anything about it, but the boss asks for a guess. That becomes an ironclad contract.</li>
+  <li><a href="http://c2.com/cgi/wiki?StandingOnTheShouldersOfMidgets"> StandingOnTheShouldersOfMidgets</a>. Have a disastrous tool or framework that you're required to use in every application, because it's a corporate standard.</li>
+</ul>
+
+Anti-patterns are the lore of software. Take advantage of this prior art. Don't think that the problems at your job are uniquely yours.
+
+<h3>7. Composed Method.</h3>
+
+"Smalltalk Best Practice Patterns" by Kent Beck. Smalltalk people were some of the first OO programmers, and came up with elegant solutions. (They've got a head start on the rest of us.)
+
+<ul>
+  <li>Every public method consists of steps implemented as private methods.</li>
+  <li>You can tell something's wrong with the existing code if there have to be comments.</li>
+  <li>Extract methods.</li>
+  <li>Find opportunities for code reuse. Some of those methods you extract might start to look like Template Methods, which opens up more opportunities.</li>
+</ul>
+
+<h3>8. Polyglot Programming</h3>
+
+Leveraging existing platforms with languages targeted at specific problems and applications
+
+We have lots of .NET languages. Why not take advantage of them, rather than thinking there's a framework for everything that you can use from the One True Language?
+
+Looming problems / opportunities
+<ul>
+  <li>Massively parallel processing (multithreading)</li>
+  <ul>
+    <li>Use a functional language: F#, Haskell.net</li>
+  </ul>
+  <li>Schedule pressure</li>
+  <ul>
+    <li>Use a dynamic language: IronPython, IronRuby</li>
+    <li>Use an alternate Web framework: Django, Ruby on Rails</li>
+  </ul>
+  <li>New approaches</li>
+  <ul>
+    <li>Domain-specific languages (DSLs)</li>
+    <li>Fluent Interfaces</li>
+  </ul>
+</ul>
+
+Write your multithreaded logic in F#, your GUI in C# or VB.NET, your unit tests in IronPython or IronRuby, and use DSLs
+<ul>
+  <li>Wouldn't that add complexity?</li>
+  <li>In the past, language == platform</li>
+  <li>Now, language != platform</li>
+</ul>
+
+Ola's Pyramid
+<ul>
+  <li>Stable language at the bottom, e.g. C#. Static-typed, statically-verified. Maybe even stricter than C#, like a mathematical language.</li>
+  <li>Above that, a dynamic (non-ceremonial, e.g. F#) language that lets you write code quickly.</li>
+  <li>Above that, a DSL that gets you closer to the problem domain.</li>
+</ul>
+
+<h3>9. Learn Every Nuance</h3>
+<ul>
+  <li>Reflection</li>
+  <li>Regexes</li>
+  <li>Dependency injection</li>
+  <li>Closures</li>
+  <li>Lambda expressions</li>
+  <li>Extension classes</li>
+  <li>And once you've learned it, teach it to your co-workers. E.g., regular expressions.</li>
+  <li>Can save you orders of magnitude of work.</li>
+</ul>
+
+<h3>10. Anti-objects</h3>
+
+Comes from OOPSLA paper called "Collaborative Diffusion".
+
+"The metaphor of objects can go too far by making us try to create objects that are too much inspired by the real world."
+
+Figure vs. ground. Sometimes you need to see the problem a different way.
+
+Pac-Man console had less memory than a 10-year-old cell phone. Problem to solve for the ghosts: What is the shortest distance between two moving objects in a maze? Solution: don't model the ghost; model the maze. Intelligence was built into the maze itself. Each cell had state. Invented "Pac-Man smell". A cell he just moved off of had "maximum smell - 1", and it decayed quickly. Ghosts just had to smell Pac-Man. The ghosts wander randomly until they pick up the scent, and then they move into the cell with higher smell. So they will never cut him off at the pass (on purpose)... but it was a very simple and memory-efficient solution.

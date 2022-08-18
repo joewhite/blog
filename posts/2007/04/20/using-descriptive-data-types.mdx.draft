@@ -1,0 +1,38 @@
+---
+title: "Using descriptive data types  #Delphi"
+sort: 2432
+---
+<p><a href="http://17slon.com/blogs/gabr/blogger.html">gabr</a> just posted about <a href="http://17slon.com/blogs/gabr/2007/04/using-descriptive-variable-names.html">using descriptive variable names</a>, e.g. to show units: a "_kb_s" suffix if the variable is in kb/s, for example, so you can easily spot places where you're assigning a kb/s measurement into a bits/s variable.</p>
+
+<p>We've done one better: make descriptive data types, and lean on the compiler.</p>
+
+<p>Basically, the idea is this: if you find yourself making a certain kind of mistake, then do something so the compiler will check for you. Or, better yet, make it so that you can't even type in code that has that mistake.</p>
+
+<p>In our app, we have a grid that does some heavy lifting. It's basically a miniature spreadsheet, with heavy integration into our app's stored data. So we do a lot of work with coordinates: rows and columns.</p>
+
+<p>Now, to most of us, the words naturally go in that order: "rows and columns". But the grid control we use tends to put the parameters in the other order: "<code>AColumn, ARow: Integer</code>". This impedence mismatch led to a few subtle bugs over the years.</p>
+
+<p>Another source of subtle bugs was the fact that the data we were displaying was logically a two-dimensional, zero-based array. But in the grid, that data was all in one-based coordinates, because the row and column header cells took up index 0 in the grid. So we were forever chasing bugs where we forgot to add one or subtract one.</p>
+
+<p>So finally, a couple of years ago, we got fed up and wrote TRowCol. I think this was shortly after we upgraded from Delphi 6 to Delphi 2005, because that's when the compiler gave us records with methods.</p>
+
+<p>TRowCol's name makes it clear what order the parameters go in: row first, then column. That was the first big win. The pair that first put TRowCol into the code base did <i>not</i> immediately update everyplace in the code that ever used rows and columns, but it wasn't long before TRowCol dominated the field, as other pairs spread its usage.</p>
+
+<p>The second big win was that, by putting methods and properties onto TRowCol, we could fix that thing of forgetting to add or subtract one. TRowCol stores zero-based "driver coordinates" internally, but it can present itself as either driver or GUI coordinates:</p>
+
+<blockquote><pre>RowCol := TRowCol.FromGui(ARow, ACol);
+InsertRow(RowCol.DriverRow);</pre></blockquote>
+
+<p>This became an even bigger win when it became clear that the grid control we were using couldn't really cope with hidden rows and columns. It had support for hiding, but it was half-assed at best. So we gave up on its hiding logic, and wrote our own coordinate mapper to map between "real indexes" and "visible indexes".</p>
+
+<p>The great thing was, now that nearly everything was using TRowCol, there was a single inflection point. Only one piece of code knew how to convert between driver and GUI coordinates, and that was TRowCol itself. So we started passing the mapper object into the <code>TRowCol.FromGui</code>, <code>TRowCol.GuiRow</code>, and <code>TRowCol.GuiCol</code> methods. It went in quite smoothly for such a fundamental change &mdash; and we found one or two as-yet-undiscovered bugs while we were doing it!</p>
+
+<p>Since then, we've put in a few other records-with-methods for fundamental concepts in our code. For example, we now have TVersion, which unifies all the different ways we used to represent program and data versions, and can convert itself from and to any of the different formats we used to have &mdash; no more dozens of idiosyncratic conversion calls that we used to have to chain together in strange ways.</p>
+
+<p>We do not yet have one to wrap up the concept of "a month and a year", which we have at least four different ways of representing. But we'll get there, I'm sure.</p>
+
+<p>The idea is: if you have to worry about the units your data is expressed in, and making sure you convert it from one form to another when you need to, <i>make the compiler help you.</i> Naming your variables to show what units they're in is a good idea, but they require visual inspection. So does TRowCol, but only at the endpoints, never in the middle.</p>
+
+<p>And who knows? You may find more operations that belong on this new type. We certainly have.</p>
+
+<p><b>Note:</b> If you use records with methods, beware the dreaded (and sporadic) compiler Internal Errors. These mean (loosely translated): "The people who write Delphi do not actually use records with methods themselves, so they never see the compiler bugs." Here's a hard-won hint: break up long expressions using temporary variables.</p>

@@ -1,0 +1,26 @@
+---
+title: "The various ways to call from Win32 into .NET  #.NET  #Delphi"
+sort: 2290
+---
+<p>We've got several major applications written in Delphi, and several newer projects written in C#. And they need to talk to each other.</p>
+
+<p>There are several ways for unmanaged Win32 code to talk to managed .NET code, and we currently use, or have used, most of them:</p>
+
+<ul>
+<li>We have a couple of C# Windows services that run TCP/IP servers, and Delphi clients that connect to them.</li>
+<li>We have a C# application that reads from Console.Input and writes to Console.Output, and a Delphi application that launches it and assigns pipes for its standard input and output handles. (If you're thinking of doing this, see <a href="http://blog.excastle.com/2006/10/04/console-out-from-a-non-console-app/">Console out from a non-console app</a> for an interesting bit of info.)</li>
+<li>At one point, we had a .NET assembly that registered some of its objects as COM objects, and a Delphi DLL that imported and used those type libraries. We do not do this anymore. To say that versioning is a bloody screaming nightmare doesn't really do it justice. (Just try getting two different versions of the same app installed on a QA or client-support machine at the same time, when COM object registrations are machine-global.)</li>
+<li>We have a C++ DLL that has unmanaged exports and instantiates managed objects inside unmanaged C++ class wrappers, and then exposes them via flat DLL exports. <a href="http://blog.alieniloquent.com/2006/12/31/exposing-net-code-in-a-dll-via-c/">Sam</a> <a href="http://blog.alieniloquent.com/2007/01/01/calling-into-the-c-dll-from-delphi/">has</a> <a href="http://blog.alieniloquent.com/2007/01/02/hooking-up-a-delphi-progress-event-to-a-net-object/">blogged</a> about this already. It's painful to marshal anything but the simplest of types, and you need to be a COM guru just to figure out who's responsible for freeing strings, but it's doable. (You can also do Delphi for .NET libraries with <a href="http://blog.excastle.com/2006/06/23/unmanaged-exports/">unmanaged exports</a>; it's pretty much the same thing.)</li>
+</ul>
+
+<p>I recently stumbled across another option: <a href="http://www.remobjects.com/hy">RemObjects Hydra</a>. Hydra was originally a plug-in framework for Delphi/Win32. But as of Hydra 3, which was released about a month ago, you can write the host app in either Win32 or .NET, and you can write the plug-in in either Win32 or .NET. So basically, you get total interop, without needing to do anything very ugly to get it. Sounds good so far!</p>
+
+<p>What looks really cool (though I haven't tried it yet) is that you can write a GUI frame in Delphi, and embed it into a .NET GUI; or vice versa, writing a UserControl in .NET and embedding it into a Win32 GUI. That's not something you could do with just C++ glue. Without Hydra, that would probably take (shudder) COM. They even claim to have something that will let you use VCL TActions in a .NET app.</p>
+
+<p>Hydra works by passing interfaces back and forth between Win32 and .NET. They've got a tool that will parse Delphi code and generate the corresponding .NET interface, and they've got something that will read .NET metadata and generate the corresponding Delphi interface, and make them compatible so you can just pass the interfaces back and forth and it all works.</p>
+
+<p>That's the idea, anyway. I haven't used either of these translation tools. I haven't even <i>found</i> them yet, because they don't bother to document them.</p>
+
+<p>They don't bother to document much of anything. They've got an article on their Web site that talks in general about <a href="http://www.remobjects.com/devcenter/articles/?id={647A4F2F-402F-40C0-AE49-5478D714D94C}">Hydra's features</a>, and another that shows <a href="http://www.remobjects.com/devcenter/articles/?id={3539A3AC-3B46-4EAC-841D-898565470BD5}">how to use Hydra to embed simple GUI frames</a>, but nothing about actually doing interesting work by calling actual functions with actual parameters. They do have a handful of samples in the download, but there's one I can't even open because I haven't purchased all the third-party Delphi controls it requires, and I haven't found any yet that use custom interfaces.</p>
+
+<p>What I've seen does work, mind you, and it's a far sight nicer than C++ glue. I've already had a chance to figure out a lot of the gotchas (like the crash on exit with a nice, friendly "Interface cast not supported" if you free things in the wrong order). However, what I've actually used is only a small part of what Hydra says it can do, and I don't know if it's enough to justify the $500-per-seat entry fee.</p>

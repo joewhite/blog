@@ -1,0 +1,39 @@
+---
+title: "DGrok 0.8: Faster and more configurable  #.NET  #Delphi  #dgrok"
+sort: 2479
+---
+<p><a href="http://www.excastle.com/dgrok/DGrok-0.8.zip">DGrok 0.8</a> is now available.</p>
+
+<p>You can now configure compiler options (IFDEFs, IFOPT, etc.) from the GUI. Your settings (compiler options, search paths) are saved from session to session. And the parser is probably around 20-25% faster (thanks to <a href="http://blog.briankohrs.com/">Brian</a> for profiling and finding the hot spots).</p>
+
+<p>Here's the list of new GUI features:</p>
+
+<ul>
+<li>FIX: .dproj-file exclusion got broken in 0.7. Made it work again.</li>
+<li>CHG: Rules are now shown in a treeview instead of as hyperlinks. And the "Parse" button is back (along with its Alt+P accelerator).</li>
+<li>ENH: Much-requested: Added "Compiler Options" page, where you can specify what to do with IFDEFs and IFOPTs.</li>
+<li>ENH: Much-requested: Save settings (including search paths and compiler options) on exit, and reload on program startup.</li>
+<li>ENH: Sped up parsing.</li>
+<li>ENH: Show elapsed time after parsing.</li>
+<li>ENH: When running an action, show a summary node with the action name and the number of hits.</li>
+<li>ENH: Give a better error on duplicate filenames (it now shows these errors in the tree, instead of popping up an "unhandled exception" dialog).</li>
+<li>ENH: Added Find (Ctrl+F) and Find Next (F3) to source-edit boxes.</li>
+</ul>
+
+<p>New "find stuff" actions:</p>
+
+<ul>
+<li>ENH: Added FindAsmBlocks action.</li>
+<li>ENH: Added FindVariantRecords action.</li>
+</ul>
+
+<p>Things you'll see if you're using the parser in your own code:</p>
+
+<ul>
+<li>FIX: ToCode() was throwing exceptions on nodes with a trailing, empty ListNode (commonly seen with "procedure of object"). Fixed.</li>
+<li>CHG: All node-type properties now end with the word Node.</li>
+<li>ENH: Add a Projects collection to CodeBase.</li>
+<li>ENH: Added ParentNode property to AstNode.</li>
+<li>ENH: Added ChildNodes property to AstNode. When you need to iterate a node's children, this is easier than using Properties. It also skips over nulls.</li>
+<li>ENH: Added ParentNodeOfType&lt;&gt; method to AstNode.</li>
+</ul>

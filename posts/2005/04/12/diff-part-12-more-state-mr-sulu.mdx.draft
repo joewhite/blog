@@ -1,0 +1,31 @@
+---
+title: "Diff, part 12: More state, Mr. Sulu  #.NET  #Delphi  #diff"
+sort: 2146
+---
+<p>The <a href="http://blog.excastle.com/tag/diff/">grand diff saga</a> continues...</p>
+<p>Last time, I showed an <a href="http://blog.excastle.com/2005/04/11/diff-part-11-once-more-with-state/">improved one-pass LCS algorithm</a>. But I mentioned that, once again, this is an algorithm that won't work for all inputs. Here's an example:</p>
+<blockquote dir=ltr style="MARGIN-RIGHT: 0px">
+<p><font face="Courier New">A is (1 2 3 4)<br>B is (1 3 4 2)<br></font>Matches are <font face="Courier New">[0,0]</font>, <font face="Courier New">[1,3]</font>, <font face="Courier New">[2,1]</font>, and <font face="Courier New">[3,2]</font>.</p></blockquote>
+<p>Let's try our algorithm and see what we get.</p>
+
+
+
+<ul>
+<li>First <a href="http://blog.excastle.com/2005/03/31/diff-part-4-matches/">match</a>: <font face="Courier New">[0,0]</font>. That's our only match so far, so we have one <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">common subsequence</a> (CS): <font face="Courier New">[0,0]</font>.
+<li>Next match: <font face="Courier New">[1,3]</font>. Can we tack that onto <font face="Courier New">[0,0]</font> and still have a <a href="http://blog.excastle.com/2005/04/02/diff-part-6-match-strings-and-common-subsequences/">valid CS</a>? Yes. We now have one longer CS: <font face="Courier New">[0,0] [1,3]</font>.
+<li>Next match: <font face="Courier New">[2,1]</font>. Can we tack that onto <font face="Courier New">[0,0]</font> and still have a valid CS? No, but we don't want to lose the <font face="Courier New">[2,1]</font>, so we'll start a new CS. Now we have two: <font face="Courier New">[0,0] [1,3]</font> and <font face="Courier New">[2,1]</font>.
+<li>Last match: <font face="Courier New">[3,2]</font>. Can we tack that onto <font face="Courier New">[0,0] [1,3]</font>? No. <font face="Courier New">[2,1]</font>? Yes. We end up with two CSes: <font face="Courier New">[0,0] [1,3]</font> and <font face="Courier New">[2,1] [3,2]</font>.</li></ul>
+<p>Whoops! Given those inputs, we should have had a length-3 LCS: <font face="Courier New">(1 3 4)</font>, or <font face="Courier New">[0,0] [2,1] [3,2]</font>. What happened?</p>
+<p>What happened was that the <font face="Courier New">[0,0]</font> got sucked into another CS &#8212; <font face="Courier New">[0,0] [1,3]</font> &#8212; so it wasn't available as a starting point for us to build <font face="Courier New">[0,0] [2,1] [3,2]</font> from. How can we fix this, and make sure the <font face="Courier New">[0,0]</font> is still available even when it's been used in another match string?</p>
+<p>Well, pretty easily, with a tweak to our list handling. Instead of dropping shorter CSes from the list and replacing them with longer ones, we can just add. So instead of removing <font face="Courier New">[0,0]</font> from our list when we add <font face="Courier New">[0,0] [1,3]</font>, we just add them both.</p>
+<p>Let's give that a shot:</p>
+<ul>
+<li>First match: <font face="Courier New">[0,0]</font>. Can we append that to any existing CSes? No, so we'd better add it as a new CS. Our CS list now contains <font face="Courier New">[0,0]</font>.
+<li>Next match: <font face="Courier New">[1,3]</font>. Append this to everything we can &#8212; that would be <font face="Courier New">[0,0]</font>. Our CS list now contains both <font face="Courier New">[0,0]</font> and <font face="Courier New">[0,0] [1,3]</font>.
+<li>Next match: <font face="Courier New">[2,1]</font>. Append this to everything we can &#8212; <font face="Courier New">[0,0]</font> once again. Our CS list now has <font face="Courier New">[0,0]</font>, <font face="Courier New">[0,0] [1,3]</font>, and <font face="Courier New">[0,0] [2,1]</font>.
+<li>Last match: <font face="Courier New">[3,2]</font>. Append this to everything we can &#8212; <font face="Courier New">[0,0]</font> and <font face="Courier New">[0,0] [2,1]</font>. Our CS list now has <font face="Courier New">[0,0]</font>, <font face="Courier New">[0,0] [1,3]</font>, <font face="Courier New">[0,0] [2,1]</font>, <font face="Courier New">[0,0] [3,2]</font>, and <font face="Courier New">[0,0] [2,1] [3,2]</font>.</li></ul>
+<p>And, ta-daah &#8212; the longest of those, <font face="Courier New">[0,0] [2,1] [3,2]</font>, is our expected LCS.</p>
+<p>But&nbsp;wait a minute. Why is it trying both <font face="Courier New">[0,0] [3,2]</font> and <font face="Courier New">[0,0] [2,1] [3,2]</font>? They're the same thing, except that the first one has an <a href="http://blog.excastle.com/2005/04/08/diff-part-10-try-em-all-2-of-2/">obvious hole</a>&nbsp;in the middle.</p>
+<p>Actually, I took it easy in this example. If I'd been all proper about it, then I would've added each match as a length-1 match string, too; so the CS list would also contain <font face="Courier New">[1,3]</font>, <font face="Courier New">[2,1]</font>, and <font face="Courier New">[3,2]</font> as length-1 match strings, plus anything else we built off of those. Why? We <em>have</em> to put in length-1 match strings that aren't built off of anything else; after all, we do it in step 1! So after step 2, we would've had three CSes (<font face="Courier New">[0,0]</font>, <font face="Courier New">[0,0] [1,3]</font>, and <font face="Courier New">[1,3]</font>), not two. After step 3, we would've had five. After step 4, we would've had eight. The farther we go, the more obvious holes we accumulate.</p>
+<p>This whole thing is smelling a lot like exponential time, even without adding the extra length-1 match strings. True, this algorithm is able to <a href="http://blog.excastle.com/2005/04/11/diff-part-11-once-more-with-state/">cut its losses</a> &#8212; it doesn't keep trying longer and longer match strings that all start with, say, <font face="Courier New">[1,3] [2,1]</font>, because it's smart enough to know that none of them will ever work. But it's not smart enough to avoid obvious holes, and if it can't cut very many losses (which will be the case a lot of the time), you'll be waiting a long, long while for your diff to finish.</p>
+<p>But it's a good algorithm, once we cure its predilection for Swiss cheese. What it needs, at this point, are a few good shortcuts.</p>

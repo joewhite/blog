@@ -1,0 +1,41 @@
+---
+title: "ReSharper, day 6: Shared options in the .resharper file  #.NET  #resharper"
+sort: 2302
+---
+<p>Welcome to day 6 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>Sometimes we'll end up with different IDE options on different computers. Since we all use all the machines in the bullpen, this tends to iron itself out over time, but it can be aggravating. It's especially bad with code auto-formatting options, as files get reformatted automatically when we make seemingly unrelated changes like tweaking something on a design surface.</p>
+
+<p>ReSharper to the rescue. Certain options are stored in a file in your solution directory: the <b>.resharper</b> file. Then you commit the .resharper file to your source-code repository along with everything else, and everyone on the team ends up using the same options.</p>
+
+<p>There are two interesting things that get stored in the .resharper file: code-formatting options and templates.</p>
+
+<h4>Shared code-formatting options</h4>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/SharedCodeStyleSettings.png" width="420" height="174" border="1" alt="ReSharper options screen, showing option to store code-style settings in revision control"></blockquote>
+
+<p>As shown in the screenshot above (of ReSharper &gt; Options &gt; Code Style), ReSharper offers three different options for sharing code-formatting options:</p>
+
+<ul>
+<li><p><b>Globally for the current user only.</b> This is the default, and it's what you want if you only have one developer on one machine.</p></li>
+<li><p><b>Team-shared for the current solution.</b> If you have multiple developers and only one Visual Studio solution, this is the option for you: everyone will use the same code-formatting options.</p></li>
+<li><p><b>From external file for the current solution.</b> This is a little more work to set up, but is what you want if you have multiple solutions in the same source tree (like we do).</p></li>
+</ul>
+
+<p>To use the last option, you need to use the <b>Export</b> button to save your settings to an .xml file somewhere; and then specify the path to that file. If you're sharing the settings among several solutions that are all part of the same source tree, then you probably want to specify a relative path.</p>
+
+<h4>Shared templates</h4>
+
+<p>It used to be that, whenever we added a new class to our solution, we had to spend a few seconds cleaning it up: fixing the class visibility, cleaning up <code>using</code>s we don't need. When we wanted a new interface, we had to do "new class" and then change the "class" keyword to "interface". Little things, but shouldn't the computer be able to automate that stuff for us?</p>
+
+<p>ReSharper lets you define several types of code templates: <b>Live Templates</b> (the ones with those different fields you can tab to and fill in), <b>Surround With</b>, and <b>File Templates</b>. All of these are configurable, and they're all stored in the .resharper file, so again, they're automatically shared among everyone on your team.</p>
+
+<p>ReSharper ships with some sample templates you can look at, to see how it's done. But they're annoying, because they add a comment block at the top of each file with spaces for "Author" and "Date" &mdash; and why would you want to duplicate this information, when you could just look at your source-code repository and see who added the file? (My guess is that they make it annoying on purpose, so you're sure to try your hand at making your own templates. We did.)</p>
+
+<p>Making your own templates is easy, if a bit quirky. I'll note that it's important to click the "Available everywhere" hyperlink, and tell it that no, it's only available for C# (if you don't do this, it forgets to add a filename extension, and won't format the file properly). Also, if you want special placeholders like <code>$NAMESPACE$</code>, be aware that it doesn't recognize them by name; you have to click "Choose macro" in the "Template variables" grid, and select a macro from the list.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/FileTemplateAvailableEverywhere.png" width="200" height="75" alt="ReSharper's Available Everywhere hyperlink from the Edit Template dialog" border="1"></blockquote>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/FileTemplateVariables.png" width="400" height="47" alt="ReSharper's Template Variables grid from the Edit Template dialog" border="1"></blockquote>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/FileTemplateMacroList.png" width="241" height="253" alt="ReSharper's list of available macros for use in templates" border="1"></blockquote>

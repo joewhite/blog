@@ -1,0 +1,179 @@
+---
+title: "TechEd 2008 notes: Create Your Own Providers for the Ultimate Flexibility  #.NET  #teched2008"
+sort: 2552
+---
+This was an interesting session. The Provider model seems simple enough. There's a lot of classes involved, each of which is pretty simple (I think he stuck pretty well to the single-responsibility principle), although I had a bit of a hard time keeping track of which class went where in the chain. Sometime later I'll look back at this and draw some sort of class-interaction diagram to help me figure it out.
+
+
+
+One note, though: apparently there's a ProviderBase class that does some of the boilerplate code for you. He didn't mention that until the very end (after someone asked him about it). So this is mostly theory about the bits and pieces, rather than necessarily a list of what you need to implement on your own. I haven't looked at ProviderBase to see how much of a base it gives you to build on.
+
+Create Your Own Providers for the Ultimate Flexibility
+Paul D. Sheriff
+President
+<a href="http://www.pdsa.com/">PDSA, Inc.</a>
+
+Samples at <a href="http://www.pdsa.com/teched/">pdsa.com/teched</a>, in both VB.NET and C#.
+
+Agenda
+<ul>
+  <li>What's a provider and why use one</li>
+  <li>Dynamically loading assemblies</li>
+  <li>Creating a custom data provider</li>
+  <li>Implement an ASP.NET Membership provider</li>
+  <ul>
+    <li>Store users/roles in XML file</li>
+  </ul>
+</ul>
+
+What is a provider?
+<ul>
+  <li>Components that can be loaded at runtime</li>
+  <li>Allows you to switch components without recompiling</li>
+  <li>Patterns</li>
+  <ul>
+    <li>Strategy</li>
+    <li>Abstract factory</li>
+  </ul>
+</ul>
+
+Why use a provider?
+<ul>
+  <li>Keep dev API consistent</li>
+  <ul>
+    <li>Developer always calls a method named SendAFax</li>
+  </ul>
+  <li>Implementation can be different</li>
+</ul>
+
+Provider examples
+<ul>
+  <li>ADO.NET Data Provider</li>
+  <ul>
+    <li>MSSQL</li>
+    <li>Oracle</li>
+    <li>OLE DB</li>
+    <li>DB2</li>
+  </ul>
+  <li>Each implements an interface</li>
+  <ul>
+    <li>IDBCommand</li>
+    <li>IDBConnection</li>
+  </ul>
+  <li>ASP.NET Membership System</li>
+  <ul>
+    <li>Front end always same</li>
+    <ul>
+      <li>Login control, CreateUserWizard control</li>
+    </ul>
+    <li>User storage can change</li>
+    <li>Change the provider by deploying a new DLL (not recompiling old) and changing the config file</li>
+  </ul>
+  <li>ASP.NET session state</li>
+</ul>
+
+How to...
+<ul>
+  <li>Create interfaces and/or base classes</li>
+  <li>Dynamically load</li>
+  <li>Read config files</li>
+  <li>Create providers</li>
+</ul>
+
+Dynamically create the class
+<ul>
+  <li><code>System.Type.GetType(className)</code></li>
+  <li><code>System.Activator.CreateInstance(type)</code></li>
+</ul>
+
+Dynamically load assembly
+<ul>
+  <li><code>Assembly</code> class</li>
+  <ul>
+    <li>Use <code>Load</code> if in GAC or current directory</li>
+    <li>Use <code>LoadFile</code> if not</li>
+  </ul>
+  <li>Then use the <code>Assembly</code>'s <code>CreateInstance</code></li>
+</ul>
+
+Reading the config file
+<ul>
+  <li>ConfigurationManager.AppSettings["ProviderName"]</li>
+  <li>Better: add your own section. But that's a little more work.</li>
+</ul>
+
+<h3>Demo</h3>
+
+<pre>&lt;configuration&gt;
+  &lt;configSections&gt;
+    &lt;section name="ConfigSettings" type="ConfigSimple.ConfigSectionHandler, ConfigSimple"&gt;
+  &lt;/configSection&gt;
+  &lt;ConfigSettings type="..." location="..."&gt;
+
+class ConfigSectionHandler : ConfigurationSection
+{
+    [ConfigurationProperty("type")]
+    public string Type
+    {
+        get { return (string) this["type"]; }
+    }
+    [ConfigurationProperty("location")]
+    public string Location
+    {
+        get { return (string) this["location"]; }
+    }
+}
+abstract class ConfigProviderBase
+{
+    public abstract string GetSetting(string key);
+    public string Location { get; set; }
+}
+class ConfigSettings
+{
+    private static ConfigProviderBase _configProvider;
+    private static void InitProvider()
+    {
+        object section = ConfigurationManager.GetSection("ConfigSettings");
+        ConfigSectionHandler handler = (ConfigSectionHandler) section;
+        _configProvider = (ConfigProviderBase)
+            Activator.CreateInstance(Type.GetType(handler.Type));
+        _configProvider.Location = handler.Location;
+    }
+    public static string GetSetting(string key)
+    {
+        if (_configProvider == null)
+            InitProvider();
+        return _configProvider.GetSetting(key);
+    }
+}</pre>
+
+So, here's provider #1:
+<pre>class ConfigAppSettings : ConfigProviderBase
+{
+    override string GetSetting(string key)
+    {
+        return ConfigurationManager.AppSettings[key];
+    }
+}</pre>
+
+And, another one that reads from a separate XML file instead:
+<pre>class ConfigXML : ConfigProviderBase
+{
+    public override string GetSetting(string key)
+    {
+        string result = "";
+        var xe = XElement.Load(this.Location);
+        var setting = (from elem in xe.Elements["Setting"]
+            where elem.Attribute("key").Value == key
+            select elem).SingleOrDefault();
+        if (setting != null)
+            result = setting.Attribute("value").Value;
+        return result;
+    }
+}</pre>
+
+Could have used a whiteboard with some boxes and arrows, because it seems like the naming conventions are confusing. But it's just a matter of following the pattern.
+
+Has an example of how to do this with a collection of providers specified in the XML (e.g., <code>&lt;providers&gt; &lt;add ... /&gt; &lt;add ... /&gt; &lt;add ... /&gt; &lt;/provider&gt;)</code>
+
+Once you start the process, get the boilerplate going, writing a new provider becomes pretty easy.

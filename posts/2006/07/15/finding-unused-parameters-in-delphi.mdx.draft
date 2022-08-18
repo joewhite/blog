@@ -1,0 +1,7 @@
+---
+title: "Finding unused parameters in Delphi  #Delphi"
+sort: 2338
+---
+<p>Yesterday at work, I was looking at a method that had about fourteen parameters, and I wasn't sure whether it used all of them. The compiler doesn't warn on unused parameters (nor should it; just about every GUI event handler would warn about the unused Sender parameter!), and I didn't want to manually search through the code to see if each parameter was used.</p>
+<p>Then I got a bright idea: use SyncEdit. Highlight the entire method (including the declaration &#8212; everything from "procedure" to "end;") and hit Ctrl+Shift+J. If an identifier shows up more than once in the selection, it now shows up with either an underline or a box around it (except for the one with the cursor in it).</p>
+<p>Then just skim the parameter list. If there are any parameter names that don't have an underline, a box, or a cursor, then those parameters are unused and can be deleted. Sweet!</p>

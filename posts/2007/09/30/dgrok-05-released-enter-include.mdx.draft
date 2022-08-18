@@ -1,0 +1,21 @@
+---
+title: "DGrok 0.5 released: Enter {$INCLUDE}  #.NET  #Delphi  #dgrok"
+sort: 2473
+---
+<p><a href="http://www.excastle.com/dgrok/DGrok-0.5.zip">DGrok 0.5</a> is available for download.</p>
+
+<p>Here's what's new:</p>
+
+<ul>
+<li><code>{$INCLUDE}</code> works. However, it doesn't yet have a way to specify search paths for those include files. Currently it assumes that the included file is in the same directory as the including file. (Relative paths, such as <code>{$I ..\Foo.inc}</code>, should also work.) This also means that include files don't work in the Ad-Hoc Parsing view, since the "current file" doesn't <i>have</i> a directory.</li>
+<li>In the demo app, double-clicking on a failed file no longer brings up the two-pane window with a "Parse" button; it only brings up one pane showing the file with the error. (Yes, it still puts the cursor at the error position.) It shows the file that actually <i>contains</i> the error, even if that's an include file (cool!). The downside is that you can't comment out the offending line and click "Parse" again, but I have no idea how that would work if you're not looking at the top-level file.</li>
+<li><code>{$DEFINE}</code> and <code>{$UNDEF}</code> are now supported. They work with <code>{$IFDEF}</code>, <code>{$IFNDEF}</code>, <code>{$IF Defined(...)}</code>, and <code>{$IF not Defined(...)}</code>. (More-complicated <code>$IF</code> expressions, like <code>{$IF Defined(Foo) OR Defined(Bar)}</code>, must still be addressed manually in code.)</li>
+<li>Improved default list of conditional defines: CONDITIONALEXPRESSIONS, CPU386, MSWINDOWS, WIN32, and a stab at VERxxx.</li>
+<li>Fixed <a href="http://blog.excastle.com/2007/09/28/bugrit/">colon syntax</a> to allow two colons.</li>
+<li>Allow a number with a decimal point but no digits after it.</li>
+<li>Demo app: added a place to specify file masks (so you can parse files other than *.pas).</li>
+<li>Demo app: made source-tree parsing run in a background thread to improve responsiveness.</li>
+<li>Strong typing on all node types. (As much as possible. There's not much I can do for, say, statements, which can be represented by any number of different node types.)</li>
+</ul>
+
+<p>Next up: the Visitor pattern.</p>

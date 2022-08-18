@@ -1,0 +1,67 @@
+---
+title: "ReSharper, day 21: Code transformations with Alt+Enter  #.NET  #resharper"
+sort: 2402
+---
+<p>Welcome to day 21 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>. Today, I'll wrap up the topic of Alt+Enter.</p>
+
+<p>We've already seen how <a href="http://blog.excastle.com/2007/02/20/resharper-day-20-fix-errors-and-warnings-with-altenter/">Alt+Enter can fix errors and warnings</a> by modifying your code: it shows the <a href="http://blog.excastle.com/2007/02/17/resharper-day-17-change-all-with-altenter-and-introducing-the-red-light-bulb/#redlightbulb">red light bulb</a>, and you can press Alt+Enter to see quick fixes.</p>
+
+<p>There are also discretionary quick fixes &mdash; things that you <i>can</i> do to your code, but that you don't <i>have</i> to. These are just things that people do a lot, so ReSharper automates them to make them a little easier.</p>
+
+<p>The discretionary quick fixes are indicated with a yellow light bulb.</p>
+
+<p>These can be a bit hard to find, because you have to have the cursor in the right place. That's true of the quick fixes for errors and warnings, too, but you can <i>see</i> the places where those apply; they're red or gray or squiggly; and you can jump to the next one with F12. With the discretionary quick-fixes, there's no visual clue until you put the cursor in the right place and wait half a second or so, and there's no keystroke to jump to the next one. You pretty much have to either (a) already know they exist, or (b) stumble onto them.</p>
+
+<p>Which is why I'm covering a few of them, so you'll know what to look for.</p>
+
+<h4>Removing unused braces</h4>
+
+<p>Suppose you have an <code>if</code> block that used to contain multiple statements, so you had curly braces. And now you've changed the code so that there's only one line of code, so you don't want the curly braces anymore.</p>
+
+<p>Where to put the cursor: At either the open or the close curly brace (either right before it, or right after).</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/OptionalQuickFixes01.png" width="227" height="89" alt="ReSharper's discretionary quick fix for removing unneeded braces in an 'if' statement" border="1"></blockquote>
+
+<h4>Changing visibility</h4>
+
+<p>If you position the cursor over a <code>private</code>, <code>protected</code>, <code>internal</code>, or <code>public</code> keyword, you'll get a yellow light bulb. Press Alt+Enter, and you can change the visibility. It doesn't save much typing, but occasionally it's handy.</p>
+
+<p>Where to put the cursor: Anywhere within the visibility keyword.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/OptionalQuickFixes02.png" width="235" height="100" alt="ReSharper's discretionary quick fixes for changing a member's visibility" border="1"></blockquote>
+
+<h4>Split Variable and Assignment</h4>
+
+<p>If you've got a variable that's being assigned as part of its declaration, and now you want that assignment to be conditional or some such, you can use <b>Split Declaration and Assignment</b> to quickly split the assignment into a separate statement.</p>
+
+<p>Where to put the cursor: over either the variable name, or the '=' sign.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/OptionalQuickFixes03.png" width="262" height="54" alt="ReSharper's discretionary quick fix for splitting a variable declaration from its assignment" border="1"></blockquote>
+
+<h4>Join Variable and Assignment</h4>
+
+<p>Reverse transformations are good. <b>Join Declaration and Assignment</b> moves the variable declaration to the line where the variable is first assigned.</p>
+
+<p>Where to put the cursor: on the line where the variable is first assigned, over either the variable name or the '=' sign.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/OptionalQuickFixes04.png" width="262" height="75" alt="ReSharper's discretionary quick fix for joining a variable declaration and its first assignment" border="1"></blockquote>
+
+<p>Here's what it looks like after the transformation. Note that it moved the declaration down to the assignment, rather than moving the assignment up to the declaration, so it's not going to break any ordering dependencies in your code.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/OptionalQuickFixes05.png" width="262" height="29" alt="After using ReSharper's discretionary quick fix to join the variable declaration and its first assignment" border="1"></blockquote>
+
+<h4>Invert If</h4>
+
+<p>This is one of my favorites. It just reverses the condition on an <code>if</code> statement, and swaps the "if" and "else" blocks. It's purely a cosmetic change, with no effect on what the code actually does.</p>
+
+<p>Where to put the cursor: on the <code>if</code> keyword.</p>
+
+<p>Sounds pretty predictable, and I won't give a boring example. But it is a little bit smarter than just inverting the condition and the blocks. Here's an example of why it's my favorite:</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/OptionalQuickFixes06.png" width="306" height="141" alt="An 'if' statement that spans an entire method: code that ReSharper can improve" border="1"></blockquote>
+
+<p>This happens from time to time: an <code>if</code> statement that spans the entire method. Here's what happens after Invert If:</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/OptionalQuickFixes07.png" width="306" height="127" alt="After using ReSharper to invert the full-method 'if'" border="1"></blockquote>
+
+<p>It realizes that the <code>if</code> statement is the last thing in the method, so it generates a <code>return</code> to bail out of the method early if there's nothing to do. One less level of indentation on a large block of code, and one less line of code in the method. Cool!</p>

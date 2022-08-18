@@ -1,0 +1,37 @@
+---
+title: "Diff, part 5: Match strings  #.NET  #Delphi  #diff"
+sort: 2134
+---
+Yes, folks, it's time for another action-packed installment of the <a href="http://blog.excastle.com/tag/diff/">How Diff Works</a> saga.
+
+
+
+So I've talked about <a href="http://blog.excastle.com/2005/03/29/diff-part-1-a-definition-and-a-stupid-implementation/">what diff is</a>, and how you get diffs by inverting the <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">Longest Common Subsequence (LCS)</a>, and how the LCS is just a bunch of <a href="http://blog.excastle.com/2005/03/31/diff-part-4-matches/">matches</a> strung together. And I gave an <a href="http://blog.excastle.com/2005/03/31/diff-part-4-matches/">example</a> of two lists and the matches between them. That example included some hand-waving that made it look easy to build the LCS.
+
+But it isn't always so. To help make the distinction, I'm going to make up some more terminology: when you string a bunch of matches together, I'll call that a "match string". (If anyone has suggestions for a better name, let me know.) A match string can contain just one match, or it can contain several.
+
+Why the distinction? Because something can be a match string, and not be a <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">common subsequence</a>. (And if it isn't a common subsequence, it certainly can't be the longest common subsequence.)
+
+Let's illustrate this with a second example. (I'm using a made-up notation which I explain <a href="http://blog.excastle.com/2005/03/31/diff-part-4-matches/">here</a>.)
+<blockquote dir="ltr" style="margin-right: 0px"><font face="Courier New">A is (1 2)
+B is (2 1)</font></blockquote>
+Here, again, we have two matches: the element <font face="Courier New">1</font> at <font face="Courier New">[0,1]</font>, and the element <font face="Courier New">2</font> at <font face="Courier New">[1,0]</font>. This gives us four possible match strings:
+<blockquote dir="ltr" style="margin-right: 0px"><font face="Courier New">[0,1]
+[1,0]
+[0,1] [1,0]
+[1,0] [0,1]</font></blockquote>
+So we just pick the longest match string, and that's our LCS, right? Well, no. First, we have to figure out which of these match strings actually qualify as common subsequences. Then we take the longest of those.
+<blockquote dir="ltr" style="margin-right: 0px"><font face="Courier New">[0,1]
+</font>is a valid CS: <font face="Courier New">(1)</font> is a subsequence of both A and B.
+
+<font face="Courier New">[1,0]
+</font>is a valid CS: <font face="Courier New">(2)</font> is a subsequence of both A and B.
+
+<font face="Courier New">[0,1] [1,0]
+</font>is NOT a valid CS: <font face="Courier New">(1 2)</font> is a subsequence of A, but is not a subsequence of B. (Remember that, to be a subsequence, the elements have to occur in the same order they did in the original. <font face="Courier New">1</font> and <font face="Courier New">2</font> do occur in B, but not in that order.)
+
+<font face="Courier New">[1,0] [0,1]
+</font>is NOT a valid CS: <font face="Courier New">(2 1)</font> is a subsequence of B, but is not a subsequence of A.</blockquote>
+So we only have two valid common subsequences, both of equal length (1). The longest common subsequence, then, is either <font face="Courier New">[0,1]</font> or <font face="Courier New">[1,0]</font>. It doesn't really matter which you pick; they both qualify as "longest". So we end up with a length-1 LCS, which gives us the shortest possible diff: one insertion and one deletion. (This makes sense, actually; if the LCS were length 2, then that would mean both lists are the same, and there are no diffs.)
+
+Next time, I'll outline an algorithm for deciding whether a given match string is a valid common subsequence.

@@ -1,0 +1,18 @@
+---
+title: "The problem with \"Properties..."  #.NET  #Delphi"
+sort: 2103
+---
+A recent <a href="http://qc.borland.com/">QualityCentral</a> report (QC# <a href="http://qc.borland.com/wc/qcmain.aspx?d=10301">10301</a>) says that "When you right click on the Tool Palette to display the context menu, the Properties menu item should have an ellipse [sic] on it." The poster seems to think that every menu item that brings up a modal dialog box should end with "...".
+
+
+
+This is wrong, though it's a common mistake. Per the comment I posted to said QC item:
+<blockquote dir="ltr" style="margin-right: 0px">The "..." is called an ellipsis, not an ellipse. And the ellipsis is not intended for every command that brings up a modal dialog (though it's a common mistake to think so).
+
+Per Microsoft's UI guidelines:
+
+"If a command requires additional information to complete its intended action, and you use a dialog box to supply that information, follow the command with an ellipsis (...). The ellipsis provides a visual cue that the command requires additional information."
+
+"Do not include an ellipsis for a Properties command. The user does not have to indicate what object to show properties for or what property to show. Even though the user can use this command to change options, the command's intended primary action is to display those options. Similar common examples include Options, Settings, Advanced, and Preferences."
+
+from <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dnwue/html/ch14d.asp">http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dnwue/html/ch14d.asp</a></blockquote>

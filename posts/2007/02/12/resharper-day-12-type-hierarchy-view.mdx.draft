@@ -1,0 +1,29 @@
+---
+title: "ReSharper, day 12: Type Hierarchy view  #.NET  #resharper"
+sort: 2308
+---
+<p>Welcome to day 12 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>Today's topic is a feature I've spent so long wishing for that I can never remember it actually exists: the Type Hierarchy view, accessed via <b>Ctrl+Alt+H</b>.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/TypeHierarchyFormClassHierarchy.png" width="470" height="220" alt="ReSharper's Type Hierarchy, showing the class hierarchy for System.Windows.Forms.Form" border="0"></blockquote>
+
+<p>If you press Ctrl+Alt+H while the cursor is over a type name, it will pop up the Type Hierarchy window, showing the ancestors and immediate descendants of that type. (Like all the other ReSharper windows, it's dockable.) You can expand the tree to show lower-level descendants as well. If you've got a complicated type hierarchy that you always access through an interface, you can see the whole tree just by cursoring to the interface and pressing Ctrl+Alt+H.</p>
+
+<p>You can right-click on a node and select "Base on this", which will re-do the tree as if you had pressed Ctrl+Alt+H on that type. If you do this on a class's parent type, it will open up more classes in the tree (because you only see the based-on class's direct ancestors; but if you base on one of those ancestors, you see all of its other descendants in the tree as well). The current based-on class is shown in bold.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/TypeHierarchyContainerControlClassHierarchy.png" width="470" height="220" alt="ReSharper's Type Hierarchy, showing the class hierarchy for System.Windows.Forms.ContainerControl" border="0"></blockquote>
+
+
+
+<p>I think it's really cool that "Base on this" remembers which types you already had expanded and which were collapsed, and leaves them that way.</p>
+
+<p>The Type Hierarchy window also has a couple of alternative views, accessible through the little object-graph-looking buttons on the right side of the toolbar. Besides the main hierarchy view, there's a view that shows just the descendants, which isn't that interesting; it's just the main hierarchy view with less indentation.</p>
+
+<p>The third view shows just the supertypes. The supertype view is interesting because it inverts the tree (parents are shown as sub-nodes), so it can show the interfaces a class implements, as well as its parent classes.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/TypeHierarchyFormSupertypes.png" width="470" height="220" alt="ReSharper's Type Hierarchy, showing the supertypes of System.Windows.Forms.Form" border="0"></blockquote>
+
+<p>The right-click context menu, besides "Base on this", has Find Usages and a Refactor submenu. So if you're looking at a type hierarchy and feel a sudden need to rename one of the classes in it, you can. (It's smart enough to gray out things like Rename for classes you don't have the source code for.)</p>
+
+<p>Finally, you can double-click a type in the tree to jump to it in code. (Although <a href="http://blog.excastle.com/2007/02/11/resharper-day-11-code-navigation/#rant">it uses the klunky Class Browser instead of Visual Studio's new "[from metadata]" code view</a> for types you don't have the source code for.)</p>

@@ -1,0 +1,15 @@
+---
+title: "DGrok 0.6.5 released: fixed $IFNDEF  #.NET  #Delphi  #dgrok"
+sort: 2476
+---
+<p><a href="http://www.excastle.com/dgrok/DGrok-0.6.5.zip">DGrok 0.6.5</a> is available. It's a minor bugfix release, hence the half-version.</p>
+
+<p>What's new:</p>
+
+<ul>
+<li>FIX: <code>{$IFNDEF UnrecognizedSymbol}</code> was ignoring its contents. That's the right thing for <code>{$IFDEF}</code> but not for <code>{$IFNDEF}</code>. Fixed.</li>
+<li>ENH: Allow attributes in package files.</li>
+<li>ENH: Add support for <code>{$INLINE}</code> and <code>{$STACKCHECKS}</code> undocumented compiler directives.</li>
+</ul>
+
+<p>Ordinarily I would have gotten more done in an evening. It's all <a href="http://blog.alieniloquent.com/">Sam's</a> fault for distracting me with his Erlang talk last night.</p>

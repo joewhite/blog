@@ -1,0 +1,26 @@
+---
+title: "Parsing negation  #.NET  #Delphi  #dgrok"
+sort: 2310
+---
+I found a chapter called "Object Pascal Grammar" in the Delphi 6 Object Pascal Language Guide, and have been using that as a starting point for <a href="http://blog.excastle.com/2006/04/16/integrating-antlr-with-visual-studio-builds/">my Delphi parser</a>. It gives a decent (though incomplete) overview of the parser, but nothing on what the lexer should look like.
+
+(For those curious to see it for yourselves, download <a href="ftp://ftp.borland.com/pub/delphi/techpubs/delphi6/d62pro.zip">d62pro.zip</a>, open del6op.hlp, and search the index for "grammar". Or you can get the <a href="ftp://ftp.borland.com/pub/delphi/techpubs/delphi5/oplg.zip">Delphi 5 Object Pascal Language Guide</a> as a zipped PDF.)
+
+Here's something I found really peculiar:
+
+<pre>SimpleExpression -&gt; ['+' | '-'] Term [AddOp Term]...
+Term -&gt; Factor [MulOp Factor]...</pre>
+
+The peculiar thing is that the '+' and '-' prefixes are introduced in SimpleExpression. This is weird on several levels. First of all, when I took math, we learned that the negation operator binds more tightly than multiplication. "-A" should parse as a Factor, not two levels above that as a SimpleExpression.
+
+On a more practical level, this grammar would disallow some language constructs that I would expect to be perfectly reasonable, such as:
+
+<pre>A + -B</pre>
+
+Now, I suppose you could just write A - B instead. But this one would also be disallowed:
+
+<pre>A * -B</pre>
+
+Odd. I don't have Delphi installed on my home PC, but I'll have to check tomorrow and see whether these actually are accepted. If so, the grammar documentation is hosed.
+
+(Just to test, I downloaded and installed the <a href="http://www.freepascal.org/">FreePascal compiler</a>, and it happily parses both of the above. But according to a <a href="http://www.lrz-muenchen.de/~bernhard/Pascal-EBNF.html">Pascal EBNF grammar</a> I found, neither one should parse, and neither should A * -1, because numbers are inherently unsigned â€” if the grammar is right (and it does carry a big disclaimer), numbers only obtain signs once they become SimpleExpressions. Very strange.)

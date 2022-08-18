@@ -1,0 +1,33 @@
+---
+title: "Debt Snowball calculator  #Life  #Programming  #money  #ruby"
+sort: 2267
+---
+<p>We're finally about to get started on our <a href="http://www.mdmproofing.com/iym/ramsey_debt_snowball.shtml">Debt Snowball</a> for real, and I decided to write a program to help me calculate how long it will take. I'm making it <a href="http://www.excastle.com/misc/debt_snowball.zip">available for free download</a> for anyone who's interested (GPL-licensed). This is still some pretty ugly code; it's just the result of a few hours' hacking. But it works nicely.</p>
+<p><img height=399 hspace=8 src="http://blog.excastle.com/images/DebtSnowballScreenshot.png" width=386 align=right>The screenshot at right shows what the output looks like, using the sample input included with the app. The program allows a decent amount of configuration (everything I needed to project our own debt snowball):</p>
+<ul>
+<li>You give it a list of everyone you owe money to, your balance, your monthly payment, and your interest rate.</li>
+<li>You can tell it you want to spend an extra X dollars every month above your minimum payments.</li>
+<li>You can also give it a one-time lump sum to add to the first month's payment (e.g., if you just got a big bonus or a tax refund &#8212; something that won't happen every month).</li>
+<li>For each bill, it shows how much you'll pay that month ("pay"), the previous balance ("was"), the interest ("int"), and the new balance after payment and interest ("now").</li>
+<li>After a bill is paid off, it still shows up in every month's report, and tells you how long it's been paid off. This is for pep-talk purposes, so you see what you <em>have</em> done, not just what you <em>haven't</em> done.</li></ul>
+<p>It's not penny-perfect (it can't be; credit-card billing cycles are nondeterministic), but it'll paint a pretty good picture.</p>
+<p>Features it's still missing:</p>
+<ul>
+<li>It won't automatically pay the lowest balance each month, yet. It pays debts in the order you list them in the input file. (You can list them smallest to largest according to their balances today, but if one of them pays down faster than the one before it, the app won't automatically adjust.)</li>
+
+&PBOX_R&
+
+<li>Anything I haven't thought of yet.</li>
+<li>Anything someone requests that I feel like implementing.</li></ul>
+<p>How to use it:</p>
+<ul>
+<li>Install Ruby if you don't have it already. If you're on Windows, use the <a href="http://rubyforge.org/frs/?group_id=167">one-click Ruby installer</a>. (Later I may make a version that doesn't have this requirement, if there's interest.)</li>
+<li>Download <a href="http://www.excastle.com/misc/debt_snowball.zip">debt_snowball.zip</a> and extract it somewhere.</li>
+<li>Edit the bills.yaml file to tell the program how much you owe and to whom, and to set other options.</li>
+<li>Open a command prompt and run debt_snowball.rb. (Run it from the command prompt, not by double-clicking in Explorer. If you run it from Explorer, the window will disappear before you can read it.)</li></ul>
+<p>Some notes on the bills.yaml file:</p>
+<ul>
+<li>max_months lets you stop the simulation after, say, 6 months. The only reason this would be useful is if you want to look at the first few months of the simulation, and don't want them scrolling off the top of the screen. If you want to run the simulation all the way through (to see how long it'll take to pay everything off), set max_months to some really big number.</li>
+<li>If it's not obvious, the "apr" setting is your Annual Percentage Rate. Specify this as a percent, i.e., if your APR is 12%, type 12 (not 0.12).</li>
+<li>The dash-on-a-line-by-itself-between-each-bill is important.</li></ul>
+<p>Like I said, this app is still very rough around the edges. But it does what it sets out to do, so if you want to see how long your debt snowball will take, download it and have a go. Comments, criticisms, abject horror at the state of the code, etc., are all welcome; just leave a comment here.</p>

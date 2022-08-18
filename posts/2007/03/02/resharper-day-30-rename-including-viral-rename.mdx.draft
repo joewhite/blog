@@ -1,0 +1,31 @@
+---
+title: "ReSharper, day 30: Rename, including Viral Rename  #.NET  #resharper"
+sort: 2411
+---
+<p>Welcome to day 30 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>Today I'm going to talk about that mother of all refactorings, <b>Rename</b>, available via <b>F2</b>. It is, of course, also available through the <a href="http://blog.excastle.com/2007/02/23/resharper-day-23-introduce-variable-and-introducing-ctrlshiftr-to-refactor/">Ctrl+Shift+R</a> menu.</p>
+
+<p>Now, there's only so much you can say about a Rename refactoring. Generally, either it works or it doesn't; there's a limit to how cool it can be. But ReSharper does manage to pull off a few nice tricks.</p>
+
+<p>Note: Due to a combination of technical difficulties, a lack of planning, and a couple of big snowstorms, I'm currently unable to use ReSharper at home. So today's post (and perhaps tomorrow's too) will not have screenshots, and the details will be from memory. Please correct me if I get anything wrong. I'll try to come back later and clean these up.</p>
+
+<h4>Renaming local variables: SyncEdit and suggestions</h4>
+
+<p>When you rename a local variable, ReSharper uses <a href="http://blog.excastle.com/2007/02/17/resharper-day-17-change-all-with-altenter-and-introducing-the-red-light-bulb/#syncedit">SyncEdit</a> (my name for it, not theirs) to let you make the change right there in the editor. It also pops up its list of <a href="http://blog.excastle.com/2007/02/14/resharper-day-14-suggested-variable-names/">suggested variable names</a>, so you can select a name from the list.</p>
+
+<p>I'm used to Delphi, where I have to press Esc to end SyncEdit mode and apply my changes. Turns out this is poor preparation for ReSharper, because when you hit Esc in ReSharper's SyncEdit, it reverts your changes. In ReSharper, you have to hit Enter to apply the change. (Yes, it would've made more sense if Delphi did it that way too.)</p>
+
+<p>Now, using Enter to save your changes does make sense, but it has a downside: if the variable-name list is showing, Enter will select the current item in that list. So if you want to name your exception object, say, <code>ex</code>, and you type <code>ex</code>, pressing Enter will not rename your variable to <code>ex</code> &mdash; it will rename it to <code>exception</code>, because that's the first variable-name suggestion that starts with <code>ex</code>.</p>
+
+<p>Here's the workaround for entering shorter variable names: if you press Esc once, it will dismiss the variable-name suggestions, but will not end SyncEdit. (You need to press Esc again, with the suggestion list already gone, before it will revert your rename.) So you need to press Esc to get rid of the suggestions, and then Enter to apply the rename.</p>
+
+<h4>Renaming classes: Viral rename</h4>
+
+<p>I have long wished for a viral rename refactoring &mdash; one that infects all the code around it. For example, if I had a class called <code>SongFile</code>, chances are I would have a lot of variables called <code>songFile</code> or <code>file</code>, a lot of properties called <code>SongFile</code>, etc. I want a rename that, when I rename <code>SongFile</code> to <code>SongDataStore</code>, infects all those variable names and property names, and renames them too.</p>
+
+<p>ReSharper has it.</p>
+
+<p>Well, mostly, anyway. When you rename a class, you get a wizard, and the first page asks you for the new name; nothing too exciting there. But then it looks for variables and properties that (1) match the type you're renaming, and (2) have names similar to part of the name that you're changing. And it will show a second page listing them, and suggesting new names for them all. You can uncheck any that you don't want to rename, but why would you want to do that?</p>
+
+<p>The only downside is that it doesn't do the same for descendant classes. But I've filed a feature request, so we'll see...</p>

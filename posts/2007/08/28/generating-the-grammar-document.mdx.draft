@@ -1,0 +1,38 @@
+---
+title: "Generating the grammar document  #.NET  #Delphi  #dgrok  #ruby"
+sort: 2457
+---
+<p>My <a href="http://www.excastle.com/dgrok/Grammar.html">Delphi grammar document</a> is built from two pieces: my research, and a tool.</p>
+
+<h4>The research</h4>
+
+<p>The first step was to do all the research to figure out what the Delphi grammar <i>is</i>. This is not easy. The Delphi 5 documentation included an incomplete, and sometimes wildly inaccurate, BNF grammar. The Delphi 2006 documentation no longer includes the grammar; either the documentation team lost it (along with the docs for the IDE's regular-expression syntax), or they gave up because it was so far out of date. The language has added loads of features since then: strict private, records with methods, even generics on the way.</p>
+
+<p>So I had a rough sketch to start from, and an undergraduate compiler-design class from ten years ago. The rest &mdash; correcting the errors, and filling in the (large) blanks &mdash; is trial and error, and a lot of refactoring.</p>
+
+<p>The upshot is, if you see something I'm missing, let me know. <a href="http://blog.excastle.com/2007/08/27/delphi-grammar-trivia-of-the-day-double-quoted-strings/#48040">Fatih Tolga Ata</a> already put class helpers and generics on my radar &mdash; although I can't really do much with generics yet. Since there is no official (correct) grammar from CodeGear, my main method of discovering the grammar is to type stuff into the IDE and see what compiles (and, often more instructively, what doesn't), I won't be able to figure out the generic grammar until I have Highlander.</p>
+
+<h4>The tool</h4>
+
+<p>As I puzzle out the grammar, I document it in a <a href="http://yaml.org/">YAML</a> file. Here's a snippet from this file:</a>
+
+<blockquote><pre>Atom:
+Doc: |
+! -> &lt;number&gt;
+. -> &lt;stringliteral&gt;
+! -> Ident
+! -> NIL
+. -> '(' Expression ')'
+. -> SetLiteral
+Block:
+Doc: |
+. -> BEGIN StatementList END</pre>
+</blockquote>
+
+<p>The <code>!</code> at the beginning of a line means "I've implemented this in my parser"; the <code>.</code> means "I haven't implemented this yet". That's what drives the "(Completed)" and "(In progress)" notations in the <a href="http://www.excastle.com/dgrok/Grammar.html">grammar document</a>.</p>
+
+<p>I wrote a Ruby script that reads this YAML file and generates the <a href="http://www.excastle.com/dgrok/Grammar.html">HTML Delphi grammar documentation</a>. That Ruby script is the part that's cool enough to figure out which rules are fully implemented (shown with a solid underline), which are partially implemented (e.g., Atom, as shown above; shown with a dashed underline), and which ones I haven't started on yet (no underline). It also figures out the "Likely Targets" &mdash; the rules whose dependencies are (fully or partially) done: the ones I can (probably) work on next.</p>
+
+<p>I edit the YAML file frequently &mdash; as you can imagine, since it reflects my completion status. And I refer to the generated HTML document just as frequently. So I've made the Ruby script part of my <a href="http://rake.rubyforge.org/">Rakefile</a>. It works out fairly well.</p>
+
+<p>Of course, uploading the HTML doc to my Web site happens... a little less frequently. I just uploaded the latest version this morning, but before that, it looks like it had been a little more than a year since my last update. I'll try to keep it a little more active.</p>

@@ -1,0 +1,34 @@
+---
+title: "ANTLR: when a token is not a token  #.NET  #Delphi  #antlr  #dgrok"
+sort: 2314
+---
+Lexers are good at figuring out where tokens start and end. They read one character at a time, but still, they can tell <font face="Courier New">&lt;</font> from <font face="Courier New">&lt;=</font> with ease. They thrive on it.
+
+ANTLR gets stuck occasionally.
+
+If I define a token named DOT that matches a single period, and another token named ELLIPSIS that matches two periods, it can handle them just fine. Most of the time. But it can't parse <font face="Courier New">1..2</font>, because it thinks that first dot is a decimal point, not an ellipsis.
+
+When I tell ANTLR that I expect a dot, I want it to check that the next <em>token</em> is a dot. But instead, it checks that the next <em>character</em> is a dot. Which means, if the next two characters in the input stream are "<font face="Courier New">..</font>", and I call the ANTLR-generated method mDOT(), it will read the first dot out of those two. I want it to fail, because the next thing isn't a dot, it's an ellipsis. But it doesn't work that way.
+
+The workaround is to use something called "symantic predicates". (If you understand positive lookahead in regular expressions, it's the same thing.) Symantic predicates look like this:
+
+<pre>(...) =&gt; ...</pre>
+
+
+
+You put this on one leg of an alternation. It means "if <em>x</em>, then match <em>y</em>." <em>x</em> is the stuff inside the parentheses; <em>y</em> is the stuff after <font face="Courier New">=&gt;</font>. I can use this to tell it "if you look ahead and see "<font face="Courier New">..</font>", then do something other than matching the first '<font face="Courier New">.</font>' alone."
+
+This is really flexible. The biggest downside is, you have to provide this context at every call site. In practice, it hasn't been too bad yet, but boy am I glad I've got my unit tests!
+
+My complete NUMBER lexer rule (excluding unit tests) looks like this. If I hit "<font face="Courier New">..</font>", I just give an empty alternate, and stop parsing the token:
+
+<pre>NUMBER:
+  ('0'..'9')+
+  (
+    // if we find "..", we're done parsing the number
+    (ELLIPSIS) =&gt; |
+    // otherwise, look for a decimal point
+    (DOT ('0'..'9')+)?
+    (('E' | 'e') ('+' | '-')? ('0'..'9')+)?
+  )
+  ;</pre>

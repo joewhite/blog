@@ -1,0 +1,23 @@
+---
+title: "New DUnitLite syntax: Should.Yield  #Delphi  #dunitlite"
+sort: 2449
+---
+<p>No, I'm not adding Ruby-style blocks, more's the pity. Just some syntactic sugar.</p>
+
+<blockquote><pre>SpecifyThatInspecting('', Should.Yield(Apostrophes(2)));
+SpecifyThatInspecting('a', Should.Yield(Apostrophe + 'a' + Apostrophe));
+SpecifyThatInspecting(#13#10, Should.Yield('#13#10'));</pre></blockquote>
+
+<p>The above samples are from the StringInspectorSpecs unit in <a href="http://code.google.com/p/dunitlite/">DUnitLite</a>. They specify parts of the contract for a method called <code>Inspect</code>, which takes a string and returns a string.</p>
+
+<p>One of the requirements for <code>TStringInspector</code> is that when I call the <code>Inspect</code> method, and pass it <code>#13#10</code>, it should return <code>'#13#10'</code>. In other words,</p>
+
+<blockquote>Specify that inspecting <code>#13#10</code> should yield <code>'#13#10'</code>.</blockquote>
+
+<p>As you can see, <code>Should.Yield</code> is nothing more than an alias for <code>Should.Equal</code>. Use whichever one makes your code most readable.</p>
+
+<p>This is where I expect a lot of the work will be done with DUnitLite-style specifications: with custom assertion methods like <code>SpecifyThatInspecting</code>. Play with it and see what other readable assertions you can come up with. I'm certainly willing to tweak the framework, to add more things along the lines of <code>Should.Yield</code>, if it makes specifications more readable.</p>
+
+<p><s>(The version with <code>Should.Yield</code> hasn't been released as a ZIP yet. You can <a href="http://dunitlite.googlecode.com/svn/trunk/StringInspectorSpecs.pas">view StringInspectorSpecs.pas</a>, <a href="http://dunitlite.googlecode.com/svn/trunk/">browse all the latest source</a>, <a href="http://code.google.com/p/dunitlite/source">anonymously check out the latest code</a>, or wait for the next <a href="http://code.google.com/p/dunitlite/">release</a>.)</s></p>
+
+<p><b>Update:</b> This feature is included in the <a href="http://dunitlite.googlecode.com/files/DUnitLite-0.2.zip">DUnitLite 0.2 download</a>.</p>

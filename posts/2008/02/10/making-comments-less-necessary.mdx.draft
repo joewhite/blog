@@ -1,0 +1,11 @@
+---
+title: "Making comments less necessary  #.NET  #Delphi  #comments"
+sort: 2496
+---
+<a href="http://compaspascal.blogspot.com/">Compas Pascal</a> posted about <a href="http://compaspascal.blogspot.com/2007/12/how-to-comment-source-code.html">how to comment source code</a>. I would argue that good comments are a poor goal.
+
+Comments go stale. This is tough to avoid. When the code gets changed, the comments don't necessarily follow. The more comments you put in, the faster they get out of sync with what the code actually does.
+
+There are times when comments are necessary; there are things they're useful for. But whenever possible, you're better off writing code that <em>doesn't need comments in the first place.</em>
+
+There are a lot of ways to do this, so I'll be posting more about it. Meanwhile, what do you think about comments? What do you use comments for? What do you do to write code that doesn't need comments?

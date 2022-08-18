@@ -1,0 +1,11 @@
+---
+title: "Bootstrap grid system explained  #Programming  #bootstrap"
+sort: 4027
+---
+<p>One of my co-workers ran across an article called "<a href="http://www.helloerik.com/the-subtle-magic-behind-why-the-bootstrap-3-grid-works">The Subtle Magic Behind Why the Bootstrap 3 Grid Works</a>". It's worth mentioning here, partly so I have a good place to find the link again.</p>
+
+<p>The article does a very good job of laying out two things: how Bootstrap's grid system works (for those of you, like me, who are geeks and want to know how <em>everything</em> works), and -- far more importantly -- <strong>how to use Bootstrap's grid system correctly</strong> (for those of you, like me, who wished the Bootstrap documentation did a better job on that score).</p>
+
+<p>The "how to make it work" is vital. The first time I tried to use Bootstrap's grid system, I tried to follow the documentation, finally gave up in disgust, and just did a View Source to see what classes the documentation page <em>actually</em> used, and dorked around with it until I figured out how many of those I really needed. If you read this article, you won't have to do that. It lays out, very clearly, what classes you need to put where, and what you can safely nest inside what. The illustrations are also quite helpful.</p>
+
+<p><a href="http://www.helloerik.com/the-subtle-magic-behind-why-the-bootstrap-3-grid-works">Well worth the read.</a></p>

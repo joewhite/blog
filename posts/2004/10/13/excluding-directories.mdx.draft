@@ -1,0 +1,28 @@
+---
+title: "Excluding directories  #.NET  #Delphi  #dgrok"
+sort: 2059
+---
+I'm coding the directory exclusions feature of my <a href="http://blog.excastle.com/2004/10/09/searching-through-delphi-code/">Delphi-code-searching tool</a>, and I wanted to get you guys' feedback.
+
+You'll give the app a directory to start in, and it will automatically recurse through all subdirectories, except the ones you tell it to skip. I want this because we have some utilities in our code base that were for conversion to the current program version, so we no longer compile those tools as part of our current builds; so I don't worry about them when I refactor, and I don't want to search in them. One of my readers commented on wanting to exclude third-party code from searches. I think this "skip this directory" feature will be pretty useful.
+
+I wrote the directory-recursing code this morning. The simple case (no exclusions) would basically look like this:
+
+<pre>ArrayList arrayList = new ArrayList();
+arrayList.Add(_parameters.RootDirectory);
+for (int i = 0; i &lt; arrayList.Count; ++i)
+{
+    DirectoryInfo thisDirectory = (DirectoryInfo) arrayList[i];
+    arrayList.AddRange(thisDirectory.GetDirectories());
+}</pre>
+
+But if I want exclusions, the question arises: Where do I put that logic? There are two places that would make sense:
+<ul>
+	<li>Instead of the AddRange, I could do a foreach through the GetDirectories() results, and only add directories to the ArrayList if they aren't on the exclude list. This would mean that I would never recurse into the subdirectories of anything on the exclude list. (This is what I decided to have the code do for now.)</li>
+	<li>The other option would be to go from the starting directory and scan its entire directory tree, and then make a second pass to remove the excluded directories from the ArrayList. The difference here is that, if I exclude directory C:\Code\Foo, the ArrayList will still contain Foo's subdirectories.</li>
+</ul>
+The difference is in whether "exclude directory X" means "ignore X and all its subdirectories", or if it instead means "don't process any of the files in X, but do include its subdirectories (unless I also exclude them specifically)".
+
+Which option do you think would be more useful? The second option gives you more fine-grained control; you can include or exclude individual directories at your discretion. But if what you really want is "exclude this entire directory tree", then the first option would be better â€” unchecking all those directories one by one could be really cumbersome.
+
+What do you think? Would you only use the first option? Only the second? Or would you really need the ability to choose, per exclusion, whether you're skipping that directory tree or just the files in that directory?

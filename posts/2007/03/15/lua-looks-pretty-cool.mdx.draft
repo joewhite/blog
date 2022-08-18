@@ -1,0 +1,31 @@
+---
+title: "Lua looks pretty cool...  #.NET  #Delphi"
+sort: 2413
+---
+<p><a href="http://www.lua.org/">Lua</a> is an open-source scripting language that's designed to be embedded into larger apps. I know it's used in <a href="http://www.worldofwarcraft.com/index.xml">World of Warcraft</a> and <a href="http://www.scintilla.org/SciTE.html">SciTE</a>. There are examples out there of using Lua from Delphi apps. And through another open-source project, <a href="http://luaforge.net/projects/luainterface/">LuaInterface</a>, you can embed Lua scripting into a .NET app, so easily it's almost silly.</p>
+
+<p>I'm writing a video-game engine in .NET, and I looked into Lua because I want to be able to have sandboxed game packages. The idea is that if someone already has the game engine installed, they could download game packages from the Internet and run them as fully-functional games without fear of viruses or Trojans. So I wanted a scripting environment that could run in a sandbox, with, for example, no access to the filesystem. It turns out this is trivial with LuaInterface:</p>
+
+<blockquote><pre>Lua lua = new Lua();
+// Don't let scripts use the "io" or "debug" packages.
+lua["io"] = null;
+lua["debug"] = null;
+// Don't let them call the "dofile" method either.
+lua["dofile"] = null;
+// etc.</pre></blockquote>
+
+<p>Classes<sup><small>1</small></sup> and methods are both reference types, and to make them go away, you just need to nil out the global variable that holds the reference. There are only a few dozen of these globals when you spin up Lua, so it's not hard to go through them and decide which ones are safe for a sandbox and which aren't.</p>
+
+<p>It's easy to push values into, and read values out of, the Lua environment:</p>
+
+<blockquote><pre>lua["answer"] = 42;
+lua.DoString("print(answer)");
+int answer;
+answer = (int) lua["answer"];
+answer = lua.GetInteger("answer"); // equivalent</pre></blockquote>
+
+<p>You can even assign .NET objects into Lua variables, and all their methods and properties are instantly callable from Lua. Alas, this is <i>not</i> sandbox-friendly in the shipping version of LuaInterface, because by default, Lua can call private methods on that .NET object! But there's an easy code change to LuaInterface that fixes this.</p>
+
+<p>And Lua has built-in coroutine support. So I can use it for writing cooperative, synchronized scripts for sprite interaction. I'll definitely be posting more about this.</p>
+
+<p><small><sup><small>1</small></sup> Technically, they're not classes, they're "tables", which are kind of like supercharged associative arrays. There's some good <a href="http://www.lua.org/docs.html">Lua documentation</a> if you want to know more; I'd recommend starting with <a href="http://www.lua.org/pil/">Programming in Lua</a>.</small></p>

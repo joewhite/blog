@@ -119,21 +119,12 @@ async function handlePost(post) {
     throw new Error(`${postPath}: Invalid '<!'`);
   }
 
-  if (postPath >= '2004/07') {
-    return undefined;
-  }
-
   const hashTags = [...categories, ...tags].map(t => `#${t}`);
   const titleAndTags = [title, ...hashTags].join('  ');
-  if (titleAndTags.includes('"')) {
-    throw new Error(`Quotes in title: ${titleAndTags}`);
-  }
-
-  const filePath = path.join(__dirname, '..', 'posts', postPath + '.mdx');
+  const filePath = path.join(__dirname, '..', 'posts', postPath + '.mdx.draft');
   await mkdirp(path.dirname(filePath));
   const newFileContent = `---
-draft: true
-title: "${titleAndTags}"
+title: "${titleAndTags.replace('"', '\\"')}"
 sort: ${id}
 ---
 ${content.trim()}\n`;
@@ -146,7 +137,7 @@ ${content.trim()}\n`;
 }
 
 async function massageContent(content) {
-  const result = content.replaceAll(/<!--.*?-->/g, '');
+  const result = content.replaceAll(/<!--[\S\s]*?-->/g, '');
   if (result.includes('<!')) {
     console.log('%%%%%%%%%%%');
     console.log('%%%%%%%%%%% Before massage');

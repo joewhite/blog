@@ -1,0 +1,9 @@
+---
+title: "Um... Diamondback and QualityCentral  #Delphi"
+sort: 2047
+---
+<p>It's not there.</p>
+<p>I was going to submit <a href="http://blog.excastle.com/2004/09/27/diamondback-first-observations-from-the-field/">an enhancement request</a> to Borland QualityCentral. But... there's no category for Diamondback feedback. There's no "Diamondback" project in the dropdown list, and the "Version" list for Delphi stops at 7.0, while the Version list for Delphi for .NET stops (and starts) at 8.0.</p>
+<p>There's this funky "Public Beta - Delphi" in the Project dropdown list, but (a) the Diamondback preview really wasn't a <em>public</em> beta &#8212; they're being pretty hard and fast about conference attendees only; (b) the only version listed in the Version dropdown is 1.0, which is not at all suggestive of Diamondback; and (c) nobody's reported anything in there, so it's all too possible that if I report something there, nobody will be watching to see it.</p>
+<p>So, I did the next best thing: I filed a QualityCentral enhancement request for QualityCentral. It's QC# 9167. Go vote for it.</p>
+<p>(I would send you to their Web interface, but it's broken with a "Directory Listing Denied" right now. Hmm, time for another QC report...)</p>

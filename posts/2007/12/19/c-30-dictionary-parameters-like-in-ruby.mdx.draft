@@ -1,0 +1,43 @@
+---
+title: "C# 3.0: Dictionary parameters (like in Ruby)  #.NET  #ruby"
+sort: 2484
+---
+<p><a href="http://weblogs.asp.net/leftslipper/default.aspx">Eilon Lipton</a> blogged about a <a href="http://weblogs.asp.net/leftslipper/archive/2007/09/24/using-c-3-0-anonymous-types-as-dictionaries.aspx">way to get Ruby-like dictionary parameters in C# 3.0</a>. (Link via <a href="http://weblogs.asp.net/scottgu/default.aspx">Scott Guthrie</a>'s post on <a href="http://weblogs.asp.net/scottgu/archive/2007/12/03/asp-net-mvc-framework-part-2-url-routing.aspx">URL routing</a>.)</p>
+
+<p>Ruby lets you pass a dictionary as the last parameter(s) to a method. I won't go into details, but the syntax looks like this:</p>
+
+<blockquote><code>get_html_link("Click me", "Key1" => "value1", "Key2" => "value2", "Key3" => "value3")</code></blockquote>
+
+<p>(Yes, the idiomatic usage would be to use <code>:key1</code> instead of a string literal, but the strings are probably less confusing for the non-Ruby-adept.)</p>
+
+<p>With Eilon's code, you can get some very similar syntax in C#:</p>
+
+<blockquote><code>GetHtmlLink("Click me", new { Key1 = "value1", Key2 = "value2", Key3 = "value3" });</code></blockquote>
+
+<p>This code passes an <a href="http://weblogs.asp.net/scottgu/archive/2007/05/15/new-orcas-language-feature-anonymous-types.aspx">anonymous type</a> (that's the <code>new {...}</code>), and then uses Reflection to read its properties. Reflection is not something you want to do in tight inner loops, but when readability is the main concern (as it is 95+% of the time), this technique is worth considering.</p>
+
+<p>The place this is useful is when you're really passing a dictionary of arbitrary values &mdash; when the function doesn't know how many items to expect, or what they'll be called. If, on the other hand, the function knows it's expecting three properties called Key1, Key2, and Key3, you'd be better off defining a type with three properties, rather than using an anonymous type. Then the refactoring tools would be on your side, and you wouldn't have reflection overhead. (The syntax wouldn't change much, though &mdash; you'd just add the type name after <code>new</code>.)</p>
+
+<p>Using anonymous types this way requires some work on the part of the function being called, to do the needed bits of Reflection. Eilon's <a href="http://weblogs.asp.net/leftslipper/archive/2007/09/24/using-c-3-0-anonymous-types-as-dictionaries.aspx">article</a> includes sample code, although it leaves something to be desired; for example, he makes a new type for the key-value pairs, when KeyValuePair&lt;&gt; is already out there waiting to be used. And at that, why return a list of key-value pairs, when you could just return a dictionary?</p>
+
+<p>Here's my contribution. This version has the added advantage that you can pass in either a type with public properties (e.g. an anonymous type), or an IDictionary (generic or non-), and it does the Right Thing&trade;. It returns a dictionary with case-insensitive key lookup, so you could use <code>dictionary["key1"]</code> just as well as <code>dictionary["Key1"]</code> (change it if that's not what you want). Unit tests are left as an exercise for the reader.</p>
+
+<blockquote><pre>public static IDictionary&lt;string, TValue&gt; ObjectToDictionary&lt;TValue&gt;(object o)
+{
+var result = new Dictionary&lt;string, TValue&gt;(StringComparer.InvariantCultureIgnoreCase);
+if (o == null)
+return result;
+if (o is IDictionary)
+{
+foreach (DictionaryEntry entry in (IDictionary) o)
+result.Add(entry.Key.ToString(), (TValue) entry.Value);
+}
+else
+{
+foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(o))
+result.Add(prop.Name, (TValue) prop.GetValue(o));
+}
+return result;
+}</pre></blockquote>
+
+<p>The above code snippet is public domain; use it how you like.</p>

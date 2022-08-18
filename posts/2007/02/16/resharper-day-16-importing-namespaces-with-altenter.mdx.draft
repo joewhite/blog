@@ -1,0 +1,56 @@
+---
+title: "ReSharper, day 16: Importing namespaces with Alt+Enter  #.NET  #resharper"
+sort: 2397
+---
+<p>Welcome to day 16 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>Today, and for the next few days, I'll talk about one of the keystrokes you'll use most often with ReSharper: <b>Alt+Enter</b>. I referred to it earlier as ReSharper's "Swiss Army knife", because it's so versatile: it can fix certain compiler errors, complete code, remove code that's never used, and just in general automate some of the repetitive tasks that come with writing code.</p>
+
+<p>Today's topic: importing namespaces.</p>
+
+<h4>The basics</h4>
+
+<p>As I previously mentioned, <a href="http://blog.excastle.com/2007/02/01/resharper-day-1-the-gray-the-red-and-the-squiggly/">ReSharper shows unrecognized symbols in red</a>. But if a symbol is known to exist in some other namespace that you're not yet <code>using</code>, ReSharper will show something else, too: a hint prompting you to fix the error.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/AltEnterPrompt.png" alt="ReSharper prompting you to press Alt+Enter to import a namespace" width="478" height="32" border="1"></blockquote>
+
+<p>So if you just type <code>PixelOffsetMode</code> into your source file (and you're not already <code>using System.Drawing.Drawing2D</code>), ReSharper will scan all the namespaces, find a class with that name, and ask you if it's got the right one. If you confirm by pressing Alt+Enter, it will add <code>using System.Drawing.Drawing2D</code> to your source file.</p>
+
+<p>Here's more info worth knowing about this feature:</p>
+
+<ul>
+<li><p><b>Sorting.</b> ReSharper will add <code>using</code>s according to a predictable ordering rule. It's a modified alphabetical sort: it puts all the <code>System</code> namespaces first (in alphabetical order), followed by everything else (in alphabetical order). Note that this will only sort of work if they aren't already ordered this way, but you can just do <a href="http://blog.excastle.com/2007/02/07/resharper-day-7-code-formatting/">Ctrl+Alt+F</a> to re-sort them.</p></li>
+<li><p><b>Less position-dependent.</b> I'll be talking about other things you can do with Alt+Enter, and usually, they're specific to the code under the cursor. But this particular usage &mdash; adding namespace <code>using</code>s &mdash; doesn't have that requirement: it will work even if the cursor isn't over the red symbol. (If there are multiple red symbols in the file, the one that Alt+Enter will target is whichever one is closest to the cursor position.)</p></li>
+<li><p><b>Not (quite) instant.</b> As with the color-coding, you may sometimes have to wait a second or two after you stop typing, before you can see the hint and hit Alt+Enter. ReSharper has to look at your code and realize that (a) it doesn't recognize this type and (b) the type <i>does</i> exist in another namespace. It only shows the Alt+Enter hint after it's figured this out, and until it does, Alt+Enter won't do a thing. It doesn't take long, but occasionally you'll have to pause to let it do its thing.</p></li>
+<li><p><b>Disambiguation.</b> If the symbol is found in more than one namespace, ReSharper will ask you which one you mean. The hint will say "(multiple choices)", and when you hit Alt+Enter, you'll get to pick the one you want from a list.</p>
+<blockquote><img src="http://blog.excastle.com/images/resharper/AltEnterPromptMultiple.png" width="302" height="32" alt="ReSharper prompting you to press Alt+Enter to import one of multiple interfaces" border="1" hspace="12" vspace="2"><br>
+<img src="http://blog.excastle.com/images/resharper/AltEnterPromptMultipleChoice.png" width="302" height="87" alt="ReSharper's selection menu after pressing Alt+Enter" hspace="12" vspace="2" border="1"></blockquote></li>
+<li><p><b>Depends on references.</b> This shouldn't be a surprise. If you create a new assembly and add a <code>[TestFixture]</code> attribute to a class, ReSharper will show it in red, but won't be able to help you fix it until you right-click on your assembly and Add Reference to NUnit.Framework.dll.</p></li>
+</ul>
+
+
+
+<h4>Comparison to Ctrl+Alt+Space</h4>
+
+<p>Yesterday, I talked about <a href="http://blog.excastle.com/2007/02/15/resharper-day-15-the-ctrlspace-family/">using Ctrl+Alt+Space to autocomplete type names and add <code>using</code> directives</a>.</p>
+
+<p>Alt+Enter will work in circumstances where Ctrl+Alt+Space won't, e.g. when you're pasting code that you got from some code sample online, and it doesn't have all the <code>using</code>s you need. But I think Ctrl+Alt+Space is a probably better feature for general coding. Mind you, I hardly ever remember to use it; it'll take a while to get used to thinking, "Okay, I'm about to type a type name, not a method name. So I need to hit Ctrl+Alt+Space this time." But if I did remember to use it, it feels like a better fit than typing something and then hitting Alt+Enter.</p>
+
+<p>The main reason is that, even though both features have a potential to make you wait a second or two, Ctrl+Alt+Space puts that delay at a more opportune time.</p>
+
+<p>With Alt+Enter, you type an identifier and hit Space, and your mind is already moving along to the next thing you have to type. And then suddenly you see your code turn red, and you have to divert your attention back to what you already wrote. Even if it's just to decide in the back of your mind, "Oh, I'll just finish typing this statement and <i>then</i> hit Alt+Enter to fix that," it's still a distraction.</p>
+
+<p>Whereas with Ctrl+Alt+Space, you type part of an identifier and then hit the keystroke, and it's all part of typing that identifier. <i>Then</i> you let your brain move on to the next thing in the line. So your flow isn't interrupted by having to look back at code you already wrote.</p>
+
+<p>Your mileage may vary (and mine may, too). I'm certainly not saying that Alt+Enter is a bad feature! Just consider using Ctrl+Alt+Space when it fits.</p>
+
+<h4>Comparison to Visual Studio's Alt+Shift+F10</h4>
+
+<p>Visual Studio 2005 has a similar feature for importing namespaces: when you type a symbol it knows about, it will show a little smart tag, which you can mouse over (or hit Alt+Shift+F10) to show a dropdown menu with the ability to add a <code>using</code>. How does it compare to ReSharper's Alt+Enter?</p>
+
+<ul>
+<li><p><b>Keystrokes.</b> If the symbol only exists in one namespace, ReSharper only requires you to press Alt+Enter. Visual Studio requires the more-unwieldy Alt+Shift+F10, followed by Enter. Advantage: ReSharper.</p></li>
+<li><p><b>Sorting.</b> Visual Studio adds the namespace to the end of the block of <code>using</code>s, leaving your <code>using</code>s in a haphazard order. ReSharper automatically keeps them sorted. Advantage: ReSharper.</p></li>
+<li><p><b>Positionality.</b> Visual Studio will only show the Smart Tag when the cursor is on the symbol. ReSharper shows its "add namespace" Alt+Enter hint anytime there's a red symbol scrolled onto the screen, so you don't have to cursor around to import namespaces. Advantage: ReSharper.</p></li>
+<li><p><b>Response time.</b> Visual Studio pops up its smart tag instantly after you type the last letter in the type name. ReSharper can take a second or two before it highlights the symbol in red and shows the hint. Advantage: Visual Studio, by a small margin. (This is much more noticeable on my 800MHz/256MB laptop than it is on our 3GHz/2GB development machines.)</p></li>
+</ul>

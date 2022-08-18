@@ -1,0 +1,117 @@
+---
+title: "Microsoft.TeamFoundationServer.Client: getting started, and getting sprint dates  #.NET  #microsoft.teamfoundationserver.client  #tfs"
+sort: 4035
+---
+<p>There's a new REST API in TFS 2015. It's completely undocumented at the moment, although <a href="https://www.visualstudio.com/integrate/api/overview">Visual Studio Online's REST API</a> is well-documented and they probably overlap a lot.</p>
+
+<p>There's a NuGet package called <a href="https://www.nuget.org/packages/Microsoft.TeamFoundationServer.Client/">Microsoft.TeamFoundationServer.Client</a> that provides a .NET client library for the TFS REST API. Unfortunately, it's also completely undocumented, and in this case there is no other documentation to refer to -- which makes it hard to figure out where to start.</p>
+
+<p>But you're in luck: I've been tinkering with it a bit, and I'm going to start blogging what I've learned about how to use the darned thing.</p>
+
+<h3>Connecting to work item tracking</h3>
+
+<p>Unlike the old-school TFS API, there isn't some <a href="https://msdn.microsoft.com/en-us/library/microsoft.teamfoundation.client.tfsteamprojectcollection%28v=vs.120%29.aspx">central class</a> you have to <a href="https://msdn.microsoft.com/en-us/library/ff734507%28v=vs.120%29.aspx">create</a> and authenticate to and then <a href="https://msdn.microsoft.com/en-us/library/ff737476%28v=vs.120%29.aspx">query for services</a>.</p>
+
+<p>Instead, you instantiate the client for the particular service you want, and hand it an object with authentication information. Then you start calling methods. I'm guessing that each method corresponds to a single HTTP request, but I haven't verified that.</p>
+
+<p>Let's say we want to do something with <a href="https://www.visualstudio.com/integrate/api/wit/overview">work item tracking</a> -- basically anything relating to work items, including things like saved queries, area paths and iterations, work-item edit history... all that stuff. For that, we need to instantiate <code>WorkItemTrackingHttpClient</code>.</p>
+
+<pre><code>using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
+using Microsoft.VisualStudio.Services.Common;
+
+var client = new WorkItemTrackingHttpClient(
+    new Uri("http://myserver:8080/tfs"),
+    new VssCredentials(true));
+</code></pre>
+
+<h3>VssCredentials</h3>
+
+<p><code>VssCredentials</code> tells the library how you're going to authenticate. There are a bunch of constructor overloads, and I'm not clear on when you would use some of them. But here are the most obvious ways I see to authenticate:</p>
+
+<h4>Authenticate using my current Windows credentials</h4>
+
+<pre><code>new VssCredentials(true)
+</code></pre>
+
+<p>This is probably simplest in most cases. Just pass <code>true</code> for the <code>useDefaultCredentials</code> constructor parameter.</p>
+
+<h4>Authenticate using a specific username and password</h4>
+
+<p>Maybe you've got a username and password in your web.config (stored in encrypted form, of course), and you want to use those to authenticate against TFS.</p>
+
+<pre><code>new VssCredentials(new WindowsCredential(new NetworkCredential(userName, password)))
+</code></pre>
+
+<p>It's possible there's a way to do that without chaining quite so many objects together. Or maybe not; you get used to things being unnecessarily complicated when you're working with TFS.</p>
+
+<h3>Getting a list of sprints</h3>
+
+<p>Sometimes you need to query the work items for the current sprint. So let's start by getting the list of sprints.</p>
+
+<p>Sprints are just iterations (with some extra metadata that describes their start and finish dates), so we'll query the iteration tree.</p>
+
+<pre><code>using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
+
+var rootIterationNode = await client.GetClassificationNodeAsync(
+    teamProjectName,
+    TreeStructureGroup.Iterations,
+    depth: int.MaxValue);
+</code></pre>
+
+<p>Each team project has its own areas and iterations, so you have to pass in the name of your team project. I assume you already know your <code>teamProjectName</code> and have it ready to pass in. (You can also pass in the project's <code>Guid</code> if you happen to have it.)</p>
+
+<p><code>GetClassificationNodeAsync</code> returns a <code>WorkItemClassificationNode</code>:</p>
+
+<pre><code>public class WorkItemClassificationNode : WorkItemTrackingResource
+{
+    public WorkItemClassificationNode();
+
+    public IDictionary&lt;string, object&gt; Attributes { get; set; }
+    public IEnumerable&lt;WorkItemClassificationNode&gt; Children { get; set; }
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public TreeNodeStructureType StructureType { get; set; }
+}
+</code></pre>
+
+<p>The method returns the root node for the iteration tree; as far as I know, the root's <code>Name</code> always matches the name of the team project. Then you've got its children, and you can recursively walk your way through the tree.</p>
+
+<p>Be careful -- if a node has no children, <code>Children</code> is <code>null</code> rather than an empty list. (Makes sense for the JSON, but the API really should have smoothed out that wrinkle.)</p>
+
+<p>You'll notice that this class doesn't have properties for <code>StartDate</code> and <code>FinishDate</code> for sprints. (I think that's because you can also ask this method for area paths, where start- and finish-date properties would make no sense at all.) The object hides the dates inside the <code>Attributes</code> dictionary, under the keys <code>startDate</code> and <code>finishDate</code>; the values are <code>DateTime</code>s. Once again, beware: if a node has no attributes (e.g., if it represents an iteration that isn't a sprint), the <code>Attributes</code> dictionary is <code>null</code>.</p>
+
+<p>Here's some sample code to get the start and finish dates (if present) from an iteration. If they're present, it's a sprint.</p>
+
+<pre><code>if (iterationNode.Attributes != null) {
+    object startDateValue;
+    object finishDateValue;
+    iterationNode.Attributes.TryGetValue("startDate", out startDateValue);
+    iterationNode.Attributes.TryGetValue("finishDate", out finishDateValue);
+    var startDate = startDateValue as DateTime?;
+    var finishDate = finishDateValue as DateTime?;
+    if (startDate.HasValue &amp;&amp; finishDate.HasValue) {
+        // do something with startDate.Value and finishDate.Value
+    }
+}
+</code></pre>
+
+<p>Or you could do like I do, and write a <code>GetValueOrDefault</code> extension method for <code>Dictionary&lt;TKey, TValue&gt;</code>, at which point it becomes:</p>
+
+<pre><code>if (iterationNode.Attributes != null) {
+    var startDate = iterationNode.Attributes.GetValueOrDefault("startDate") as DateTime?;
+    var finishDate = iterationNode.Attributes.GetValueOrDefault("finishDate") as DateTime?;
+    if (startDate.HasValue &amp;&amp; finishDate.HasValue) {
+        // do something with startDate.Value and finishDate.Value
+    }
+}
+</code></pre>
+
+<h3>Other notes</h3>
+
+<p>If you want to load both iterations and area paths, you can save yourself a round-trip by calling <code>client.GetRootNodesAsync</code>, which returns them both in a single call (it returns a list of <code>WorkItemClassificationNode</code> instead of a single node). Remember to specify the <code>depth</code> parameter, or it'll only return the root iteration and the root area path, without their children.</p>
+
+<h3>Further reading</h3>
+
+<p>The <a href="https://www.visualstudio.com/integrate/api/overview">Visual Studio Online API Overview</a> has a good conceptual overview of some of the terms you'll see; for example, it explains the difference between "revisions" and "updates" when you're looking at work item history. Worth checking out.</p>
+
+<p>If I blog more about Microsoft.TeamFoundationServer.Client, you'll be able to find it under my <a href="http://blog.excastle.com/tag/microsoft.teamfoundationserver.client/">microsoft.teamfoundationserver.client tag</a>.</p>

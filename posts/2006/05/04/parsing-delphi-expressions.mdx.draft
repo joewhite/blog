@@ -1,0 +1,8 @@
+---
+title: "Parsing Delphi expressions  #.NET  #Delphi  #antlr  #dgrok"
+sort: 2317
+---
+<p>It's commit #111 to my local Subversion repository. I have 234 unit tests so far. And my parser can now handle expressions. Whether it's 2+2 or Application.Forms[0].ClientWidth, it can build a parse tree for it.</p>
+<p>Still far from done. It can't handle statements yet, so no A := B, no if, no for..in. Nowhere near being able to parse an entire method or a type declaration, much less an entire unit. And it doesn't have any sort of symbol tables yet, so it doesn't know Application.Forms from a hole in the wall. But expressions were a big hairy part of the grammar. They took a bit of creative bootstrapping. And they're working. I'm a happy geek.</p>
+<p>No, I can't post the code yet. Still waiting to hear back from my employer's legal department on the extent to which they own my soul, and what that means for me in terms of open source.</p>
+<p>But I'm psyched about being able to parse expressions. And Jennie is deeply concerned about my mental health.</p>

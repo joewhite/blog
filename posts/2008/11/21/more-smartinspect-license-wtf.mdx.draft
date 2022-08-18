@@ -1,0 +1,23 @@
+---
+title: "More SmartInspect license WTF  #.NET  #Delphi  #Life  #eula  #smartinspect"
+sort: 2574
+---
+Still <a href="http://blog.excastle.com/2008/11/21/smartinspect-and-the-end-usufructuary-license-agreement/">reading the SmartInspect license agreement</a>.
+
+Now, it's normal for a license agreement to, in effect, say "We don't promise the software actually works". It's frightening when you think about it, but it's become standard operating procedure.
+
+Once again, the overachievers in Gurock's legal department have taken this concept to dizzying new heights. Either that, or their site has been hacked by an angry mob with torches and pitchforks. Is it seriously possible that a company would publicly hate on their own product this badly?
+
+<blockquote>6.1 When using the licensed programs, in order to avoid damage that may be caused to other programs or stored data being used simultaneously, the Customers shall in good time before using/utilising the licensed programs back up the programs and data involved, and <strong>not use programs of this kind in actual operation before he has verified the flawless quality of these programs by a test routine.</strong></blockquote>
+
+
+
+(emphasis mine)
+
+That's copied straight out of the actual <a href="http://www.gurock.com/about/terms/">SmartInspect license agreement</a> on their actual Web site.
+
+So let me see if I understand this. I am <em>contractually obligated</em> to assume their software is horribly broken, until and unless <em>I</em> am able to form and execute a test plan to prove otherwise. In other words, their entire Quality Assurance department consists of their paying customers.
+
+(I have a hard time believing that that's actually the case, but that's certainly the message they're going to great pains to send.)
+
+Does anyone happen to use <a href="http://www.raize.com/devtools/codesite/">CodeSite</a>, and have a copy of their license agreement that they could send me? If so, please <a href="http://blog.excastle.com/contact/">get in touch</a>. If Raize actually shows some confidence in their own product, I'd be sorely tempted to return SmartInspect and go with the slightly more expensive, but presumably tested before shipping, competitor.

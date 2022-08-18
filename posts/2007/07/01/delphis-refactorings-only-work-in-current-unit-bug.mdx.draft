@@ -1,0 +1,21 @@
+---
+title: "Delphi's \"refactorings only work in current unit" bug  #Delphi"
+sort: 2451
+---
+<p>Delphi's refactoring support has never worked for us. If I try to rename something, it only renames it in the current unit. But it always worked fine in test apps.</p>
+
+<p>Today I finally found a repro case and submitted the <a href="http://qc.codegear.com/wc/qcmain.aspx?d=48355">"Delphi refactorings only work within the current unit" bug</a> to QC. Hah! Take <i>that</i>, bug!</p>
+
+<p>Now I just have to wait for the bug to work its way to "Opened". If that ever happens. And then wait some more, with no further feedback, hoping it will get fixed and released someday. Sigh.</p>
+
+<p>(If you've ever run into this bug, by the way, do feel free to stop by QC and add your votes.)</p>
+
+<p>The issue is that the refactoring engine only pays attention to the unit you're currently editing, plus units that have been explicitly added to the project (with Project &gt; Add to Project), or automatically added to the project (by File &gt; New). Other units are left untouched by the refactor. So Find References is fundamentally useless. And if I rename a class in unit Foo, unit Bar still refers to the old name, and won't compile.</p>
+
+<p>If the code compiles before a refactoring, and it doesn't compile after the refactoring, was it really a refactoring? (Hint: No.)</p>
+
+<p>The refactorings are <i>supposed</i> to work with everything that's compiled into the project, following all the "uses" dependencies all the way down and affecting all of the units. I confirmed that in a conversation with <a href="http://blogs.codegear.com/abauer/">Allen Bauer</a> at BorCon two years ago; he was surprised to hear about the problem. That's why I'm pretty sure it's a bug, not a design decision. (Sadly, it took me this long to find a simple repro case. I'm not sure why; it was easy enough when I tried it today.)</p>
+
+<p>We have maybe one or two files explicitly added to each project (plus a few more manually added to the "uses" clause, but they don't count for this), out of thousands of source files. With something like thirty different projects that share different portions of the same code, and nine developers working simultaneously on the same code base, it's simply not practical to keep every source file listed in the project file.</p>
+
+<p>Here's hoping we get an IDE with refactoring support sometime soon. (One other than Visual Studio, I mean.)</p>

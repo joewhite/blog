@@ -1,0 +1,15 @@
+---
+title: "Mid-day  #Delphi  #borcon2005"
+sort: 2218
+---
+Here in <a href="http://blogs.borland.com/dcc/">Danny</a>'s session, soon to start. I did make it here early enough to get a power outlet. Unfortunately, both the side walls of this room are partitions, so no power; and Danny said he didn't know of any spare power outlets up front. So I'm stuck heckling from the back of the room. I'll have to speak up when I ask questions. Or maybe I'll just submit them via <a href="http://qc.borland.com/">QC</a>; might be easier.
+
+Anyway. Just for posterity (and amusement), here's the description of this session:
+
+
+
+<blockquote>Reading Tea Leaves: The Fine Art of Debugging
+
+You can do a lot with today's advanced debugging tools, but there are still times when the program ends up so far off the map that it's beyond the help of any mechanical tool. To figure out when, where, and why the program went astray, sometimes you just have to roll up your sleeves and break out the CPU view and assume the mind meld position. Learn to think like the processor, navigate high level data structures in raw hex dumps, recognize encrypted blonds and brunettes at a glance, and manipulate the time streams with your bare hands.</blockquote>
+
+His slides actually list the subtitle as "The <em>Mystic</em> Art of Debugging". For what it's worth.

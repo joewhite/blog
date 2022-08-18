@@ -1,0 +1,16 @@
+---
+title: "Delphi parser: Half done  #.NET  #Delphi  #dgrok"
+sort: 2321
+---
+<p>My <a href="http://www.excastle.com/dgrok/Grammar.html">Delphi parser</a> is now half done! (Well, okay, halfway towards being able to parse Delphi 6 grammar. Still, it's a big milestone.)</p>
+
+<p>A few current statistics:</p>
+
+<ul>
+<li>Rules completed: 63 out of 125</li>
+<li>Number of unit tests: 330</li>
+<li>Last time I fixed a serious error in the Borland-provided grammar definition: 1 hour ago</li>
+<li>Last rule added: <a href="http://www.excastle.com/dgrok/Grammar.html#ProcedureType">ProcedureType</a></li>
+<li>Next likely targets: <a href="http://www.excastle.com/dgrok/Grammar.html#MethodHeading">MethodHeading</a>, <a href="http://www.excastle.com/dgrok/Grammar.html#PropertyParameterList">PropertyParameterList</a>, <a href="http://www.excastle.com/dgrok/Grammar.html#PropertySpecifiers">PropertySpecifiers</a></li>
+<li>Next Really Big Thing that needs to be cleaned up in the grammar: <a href="http://www.excastle.com/dgrok/Grammar.html#ClassType">ClassType</a>, which has the visibility stuff completely wrong</li>
+<li>Latest interesting fix to the official grammar: <a href="http://www.excastle.com/dgrok/Grammar.html#ProcedureType">procedural types</a> (<font face="Courier New">type TFoo = procedure of object;</font>) were in the grammar, but wouldn't work because they expected a procedure name (e.g., the official grammar would only parse it if it was <font face="Courier New">type TFoo = procedure <strong><u>Foo</u></strong> of object;</font>, which is not in fact something that the compiler will accept)</li></ul>

@@ -1,0 +1,11 @@
+---
+title: "Non-trivial example of unmanaged exports  #.NET  #Delphi"
+sort: 2480
+---
+<p><a href="http://chrisbensen.blogspot.com/">Chris Bensen</a> just posted an <a href="http://chrisbensen.blogspot.com/2007/10/user-question.html">example of passing non-trivial types &mdash; strings and interfaces &mdash; between Win32 and .NET using unmanaged exports</a>. If you've ever wondered how to use unmanaged exports to pass anything more complicated than integers, this post is for you.</p>
+
+<p>(And in case anyone was wondering, I'm the one who sent the question he's responding to.)</p>
+
+<p>Now I just need to find some spare time to tinker with this, because it's prompting a number of questions in my mind. Can I put some attributes on the .NET interface to get rid of the IDispatch requirement? Do you have to use a var parameter to return an interface, or can you use an out parameter or a function? What happens when you throw an exception in .NET and catch it in Win32, and vice versa? How easy is it to pass callbacks (delegates) back and forth?</p>
+
+<p>Of course, I don't know if I'll get that tinkering done very soon, for two reasons: (1) I'll have to play with it on a work PC (my home PC only has Turbo Delphi for Win32), and (2) next month is <a href="http://www.nanowrimo.org/">NaNoWriMo</a>.</p>

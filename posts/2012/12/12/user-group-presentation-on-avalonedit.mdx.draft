@@ -1,0 +1,17 @@
+---
+title: "User group presentation on AvalonEdit  #.NET  #avalonedit  #omahamtg"
+sort: 3533
+---
+<p>This month, the Omaha .NET user group did lightning rounds. I did a presentation on AvalonEdit.</p>
+
+<p>If anyone's interested, here's the video: <a href="https://vimeo.com/55205511">2012 December Omaha .NET User's Group</a>. My part goes from 1:02 to 1:20. The slides are pretty readable in the video, the code less so. The audio isn't great, but is mostly intelligible. If anyone's interested, check it out.</p>
+
+<p>I haven't made my code available for download, but I keep intending to. If anyone's interested in the code, drop me a note.</p>
+
+<p>Also presenting were:</p>
+
+<ul>
+<li>Volker Schulz, "Windows Azure - Build, Debug and Deploy" (0:00 to ~0:35)</li>
+<li>Naveen Akode, "MSBuild - Basics and Usage" (~0:35 to ~1:02)</li>
+<li>Brian Olson, "WebAPI and Moustache" (~1:20 to ~1:35)</li>
+</ul>

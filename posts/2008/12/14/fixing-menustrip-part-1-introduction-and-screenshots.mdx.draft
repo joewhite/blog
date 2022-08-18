@@ -1,0 +1,43 @@
+---
+title: "Fixing MenuStrip, part 1: Introduction and screenshots  #.NET  #Delphi  #fixing-menustrip  #menustrip"
+sort: 2575
+---
+In .NET 2.0, Microsoft added MenuStrip and ContextMenuStrip controls to replace the old MainMenu and ContextMenu. The new ones support images next to menu items, edit boxes inside menus, etc. Fairly cool.
+
+<img src="http://blog.excastle.com/wp-content/uploads/2008/12/menustripbugsingle.png" title="Screenshot of buggy MenuStrip, showing cut-off top menu item" width="118" height="89" style="float: right; margin-left: 1em;" />
+
+However, they've got a <a href="http://connect.microsoft.com/VisualStudio/feedback/ViewFeedback.aspx?FeedbackID=136061">major bug that Microsoft doesn't intend to fix</a>. See the screenshot at right. Why the blank space at the bottom of the menu? And more importantly, what happened to the first menu item (the highlighted one) -- why is it mostly cut off?
+
+It's easy to showcase this bug. For that matter, it's easy to fix. (Why Microsoft can't figure it out, I don't know.)
+
+In this "<a href="http://blog.excastle.com/tag/fixing-menustrip">Fixing MenuStrip</a>" series, I'll demonstrate the problem, and then show how to make a very specific fix for a very specific scenario. From there, I'll work my way up to progressively more general solutions. By the time I'm done, you'll be able to fix every menu on the form (including context menus) with one method call.
+
+The coolest thing is that there's no need to descend from MenuStrip to fix it. You'll be able to add a line of code saying "And by the way, this menu should support the keyboard," and it will just start working. It's basically declarative programming: you declare your intention -- "I want my MenuStrip to work" -- and somebody else takes over and figures out how to do it. Multicast delegates and lambda expressions <acronym title="For The Win">FTW</acronym>!
+
+
+
+Along the way, I'll provide code snippets in both C# and Delphi Prism (aka RemObjects Chrome, aka RemObjects Oxygene -- somebody let me know when they stop changing the name). If people ask, I could probably cook up complete project files to download, though I'd rather spend my time writing about the interesting technical stuff. (And besides, my personal computer only has the command-line compiler for Prism, not the IDE, so project files would be a bit of a challenge -- the project-file format appears to be undocumented.)
+
+All of my Prism examples will work on .NET 2.0, since my main computer is a Windows 2000 laptop, and .NET 3.x requires XP. My C# examples, especially the later ones, will be for C# 3.0 since I want to use lambdas -- I'll just have to borrow Jennie's computer when I want to write those articles.
+
+<h3>Screenshots of the problem</h3>
+
+Let's start by showcasing the problem. Here are a couple of screenshots from a little sample app I wrote. In both, I've got a menu with three visible menu items: "New", "Open", and "Exit". In the left picture, I used the mouse to highlight the "Exit" menu item. In the right one, I used the keyboard's arrow keys to do the same thing.
+
+<img src="http://blog.excastle.com/wp-content/uploads/2008/12/menustripbug.png" title="MenuStrip keyboard scrolling bug" width="256" height="89" />
+
+The two <em>should</em> look identical. Selecting something with the mouse, selecting something with the keyboard -- there's no reason for those to work differently.
+
+And even apart from that... I mean, just look at it. What the <em>hell?</em> The menu apparently just scrolls its contents up, even though everything fits without scrolling and there are no scroll arrows. It's obvious that everything fits, because the left screenshot looks great -- the selection rectangle isn't cut off, and the margins are fine.
+
+In this example, everything scrolls by 17 pixels, but that will vary in practice. I've seen one -- a menu with around 10 or 15 menu items -- that scrolled so far that you could only see the bottom half of the last menu item, hanging out there at the top of the menu. The rest of the menu was just blank white space.
+
+<h3>So how serious is it?</h3>
+
+In their response to the <a href="http://connect.microsoft.com/VisualStudio/feedback/ViewFeedback.aspx?FeedbackID=136061">bug report</a>, Microsoft notes that the issue is purely visual, and there's no functionality loss. You can use the arrow keys to scroll the menu contents back into view.
+
+I contend that that's a poor excuse for making a crappy design. Little things matter. And Microsoft's slipshod coding (and testing) makes <em>my</em> programs look like jokes, and me look like an amateur.
+
+And besides, why put up with crappy code, when you can fix it? Tune in next time as I show code that reproduces the problem, and start working on a fix.
+
+This post is part of the <a href="http://blog.excastle.com/tag/fixing-menustrip">Fixing MenuStrip</a> series.

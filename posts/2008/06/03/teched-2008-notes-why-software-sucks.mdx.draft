@@ -1,0 +1,163 @@
+---
+title: "TechEd 2008 notes: Why Software Sucks  #.NET  #Delphi  #teched2008"
+sort: 2540
+---
+This was a crowded, entertaining, fast-paced session. It'll repeat later in the week, so if you're reading this and you're at TechEd, you should go see it.
+
+Why Software Sucks
+David S. Platt
+Supreme and Exalted Dictator-For-Life
+Rolling Thunder Computing, Inc
+
+Some of this talk has been adapted from the book "Why Software Sucks... and What You Can Do About It" by David S Platt, Addison-Wesley
+
+So, to start:
+
+<strong>Users Think That Your Software Sucks.</strong>
+
+Usually audiences will argue with that. It's like alcoholics in denial. Word #1 in rule #1 of any twelve-step program is "Admit".
+
+Industries with the top number of complaints to the Better Business Bureau: #2. Internet Shopping Services. #5. Computers -- Software & Service. #7. Internet Services. All in the software industry. Worse than used car dealers (#8) and collection agencies (#9). Only beat out by cell phone companies (#1), and they're probably software problems too.
+
+How did it get this way? Our audience has changed, and we haven't adapted.
+<ul>
+  <li>1994 -- about 2 million Web users</li>
+  <li>2006 -- about 1000 million Web users</li>
+  <li>And almost all of them use PCs for almost all Web access</li>
+  <li>The Web is now ubiquitous. Florida doesn't even put their state name on the license plate -- they put their Web address (myflorida.com) instead!</li>
+</ul>
+
+Platt's First, Last, and Only Law of User Experience Design:
+<ul>
+  <li><strong>Know Thy User For He Is Not Thee</strong></li>
+  <li>Engrave that on your heart with "Buy Low, Sell High" and "Always Cut the Cards"</li>
+</ul>
+
+
+
+Audience survey: What percentage of today's attendees are female? In this room: less than 5%. Overall population is 52% female. User population used to be predominantly male, but not anymore.
+
+Audience survey: What percentage of today's attendees do NOT have a college degree (and aren't currently working toward one)? In this room: one or two. User population used to be mainly college-educated, but today, 82% of population, 72% of US adults, don't have a college degree.
+
+Audience survey: What percentage of today's attendees drive a car with a manual transmission? How many more WOULD if your spouses would let you buy one? Around 75% of people raised their hands. But in the general population, 12-14% of cars are sold with a manual transmission. Normal people don't drive stick-shifts. They're not interested in the driving process in and of itself. They don't want to drive somewhere, they want to BE somewhere. <strong>Normal people don't prize fine-grained control over ease of use.</strong>
+
+Users don't want to use your programs. They want to HAVE USED your programs. They want the benefit, not the process.
+
+You don't sell software. Your user does not come to you to buy software.
+
+What is your customer actually buying? Let's look at some non-software examples.
+<ul>
+  <li>Lottery ticket: they're not buying a lottery ticket, they're buying futility. Well, okay, that's true, but they <em>think</em> they're buying a dream.</li>
+  <li>Toilet paper: They don't buy it so they can admire the roll. They buy it because they want to use it for the designated purpose. Let's just say they're buying hygiene and leave it at that.</li>
+  <li>"The Sex-Starved Marriage" book: They're really buying futility. Well, they think they're buying sex and/or hope.</li>
+  <li>Insulin: They're not buying needles and liquids. They're buying life.</li>
+</ul>
+Still think you're selling software? You're not. You're selling what software <em>does.</em>
+
+Every single user says the exact same thing:
+<blockquote><strong>I just want it to work!</strong></blockquote>
+So: Make It Just Work. Sounds simple, but the laughs from the audience tell us all we need to know about why software sucks.
+
+<h3>GOOD AND BAD EXAMPLES</h3>
+
+<ul>
+  <li>Microsoft Word's menu bar, floating free over the document. Has anyone ever done this because you <em>wanted to?</em> Have you seen anybody doing this because they wanted to? Heard of anyone?</li>
+  <ul>
+    <li>Why did this happen? There was a programmer too geeky to get a date on Saturday night. So he went into the lab and took his frustration out on us!</li>
+    <li>No thought as to whether it would make the user more happy or less happy.</li>
+    <li>If you go to click on the menu and overshoot by a couple of pixels, you end up dragging it instead. Floating toolbars force us to be more precise. It forces the user to be more like a computer, and punishes you if you don't.</li>
+  </ul>
+  <li>Good example from Office: type <code>hte</code> and have it automatically change to <code>The</code>.</li>
+  <ul>
+    <li>Understands and recognizes the humanity of the user.</li>
+    <li>Yes, I understand that humans are not diligent, thorough, precise. The computer will be those things for you. "I got your back."</li>
+    <li>Enhances the humanity of the user. It's as good as the previous one is bad, for the same reason.</li>
+  </ul>
+  <li>www.google.com, in Sweden, comes up in Swedish.</li>
+  <ul>
+    <li>Hmm, the user is a human being. Human beings like to be spoken to in their native language.</li>
+    <li>Take their best guess: you're in Sweden, so you likely speak Swedish.</li>
+    <li>But there's a "Google.com in English" link right there, which fixes it permanently (persistent cookie).</li>
+  </ul>
+  <li>UPS tries the same thing, but doesn't consider the user.</li>
+  <ul>
+    <li><a href="http://www.ups.com/">www.ups.com</a> asks you to select your location, and doesn't let you do anything until you do. You can't track a package, order supplies, or send them an e-mail saying "Your site sucks, fix it."</li>
+    <li>If you speak Swedish, you have to drop down the list, hit S, and hit down arrow twenty-six times, select it, then hit OK.</li>
+    <li>Compare to the post office. The clerk doesn't tell you to click this button thirty times to tell him what language to talk to you in. He knows what country you're in.</li>
+    <li>UPS didn't put themselves in their users' heads. They didn't say, "How can we make this easy for our users?" Instead they said, "Let's tell our users what to do."</li>
+    <li>Amusing: You can type a UPS tracking number into Google, they'll give you a link to track it, and one click takes you there. That means Google is a better UPS than UPS is.</li>
+  </ul>
+  <li>Who has backed up their hard drive in the last week? (Ha.)</li>
+  <ul>
+    <li>Like any human, we have a hierarchy of needs. Putting it off one more day <em>probably</em> won't kill you <em>today.</em></li>
+    <li>PC Editor's Choice Backup Manager. (Genie Backup Manager Home Edition 7.0)</li>
+    <li>First choice: Normal or Easy?</li>
+    <li>So... Easy is the opposite of Normal... and Not Easy is the default?</li>
+    <li>Treeview with checkboxes... immensely powerful and flexible, but when was the last time you wanted to back up anything other than everything?</li>
+    <li>Backup type: Normal, Increment (so Increment isn't Normal?), or Mirror (which is neither Increment or Normal, and what the heck is it, anyway)?</li>
+    <li>You do not want to back up your hard drive. You want to have backed up your hard drive.</li>
+    <li>Carbonite (Internet backup) has a picture of a guy in a hammock. Very few choices. Choices are "My Documents", "Everything", and "Pick and Choose". Nobody has ever selected "Pick and Choose". It's there because the programmers insisted.</li>
+  </ul>
+</ul>
+
+<h3>CONVINCING THE BOSS</h3>
+How do we convince the boss that our apps need to Just Work?
+<ul>
+  <li>Constant Friction</li>
+  <ul>
+    <li>1 click = ~1 sec * 1000 PCs = ~16 min / day</li>
+    <li>16 min / day * $50 / hour = ~$13 / day</li>
+    <li>$13 / day = ~$5000 / year</li>
+    <li>1 click / hr on 1000 PCs = ~$120,000 per year for <em>just one click</em></li>
+    <li>Suppose it was a click on a text box to type in their user name, and a click on another to type in their password, and some other guy was on the phone waiting to talk to this guy, and there's a whole operating room waiting on this, and...</li>
+    <li>Every click is a chance to make a mistake.</li>
+  </ul>
+  <li>Catastrophic Error</li>
+  <ul>
+    <li><a href="http://en.wikipedia.org/wiki/Mars_Climate_Orbiter#The_metric_mixup">Mars Climate Orbiter</a> (11/99), <a href="http://en.wikipedia.org/wiki/American_Airlines_Flight_965">American Airlines flight 965</a> (12/95), <a href="http://en.wikipedia.org/wiki/Therac-25">Therac-25 Radiation machine</a> (1985-87)</li>
+    <li><a href="http://query.nytimes.com/gst/fullpage.html?res=9407EFDD133CF93BA15751C0A9659C8B63"> Cornell University sends acceptance letters to rejected applicants</a></li>
+  </ul>
+  <li>Personal Public Ridicule</li>
+  <ul>
+    <li>There are Web sites that are Halls Of Shame</li>
+    <li><a href="http://suckbusters.com/">suckbusters.com</a></li>
+    <li><a href="http://webpagesthatsuck.com/">webpagesthatsuck.com</a></li>
+  </ul>
+  <li>If that doesn't convince the boss, you need to get a new boss.</li>
+</ul>
+
+<h3>MAKING IT JUST WORK</h3>
+Plattski's Handful
+<ul>
+  <li>Add a Virgin to the Design Team</li>
+  <ul>
+    <li>Somebody who doesn't know the internal workings of the problem</li>
+    <li>"The text in the Untitled file has changed. Do you want to save the changes?"</li>
+    <li>Exposing internal workings directly to the user; forcing user to learn and understand how the program is written internally. User shouldn't have to know about dirty buffers.</li>
+    <li>"Blindness improves your vision" -- Po Bronson</li>
+    <li>Put a virgin on your team, and don't shout them down -- listen to them.</li>
+  </ul>
+  <li>Break Convention When Needed</li>
+  <ul>
+    <li>MS Money doesn't ask when to save to disk. It just works.</li>
+  </ul>
+  <li>Don't Let Edge Cases Complicate the Mainstream</li>
+  <ul>
+    <li>A theorem that's true 99 times out of 100 is a false theorem.</li>
+    <li>A program that makes 99 out of 100 users happy is doing pretty darn good.</li>
+    <li>The Starbucks store finder asks you for a search radius. Very few people ask, "How many Starbucks are there within five miles?" They ask, "Where's the nearest Starbucks?" The one guy who does care dictated the user experience for everybody else.</li>
+  </ul>
+  <li>Instrument -- Carefully</li>
+  <ul>
+    <li>Track what the users are doing, and analyze it</li>
+    <li>Ultimate way of Knowing Thy User</li>
+    <li>Microsoft has this, but they won't license it out, so everyone else has to write their own</li>
+    <li><a href="http://knowthyuser.com/">knowthyuser.com</a> -- David is working on a framework for this</li>
+  </ul>
+  <li>Always ask: Is This Individual Design Decision Taking Us Closer to Just Working, or Farther Away?</li>
+  <ul>
+    <li>Sum of many, many small decisions</li>
+  </ul>
+</ul>
+
+Make software not suck. Make it Just Work.

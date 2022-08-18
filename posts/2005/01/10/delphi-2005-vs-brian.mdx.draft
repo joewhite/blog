@@ -1,0 +1,8 @@
+---
+title: "Delphi 2005 vs. Brian  #Delphi  #borcon2004"
+sort: 2098
+---
+<p>I told Brian he needs a blog now, but in the interim, I'll report...</p>
+<p>Brian spent a while on Saturday compiling our packages in Delphi 2005. And then he tried to compile our app &#8212; and got the <a href="http://blog.excastle.com/2004/10/05/diamondback-vs-our-code-base/">same compiler Access Violation</a> that I got with the Diamondback beta. So apparently Borland didn't find the bug yet to fix it.</p>
+<p>But then he spent some more time researching the problem, tracked it down, reported the compiler bug (<a href="http://qc.borland.com/wc/wc.exe/">QC</a># <a href="http://qc.borland.com/wc/wc.exe/details?ReportID=10193">10193</a>), and applied the workaround. So, our app now compiles under Delphi 2005!</p>
+<p>There's still a bit of work to be done on the packages and the IFDEFs, but... refactoring tools, here we come.</p>

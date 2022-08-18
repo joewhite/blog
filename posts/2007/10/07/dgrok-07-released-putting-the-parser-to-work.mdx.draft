@@ -1,0 +1,32 @@
+---
+title: "DGrok 0.7 released: putting the parser to work  #.NET  #Delphi  #dgrok"
+sort: 2478
+---
+<p><a href="http://www.excastle.com/dgrok/DGrok-0.7.zip">DGrok 0.7</a> is now available.</p>
+
+<p>What's new:</p>
+
+<ul>
+<li>FIX: Initialized variables and typed constants now accept the empty list, '()'. The grammar doc already indicated this, but the code didn't do it. It does now.</li>
+<li>CHG: In package files, allow assembly attributes after the 'requires' and 'contains' clauses, rather than before. (I know they can come after, and that's what I currently need to parse. If they can come other places, I'll have to extend this later.)</li>
+<li>ENH: Added support for undocumented {$SOPREFIX}, {$SOSUFFIX}, and {$SOVERSION} compiler directives.</li>
+<li>ENH: The "search paths" box now allows a semicolon-delimited list of directories. As a side effect, there's no longer a Browse button.</li>
+<li>ENH: The "search paths" box now lets you put "\**" at the end of a search path. This means "include subdirectories". Without that, it only does one specific directory. In a semicolon-delimited list, this gives you the ability to recurse into some directories and not others.</li>
+<li>ENH: Added features to find all "with" statements, nested methods, and global variables in the code.</li>
+</ul>
+
+<p>You'll notice that there's no longer a "Parse" button; instead it's a hyperlink. This means that it no longer has a keyboard accelerator. Sorry &mdash; I miss it too. I'll probably add a shortcut at some point.</p>
+
+<p>There are five hyperlinks in this version:</p>
+
+<ul>
+<li><b>Parse All:</b> parses all the source files in the search path(s). You have to do this before any of the other links will enable.</li>
+<li><b>Show Parse Results:</b> resets the display to show the results of Parse All. This is only useful after you've clicked one of the later links, and want to get back to the thing that shows which files did and didn't parse successfully.</li>
+<li><b>FindGlobalVariables:</b> Gives you a list of all global variables.</li>
+<li><b>FindNestedMethods:</b> Gives you a list of all nested methods (procedure inside a procedure, etc.).</li>
+<li><b>FindWithStatements:</b> Gives you a list of all the "with" statements.</li>
+</ul>
+
+<p>Those last three are the bare beginnings of <b>DxCop</b>, a tool I'm eventually planning to write on top of the DGrok parser. DxCop (named after the .NET Framework's <a href="http://www.gotdotnet.com/Team/FxCop/">FxCop</a>) will analyze your code, looking for places where you aren't following best practices. FxCop looks at your compiled code, while DxCop will look at the source, but it's the same idea.</p>
+
+<p>For those interested in looking at the code, all three "find" features will show you how to put the Visitor pattern to use. They're only the beginning. Feel free to suggest other such features to add (or to send me code) &mdash; but keep in mind that DGrok doesn't yet have symbol-table support, so anything involving "find references" isn't possible just yet.</p>

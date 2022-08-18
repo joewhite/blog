@@ -1,0 +1,161 @@
+---
+title: "Mere-moments guide to creating custom ring tones for your Verizon RAZR V3m  #Life"
+sort: 2477
+---
+<p>I finally broke down and got a cell phone. Then I had a challenge: how to customize the ring tone.</p>
+
+<p>See, I've always insisted that I won't get a cell phone until I can set the default ring tone to <a href="http://www.music.neu.edu/Ensembles/chorus/chorus.html">Carmina Burana</a>. I couldn't lose face in front of my geek friends by admitting that I couldn't figure out how to do it.</p>
+
+<p>But apparently Verizon wants to make it hard for anyone to get ring tones without giving more money to Verizon, which I refuse to do on general principle. (And besides that, I kind of doubt that they sell "Carmina Burana" as a ringtone.)</p>
+
+<p>It took me over nine hours, but I got it. (Stubborn little cuss, ain't I?)</p>
+
+<p>Now I'm sharing. Here's how to make custom sound clips into ring tones for your Verizon RAZR, without voiding the warranty, in mere moments or less.</p>
+
+<h4>On not voiding the warranty</h4>
+
+<p>The RAZR supports custom ring tones. It's Verizon that makes it hard. From what I can tell, they deliberately disable some of the phone's functionality before they sell it, presumably so they can make more money selling their own ringtones.</p>
+
+<p>There's plenty of information out there about ways to re-enable the functionality, via SEEM edits and other forms of hacking the phone's firmware. I didn't do any of those, because they would have voided the warranty. Even though I'm not happy with Verizon for disabling features, I'm not going to re-enable them if <i>I'm</i> the one that's going to get screwed. So I stuck to strictly non-hack methods.</p>
+
+<h4>What didn't work</h4>
+
+<p>I bought the Media Essentials kit with my phone, so I tried hooking the phone up to my computer with the USB cable. Of course that didn't work. You can use their software to transfer "songs" to the phone, but they differentiate between "songs" and "sounds", and "songs" can't be used as ringtones. And no, they don't let you mount the phone as another drive on your computer so you can transfer "sounds" to the phone.</p>
+
+<p>The phone <i>can</i> record "sounds" through its built-in microphone, and use them as ring tones. So I tried holding the phone up to the computer speakers. Result: volume nearly inaudible, quality far too crappy and under-watery. I didn't expect this to work very well, but it was worse than I thought. So I'm not doing that.</p>
+
+<p>I found some message board posts that suggested using the sound-recording capability to make a one- or two-second file, move it to the flash drive, take the flash drive out of the phone, plug it into a PC, and replace the files with identically-named files (including their weird extension) that are actually MP3s. This sounded promising, and it did get me sound files that play beautifully on the phone. But it still was a no-go. Why? Because apparently Verizon has caught on to this trick, and they've made it so that, as soon as you move a sound recording onto the flash drive, it's forever unavailable to be a ring tone. Once you move it, it's locked out. Even if you move it <i>back</i> to the phone's internal memory, they won't let you use it as a ring tone. Drat. (I spent $15 on an SD card reader, too. Isn't it amazing how we Americans will spend money to avoid spending money?)</p>
+
+<h4>What <i>did</i> work</h4>
+
+<p>As of October 2007, here's something that does work. (If you find in the future that it doesn't work anymore, please leave a comment, so this page stays relevant.)</p>
+
+<h5>What you'll need</h5>
+
+<ul>
+<li>A supported phone (see below)</li>
+<li>Verizon service (these steps are very Verizon-specific)</li>
+<li>Sound-editing software like <a href="http://www.goldwave.com/">GoldWave</a> or <a href="http://audacity.sourceforge.net/">Audacity</a></li>
+<li>A sound file on your computer (if you need to rip a song from a CD, do that first)</li>
+<li>One of the following:</li>
+
+<ul>
+<li>A plan where you can get 250 (or whatever) incoming text/picture messages before paying extra, OR</li>
+<li>A plan where you get unlimited incoming text/picture messages, OR</li>
+<li>The willingness to pay Verizon 35 cents to get your custom ring tone onto your phone</li>
+</ul>
+
+<li>Mere moments or less</li>
+</ul>
+
+<p>I'm guessing that this should work on any phone that can receive sound attachments to picture messages. Here's a list of phone models that have been confirmed as either supported or unsupported. If you have updates to this list, feel free to post a comment and let me know.</p>
+
+<blockquote><table border="1" width="100%">
+<tr>
+<th width="50%">Supported</th>
+<th width="50%">Not Supported</th>
+</tr><tr>
+<td><ul>
+<li>RAZR V3m (used to work, may not with newer phones; see comments below)</li>
+<li><a href="#comment-5742">Chocolate LG VX8550</a></li>
+<li><a href="#comment-5738">LG 8300</a></li>
+<li><a href="#comment-18755">LG EnV2</a></li>
+<li><a href="#comment-17675">Samsung SCH-u340</a></li>
+<li><a href="#comment-5741">Samsung SCH-u740</a></li>
+<li><a href="#comment-38921">Samsung SCH-u900</a></li>
+</ul></td>
+<td><ul>
+<li><a href="#comment-5737">LG8500</a></li>
+<li><a href="#comment-5740">Z6tv</a></li>
+</ul></td>
+</tr>
+<tr>
+<td colspan="2"><i>Note: Aside from the RAZR V3m, these lists are based entirely on user feedback, and are not guaranteed to be correct. When in doubt, try it yourself.</td>
+</tr>
+</table></blockquote>
+
+<h5>The short short version</h5>
+
+<p>If you know what you're doing, here's the short short version: save the file as a 30-second-or-less, 22KHz WAV, and use Verizon <a href="http://www.vzwpix.com/">vzwpix.com</a> to send it to your phone.</p>
+
+<p>The rest of this document takes you through this process, step by detailed step. So let's get started.</p>
+
+<h5>Step 1: Create a Verizon vzwpix account</h5>
+
+<p>First, go to <a href="http://www.vzwpix.com/">vzwpix.com</a>. (You'll get redirected to another Verizon URL, but in some places they still refer to it as vzwpix.)</p>
+
+<p>Find the Login box on the left side of the page, and click the "Register" link. Then go through the steps to register. (This step can't exactly be done in mere moments, but that's Verizon's fault, not mine.)</p>
+
+<p>You'll probably need to have JavaScript enabled to go through the registration process. Yes, this is stupid.</p>
+
+<p>Once you've created an account, you're ready to start moving a sound file to your phone. But first, you need to convert your sound file to have the proper length and format.</p>
+
+<h5>Step 2: Create the sound file</h5>
+
+<p>Your sound file cannot be in MP3 format. (Even if you rename the extension, Verizon will see that it contains MP3 content, and block the file. It's not clear why they won't accept MP3 content, since the phone can clearly play it.)</p>
+
+<p>WAV format is what worked for me. It also has to be 30 seconds or less, and have a sample rate of 22.050 KHz or less.</p>
+
+<p>I used the <a href="http://www.goldwave.com/">GoldWave</a> trial edition to trim my sound file to less than 30 seconds, add a fade at the end, and save it as WAV. In GoldWave's Save dialog, I set "Save as type" to "Wave (*.wav)", and "Attributes" to "Microsoft ADPCM 22.050 KHz, 4 Bit, Mono".</p>
+
+<p>I've also heard a lot of good things about the <a href="http://audacity.sourceforge.net/">Audacity</a> audio editor, which is free. I've used GoldWave before; it has a lot of features but isn't always quite intuitive. I've never used Audacity, so I don't know what it's like.</p>
+
+<p>Mac users: see <a href="#comment-17675">NL's comments on Mac software for editing the sound file</a>.</p>
+
+<h5>Step 3: Send the clip to your phone</h5>
+
+<p>Now that you've got a 22KHz WAV of 30 seconds or less, it's time to get it onto your phone.</p>
+
+<p>You'll almost certainly need JavaScript enabled for this part.</p>
+
+<p>Start by logging into your <a href="http://www.vzwpix.com/">vzwpix.com</a> account. Once you're logged in, you'll see the "Picture &amp; Video Messaging" page.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/vzwpix1.png" width="350" height="277" alt="Screenshot of the Picture & Video Messaging page you see after logging into vzwpix.com"></blockquote>
+
+<p>In the bottom center of the page, you'll see a red "Upload Media" button. Click it once. You may have to wait a long time for anything to happen, but if you click it more than once, the site gets confused, so don't do that.</p>
+
+<p>Eventually you'll see this:</p>
+
+<blockquote><img src="http://blog.excastle.com/images/vzwpix2.png" width="350" height="276" alt="Screenshot of the Upload Media box you see after clicking the Upload Media button"></blockquote>
+
+<p>Click the top Browse link. Browse to your WAV file and click OK. Then click the red "Upload" button, and wait a bit more.</p>
+
+<p>After the "Upload Media" box closes, you'll see your sound file in the "Uploads" box on the left. In this screenshot, I've uploaded two sound files. Notice that Verizon assigned them nonsense names, which I haven't found a way to change (though I haven't looked too hard).</p>
+
+<blockquote><img src="http://blog.excastle.com/images/vzwpix3.png" width="350" height="276" alt="Screenshot of the Picture & Video Messaging page after uploading sound files"></blockquote>
+
+<p>Now, on the right side, notice the tall red box with stuff in it. A little over halfway down, there's some white-on-red text that says "Drag audio here".</p>
+
+<p>Find your sound file on the left side, and drag it onto that "Drag audio here" text.</p>
+
+<p>If you did it right, you'll now see two tall red boxes. Ignore the second one.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/vzwpix4.png" width="350" height="276" alt="Screenshot of the Picture & Video Messaging page after dragging the sound file to the right side"></blockquote>
+
+<p>The first tall red box will now have a Play button (which for some reason is red, rather than the traditional green) in place of "Drag audio here". You can use this to make sure you got the right audio file (since you can't tell which one you're dragging because of the nonsense names they assigned). If you got the wrong sound file, click the "X" (delete) button just above the tall red boxes, and try again.</p>
+
+<p>You can just ignore the "1/1, 5 sec" stuff above the red boxes. I left that stuff alone and everything worked.</p>
+
+<p>Okay, so you've got two tall red boxes, and the first one has the right sound file in it. You're almost done. Click the red "Preview &amp; Send" button in the lower right.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/vzwpix5.png" width="350" height="276" alt="Screenshot of the Preview and Send screen"></blockquote>
+
+<p>When the "Preview and Send" box opens, a 5-second clip of your sound file will play in your browser. Don't panic! They didn't lose the rest of the file. They <i>have</i> the whole file, it's just that this screen only plays a 5-second clip.</p>
+
+<p>In the "Send To" box, type your 10-digit cell phone number, without any punctuation. For example: <code>4025551212</code></p>
+
+<p><i>Tip: If you just got your cell phone and don't remember your phone number yet, here's how to check it on a RAZR V3m. You can go to Menu > SETTINGS &amp; TOOLS > System > Device Info > My Number. Or you can click the Voice button to the right of the display, wait for the menu to come up, and say "Check my phone number".</i></p>
+
+<p>Now type a subject line and click Send. The sound file will be sent to your phone, attached to a "picture message".</p>
+
+<h5>Step 4: Save the clip as a ringtone</h5>
+
+<p>It will take a minute or two for the picture message to be sent to your phone. When your phone bleeps and tells you you've received a new picture message, select "View Now", and your sound file will play on your cell phone, in all its glory.</p>
+
+<p>You're not done yet. Select "Options" (right soft button) and "Save Sound". Give it a name and OK. It will pause for a moment, and then display "Sound saved".</p>
+
+<p>And... you're done. Now you can select the sound as your master ring tone in the usual way, or assign it to individual contacts. Custom Verizon ringtones in mere moments or less.</p>
+
+<p>Happy ringing!</p>
+
+<p><i>Also in the Mere Moments series: <a href="http://blog.excastle.com/2005/05/31/mere-moments-guide-to-installing-a-subversion-server-on-windows/">Mere-Moments Guide to installing a Subversion server on Windows</a></i></p>

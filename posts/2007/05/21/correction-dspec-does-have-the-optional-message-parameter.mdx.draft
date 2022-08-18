@@ -1,0 +1,25 @@
+---
+title: "Correction: dSpec does have the optional Message parameter  #Delphi  #dunitlite"
+sort: 2442
+---
+<p>In my last post, I incorrectly said that dSpec doesn't have the Message parameter. Jody corrected me. Here's the syntax:</p>
+
+<blockquote><pre>Specify.That(FRate, 'Tax rate').Should.Equal(0.10);</pre></blockquote>
+
+<p>I kinda like this syntax &mdash; it puts the label right next to the thing it's labeling, rather than putting the label last like DUnitLite does now. What do you guys think? Which of the following syntaxes would be best for DUnitLite?</p>
+
+<blockquote><pre>Specify.That(FRate, Should.Equal(0.10), 'Tax rate'); // (a)
+Specify.That(FRate, 'Tax rate', Should.Equal(0.10)); // (b)
+Specify.That('Tax rate', FRate, Should.Equal(0.10)); // (c)</pre></blockquote>
+
+<p>Currently DUnitLite uses (a). (b) is more like dSpec.</p>
+
+<p>The advantage to (c) would be when your expressions are long enough to line-wrap. If the label is likely to be shorter than the expression being tested (and, therefore, more likely to fit on the first line without wrapping), then this kind of formatting might work really well:</p>
+
+<blockquote><pre>Specify.That('State tax rate',
+TInvoiceCalculator.CreateForState(FCustomer.State).TaxRate,
+Should.Equal(0.10));</pre></blockquote>
+
+<p>But without wrapping, having a label as the first parameter might get in the way of readability. I'm not sure.</p>
+
+<p>Which syntax seems most readable to you?</p>

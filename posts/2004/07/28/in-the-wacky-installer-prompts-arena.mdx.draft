@@ -1,0 +1,9 @@
+---
+title: "In the \"wacky installer prompts" arena...  #.NET"
+sort: 1990
+---
+<p>My Visual Studio install has some strange problems. The <a href="http://www.csunit.org/index.php">csUnit</a> Visual Studio plug-in hasn't worked on my PC for months. And I just tried to install <a href="http://www.jetbrains.com/resharper/index.html">ReSharper</a>, which did not go well, but which did at least provide me with some enlightening error messages; I may now know why the csUnit plug-in wasn't working. Apparently, somehow, EnvDTE.dll was not in my GAC. Neither was Extensibility.dll. ReSharper wanted both of those, and since they weren't in the GAC, it couldn't find them. They were both in the GAC on Sam's machine, so evidently something went fuzzy on my box at some point.</p>
+<p>I tried adding them both to the GAC manually, which got ReSharper's installer to run without errors. But the ReSharper plug-in still won't start when I open Visual Studio, and its error dialog recommends that I repair my VS installation. Since that sounds like a better idea than trying to randomly register assemblies that maybe should and maybe shouldn't actually be in the GAC, I went ahead and did so; maybe the csUnit plug-in will start working again. (I miss that "Build and Run Tests" menu item, darn it!)</p>
+<p>So after grinding away for about ten minutes, the repair operation gave me this warning:</p>
+<p><img height=272 src="http://blog.excastle.com/images/VSRepairWarning.png" width=366></p>
+<p>Geez. This is just too funny. Exactly which DLLs are in use by <em>Task Manager</em> that are causing problems for the installer for Visual Studio .NET?</p>

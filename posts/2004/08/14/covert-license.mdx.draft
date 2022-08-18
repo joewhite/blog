@@ -1,0 +1,13 @@
+---
+title: "Covert License  #.NET  #Life"
+sort: 2002
+---
+<p>I've read four software license agreements in the past three days, and my eyeballs hurt. And what's scary is, every one of them has typos, grammos, or just general weirdness. Goes to show that the people who <em>write</em> license agreements don't even read 'em.</p>
+<p><a href="http://www.xceedsoft.com/">Xceed</a> makes some fine software, but I just couldn't resist poking fun at this clause of their license agreement. (Emphasis mine.)</p>
+<blockquote dir=ltr style="MARGIN-RIGHT: 0px">
+<p>11. AGREEMENT TERMS</p>
+<p>This Agreement is effective until terminated. Licensee may terminate it by destroying the Software, <strong>all the Redistributable Files Licensee may have distributed,</strong> the documentation and copies thereof. This license will also terminate if Licensee fails to comply with any terms or conditions of this Agreement. Licensee agrees upon such termination to destroy all copies of the Software or return them to Xceed for disposal.</p></blockquote>
+<p>Soooo... if we decide we want to terminate the license, then we have to form a covert ops team, buy a black helicopter with our company's logo on the side, break into all of our customers' sites, hack into their computers, and wipe the Redistributables from all their hard drives. (Not just delete &#8212; <em>destroy.</em> This calls for a military-grade file-wipe utility.)</p>
+<p>I'm not a lawyer, but I suspect there's a chance this covert-ops scenario might raise some legal concerns. Not least of which being that breaking into our customers' premises and deleting their files might well violate our own software's license agreement. (There are practical concerns, as well &#8212; for example, our current building doesn't have a helicopter landing pad. And who would make up the covert-ops team? Development? Client Support? Marketing?)</p>
+<p>What's really interesting is that, if the license gets terminated because we fail to comply with any of the terms of the Agreement, then we only have to destroy the Software, <em>not</em> the already-distributed Redistributable Files. (Nor the documentation, for that matter.) So, if we terminate the License but fail to send out a covert ops team, then we're violating the terms of the License... so the License terminates, and the covert-ops team is no longer required.</p>
+<p>So... I clicked "Agree".</p>

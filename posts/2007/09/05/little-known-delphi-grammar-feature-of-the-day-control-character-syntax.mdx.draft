@@ -1,0 +1,35 @@
+---
+title: "Little-known Delphi grammar feature of the day: control-character syntax  #.NET  #Delphi  #dgrok"
+sort: 2462
+---
+<p>Did you know that you can use caret-letter syntax to define a string literal?</p>
+
+<blockquote><pre>const
+CR = ^M;
+LF = ^J;
+TabDelimited = 'Name'^I'Address'^I'City'^I'State'^I'ZIP';
+TwoLines = 'First line'^M^J'Second line';</pre></blockquote>
+
+<p>It reads like the classic syntax for "control-M". It's valid Delphi grammar, it compiles, and it works.</p>
+
+<p>That said, I have no plans to support it in my parser. I find the string literals during the tokenizing pass, and at that stage, I can't tell the difference between the control character (<code>^M</code>) and the pointer type (<code>^J</code>) in this snippet:</p>
+
+<blockquote><pre>const
+CR = ^M;
+
+type
+J = ...;
+PJ = ^J;</pre></blockquote>
+
+<p>Pointer syntax is used a lot more often (translate: I've only ever seen one source file with <code>^M</code> string-literal syntax, and that was in-house), so I'll give preference to being able to handle pointers correctly.</p>
+
+<p>I <i>have</i> thought about doing some string-literal folding at parse time... for example, to join</p>
+
+<blockquote><pre>'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur ' +
+'euismod. Cum sociis natoque penatibus et magnis dis parturient monte' +
+'s, nascetur ridiculus mus. Sed porta, felis at fermentum pretium, pe' +
+'de leo ornare eros, ut ullamcorper turpis arcu id metus.'</pre></blockquote>
+
+<p>into a single StringLiteral token in my parse tree. (This would make it possible to write a frontend that provides a "find in string literals" feature, and make it able to find "pede leo" in the above snippet.)</p>
+
+<p>But don't expect <code>^M</code> to work anytime soon.</p>

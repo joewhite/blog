@@ -1,0 +1,25 @@
+---
+title: "Assertions the right way around (in Ruby, anyway)  #Programming  #extreme programming  #ruby"
+sort: 2362
+---
+I've always hated the common xUnit convention of writing things like <font face="Courier New">AssertEquals(expectedValue, actualValue)</font>. Who came up with the idea of doing things backwards?
+
+Your tests have to say things like "assert that 5 is what you get when you add 2 and 3". It's stilted and awkward (unless, perhaps, you're trying to write test poetry). And it puts the effects before the causes. "I should get this. Oh, by the way, here's what I'm doing." Answer first, then question. I mean, what is this, Jeopardy?
+
+This isn't how things are done in real life. If I put the pizza into the oven for fifteen minutes, take it out, and <em>then</em> preheat the oven, my dinner is not going to taste very good (unless I have something else for dinner). And if I tried to take that pizza home before I paid for it, Wal-Mart would be well within its rights to take a dim view of the situation, even if I did eventually come back and pay for it.
+
+
+
+Why not just do it the other way around? "Assert that 2 plus 3 equals 5." Cause first, then effect: "I should do this calculation, and here's the result I should get." Isn't that nicer?
+
+But most xUnit frameworks put the effect first, so that's what people are used to, for good or ill. I <em>want</em> to write my own custom assertions that put the cause before the effect, but that would just confuse people (myself among them) who have been putting it the other way around for years.
+
+Well... I was just tinkering in Ruby, and I found what I think is a nice way to flip the parameters, <em>and</em> leave a nice readable clue that that's how they're supposed to be:
+<pre>assert_lexer "*" =&gt; [:times, "*"]</pre>
+Ruby's <font face="Courier New">=&gt;</font> syntax lets me show how things are flowing: the <font face="Courier New">"*"</font> should turn into the array <font face="Courier New">[:times, "*"]</font>. Input on the left, expected output on the right, and visibly so. Neat, huh?
+
+For anyone not familiar with <font face="Courier New">=&gt;</font>, it lets you lump several name =&gt; value pairs together at the end of a parameter list. They all get scooped up into a single Hash, which is passed as the method's final parameter. So the above is equivalent to (but much prettier than):
+
+<pre>hash = Hash.new
+hash["*"] = [:times, "*"]
+assert_lexer(hash)</pre>

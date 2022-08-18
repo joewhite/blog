@@ -1,0 +1,9 @@
+---
+title: "DGrok Delphi grammar  #.NET  #Delphi  #antlr  #dgrok  #ruby"
+sort: 2318
+---
+<p>I've just posted a copy of Borland's <a href="http://www.excastle.com/dgrok/Grammar.html">Delphi grammar</a> with my annotations, corrections, and tweaks. It's not in EBNF form, but it's close, and it's a lot more accurate than Borland's original grammar document.</p>
+<p>This is a file that's generated from a little Ruby script I wrote this morning. It's not just a static document; it includes the <a href="http://www.excastle.com/dgrok/Grammar.html">current status of the Delphi parser</a> as I'm working on it. It shows which language constructs I've fully implemented, which I've thrown away in favor of something else, and which I haven't worked on yet. (As of now, out of 121 language constructs, I've got 21 finished.)</p>
+<p>The colors and such aren't all self-explanatory yet, but you can probably figure most of them out. I'll be adding more explanatory text later. If you can't figure something out, post a question here.</p>
+<p>I expect the project to further accelerate as I go, partly because of the "Likely Targets" section I put into this status page. It probably took twenty minutes to add that to the report, but it'll save me a lot of head-scratching and wondering what I can work on next without having to stop and finish something else first.</p>
+<p>I'll keep the project status page updated as I go (whenever my Net connection is actually working, that is). Go check it out.</p>

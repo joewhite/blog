@@ -1,0 +1,159 @@
+---
+title: "Making DataContractSerializer play nice with UpdateControls  #.NET  #datacontractserializer  #mvvm  #updatecontrols  #winrt  #winrt-xaml"
+sort: 3667
+---
+<p>I'm really psyched about <a href="http://updatecontrols.net/cs/">UpdateControls</a>. I haven't used it in too many projects yet, but it's already changing the way I think about INotifyPropertyChanged, and opening new horizons yet unexplored.</p>
+
+<p>(If you're not familiar with UpdateControls, <a href="http://blog.excastle.com/2012/12/16/stop-writing-inotifypropertychanged-start-using-updatecontrols/">here's my intro</a>. <strong>tl;dr:</strong> If you do MVVM, you <em>want</em> to learn about UpdateControls. And it's free.)</p>
+
+<p>But UpdateControls just takes care of what happens between your model and your viewmodel and your view. There are other concerns your app has to figure out too, like moving data between your model and some kind of persistent storage. I'm writing a game, so I don't have a database back-end or a service tier; I just want to save state to a local file. Sounds like a job for <a href="http://msdn.microsoft.com/en-us/library/system.runtime.serialization.datacontractserializer.aspx">DataContractSerializer</a>.</p>
+
+<p>Simple enough, right? I just slap a <code>[DataContract]</code> attribute on my model, <code>[DataMember]</code> on all the public properties, and write it out, no problem. Then I try to load it back in, and... my app promptly crashes with a <code>NullReferenceException</code>. What went wrong?</p>
+
+<h3>War of the Constructors</h3>
+
+<p>The crux of the problem is that an UpdateControls-based model has to do some initialization in its constructor before you can start using its properties, whereas DataContractSerializer doesn't acknowledge that the constructor even <em>exists.</em></p>
+
+<p>Recall that, when you define a model object using UpdateControls, you wrap each of your data fields in an <code>Independent&lt;T&gt;</code> that handles the bottom half of the notification magic. Our model object looks something like this:</p>
+
+<pre><code>[DataContract]
+public class FooModel {
+    private readonly Independent&lt;bool&gt; _active = new Independent&lt;bool&gt;();
+    [DataMember]
+    public bool Active {
+        get { return _active; }
+        set { _active.Value = value; }
+    }
+</code></pre>
+
+<p>Notice that the <code>_active</code> field is initialized to a new instance of <code>Independent&lt;bool&gt;</code>. When this code is compiled, that assignment actually gets inserted at the beginning of the IL for <code>FooModel</code>â€™s constructor(s).</p>
+
+<p>DataContractSerializer, when it deserializes a stream back into an object, <a href="http://stackoverflow.com/q/1076730/87399">doesn't call any constructors</a>; it just <a href="http://msdn.microsoft.com/en-us/library/system.runtime.serialization.formatterservices.getuninitializedobject.aspx">grabs an empty hunk of memory</a> and calls it an object. I don't know <em>why</em> it skips the constructors; it makes things awfully weird -- as well as making it hard to delegate the property's storage to another object, like you do with UpdateControls. Since <code>FooModel</code>â€™s constructor never ran, <code>_active</code> is null; so when the deserializer tries to set the <code>Active</code> property, the <code>_active.Value</code> assignment causes a <code>NullReferenceException</code>.</p>
+
+<p>You can get different behavior by removing the <code>[DataContract]</code> attribute and serializing the object as a Plain Old CLR Object (POCO). If you're deserializing a POCO, DataContractSerializer actually <em>will</em> call the constructor. But, it won't serialize sub-objects -- for POCOs, it looks like it only operates on properties with primitive types. No good for me -- I don't want to cram my entire application's state into a single object.</p>
+
+<h3>Classic solution: Persistence objects</h3>
+
+<p>If I was using Entity Framework, I wouldn't even be thinking about saving my model objects directly; I'd already have a separate set of entity classes that represent tables in the database. These classes wouldn't depend on UpdateControls, and I'd <em>have</em> to manually copy the data between my model and my entity objects. Similarly, if I was saving to a service tier in a multi-tier application, I'd have the same situation with data transfer objects: I'd have to copy my model object's contents to a DTO and back.</p>
+
+<p>I could do the same thing with DataContractSerializer. I could define some persistence classes -- dumb data contracts that are only used to save and load -- and then copy data between those and my models.</p>
+
+<p>The thing is, that "copy data back and forth" step is (a) hard, (b) boring, and (c) easy to screw up. I strive to be constructively lazy, and hard/boring/easy-to-screw-up is high on my list of things to avoid.</p>
+
+<p>At work, we automate the hard/boring parts (and unit-test the easy-to-screw-up parts) with <a href="http://automapper.org/">AutoMapper</a>, which works really well. I think it would play pretty nicely with UpdateControls. But there isn't (yet?) a WinRT version of AutoMapper, so that won't help me with my WinRT app.</p>
+
+<p>And even if I could use AutoMapper, it feels redundant to make a whole separate set of classes, with all the same properties as my model objects, unless it's <em>absolutely required</em> by some persistence framework. Even if AutoMapper was there to remove the grunt work (and warn me when I forget to add a property to my persistence object), creating all those extra classes still feels unnecessary. DataContractSerializer should be able to serialize objects; that's its <em>job.</em> The only problem is that it doesn't run any of our initialization code. If that was solvable, we'd be golden.</p>
+
+<h3>OnDeserializing</h3>
+
+<p>If you poke around the <a href="http://msdn.microsoft.com/en-us/library/kd1dc9w5.aspx">System.Runtime.Serialization namespace</a>, you'll find the <a href="http://msdn.microsoft.com/en-us/library/system.runtime.serialization.ondeserializingattribute.aspx">OnDeserializingAttribute</a>.</p>
+
+<p>The documentation for this attribute is pretty vague: it just says that it lets you designate a method to be "called during deserialization of an object". <em>When</em> during deserialization? Before any fields are deserialized? <em>After</em> all the fields?</p>
+
+<p>But since there's also an <a href="http://msdn.microsoft.com/en-us/library/system.runtime.serialization.ondeserializedattribute.aspx">OnDeserializedAttribute</a>, I think I'm fairly safe in guessing that these follow the usual pattern: first the <strong>-ing</strong> method is called, then some other work (deserializing the object's properties) is done, then finally the <strong>-ed</strong> method is called. Assuming that's true (and I think it is, since my tests are passing), then you can use it to make a constructor stand-in for deserialization.</p>
+
+<p>So you can make these changes:</p>
+
+<ol>
+<li>Add a new method called <code>InitFields</code>.</li>
+<li>Remove all the initialization expressions from the field declarations, and move those assignments into <code>InitFields</code>.</li>
+<li>Remove the <code>readonly</code> from the fields, since they're now being assigned in a method, not in the constructor.</li>
+<li>Add an <code>OnDeserializing</code> method and tag it with <code>[OnDeserializing]</code>, and give it a parameter of type <code>StreamingContext</code>. (I don't know what the parameter is for, but you get a runtime error if it's not there.)</li>
+<li>Call <code>InitFields</code> from both your constructor and your <code>OnDeserializing</code> method.</li>
+</ol>
+
+<p>If you're using <a href="http://www.jetbrains.com/resharper/">ReSharper</a>, then you'll also want to add the <code>JetBrains.Annotations</code> NuGet package, and mark the <code>OnDeserializing</code> method as <code>[UsedImplicitly]</code> so ReSharper doesn't warn you about the unused parameter.</p>
+
+<p>Et voilÃ  -- you now have an UpdateControls-based model that you can serialize and deserialize successfully with DataContractSerializer! Here's what it looks like:</p>
+
+<pre><code>[DataContract]
+public class FooModel {
+    private Independent&lt;bool&gt; _active;
+    private void InitFields() {
+        _active = new Independent&lt;bool&gt;();
+    }
+    public FooModel() {
+        InitFields();
+    }
+    [OnDeserializing, UsedImplicitly]
+    private void OnDeserializing(StreamingContext context) {
+        InitFields();
+    }
+    [DataMember]
+    public bool Active { ... }
+</code></pre>
+
+<p>This works, but it feels a bit clumsy, what with the extra two methods, and the assignments being separated from the field declarations. Just for fun, I decided to see if I could go one better.</p>
+
+<h3>Automating the process</h3>
+
+<p>Why not make a base class that uses Reflection to find all of our <code>Independent&lt;T&gt;</code> fields, and instantiate them automatically as needed?</p>
+
+<p>My first thought was to plug this logic into both the constructor and <code>OnDeserializing</code>. Here's what a model would look like in that case:</p>
+
+<pre><code>// Note: this example isn't compatible with the final version of SerializableModel
+[DataContract]
+public class FooModel : SerializableModel {
+    [UsedImplicitly] private readonly Independent&lt;bool&gt; _active;
+    [DataMember]
+    public bool Active { ... }
+</code></pre>
+
+<p>If the base constructor instantiates the <code>Independent&lt;T&gt;</code>s for us, then <code>_active</code> doesn't need an initializer anymore. But then ReSharper's static analysis warns us that the field is never assigned, and we need to suppress the warning by adding an attribute to tell it that the field is used implicitly (i.e., via Reflection).</p>
+
+<p>I thought I was being clever by removing all the "duplicate code" of <code>Independent&lt;T&gt;</code> instantiation, but ReSharper's warning was my first hint that no, this really wasn't technical elegance -- it was a code smell. And after playing around with it for a couple of days, I had to agree.</p>
+
+<p>It comes down to cognitive load. Our brains are only so big. When the code does what it says, you don't have to waste as much of your brain capacity on technical minutiae; you have more brainpower available to actually solve the problems at hand. It's not worth "removing duplication" if it means the code no longer <em>does what it says.</em> Any time you have to stop and think about where that field is being instantiated, it derails your train of thought.</p>
+
+<p>As an added bonus, doing things this way also means that you can make an existing UpdateControls-based model into a serializable model just by changing its base class, and nothing else:</p>
+
+<pre><code>[DataContract]
+public class FooModel : SerializableModel {
+    private readonly Independent&lt;bool&gt; _active = new Independent&lt;bool&gt;();
+    [DataMember]
+    public bool Active { ... }
+</code></pre>
+
+<p>I like the way this code reads. All the UpdateControls-based stuff looks exactly like you'd expect. The only unusual thing is that you're descending from <code>SerializableModel</code>, and that's almost as declarative as the <code>[DataContract]</code> attribute.</p>
+
+<p>One big caution: if you pass a default value to the <code>Independent&lt;T&gt;</code> constructor, that default <em>won't</em> be used for deserialization. This isn't a problem in the usual case, where you're about to load that property's value from storage. But if you're reading an older stream that doesn't contain that property, you might have to figure something out.</p>
+
+<p>Without further ado, here's the <code>SerializableModel</code> class. This was written for WinRT, but should also work in .NET 4.5. (If you're using an older version of .NET, the Reflection APIs are totally different.)</p>
+
+<pre><code>[DataContract]
+public class SerializableModel
+{
+    private IEnumerable&lt;TypeInfo&gt; Ancestry
+    {
+        get
+        {
+            for (var type = GetType(); type != null; type = type.GetTypeInfo().BaseType)
+                yield return type.GetTypeInfo();
+        }
+    }
+
+    private void CreateIndependentFields()
+    {
+        var independentFields =
+            from type in Ancestry
+            from field in type.DeclaredFields
+            let fieldType = field.FieldType.GetTypeInfo()
+            where fieldType.IsGenericType &amp;&amp;
+                  fieldType.GetGenericTypeDefinition() == typeof(Independent&lt;&gt;)
+            select field;
+
+        foreach (var field in independentFields)
+        {
+            var instance = Activator.CreateInstance(field.FieldType);
+            field.SetValue(this, instance);
+        }
+    }
+    [OnDeserializing, UsedImplicitly]
+    private void OnDeserializing(StreamingContext context)
+    {
+        CreateIndependentFields();
+    }
+}
+</code></pre>
+
+<p>I consider this code to be more of a useful technique than actual copyrighted intellectual property, so feel free to use the above code in any context you wish (no credit necessary). But I'd appreciate hearing about it if you find this useful.</p>

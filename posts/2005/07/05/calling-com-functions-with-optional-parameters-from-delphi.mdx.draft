@@ -1,0 +1,6 @@
+---
+title: "Calling COM functions with optional parameters from Delphi  #Delphi"
+sort: 2188
+---
+<p><a href="http://blogs.teamb.com/craigstuntz/">Craig Stuntz</a> posted about how to <a href="http://blogs.teamb.com/CraigStuntz/archive/2005/07/01/UsingCOMOptionalParamsFromDelphi.aspx">use Delphi to call a COM method with optional parameters</a>.</p>
+<p>(I vaguely knew there was a way to do this, but it's been a while, and I didn't remember the exact name EmptyParam. So it's good to have this info around as a reference.)</p>

@@ -1,0 +1,13 @@
+---
+title: "Hydra update: importing interfaces  #.NET  #Delphi"
+sort: 2291
+---
+<p>It sounds like Hydra documentation will be forthcoming in a month or so (they shipped Hydra 3 last month, and they said they didn't think the docs were worth delaying two months for, so the math works out to about a month left). In the meantime, importing interfaces using Hydra turns out to be easy.</p>
+
+<p>In Delphi, there's a "Hydra" menu in the menu bar (who'da thunk it?), and one of the menu items lets you browse to a .NET assembly and select which interfaces you want to import, at which point it creates a Win32 unit for you. If you do it again, it replaces the unit it generated the first time, which is good.</p>
+
+<p>The IDE menu item is kind of nice to have, although I'd also want a command-line tool that I can tie into a rakefile or something, so I know the two sides don't ever get out of sync. I've posted to their newsgroups asking if they have such a thing. If they don't, I'll probably bug them to write one. (grin)</p>
+
+<p>Your .NET interface must descend from IHYCrossPlatformInterface, and must have a Guid attribute; otherwise the tool won't import it. String return types seem to translate quite nicely, and I assume they work; they look about right. There are rumors that you can marshal complicated types like records if you write the MarshalAs stuff yourself; I'm not sure how that works.</p>
+
+<p>There's also a similar menu item in Visual Studio, which will read Delphi code and generate a corresponding .NET interface. I haven't tried it yet, but it's in the Tools > Hydra submenu.</p>

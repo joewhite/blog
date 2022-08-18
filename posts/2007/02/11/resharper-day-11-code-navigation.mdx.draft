@@ -1,0 +1,71 @@
+---
+title: "ReSharper, day 11: Code navigation  #.NET  #resharper"
+sort: 2307
+---
+<p>Welcome to day 11 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>Today's topic is navigation through the code. I'll cover three ReSharper features: the Navigate From Here context menu; the gutter icons; and Go To Declaration.</p>
+
+<h4>Navigate From Here context menu</h4>
+
+<p>One of the cool things about ReSharper is that they have more than one context menu. They have a couple of keystrokes that bring up targeted context menus, so instead of "everything you might possibly want to do here", you can see "everything you might want to do related to code navigation" or "everything you might want to do related to refactoring". (The kitchen-sink context menu is, of course, still available.)</p>
+
+<p>These targeted context menus are a great compromise between brain capacity and coding speed. It's easy to get started, because you only need to learn one keystroke for a whole group of features. But since each item in the context menu is just another command, and many of them have their own shortcut keys (which <i>are</i> shown on the targeted context menus, unlike the main context menu), you can gradually learn the specific shortcut keys for the features you use all the time, and can access those features even faster.</p>
+
+<p>Here's an example of the "Navigate from Here" context menu, which you can access with <b>Ctrl+Shift+G</b>:</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/NavigateFromHere.png" width="219" height="157" alt="ReSharper's Navigate From Here targeted context menu" border="1"></blockquote>
+
+<p>Being a context menu, it only shows you the commands that make sense based on the current cursor position. So if you're on a class name, it will show you different options than it would if you were on a method name or a namespace name.</p>
+
+<p>I haven't used all of these options, but my current favorite is <b>Inheritor</b>. When you're in code that's calling a method on an interface, this will show you a list of all the classes that implement that interface method:</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/NavigateToImplementers.png" width="264" height="119" alt="ReSharper's Navigate From Here - Inheritor, when applied to an interface method, shows all the methods that implement that interface method" border="1"></blockquote>
+
+<p>It's even cool enough that if those interface implementations are virtual, it'll include the descendant classes that override that method. First-level overrides (classes that implement the interface) are shown in bold. Second- and later-level overrides (descendants that further override the method) are non-bold.</p>
+
+<h4>Gutter icons</h4>
+
+<p>I don't use this one very often, because it only goes upstream, which is easy enough anyway; and you can do the same stuff with Navigate From Here. But it's worth noting.</p>
+
+<p>ReSharper shows gutter icons next to method declarations that have something to do with the base class (or an implemented interface). So if method Foo overrides a method in the base class, there'll be one sort of icon. If it shadows, there'll be a different icon. If it implements an interface, there's an icon for that too.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/GutterIcons.png" width="264" height="44" alt="ReSharper's gutter icons, showing an interface implementation, an override, and a shadowed method" border="1"><br>
+ReSharper's gutter icons. Shown are an interface implementation, an override, and a shadowed method.</blockquote>
+
+
+
+<p>(Come to think of it, I should start looking at these icons. The green "I" is a good visual indicator of which methods on a class come from an interface &mdash; not something you can otherwise tell just by looking.)</p>
+
+<p>You can also click these gutter icons to jump to the relevant ancestor method. Sounds nice, but I hardly ever use it; I usually end up at the base class without trying! (<a href="http://www.refactoring.com/catalog/formTemplateMethod.html">Template methods</a> are nice for removing duplication, but they can be a hassle for navigation.)</p>
+
+<h4>Go To Declaration</h4>
+
+<p>This is one of the <a href="http://blog.excastle.com/2007/02/02/resharper-day-3-resharper-survival-guide-or-whats-up-with-my-keybindings/">keystrokes that changed when you installed ReSharper</a>. What used to be F12 is now <b>Ctrl+B</b>; you can also <b>Ctrl+Click</b> on an identifier.</p>
+
+<p>Apart from the keystroke, this works exactly like the Visual Studio version (jump to the interesting bit of code), with one difference. The difference comes up when you're on an identifier that you don't have source code for, such as something from a Microsoft assembly. VS and R# both show you a representation of the defining code, but...</p>
+
+<p><a name="rant">&lt;rant&gt;</a></p>
+
+<p>ReSharper shows you the old Class Browser, which is klunky and a real pain to use:</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/ClassBrowser.png" width="480" height="164" alt="ReSharper shows you the Class Browser" border="1"></blockquote>
+
+<p>It actually does this for all its code-navigation features, not just Ctrl+click. For example, clicking a gutter icon can also land you in the Class Browser.</p>
+
+<p>Visual Studio 2005, on the other hand, has a nifty new feature to show the class's metadata as code (the "[from metadata]" feature), which replaces the Object Browser in all cases <i>except</i> those relating to ReSharper:</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/FromMetadata.png" width="513" height="237" alt="Visual Studio shows you the metadata as code, in a '[from metadata]' window" border="1"></blockquote>
+
+<p>I think Visual Studio's code view is far superior, for two reasons:</p>
+
+<ol>
+<li><p>The Class Browser sucks for navigation. For example, suppose I'm looking at Graphics.DrawImage (see the Class Browser screenshot, above) and I see that it takes a parameter of type Image. What if I want to jump to the Image class to see what methods it has? In the code view, it would be just a Ctrl+click away. But since ReSharper sticks us with the Class Browser, where the important information is split across three different panes, you have to know to first click on the right overload in the top-right pane, and then find the parameter type in the XML doc comments in the lower-right corner and click the hyperlink there. (For a long time, I didn't even realize there <i>was</i> a way to jump to the parameter type using the Class Browser; I just figured it out while I was writing this.)</p></li>
+<li><p>The code view looks like code. It's familiar; I'm used to it; I know exactly how to get around in it. Code is what I work with every day. Why on earth would a productivity tool like ReSharper choose to make me <i>less productive</i> by forcing me to learn another GUI for the exact same thing, when there's already a better alternative?</p></li>
+</ol>
+
+<p>I wish ReSharper used the new code view, and I've sent in a feature request to that effect. Their response was that, since you can still access VS's "Go to Definition" from the context menu, they're going to leave it the way it is. I find this disappointing, especially since it's not just "Go to Declaration" that's stuck with the klunky Object Browser &mdash; it's <i>everything</i> in ReSharper related to code navigation.</p>
+
+<p>(If you use ReSharper and this has been frustrating you too, <a href="http://www.jetbrains.com/forms/support/resharper/suggestion">let them know</a>.)</p>
+
+<p>&lt;/rant&gt;</p>

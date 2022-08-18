@@ -1,0 +1,281 @@
+---
+title: "TechEd 2008 notes: How not to write a unit test  #.NET  #Delphi  #teched2008"
+sort: 2554
+---
+How <em>not</em> to write a unit test
+Roy Osherove
+Typemock
+Blog: <a href="http://iserializable.com/">ISerializable.com</a>
+
+All the things no one ever told you about unit testing.
+
+Will have two parts: presentation-like (what really works), and interactive (questions, prioritized).
+
+
+
+Early questions:
+<ul>
+  <li>Data access</li>
+  <li>Legacy code (what not to do)</li>
+  <li>Duplication between unit tests and functional tests</li>
+  <li>Testing non-.NET code, e.g. ASP.NET</li>
+  <li>Testing other languages, e.g. F#, IronRuby)</li>
+  <li>Unit tests and refactoring</li>
+  <li>Testing UI</li>
+  <li>How do you mock the world?</li>
+  <li>How important are tools? Mocking tools, refactoring, etc. Can you write unit tests with just what VS provides?</li>
+  <li>Did you bring your guitar? -- No. Wanted as much time for information as possible.</li>
+  <li>Where did you get your T-shirt? -- Was being given away at another conference.</li>
+</ul>
+
+<ul>
+  <li><a href="http://the.artofunittesting.com/">the.artofunittesting.com</a></li>
+  <li><a href="http://www.typemock.com/">www.typemock.com</a> -- Typemock Isolator</li>
+</ul>
+
+A unit test is a test of a small functional piece of code
+<ul>
+  <li>If a method returns a boolean, you probably want at least two tests</li>
+</ul>
+
+Unit testing makes your developer lives easier
+<ul>
+  <li>Easier to find bugs.</li>
+  <ul>
+    <li>That's the common line. But not necessarily -- e.g. if your test has bugs, or if you're testing the wrong things</li>
+    <li>If you can't trust your tests to find bugs (and especially if you don't <em>know</em> you can't trust them), then the opposite may be true -- you may be confident you don't have bugs when you do.</li>
+    <li>If you <em>don't</em> trust them, then you won't run them, they'll get stale, and your investment in writing them was wasted.</li>
+  </ul>
+  <li>Easier to maintain.</li>
+  <ul>
+    <li>But 1,000 tests = 1,000 tests to maintain</li>
+    <li>Change a constructor on a class with 50 tests -- if you didn't remove enough duplication in the tests, it will take longer than you think to maintain the tests</li>
+    <li>We will look at ways to make tests more maintainable</li>
+  </ul>
+  <li>Easier to understand</li>
+  <ul>
+    <li>Unit tests are (micro-level) use cases for a class. If they're understandable and readable, you can use them as behavior documentation.</li>
+    <li>Most devs give really bad names to tests. That's not on purpose.</li>
+    <li>Tests need to be understandable for this to be true.</li>
+  </ul>
+  <li>Easier to develop</li>
+  <ul>
+    <li>When even one of the above is not true, this one isn't true.</li>
+  </ul>
+</ul>
+
+Make tests trustworthy
+<ul>
+  <li>Or people won't run them</li>
+  <li>Or people will still debug for confidence</li>
+</ul>
+
+Test the right thing
+<ul>
+  <li>Some people who are starting with test-driven development will write something like:</li>
+</ul>
+<pre>[Test]
+public void Sum()
+{
+    int result = calculator.Sum(1, 2);
+    Assert.AreEqual(4, result, "bad sum");
+}</pre>
+<ul>
+  <li>Maybe not the best way to start with a failing test</li>
+  <li>People don't understand <em>why</em> you want to make the test fail</li>
+  <li>Test needs to test that something in the real world is true: should reflect the required reality</li>
+  <li>Good test fails when it should, passes when it should. Should pass without changing it later. The only way to make the test pass should be changing production code.</li>
+  <li>If you do TDD, do test reviews.</li>
+  <ul>
+    <li>Test review won't show you the fail-first. But you can ask, "So can you show me the test failing?"</li>
+  </ul>
+</ul>
+
+Removing/Changing Tests
+<ul>
+  <li>Don't remove the test as soon as it starts passing</li>
+  <ul>
+    <li>If it's a requirement today, chances are it'll still be a requirement tomorrow</li>
+    <li>Duplicate tests are OK to remove</li>
+    <li>Can refactor a test: better name, more maintainability</li>
+  </ul>
+  <li>When can a test fail?</li>
+  <ul>
+    <li>Production bug -- right reason (don't touch test)</li>
+    <li>Test bug (fix test, do something to production code to make the corrected test fail, watch it fail, fix production code and watch it pass)</li>
+    <ul>
+      <li>Happens a lot with tests other people wrote (or with tests you don't remember writing)</li>
+    </ul>
+    <li>Semantics of using the class have changed (fix/refactor)</li>
+    <ul>
+      <li>E.g., adding an Initialize method that you have to call before you use the class</li>
+      <li>Why did they make that change without refactoring the tests?</li>
+      <ul>
+        <li>Make a shared method on the test class that instantiates and Initializes</li>
+      </ul>
+    </ul>
+    <li>Feature conflict</li>
+    <ul>
+      <li>You wrote a new test that's now passing, but the change made an old test fail</li>
+      <li>Go to the customer and say, "Which of these requirements do you want to keep?"</li>
+      <li>Remove whichever one is now obsolete</li>
+    </ul>
+  </ul>
+</ul>
+
+Assuring code coverage
+<ul>
+  <li>Maybe unorthodox, but Roy doesn't like to use code-coverage tools</li>
+  <ul>
+    <li>100% code coverage doesn't mean anything. Finds the exceptions, but doesn't prove the logic.</li>
+  </ul>
+  <li>Better: change production code and see what happens</li>
+  <li>Make params into consts</li>
+  <li>Remove "if" checks -- or make into consts (<code>if (true)</code>). Will a test fail? If not, you don't have good coverage.</li>
+  <li>Do just enough of these kinds of tweaks to make sure the test is okay.</li>
+  <li>Test reviews are still valuable if you do pair programming, just maybe less often. Good to bring in someone else who didn't write the code, with an objective eye.</li>
+  <li>Quick test review of yesterday's code at end of stand-up meeting?</li>
+</ul>
+
+Avoid test logic
+<ul>
+  <li>No ifs, switches or cases</li>
+  <ul>
+    <li>Yes, there are always exceptions, but it should be very rare</li>
+    <li>Probably only in testing infrastructure</li>
+    <li>Most of the time, there are better ways to test it</li>
+    <li>Sometimes people write conditionals when they should be writing two tests</li>
+    <li>Don't repeat the algorithm you're testing in the test. That's overspecifying the test.</li>
+  </ul>
+  <li>Only create, configure, act and assert</li>
+  <li>No random numbers, no threads</li>
+  <li>Test logic == test bugs</li>
+  <li>Fail first also assures your test is correct</li>
+</ul>
+
+Make it easy to run
+<ul>
+  <li>Integration vs. Unit tests</li>
+  <li>Configuration vs. ClickOnce</li>
+  <li>Laziness is key</li>
+  <li>Should be able to check out, run all the unit tests with one click, and have them pass.</li>
+  <li>Might need to do configuration for the integration tests, so separate them out.</li>
+  <li>Never check in with failing tests. If you do, you're telling people it's okay to have a failing test.</li>
+  <li>Don't write a lot of tests to begin with, and have them all failing until you finish everything. If you do that, you can't check in (see previous point). Write one test at a time, make it pass, check in, repeat.</li>
+</ul>
+
+Creating maintainable tests
+<ul>
+  <li>Avoid testing private/protected members.</li>
+  <ul>
+    <li>This makes your test less brittle. You're more committed to public APIs than private APIs.</li>
+    <li>Testing only publics makes you think about the design and usability of a feature.</li>
+    <li>Publics are probably feature interactions, rather than helpers.</li>
+    <li>Testing privates is overspecification. You're tying yourself to a specific implementation, so it's brittle, and makes it hard to change the algorithm later.</li>
+    <li>Sometimes there's no choice; be pragmatic.</li>
+  </ul>
+  <li><em>Re-use test code (Create, Manipulate, Assert)</em> -- most powerful thing you can do to make tests more maintainable</li>
+  <li>Enforce test isolation</li>
+  <li>Avoid multiple asserts</li>
+</ul>
+
+Re-use test code
+<ul>
+  <li>Most common types:</li>
+  <ul>
+    <li>make_XX</li>
+    <ul>
+      <li>MakeDefaultAnalyzer()</li>
+      <li>May have others: one already initialized, with specific parameters, etc.</li>
+    </ul>
+    <li>init_XX</li>
+    <ul>
+      <li>Once you've already created it, initialize it into a specific state</li>
+    </ul>
+    <li>verify_XX</li>
+    <ul>
+      <li>May invoke a method, then do an assert on the result. Pulling out common code.</li>
+    </ul>
+  </ul>
+  <li>Suggestion: by default, the word <code>new</code> should not appear in your test methods.</li>
+  <ul>
+    <li>As soon as you have two or more tests that create the same object, you should refactor the <code>new</code> out into a <code>make</code> method.</li>
+  </ul>
+</ul>
+
+Suggestion: don't call the method directly from <code>Assert.AreEqual(...)</code>. Introduce a temp variable instead. (This relates back to <a href="http://blog.excastle.com/2008/06/09/teched-2008-notes-lessons-learned-in-programmer-unit-testing/">the 3A test pattern</a>.)
+
+Aside: Test structure
+<ul>
+  <li>One possibility: Each project, e.g. Demo.Logan, has tests Demo.Logan.Tests. Benefit: they're next to each other in Solution Manager.</li>
+  <li>Test files: one file per tested class?</li>
+  <ul>
+    <li>That's a good way to do it. Aim for a convention like MyClassTests so it's easy to find.</li>
+    <li>If you have multiple test classes for one test, make multiple classes.</li>
+    <li>Consider nested classes: making a MyClassTests, and putting nested classes, one per feature. Make the nested classes be the <code>TestFixture</code>s.</li>
+    <ul>
+      <li>Be careful of readability, though.</li>
+      <li>Roy said his preference would be to keep one test class per source file, rather than using nested classes to put them all in one file.</li>
+      <li>Decide for yourself whether you'd prefer one class per file, or all tests for one class in one place.</li>
+    </ul>
+  </ul>
+</ul>
+
+Enforce test isolation
+<ul>
+  <li>No dependency between tests!</li>
+  <li>If you run into an unintended dependency between tests, prepare for a long day or two to track it down</li>
+  <li>Don't run a test from another test!</li>
+  <li>You should be able to run one test alone...</li>
+  <li>...or all of your tests together...</li>
+  <li>...in any order.</li>
+  <li>Otherwise, leads to nasty "what was that?" bugs</li>
+  <li>Almost like finding a multithreading problem</li>
+  <li>The technical solution (once you find the problem) is easy. That's why God created <code>SetUp</code> and <code>TearDown</code>. Roll back any state that your test changed.</li>
+</ul>
+
+Avoid multiple asserts
+<ul>
+  <li>Like having multiple tests</li>
+  <li>But the first assert that fails -- kills the others. If one test fails, the others still run. Asserts aren't built that way.</li>
+  <li>Exception: testing one big logical thing. Might have three or four asserts on the same object. That's possible, and doesn't necessarily hurt.</li>
+  <li>Consider replacing multiple asserts with comparing two objects (and also overriding ToString so you can see how they're different when the test fails).</li>
+  <ul>
+    <li>My experience: this doesn't work well when the objects get really big and complicated. Could work well for small objects, though.</li>
+  </ul>
+  <li>Hard to name</li>
+  <li>You won't get the big picture (just some symptoms)</li>
+</ul>
+
+Don't over-specify
+<ul>
+  <li>Interaction testing is risky</li>
+  <li>Stubs -&gt; rule. Mocks -&gt; exception.</li>
+  <li>Mocks can make you over-specify.</li>
+  <li>"Should I be able to use a stub instead of a mock?"</li>
+  <ul>
+    <li>A stub is something you never assert against.</li>
+  </ul>
+  <li>There's only one time when you <em>have</em> to use mocks: when A calls a void method on B, and you have no way to later observe what B was asked to do. Then you have to mock B and verify that it was called with the right parameter.</li>
+  <ul>
+    <li>If the other class does return a value, then you can test what your class did with that result. You're testing <em>your</em> class, after all, not that other object -- that's why you're faking it.</li>
+  </ul>
+</ul>
+
+Readability
+<ul>
+  <li>If you do another test that tests basically the same thing, but with different parameters, he suggests appending "<code>2</code>" to the end of the test name. But that's assuming you already have a <em>really</em> good naming convention for the base test name! (Remember the <a href="http://blog.excastle.com/2008/06/10/teched-2008-notes-advanced-unit-testing-topics/"> serial killer</a>.)</li>
+  <li>Bad: <code>Assert.AreEqual(1003, calc.Parse("-1"));</code></li>
+  <li>Better:</li>
+</ul>
+<pre>int parseResult = Calc.Parse(NEGATIVE_ILLEGAL_NUMBER);
+Assert.AreEqual(NEGATIVE_PARSE_RETURN_CODE, parseResult);</pre>
+<ul>
+  <li>If you can send any kind of number, and the specific value you pass doesn't matter, either use a constant, or use the simplest input that could possibly work (e.g. <code>1</code>).</li>
+</ul>
+
+Separate Assert from Action
+<ul>
+  <li>Previous example</li>
+  <li>Assert call is less cluttered</li>
+</ul>

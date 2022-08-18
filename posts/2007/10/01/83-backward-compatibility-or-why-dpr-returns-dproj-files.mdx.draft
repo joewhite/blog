@@ -1,0 +1,21 @@
+---
+title: "8.3 backward compatibility, or, why *.dpr returns .dproj files  #.NET  #Delphi  #dgrok"
+sort: 2474
+---
+<p>CodeGear, it turns out, <a href="http://www.imdb.com/title/tt0097576/quotes">chose poorly</a> when they picked .dproj as the extension to replace .bdsproj.</p>
+
+<p>If you have Delphi 2007 and have tried to run DGrok 0.5, you've already seen what might look like a bug in DGrok: when the file masks include *.dpr, DGrok looks at all of your .dproj files as well. Obviously this is wrong, right? I mean, you searched for *.dpr, not *.dpr*. And since .dproj files are XML (which doesn't so much fit with the Delphi grammar), every .dproj file is listed as a parse failure.</p>
+
+<p>The thing is, it's not really a DGrok bug (although it <i>is</i> broken, whoever's fault it may be, and I <i>will</i> have a fix in 0.6). It's a combination of a Windows backwards-compatibility feature, and someone at CodeGear not <i>knowing</i> about that Windows backwards-compatibility feature (and making a bad choice as a result).</p>
+
+<p>First, a bit of background. Apparently there exist applications &mdash; perhaps vital line-of-business apps that run Fortune 500 companies &mdash; that still, 12 years after Windows 95 was released, can't deal with anything but 8.3 filenames. That isn't too surprising, really; if the app still works, who's going to mess with it? But (here's the kicker) some of these 8.3-only apps <i>use the full Win32 API</i> to search for files. I haven't quite puzzled out how that combination comes to be &mdash; it's not like there was a time when there were Win32 APIs but not long filenames &mdash; but after a few years of reading <a href="http://blogs.msdn.com/oldnewthing/">Raymond Chen</a>'s blog, I'm forced to believe that such apps really do exist somewhere (and I suspect I really don't want to know how many there are).</p>
+
+<p>Every file has a long filename and and a short (8.3) filename. (I think you can turn off 8.3 filename generation, but nobody does, because 8.3 filenames are handy for apps that can't deal with spaces in path names.) So if you create a file called, say, MyProj.dproj, it will also be given an 8.3 name like, say, MyProj.dpr.</p>
+
+<p>And because of the possibility of 32-bit 8.3 apps, whenever you supply a search mask, the 32-bit file-search APIs (FindFirstFile, etc.) will match that mask against both the long filename <i>and</i> the short filename. Which means, if you search for *.dpr, Windows will happily give you both .dpr files (whose long and short names both match *.dpr) and .dproj files (whose short names match *.dpr, even though their long names do not). And it doesn't even have the decency to return the short filename when that's what it matched &mdash; no, it returns the full long filename, the one that specifically <i>didn't</i> match the mask you gave it.</p>
+
+<p>Yes, it's all very weird, and the Windows behavior isn't exactly friendly. Then again, it's been that way for, let's see, 12 years. This behavior is a known, a constant. And it's up to us, as software developers, to deal with it. It's just another <a href="http://blogs.msdn.com/oldnewthing/archive/2005/08/22/454487.aspx">developer tax</a> we have to pay, like it or not.</p>
+
+<p>Which means that, CodeGear, you blew it with that .dproj extension. By choosing something that's 8.3-ambiguous with .dpr, you made life hard for every third-party vendor who wants to do anything with Delphi source files. Here's the rule (for future reference): <b>When you invent a new extension, its first 3 characters should never be the same as an exactly-3-character extension you already own.</b></p>
+
+<p>I just coded a workaround for 8.3 compatibility, which will be in the next release of DGrok. Specifically, I added a loop that looks at each filename and grabs its extension. If the extension is ".dproj" (case insensitive), I skip over that file. (This means that if you're silly enough to type in a mask of "*.dproj", the new version won't find any files at all.) Clumsy? Yeah. But .dproj files are the only ones (currently) likely to come up as false positives, and they'll never contain valid Delphi code (unless, of course, you specifically rename them to taunt me). And an awkward fix is better than a broken app.</p>

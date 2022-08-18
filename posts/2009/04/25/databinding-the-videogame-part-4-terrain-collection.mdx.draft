@@ -1,0 +1,92 @@
+---
+title: "Databinding the videogame, part 4: terrain collection  #.NET  #databinding  #databinding the videogame  #game-programming  #wpf"
+sort: 2751
+---
+Last time, I <a href="http://blog.excastle.com/2009/04/24/databinding-the-videogame-part-3-actual-databinding/">implemented real databinding</a>, but it was only to one Terrain object at a time. Today I'll extend it so you can add multiple terrain objects.
+
+Before, I was binding to my UserControl's Content property. UserControl descends from ContentControl, and ContentControls know how to do rendering magic if you put a single object in their Content. So far so good.
+
+I had to <a href="http://blog.excastle.com/2009/04/22/databinding-the-videogame-part-2-mapping-terrain-types-to-gui/">teach WPF how to render my (non-GUI) terrain objects</a>, and I could probably teach it how to render a collection too. Then I could either databind to a single terrain object, or to a collection of them, and either way, it would just work. But that feels like unnecessary complexity (especially since WPF syntax doesn't lend itself to specifying a generic type, like ObservableCollection&lt;Terrain&gt;, for a DataTemplate's DataType -- it's doable but not easy). And after all, I'm trying to make a map viewer, and a map will always be a collection; so why should I bother to make it do single objects too?
+
+So I cut over to always binding a collection. This meant adding an ItemsControl to my MapView, and databinding ItemsControl.ItemsSource instead of MapView.Content.
+
+
+
+Then I just had to change the GUI to set DataContext to a collection, and make the buttons add to the collection, and I was done.
+
+I made sure the collection was an ObservableCollection&lt;T&gt;, which automatically sends change notifications that WPF databinding knows how to listen for -- so all my buttons need to do is add non-GUI objects to my non-GUI-aware collection, and the GUI magically shows more GUI.
+
+I also finally got around to making a common base class, Terrain, and making both Dirt and SteelPlate descend from it. That way I could have an ObservableCollection&lt;Terrain&gt;.
+
+<h3>The diffs</h3>
+
+I won't bother showing the diffs for adding the Terrain base class, but here are the interesting changes for databinding a collection.
+
+<a href="http://svn.excastle.com/databinding_the_videogame/tags/part4/Game.Core/GameViews/MapView.xaml">MapView.xaml</a>:
+<pre lang="diff">@@ -3,8 +3,7 @@
+     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+     xmlns:TerrainDataModels="clr-namespace:Game.Core.TerrainDataModels"
+     xmlns:TerrainViews="clr-namespace:Game.Core.TerrainViews"
+-    MinWidth="40" MinHeight="40" Background="Gray"
+-    Content="{Binding}">
++    MinWidth="40" MinHeight="40" Background="Gray">
+     <UserControl.Resources>
+         <DataTemplate DataType="{x:Type TerrainDataModels:Dirt}">
+             <TerrainViews:DirtView/>
+@@ -13,4 +12,5 @@
+             <TerrainViews:SteelPlateView/>
+         </DataTemplate>
+     </UserControl.Resources>
++    <ItemsControl ItemsSource="{Binding}"/>
+ </UserControl></pre>
+
+<a href="http://svn.excastle.com/databinding_the_videogame/tags/part4/Game/Window1.xaml.cs">Window1.xaml.cs</a>:
+<pre lang="diff">@@ -1,4 +1,5 @@
++using System.Collections.ObjectModel;
+ using System.Windows;
+ using Game.Core.TerrainDataModels;
+
+ namespace DatabindingTheVideogame
+@@ -8,18 +9,21 @@
+     /// </summary>
+     public partial class Window1
+     {
++        private readonly ObservableCollection<Terrain> m_map =
++            new ObservableCollection<Terrain>();
++
+         public Window1()
+         {
+             InitializeComponent();
++            mapView.DataContext = m_map;
+         }
+
+         private void Dirt_Click(object sender, RoutedEventArgs e)
+         {
+-            mapView.DataContext = new Dirt();
++            m_map.Add(new Dirt());
+         }
+         private void SteelPlate_Click(object sender, RoutedEventArgs e)
+         {
+-            mapView.DataContext = new SteelPlate();
++            m_map.Add(new SteelPlate());
+         }
+     }
+ }</pre>
+
+Yes, the collection should really live on a model object instead of in the GUI. I'll clean this up later, but I wanted today's diffs to be focused on just databinding a collection.
+
+<a href="http://blog.excastle.com/wp-content/uploads/2009/04/databindingthevideogamepart4.png"><img src="http://blog.excastle.com/wp-content/uploads/2009/04/databindingthevideogamepart4-150x150.png" alt="databindingthevideogamepart4" title="databindingthevideogamepart4" width="150" height="150" class="alignright size-thumbnail wp-image-2752" style="float:right" /></a>
+
+<h3>Today's test project</h3>
+
+Now, instead of the "Dirt" and "Steel Plate" buttons changing the one existing terrain, they add a new terrain to the collection.
+
+As you can see from the screenshot, this isn't a proper map yet; the terrains aren't in a grid, they're in a vertical column -- adding a terrain puts it at the bottom of the column. And if you get to the bottom, too bad; there's no scrollbar. (I won't bother adding a scrollbar, either. Once I get a proper 2D map going, my game won't need or want a scrollbar.)
+
+You can <a href="http://svn.excastle.com/databinding_the_videogame/tags/part4/">browse today's code online</a>, or check it out from my <a href="http://subversion.tigris.org/">Subversion</a> repository:
+
+<pre>svn co http://svn.excastle.com/databinding_the_videogame/tags/part4</pre>
+
+<h3>What's next?</h3>
+
+So far, my "map" is one-dimensional -- just a vertical column. I think the next step will be to go 2D. Stay tuned.

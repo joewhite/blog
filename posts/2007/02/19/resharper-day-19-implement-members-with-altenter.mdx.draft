@@ -1,0 +1,37 @@
+---
+title: "ReSharper, day 19: Implement Members with Alt+Enter  #.NET  #resharper"
+sort: 2400
+---
+<p>Welcome to day 19 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>Visual Studio 2003 and 2005 both had features for helping you implement interfaces. VS2003's features were a lot more finicky. VS2005 was much better. ReSharper is better yet. Let's take a look.</p>
+
+<p>When you create a new class, and add <code>: IFoo</code> to its declaration, you'll get a red squiggly, because you now have code that won't compile (because there are no methods on your class to satisfy that interface). When you put the cursor on the squiggly code, you'll get a red light bulb, and when you press Alt+Enter, you'll see the <b>Implement members</b> quick-fix.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/ImplementMembersQuickFix.png" width="244" height="54" alt="ReSharper's quick fix for Implement Members" border="1"></blockquote>
+
+<p>The same thing happens if you have a non-abstract class, but its parent class has abstract methods. But in this case, there's a second quick-fix: <b>Make <i>ClassName</i> abstract</b>, which I'll ignore since it's pretty self-explanatory.</p>
+
+<p>Note that if your descendant class is already marked <code>abstract</code>, you won't get a red squiggly for your unimplemented abstract methods, since they aren't errors. That means you don't get a quick-fix. ReSharper still has a way to automate these overrides, though, which I'm currently scheduled to cover on Thursday (Day 22).</p>
+
+<h4>The Implement/Override Members wizard</h4>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/ImplementMembersWizard01.png" width="452" height="365" alt="The first page of ReSharper's Implement/Override Members wizard, which lets you select which of the missing members to override" border="0"></blockquote>
+
+<p>The first page of the wizard lets you select which members you want to implement. Everything is selected by default. It would be silly to uncheck anything in the list, because then you'd be left with still-unimplemented interface members or abstract members, so your code still wouldn't compile.</p>
+
+<p>Note the toolbar buttons in the top right, above the list. These toggle the list between a tree, where everything is grouped by interface, and a flat list, which is sorted alphabetically. <i>This only affects the way they're displayed in the wizard.</i> ReSharper will still generate the members in any old order it feels like.</p>
+
+<p>There are three options down below: <b>Copy documentation comments</b>, <b>Explicit interface implementations</b>, and <b>Wrap interface implementations in regions</b>. They're fairly self-explanatory, and I have yet to use any of them, so I won't cover them further. On to the second page.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/ImplementMembersWizard02.png" width="452" height="365" alt="The second page of ReSharper's Implement/Override Members wizard, which lets you select which properties you want to generate backing fields for" border="0"></blockquote>
+
+<p>The second page is where ReSharper's version becomes much cooler than Visual Studio's, because you can automatically create backing fields for any or all of your properties. It will add the fields (following the naming conventions you've set up in ReSharper Options), and will read and write them from the property getters and setters. Methods, as well as any properties you don't check in this list, will get placeholder code that throws a NotImplementedException.</p>
+
+<p>If you want to check all of the fields in the list, press Ctrl+A and then Space.</p>
+
+<p>Then you click Finish, and it generates the code for you.</p>
+
+<p>Note: the "Sort alphabetically" checkbox on page 2 is the same setting as those toolbar buttons on page 1: if you check "Sort alphabetically", you get a flat sorted list, whereas if it's unchecked, you'll get the tree. It's actually just one option for both pages (changing it one place will change it in the other), although they present it differently on the two pages for some unknown reason.</p>
+
+<p>So, there's Implement Members. Simple but useful. The only option it's missing is to add a constructor that sets initial values for some or all of those backing fields. There's an automated way to do that, too (also slated for Day 22), but it'd be nicer if there was an extra wizard page for it. Still, the ability to just implement everything all at once, and create backing fields at the same time, is pretty sweet.</p>

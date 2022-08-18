@@ -1,0 +1,21 @@
+---
+title: "A way to tell if an app was written in Delphi  #Delphi"
+sort: 2529
+---
+I'm often curious about whether an app I'm using was written in Delphi. Here's an easy way to tell, that works most of the time.
+
+(Note: this won't work for apps that use Delphi 2007's new Vista-compatibility <a href="http://www.stevetrefethen.com/blog/TheNewVCLPropertyTApplicationMainFormOnTaskbarInDelphi2007.aspx"> MainFormOnTaskbar</a> property.)
+
+All you do is right-click the taskbar button. Non-Delphi apps will have an ordinary window menu:
+
+<img src="http://blog.excastle.com/wp-content/uploads/2008/05/contextmenunondelphi.png" alt="Taskbar right-click menu for a non-Delphi application, with the usual window menu items" title="Taskbar right-click menu for a non-Delphi application, with the usual window menu items" width="191" height="151" class="alignnone size-full wp-image-2530" />
+
+
+
+Delphi apps have an abbreviated menu instead, because it's actually the context menu for the invisible TApplication window, instead of the context menu for the form:
+
+<img src="http://blog.excastle.com/wp-content/uploads/2008/05/contextmenudelphi.png" alt="Taskbar right-click menu for a Delphi application, with only Restore, Minimize, and Close" title="Taskbar right-click menu for a Delphi application, with only Restore, Minimize, and Close" width="182" height="97" class="alignnone size-full wp-image-2531" />
+
+This isn't true just of Delphi for Win32 -- it also works for VCL.NET applications. (It's VCL-specific, though, so you can't identify a Delphi/.NET WinForms app this way.)
+
+If a Delphi app does use Delphi 2007's MainFormOnTaskbar, then it will have the normal window menu, so a normal menu doesn't necessarily mean it <i>wasn't</i> written in Delphi. But if you right-click the taskbar button and <i>do</i> see only Restore, Minimize, and Close, it's a pretty sure thing that it's a Delphi app.

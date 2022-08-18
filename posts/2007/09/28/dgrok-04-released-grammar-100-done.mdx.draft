@@ -1,0 +1,9 @@
+---
+title: "DGrok 0.4 released: grammar 100% done  #.NET  #Delphi  #dgrok"
+sort: 2472
+---
+<p>I'm now able to parse 100% of the Delphi grammar, as far as I can tell &mdash; and 100% of the Delphi RTL source. (Not <i>all</i> the source &mdash; just the RTL directory and its subdirectories &mdash; but still.) Sounds like an excellent time to do another release. <a href="http://www.excastle.com/dgrok/DGrok-0.4.zip">DGrok 0.4</a> is now available.</p>
+
+<p>Important caveat: I'm not yet handling <code>{$INCLUDE}</code>. And I know the Delphi RTL uses it, so it's possible I'm not parsing <i>everything</i> &mdash; there may well be some gotchas inside those include files. <code>{$INCLUDE}</code> will most likely be the next thing I tackle.</p>
+
+<p>For any who are curious, I didn't make <a href="http://blog.excastle.com/2007/09/28/bugrit/"><code>Str</code>'s colon</a> a general binary operator, because that broke case statements. (This is why I would never <i>dream</i> of writing a parser any way but test-first!) Instead, I added another expression type, <a href="http://www.excastle.com/dgrok/Grammar.html#ParameterExpression">ParameterExpression</a>, that's only used in parameter lists.</p>

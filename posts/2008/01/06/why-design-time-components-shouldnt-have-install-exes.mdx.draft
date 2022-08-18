@@ -1,0 +1,25 @@
+---
+title: "Why design-time components shouldn't have install EXEs  #.NET  #Delphi"
+sort: 2486
+---
+<p>Lots of Delphi components and .NET controls ship as EXEs that "install" the design-time component for you. I hate that, and here's why.</p>
+
+<ol>
+<li>
+<p><b>Revision-control unfriendly.</b> I don't want you sticking code under C:\Program Files. It's <i>code</i>. It needs to be in source control with all my other code. That's kind of the point of revision control. I want a ZIP that I can extract into my source tree and check in, so that later I can go back to that same point in time and rebuild <i>my</i> code as it was then.</p>
+<p><a href="http://xceed.com/">Xceed</a> is the worst offender here. Good WinForms controls, but you can't put them in Subversion &mdash; they have to be "installed" if you're even going to be able to <i>compile</i>. You have to actually run their stupid installer on every development computer, <i>including the automated build machines</i>. I cannot express how deeply this offends me.</p>
+</li>
+<li>
+<p><b>Delphi-version unfriendly.</b> If Delphi 2007 comes out and there's no installer for FooComponentLibrary for Delphi 2007, what do you do? Sure, you can make a new package, compile it, and install. But you could do the same thing if you had a source ZIP, and you wouldn't have to sit through an installer that might or might not work correctly if its intended version of Delphi isn't installed.</p>
+<p>Of course, if it's a Delphi component that ships without source code, then you're screwed anyway, since DCUs aren't compatible across Delphi versions. But no sane person would ever use a Delphi component that shipped without source code, mainly for this very reason. (Not an issue for WinForms controls, as compiled DLLs are much more version-agnostic than Delphi DCUs.)</p>
+</li>
+<li>
+<p><b>What about Turbo?</b> The last Delphi version that I personally own is either 3 or 5, I don't remember which. There's no way I'll use it anymore. I've been spoiled by strict private and records with methods. When I'm tinkering at home, I use Turbo Delphi Explorer, 'cause it's free, and sort of recent. But it doesn't support third-party design-time components. And it doesn't have a command-line compiler. So what's going to happen when the installer gets to the "compile and install the package" step? It wouldn't surprise me if the installer failed and rolled back, leaving me back at square one. I try not to find out.</p>
+</li>
+</ol>
+
+<p>Component installers are probably meant to make life easier for hobbyists and beginning Delphi developers, but they make life harder for experienced developers &mdash; sometimes much harder. So component authors, please, <b>provide a ZIP file.</b> (And please, make it an actual, industry-standard ZIP, not a fringe format like RAR.) For Delphi components, the ZIP should contain the source code. For WinForms components, it could have either the source code, or the compiled DLLs. And in either case, of course you're including sample code, right?</p>
+
+<p>You can provide an installer too, if you must. But it should be a separate download.</p>
+
+<p>(This rant was provoked by <a href="http://www.micrel.cz/Dx/">(un)DelphiX</a>, which does provide both an installer and a source RAR (grr), but states fairly prominently that the source archive will be discontinued at some point in the future.)</p>

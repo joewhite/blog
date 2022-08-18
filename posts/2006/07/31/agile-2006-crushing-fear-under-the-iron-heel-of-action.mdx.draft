@@ -1,0 +1,106 @@
+---
+title: "Agile 2006: Crushing Fear under the Iron Heel of Action  #Programming  #agile2006  #extreme programming"
+sort: 2354
+---
+<p>Crushing Fear under the Iron Heel of Action<br>Ron Jeffries &amp; Chet Hendrickson<br>Wednesday afternoon</p>
+<p>"As far as we know, a workshop on fear has never been done by us before."</p>
+<p>Fear and what we can do about it. In most cases you can do something about it, if only run away.</p>
+<p>Brainstorm some topics (mostly work-focused, e.g., we're not looking for things like "tigers") under which we sense fear / cause you to act in a way you would not normally have acted</p>
+<ul>
+<li>Deadlines, because they're too close and I won't get done</li>
+<li>Big requirements</li>
+<li>Legacy code</li>
+<li>Crappy code</li>
+<li>Layoffs</li>
+<li>Politics</li>
+<li>Failure</li>
+<li>Unsupportive customer / manager</li>
+<li>Quality</li>
+<li>Change</li>
+<li>Writing code</li>
+<li>Losing control</li>
+<li>Too much responsibility</li>
+<li>Abusive people</li>
+<li>System crashes</li>
+<li>Ambiguity or something like that</li>
+<li>Unknown</li>
+<li>Vague requirements</li>
+<li>New technologies</li>
+<li>Old technologies</li>
+<li>Technology</li>
+<li>Integration</li>
+<li>Offshoring</li>
+<li>Success</li>
+<li>Security holes</li>
+<li>Remote teams</li>
+<li>Performance</li>
+<li>Scalability</li>
+<li>Usability</li>
+<li>Sabotage</li>
+<li>Pair Programming / working with other people</li>
+<li>Communication</li>
+<li>Inadequacy</li>
+<li>Budget / cost overruns</li>
+<li>Project cancellation</li>
+<li>Rejection by peers</li></ul>
+<p>Rejection by peers / Pair programming / Inadequacy</p>
+<ul>
+<li>New team</li>
+<li>Senior people working with junior people</li>
+<ul>
+<li>Fear of exposure: I get paid more, but I'm not as good as this junior guy</li>
+<li>Fear of being obsolete</li></ul>
+<li>How am I really doing?</li>
+<li>Unrealistic expectation of perfection</li></ul>
+<p>Group example:</p>
+<ul>
+<li>"Dunce cap"</li>
+<li>You're stuck</li>
+<li>Feel like you shouldn't be stuck, because any fool in the room but you could do this</li>
+<li>Don't feel like standing up and saying "I need some help over here"</li></ul>
+<p>What you can do about it, part 1: Jedi mind tricks</p>
+<ul>
+<li>Psyching yourself up</li>
+<li>One fix: Remember a case where a teacher asked for help</li>
+<li>Another (partial) fix: Make a rule that if someone asks for help, they must get it</li>
+<li>Only way you learn is by screwing things up</li>
+<li>Recognize that others stumble too. They might have the answer to yours, you might have the answer to theirs later.</li>
+<li>Remember that you know something, just maybe not this.</li>
+<li>Swap someone in from another pair, and if he doesn't know, make *him* stand up and ask for help</li>
+<li>When you're stuck, you might as well be doing anything else</li>
+<li>Write an article on your Web site and get people to tell you how to fix it</li>
+<li>Get used to being an idiot</li>
+<li>What's the worst that could possibly happen? (Be careful if you have a really good imagination)</li>
+<li>Open workspace</li>
+<li>Jedi mind trick on ourselves: "This is not the problem you are worried about."</li></ul>
+<p>What you can do about it, part 2: Action</p>
+<ul>
+<li>Promiscuous Pairing and Beginner's Mind</li>
+<ul>
+<li>Relates to asking for help</li>
+<li>Maybe could say whenever someone stands up and says "Tired", you switch pairs</li></ul>
+<li>Ask one particular person instead of the whole room (private question)</li>
+<li>Practice. Ask for help even when you don't need it</li>
+<li>Conversation. Talk about the system, even if you think you understand it. Someone may surprise you.</li>
+<li>Kent Beck: Whenever a conversation goes on for more than ten minutes (or as soon after that as you notice you're stuck), you must settle the issue by doing an experiment.</li>
+<ul>
+<li>Two people involved go off and pair, and try both solutions.</li>
+<li>Usually, whichever one you start on seems to be OK.</li>
+<li>Often you're going to the same place via a different route.</li>
+<li>Or, often your concerns about the other guy's solution turn out not to be a big deal.</li></ul>
+<li>Divide &amp; conquer.</li>
+<ul>
+<li>Maybe start by working on the part you do know...</li>
+<li>maybe start by working on the part you don't understand (the part you know you don't know).</li></ul>
+<li>Wheels on chairs</li>
+<li>Interrupt yourself / have someone else interrupt you</li>
+<ul>
+<li>When a pair is silent, they're probably stuck.</li>
+<li>Go talk to them</li>
+<li>Toss a Nerf ball at them (twisting the "throw a Nerf ball when someone is being too loud" rule)</li>
+<li>Pull off a member of the stuck pair</li></ul>
+<li>Turn it into a competition to see who can ask the dumbest question of the day</li>
+<ul>
+<li>"Hi, idiot here."</li></ul></ul>
+<p>There followed an exercise where we broke into groups. Each group picked one or more fears, and brainstormed what we could do about them.</p>
+<p>What's remarkable, as Ron said during his sum-up of the session (more eloquently than I'm doing here), is that we presumably all picked fears we were personally interested in, and in <em>every</em> group, in <em>every</em> case, we came up with things we could actually do about those fears.</p>

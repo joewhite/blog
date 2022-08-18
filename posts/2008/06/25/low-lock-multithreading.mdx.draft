@@ -1,0 +1,24 @@
+---
+title: "Low-lock multithreading  #.NET  #Delphi"
+sort: 2558
+---
+I ran across a great article about how to do multithreading without (or with very few) locks.
+
+If you've done concurrency, you already know about locks. You probably also know they're expensive, and you've probably wondered how to squeeze out more performance by avoiding locks. This article tells you how to do it safely -- and, more importantly, <strong>when to avoid it</strong> (which is most of the time).
+
+<a href="http://msdn.microsoft.com/en-us/magazine/cc163715.aspx">Memory Models: Understand the Impact of Low-Lock Techniques in Multithreaded Apps</a>
+
+
+
+Warning: this is <em>hardcore</em> geek stuff. I think I understood more than half of it.
+
+Here's the executive summary: Low-lock multithreading is <em>hard</em>. If you don't understand <em>everything</em> in the article up to and including a given technique, <strong>don't use it</strong>. Processor caches and read and write reordering make it more complicated than you thought it was. (Don't take my word for it -- read the first half of the article, before he even starts outlining the first technique.)
+
+He didn't say it in the article, but I'll add my two cents: Never optimize <em>anything</em> (including adding low-lock techniques) until you've run a profiler and proven that you <strong>know</strong> where the bottleneck is. Any optimization without a profile is <a href="http://blog.alieniloquent.com/2005/08/23/the-progammers-litany.html">premature optimization</a>.
+
+Always remember M. A. Jackson's <a href="http://en.wikipedia.org/wiki/Optimization_(computer_science)#Quotes">Two Rules of Optimization</a>:
+
+<ul>
+<li>Rule 1: Don't do it.</li>
+<li>Rule 2 (for experts only): Don't do it yet.</li>
+</ul>

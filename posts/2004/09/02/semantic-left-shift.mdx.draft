@@ -1,0 +1,12 @@
+---
+title: "Semantic left shift  #.NET"
+sort: 2015
+---
+<p>Raymond Chen wrote a post a while back about how <a href="http://weblogs.asp.net/oldnewthing/archive/2003/09/10/54831.aspx">it's not the System Tray, it's the Taskbar Notification Area</a>. But apparently, his efforts to pin down the terminology are a bit like herding <a href="http://www.rageofthemarsupials.com/">Tasmanian devils</a>.</p>
+<p>For example, take <a href="http://msdn.microsoft.com/library/en-us/dncscol/html/csharp06102002.asp">this article</a>. Note the <a href="http://msdn.microsoft.com/">domain name</a>. And the <a href="http://blogs.msdn.com/ericgu/">byline</a>...</p>
+<p>There are several other articles on MSDN that also use the "tray icon" terminology. In fact, in Longhorn, <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dnlong/html/lhtiles.asp">"tray" seems to be the official term</a>&nbsp;(note the section heading "The Sidebar and the New Tray Area").</p>
+<p>Personally, I'm happy calling it the "tray", for two reasons:</p>
+<ol>
+<li>Number of syllables in "taskbar notification area": 10. Number of syllables in "system tray": 3. That's a right shift of about 2.</li>
+<li>Number of Google hits for "taskbar notification area": about 1,910. Number of Google hits for "tray icon": 147,000. That's a left shift of a little over 6.</li></ol>
+<p>Both are good trends, but in the end, the number of Google hits is a heck of a tie-breaker. The left shifts have it.</p>

@@ -1,0 +1,152 @@
+---
+title: "TechEd 2008 notes: Microsoft Software Licensing and Protection Services  #.NET  #Delphi  #teched2008"
+sort: 2542
+---
+I didn't know Microsoft even had an API for software licensing. They do, but there's a lot of stuff it doesn't do, most of which is supposed to be coming in the next version.
+
+Microsoft Software Licensing and Protection Services
+(SLP Services)
+Terrence J. Nevins (tnevins@microsoft.com)
+Rehan Hamid
+
+Software Economic Models
+<ul>
+  <li>Licensing market: $228B today, growing to $305B by 2010</li>
+  <li>Subscription: $113B for Internet access growing to $200B by 2010; IPTV growing to $17B by 2010</li>
+  <li>Advertising: $27B+ today, $80B+ in 2010</li>
+  <li>Transactional: $10.7B sold on Amazon in 2006; $52B sold on eBay in 2006; $2B in music downloads; $1B in ringtones</li>
+</ul>
+
+Key Challenges for Licensing
+<ul>
+  <li>Fighting piracy and low compliance, reverse engineering</li>
+  <li>Meeting customer demands: try before they buy, subscription models</li>
+  <li>Reducing costs and enabling integration</li>
+</ul>
+
+Big tip
+<ul>
+  <li>Getting started</li>
+  <ul>
+    <li>Request an Evaluation (your MSDN subscription key is good for their license services, but don't use it when you're playing around -- get an eval key instead)</li>
+    <li>Activate your account</li>
+    <li>Use the evaluation key as your "sandbox"</li>
+    <li>Preserve your potent MSDN subscriber key</li>
+    <ul>
+      <li>Use MSDN key for commerical use, not for testing</li>
+      <li>One year service subscription</li>
+      <li>A starter set of free activations included</li>
+    </ul>
+  </ul>
+</ul>
+
+<a href="http://www.microsoft.com/slps/">www.microsoft.com/slps/</a> to request an eval key
+
+<h3>PROTECT</h3>
+<ul>
+  <li>Protect against reverse engineering, binary patching</li>
+  <li>Balance protection and performance</li>
+  <li>Make it easy for your customers to stay in compliance</li>
+</ul>
+
+Code Protection. You want to use IL and reflection, but you want to protect your IP.
+<ul>
+  <li>Select app to be protected</li>
+  <li>Identify methods to be transformed</li>
+  <li>Transform method IL to SVML</li>
+  <li>Distribute protected app with SVM</li>
+</ul>
+
+SVML -- Secure Virtual Machine Language
+<ul>
+  <li>MSIL is easy to reverse engineer. SVML is very difficult to reverse engineer, and unique to your organization.</li>
+  <li>SVM -- Secure Virtual Machine. Because SVML is unique to you, your SVM is unique as well.</li>
+  <li>Not obfuscation -- transformation.</li>
+</ul>
+
+Developers should drive the decision of which methods to protect. Marketing can drive a lot of the policies, but not method selection.
+
+Browse to folder ("Medical" in the example), select methods to protect, click Protect. Creates a "Medical.Protected" directory with a protected EXE and several DLLs.
+
+There's also a command-line version for automated builds. Can be integrated with Visual Studio. Can use attributes to specify which methods you want to protect. Not really good MSBuild or VSTS CI integration yet, but they're working on it.
+
+Every time you call a protected method, it calls into the SVM.
+
+Performance impact: Absolute worst case is thousands of times worse. If you have critical code in tight loops, you'll want to strategically choose which methods to protect.
+
+Supports .NET 1.1 upwards.
+
+What does it cost? -- It's complicated, and it's going to change in a month or two anyway.
+
+Can you use the protection without the licensing? -- Today yes, after July 28 maybe no.
+
+Can you do this with native code? -- You wouldn't really need the protection, so you'd just be doing the licensing. You can do that; you'll take a managed-code dependency.
+
+Does the end-user need to have a connection to the activation server? -- If you want silent activation, yes. Otherwise, you can save a machine "fingerprint" to a USB stick, walk that to an Internet-connected machine, download a license file onto the USB stick, and walk it back to the disconnected machine.
+
+What goes into the machine fingerprint? -- It's complicated. Don't use MAC addresses. Processor serial numbers aren't reliable in multi-processor machines. You need some balance, especially when you start implementing it onto an existing customer base. Keep the honest people honest; think about the end-user experience.
+
+Activate by phone / manual activation without USB key? -- It was dropped from the current shipping version. It's currently lower on the internal priority list, so it's hard to tell when / whether it will come back. For today, you need a homegrown solution to this.
+
+These solutions have to be reviewed by an MS crypto board any time they don't use the crypto API. It's reviewed by 20 pairs of eyes that know crypto inside and out. Obviously it's not totally secure (once you put it on someone else's machine, it's not your code anymore), but it's probably as reasonably secure as it can be. (Note: this was an acquired company.)
+
+Generating keys
+<ul>
+  <li>Go to Microsoft's portal, log in</li>
+  <ul>
+    <li>Create a product, and specify its name and version</li>
+    <ul>
+      <li>Major version is part of license. If you want license keys to be good for a time period but any version (including major upgrades), they think that can be done, but would require followup with their devs.</li>
+    </ul>
+    <li>Add features</li>
+  </ul>
+  <li>Log into local app</li>
+  <ul>
+    <li>In property grid, select the product name you created in the portal</li>
+    <li>Select methods and associate them with features</li>
+    <ul>
+      <li>If the app isn't licensed yet, you get a UI prompting you to activate.</li>
+      <ul>
+        <li>What about services (where you can't show GUI)? -- Huh? Licensing a service? Apparently nobody ever thought of that. (WTF?!)</li>
+        <li>Can you make it throw an exception instead of popping up GUI? -- There's some kind of API for that.</li>
+        <li>Can the dialog be branded? -- Yes.</li>
+        <li>Can you put the licensing into the MSI? -- There's a demo online for that.</li>
+      </ul>
+    </ul>
+  </ul>
+  <li>Go back to portal and create a key (5x5)</li>
+  <li>User selects "Activate over the Internet", enters that 5x5 into the dialog</li>
+  <ul>
+    <li>Contacts the service, gets back a license file, does its magic</li>
+  </ul>
+  <li>If you try to use an unlicensed feature (but you have already activated), you get a dialog saying you can't do that</li>
+</ul>
+
+Concurrency model: License pooling. This is big and complicated. They don't do that yet.
+
+When you active or reactivate, usage data gets sent to the server automtically. So you get to know how many times they clicked Print.
+
+Microsoft runs their own license server, but you can run your own in your company. There are really only a couple of reasons to do that: regulation; international laws; federal government.
+
+Limited Windows users can activate, though obviously they can't install an MSI.
+
+Current version does not support ClickOnce deployment. It's been discussed but is lower priority.
+
+Their Web site has guidance on privacy issues.
+
+If you want to capture feature usage, the feature has to be in a method that you protect (today, at least).
+
+Interesting note: if you're an early start-up, it can be really valuable to know how many people activated your product. You can prove, to your venture capitalists, how many people activated from different machines; and because of the fingerprint, you can't fake it by installing it 42 times on the same box.
+
+Is there a Web service for the portal? -- Currently no, but the client application does have APIs that are documented and available. So you can do it, it's just not Web-service buzzword-compliant.
+
+Is there an API to find out whether a feature is enabled, so you can disable / rearrange GUI? -- Not in the current version.
+
+The Road Ahead...
+<ul>
+  <li>CRM integration</li>
+  <li>More activation scenarios and licensing models</li>
+  <li>More software asset management and BI analytics</li>
+  <li>Partnering with complementary code protection technologies</li>
+  <li>IDE integration</li>
+</ul>

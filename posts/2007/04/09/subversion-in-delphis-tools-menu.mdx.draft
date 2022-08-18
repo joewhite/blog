@@ -1,0 +1,91 @@
+---
+title: "Subversion in Delphi's Tools menu  #Delphi  #ruby"
+sort: 2423
+---
+<p>At work, we've added several items to Delphi's Tools menu to make Subversion functions easy to get to from the IDE. I set some of them up on my home PC too, because they're just so convenient. They're easy to access from the keyboard, too (just hit Alt+T and then C to bring up a commit window), which is a minor miracle given that Delphi still doesn't support customization of keyboard shortcuts.</p>
+
+<p>We have a few more at work, but here are the "gotta-haves" that I've set up on my home machine:</p>
+
+<ul>
+<li><p><b>Svn <u>C</u>ommit</b>: Opens the TortoiseSVN commit window.</p></li>
+<li><p><b>Svn <u>D</u>iff</b>: Shows diffs for the file currently being edited. (If you've configured an external diff viewer like <a href="http://www.scootersoftware.com/">Beyond Compare</a>, this will use it.)</p></li>
+<li><p><b>Svn <u>M</u>odifications</b>: Opens the TortoiseSVN modifications window, which shows a list of all modified files.</p></li>
+<li><p><b>Svn <u>U</u>pdate</b>: Updates your working copy with the latest changes from the repository.</p></li>
+</ul>
+
+<p>These <i>should</i> be trivial to set up with Delphi's Tools &gt; Configure Tools dialog, since they have macro expansions for things like the path to the current project. Unfortunately, Delphi's Configure Tools macro expansions pretty much suck for this. TortoiseSVN requires that the parameter be "slash-parameter name-colon-value", e.g. <code>/path:C:\svn\DUnitAssertions</code>. Delphi, on the other hand, is incapable of doing a macro expansion that isn't preceded by a space, so that "colon before the value" thing is a killer. It doesn't get any better when your paths can include spaces and you need to quote the path.</p>
+
+<p>So I've got a script in <a href="http://www.ruby-lang.org/">Ruby</a>, which reads the command-line parameters that Delphi is capable of producing, and translates them into something that TortoiseSVN is capable of understanding. The one I wrote at home looks like this (I saved this in <code>C:\svn\RunTortoise.rb</code>):</p>
+
+<blockquote><pre>COMMAND = ARGV[2]
+PATH = ARGV[3..ARGV.length].join(" ")
+command = %Q|"c:/program files/tortoisesvn/bin/tortoiseproc.exe" | +
+%Q|/command:#{COMMAND} /path:"#{PATH}" /notempfile|
+puts command
+system command</pre></blockquote>
+
+<p>Then you can set up the Configure Tools items. Mine look like this (these assume that your project file is at the "root" of your Subversion checkout, i.e. that all the files you're editing are in that directory or its subdirectories):</p>
+
+<blockquote><table cellspacing="0" cellpadding="1" border="1">
+<tr>
+<td style="font-size: 90%">Title:</td>
+<td style="font-size: 90%"><code>Svn &Commit</code></td>
+</tr><tr>
+<td style="font-size: 90%">Program:</td>
+<td style="font-size: 90%"><code>c:\ruby\bin\rubyw.exe</code></td>
+</tr><tr>
+<td style="font-size: 90%">Working dir:</td>
+<td style="font-size: 90%"><code><i>(blank)</i></code></td>
+</tr><tr>
+<td style="font-size: 90%">Parameters:</td>
+<td style="font-size: 90%"><code>C:\svn\RunTortoise.rb - -- commit $PATH($PROJECT) $SAVEALL</code></td>
+</tr>
+</table></blockquote>
+
+<blockquote><table cellspacing="0" cellpadding="1" border="1">
+<tr>
+<td style="font-size: 90%">Title:</td>
+<td style="font-size: 90%"><code>Svn &Diff</code></td>
+</tr><tr>
+<td style="font-size: 90%">Program:</td>
+<td style="font-size: 90%"><code>c:\ruby\bin\rubyw.exe</code></td>
+</tr><tr>
+<td style="font-size: 90%">Working dir:</td>
+<td style="font-size: 90%"><code><i>(blank)</i></code></td>
+</tr><tr>
+<td style="font-size: 90%">Parameters:</td>
+<td style="font-size: 90%"><code>C:\svn\RunTortoise.rb - -- diff $EDNAME $SAVEALL</code></td>
+</tr>
+</table></blockquote>
+
+<blockquote><table cellspacing="0" cellpadding="1" border="1">
+<tr>
+<td style="font-size: 90%">Title:</td>
+<td style="font-size: 90%"><code>Svn &Modifications</code></td>
+</tr><tr>
+<td style="font-size: 90%">Program:</td>
+<td style="font-size: 90%"><code>c:\ruby\bin\rubyw.exe</code></td>
+</tr><tr>
+<td style="font-size: 90%">Working dir:</td>
+<td style="font-size: 90%"><code><i>(blank)</i></code></td>
+</tr><tr>
+<td style="font-size: 90%">Parameters:</td>
+<td style="font-size: 90%"><code>C:\svn\RunTortoise.rb - -- repostatus $PATH($PROJECT) $SAVEALL</code></td>
+</tr>
+</table></blockquote>
+
+<blockquote><table cellspacing="0" cellpadding="1" border="1">
+<tr>
+<td style="font-size: 90%">Title:</td>
+<td style="font-size: 90%"><code>Svn &Update</code></td>
+</tr><tr>
+<td style="font-size: 90%">Program:</td>
+<td style="font-size: 90%"><code>c:\ruby\bin\rubyw.exe</code></td>
+</tr><tr>
+<td style="font-size: 90%">Working dir:</td>
+<td style="font-size: 90%"><code><i>(blank)</i></code></td>
+</tr><tr>
+<td style="font-size: 90%">Parameters:</td>
+<td style="font-size: 90%"><code>C:\svn\RunTortoise.rb - -- update $PATH($PROJECT) $SAVEALL</code></td>
+</tr>
+</table></blockquote>

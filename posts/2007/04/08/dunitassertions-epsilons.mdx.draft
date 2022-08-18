@@ -1,0 +1,22 @@
+---
+title: "DUnitAssertions: Epsilons  #Delphi  #dunitlite"
+sort: 2422
+---
+<p>You never want to do exact comparisons on floating-point numbers. They're finite precision &mdash; and 0.1 is a nonrepeating fraction in binary. So 1.1 plus 0.1 does not necessarily equal 1.2.</p>
+
+<p>So float comparisons should always have an epsilon, or fudge factor &mdash; something that says "if the difference is only 0.000001, that's close enough". That's why Delphi has the <code>SameValue</code> function (which provides its own reasonable epsilon if you don't specify your own), and why DUnit has overloads for CheckEquals that take an epsilon.</p>
+
+<p>NUnitLite apparently doesn't do epsilons, though, so I'm on my own for coming up with a meaningful syntax as I write DUnitAssertions. Here are a few of my brainstorms:</p>
+
+<blockquote><pre>Expect.That(1.1 + 0.1, Tis.EqualTo(1.2, 1E-6));
+Expect.That(1.1 + 0.1, Tis.EqualTo(1.2), 1E-6);
+Expect.That(1.1 + 0.1, Tis.EqualTo(1.2), Tis.Within(1E-6));
+Expect.That(1.1 + 0.1, Tis.EqualTo(1.2), To.Within(1E-6));
+Expect.That(1.1 + 0.1, Tis.EqualTo(1.2), Plus.Minus(1E-6));
+Expect.That(1.1 + 0.1, Tis.EqualTo(1.2).ToWithin(1E-6));</pre></blockquote>
+
+<p>I like the third one (<code>To.Within</code>) the best, except that it won't compile (<code>to</code> is a reserved word in Delphi). Obviously I could make it <code>&To</code> but that's kludgy; a Delphi test framework should compile in Delphi without escaping the method names. Jennie suggested "plus or minus", which is what prompted <code>Plus.Minus</code>. The last one might work too, although I'd have to fiddle with it.</p>
+
+<p>I'm also not sure how discoverable any of these are. Ideally I'd want something where anyone could sit down with nothing more than the test framework, Intellisense, and one example (<code>Expect.That(2 + 2, Is.EqualTo(4), 'Something is wrong');</code>), and be able to figure the rest out. I already know that's an impossible goal in Delphi/Win32, because of the <a href="http://blog.excastle.com/2007/04/04/dunitassertions-universal-value-type/">issues with enums</a>, but it's still a decent aim.</p>
+
+<p>Any preferences among these examples? Suggestions?</p>

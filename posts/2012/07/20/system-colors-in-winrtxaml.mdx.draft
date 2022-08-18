@@ -1,0 +1,15 @@
+---
+title: "System colors in WinRT/XAML  #.NET"
+sort: 3501
+---
+<p>Windows apps have always adapted to the Windows color settings. But over time, Microsoft has made this progressively harder.</p>
+
+<p>In WinForms, you had <a href="http://msdn.microsoft.com/en-us/library/system.drawing.systemcolors.aspx"><code>SystemColors</code></a> and <a href="http://msdn.microsoft.com/en-us/library/system.drawing.systembrushes"><code>SystemBrushes</code></a>, which were well-documented and easy to use. In WPF, you had a new flavor of <a href="http://msdn.microsoft.com/en-us/library/system.windows.systemcolors.aspx"><code>SystemColors</code></a>, which were fairly well-documented, but using them required a lengthy incantation involving <code>DynamicResource</code>. In HTML Metro (WinJS), you can expand out the references in Solution Explorer and read the theme CSS files, which is less discoverable than anything before, but is still a little like documentation.</p>
+
+<p>But in XAML Metro (WinRT/XAML), the system colors are buried in theme resources that you can't even see. If you want to use one of the system colors, you can find them in the visual designer's Properties page, but you can't find them in the documentation. This bugs me, since I'm a coder and tend not to bother much with the designer.</p>
+
+<p>So I went ahead and wrote the documentation myself. I now have a <a href="http://metro.excastle.com/">metro.excastle.com</a> subdomain, which contains <a href="http://metro.excastle.com/xaml-system-brushes">documentation for the system brush resources in WinRT/XAML</a>. I even show color swatches for both the Dark and Light themes. (I recommend you use a modern browser that understands CSS alpha transparency.)</p>
+
+<p>(BTW, if anyone can suggest a better algorithm for deciding whether a semi-transparent color's RGB code should be shown in black or white for best contrast, I'm all ears. I admit I didn't spend a lot of time on that part.)</p>
+
+<p>If you have suggestions for other content or links I could add to <a href="http://metro.excastle.com/">metro.excastle.com</a>, leave a comment here or <a href="http://blog.excastle.com/contact">drop me a line</a>.</p>

@@ -1,0 +1,116 @@
+---
+title: "ReSharper, day 22: Generating code with Alt+Ins  #.NET  #resharper"
+sort: 2403
+---
+<p>Welcome to day 22 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>So I've covered Alt+Enter, which is all about fixing code. Sometimes it does this by generating new code (e.g., when you change a class to implement an interface, and Alt+Enter has to generate method implementations), but the focus is on fixing errors and warnings.</p>
+
+<p>Today I'll cover <b>Alt+Ins</b>, which is specifically geared toward generating code.</p>
+
+<h4>The Alt+Ins menu</h4>
+
+<p>When you press Alt+Ins, a menu appears, showing all possible code-generation commands. This menu always shows all of its commands, and grays out the ones that aren't available (as opposed to other ReSharper menus that only show the available items).</p>
+
+<p>Alt+Ins generates code within a class, so if you press Alt+Ins when the cursor isn't inside a class, everything will be grayed out.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/AltInsMenu.png" width="185" height="213" alt="ReSharper's Generate menu, invoked by Alt+Ins" border="1"></blockquote>
+
+<h4>Common features of the Alt+Ins wizards</h4>
+
+<p>Every one of the Alt+Ins commands brings up a wizard. Typically, the wizard pages will contain lists where you can select things (fields, for example) that you want taken into consideration by the generated code.</p>
+
+<p>There are two types of lists in these wizard pages: there's the checked list, and the regular list.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/AltInsWizardCheckList.png" width="424" height="45" alt="A checked list from one of ReSharper's Alt+Ins Generate wizards" border="0"></blockquote>
+
+<p>The checked list, as seen above, has checkboxes next to each item. It seems to be used when you can select zero or more items (i.e., when "no selection" makes sense).</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/AltInsWizardList.png" width="424" height="45" alt="A (non-checked) list from one of ReSharper's Alt+Ins Generate wizards" border="0"></blockquote>
+
+<p>The regular list has no checkboxes; you make your selection by selecting one or more items in the list. It's a standard multiselect listview, so you can Shift+click and Ctrl+click to select multiple items.</p>
+
+<p>The regular list seems to be used when you must select at least one item, although this isn't actually enforced. You can get some amusing results by Ctrl+clicking the only selected item to de-select it, and then moving on through the wizard.</p>
+
+<p>If you want to select everything in a list, it's easy. In the checked list, press Ctrl+A and then Space. In the regular list, just press Ctrl+A.</p>
+
+<h4>Generate Constructor</h4>
+
+<p>This command generates a parameterized constructor to initialize some or all of the fields on your class. It shows a checked list where you can select which fields you want to initialize.</p>
+
+<p>Features worth noting:</p>
+
+<ul>
+<li><p><b>Plumbing.</b> If the base class constructor takes parameters, the newly-generated constructor will automatically take the same parameters, and pass them to the base constructor. These parameters will be put first in the parameter list. (Later, I'll talk about a feature that lets you re-order parameters if you want.)</p></li>
+<li><p><b>Multiple constructors.</b> If the base class has multiple constructors, there will be a second wizard page that asks you which constructors to call. If you select more than one, then more than one new constructor will be generated.</p></li>
+<li><p><b>Dumb.</b> There's no checking to see whether constructors already exist. If you tell it to generate a constructor with the same parameters as one you've already got, it will happily do it, and then give you red squigglies because the code doesn't compile. It's one of only two Alt+Ins commands that don't check to make sure they're generating good code.</p></li>
+</ul>
+
+<h4>Generate Property</h4>
+
+<p>There are three commands: <b>Read property</b>, <b>Write property</b>, and <b>Read-write property</b>. They all work the same: they ask you which fields to generate properties for, and then they go do it.</p>
+
+<p>This one is smart. If you've already created some properties, then those fields won't be selectable in the wizard. If you've already created properties for all of your fields, then all of the property-generation commands in the menu will be disabled.</p>
+
+<h4>Implement Interface Member</h4>
+
+<p>This one is actually identical to using <a href="http://blog.excastle.com/2007/02/19/resharper-day-19-implement-members-with-altenter/">Alt+Enter to Implement Members</a>, except that it only shows interface members, not abstract methods.</p>
+
+<h4>Override Inherited Member</h4>
+
+<p>This is, again, just like <a href="http://blog.excastle.com/2007/02/19/resharper-day-19-implement-members-with-altenter/">Alt+Enter to Implement Members</a>, except that (a) it doesn't show interface members, and (b) it shows virtual (non-abstract) methods as well as abstracts.</p>
+
+<p>Equals() and GetHashCode() will be shown in this list, but keep in mind that there's a cooler way to do those &mdash; use the "Equals and GetHashCode" command in the Alt+Ins menu, described below.</p>
+
+<h4>Generate Delegating Members</h4>
+
+<p>This is really handy when you're writing an <a href="http://en.wikipedia.org/wiki/Adapter_pattern">adapter</a> or a <a href="http://en.wikipedia.org/wiki/Decorator_pattern">decorator</a>, or just when you want to make your code more <a href="http://en.wikipedia.org/wiki/Law_of_Demeter">Demeterish</a>. It generates code that looks like this:</p>
+
+<blockquote><pre>public int Length
+{
+get { return _inner.Length; }
+}
+public void GetFoo(FooSpec spec)
+{
+return _inner.GetFoo(spec);
+}
+public void DoSomething()
+{
+_inner.DoSomething();
+}</pre></blockquote>
+
+<p>In this example, I delegated the <code>Length</code> property and the <code>GetFoo()</code> and <code>DoSomething()</code> methods to the <code>_inner</code> field. The Generate Delegating Members wizard makes this the matter of a few clicks and can do several members at once, and it's subject to a lot less human error than doing it by hand.</p>
+
+<p>You can delegate to any field or property (so you can delegate to something that's lazy-initialized, for example). First you select the field or property, and then on the second page, you select the members to delegate.</p>
+
+<p>Like Generate Constructor, this one is also dumb. It will let you delegate the same method signature more than once, which will lead to non-compilable code.</p>
+
+<h4>Generate Equals and GetHashCode</h4>
+
+<p>It's not common to need to override <code>Equals</code> and <code>GetHashCode</code>, but when you do, I think some automated assistance would be quite welcome.</p>
+
+<p>First the wizard asks you which fields you want to compare in <code>Equals()</code>, and then it asks which of those fields you want to use in calculating <code>GetHashCode()</code>. It's smart enough to know that if a field isn't used in determining equality, then that field had better not be used in calculating the hash code (i.e., if you don't check a field on the first page, then it's not available on the second page).</p>
+
+<p>If any of the fields you select are reference types, there's a third wizard page, which asks if there are any fields that can be assumed to be non-null. If so, it can simplify the implementation of GetHashCode().</p>
+
+<p>Here's an example of the resulting code. <code>_name</code> is assumed to be non-nullable; <code>_address</code> is not.</p>
+
+<blockquote><pre>public override bool Equals(object obj)
+{
+if (this == obj) return true;
+Foo foo = obj as Foo;
+if (foo == null) return false;
+if (_x != foo._x) return false;
+if (_y != foo._y) return false;
+if (!Equals(_name, foo._name)) return false;
+if (!Equals(_address, foo._address)) return false;
+return true;
+}
+public override int GetHashCode()
+{
+int result = _x;
+result = 29*result + _y;
+result = 29*result + _name.GetHashCode();
+result = 29*result + (_address != null ? _address.GetHashCode() : 0);
+return result;
+}</pre></blockquote>

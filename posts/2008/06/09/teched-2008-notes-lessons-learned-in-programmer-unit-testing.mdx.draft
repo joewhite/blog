@@ -1,0 +1,306 @@
+---
+title: "TechEd 2008 notes: Lessons Learned in Programmer (Unit) Testing  #.NET  #Delphi  #teched2008"
+sort: 2550
+---
+This one was a mixed bag. Some of his lessons learned are worth looking at, like the 3A pattern, and he covered classics like inversion of control and avoiding ExpectedException. But he was pretty dogmatic about a couple of things that just didn't make much sense.
+
+Lessons Learned in Programmer (Unit) Testing: Patterns and Idioms
+James Newkirk, CodePlex Product Unit Manager
+
+Been writing software for close to 25 years.
+When he was first hired after college:
+<ul>
+  <li>Company made EEs work in manufacturing for 2 years</li>
+  <ul>
+    <li>Goal: teach them how to build things that could be manufactured</li>
+  </ul>
+  <li>Software people just started writing stuff</li>
+  <ul>
+    <li>Never taught how to build things that were testable, maintainable. Up to them to discover that.</li>
+  </ul>
+</ul>
+
+"<a href="http://junit.sourceforge.net/doc/testinfected/testing.htm">JUnit Test Infected: Programmers Love Writing Tests</a>"
+(Has anyone actually met programmers who love writing tests?)
+<ul>
+  <li>Programmers weren't writing tests</li>
+  <li>Couldn't prove that what they had worked</li>
+</ul>
+
+<ul>
+  <li>James ported JUnit to .NET as NUnit, released as open-source</li>
+  <li>How can we use open-source to enable different kinds of innovation?</li>
+</ul>
+
+
+
+"Unit testing" means something to testing people. Some think, if cyclomatic complexity is 5, then I need 5 unit tests. Not the same thing as tests for test-driven development. So we'll probably not use the term "unit test".
+
+What is programmer testing? Per <a href="http://www.exampler.com/">Brian Marick</a>
+<ul>
+  <li>Technology vs. Customer</li>
+  <li>Support vs. Critique</li>
+  <li>Support + technology: Programmer tests</li>
+  <li>Support + customer: Customer tests</li>
+  <li>Critique + customer: Exploratory tests (should still happen during the development process)</li>
+  <li>Critique + technology: "ilities" -- non-functional. Scalability, usability, performance, etc.</li>
+</ul>
+
+Why do programmer testing?
+<ul>
+  <li>"There is no such thing as done. Much more investment will be spent modifying programs than developing them initially." [Beck]</li>
+  <ul>
+    <li>Whenever we think we're finished, we're probably wrong. There can always be more features.</li>
+    <li>Can define "done" locally: "We're done with this release."</li>
+    <li>Programmer testing lets me say as a programmer, "I believe that I am done."</li>
+  </ul>
+  <li>"Programs are read more often than they are written." [Beck, "Implementation Patterns" book]</li>
+  <ul>
+    <li>You're writing a book on your code.</li>
+    <li>The only artifact of any value is the code. It has to be <em>the</em> communication mechanism.</li>
+  </ul>
+  <li>"Readers need to understand programs in detail and concept." [Beck]</li>
+</ul>
+
+Total development cost:
+<ul>
+  <li>Develop (illustrated in green): small. Fun!</li>
+  <li>Extend/Maintain (orange): big. Sucks, especially if you didn't write the green part!</li>
+</ul>
+
+"I might break something!"
+<ul>
+  <li>Fear lowers our productivity</li>
+  <ul>
+    <li>Programmer tests help, because if you broke something, you know. You know the consequences of your actions.</li>
+  </ul>
+  <li>Where do I start?</li>
+  <ul>
+    <li>Programmer tests are very useful in this understanding phase</li>
+  </ul>
+</ul>
+
+<h3>Lesson #1: Write tests using the 3A pattern</h3>
+<ul>
+  <li>Attributed to Bill Wake (<a href="http://xp123.com">xp123.com</a>)</li>
+  <ul>
+    <li>Arrange -- Set up the test harness</li>
+    <li>Act -- Run the thing you actually want to test</li>
+    <li>Assert -- Verify the results</li>
+  </ul>
+</ul>
+
+<pre>[Fact]
+public void TopDoesNotChangeTheStateOfTheStack()
+{
+    // Arrange
+    Stack&lt;string&gt; stack = new Stack&lt;string&gt;();
+    stack.Push("42");
+
+    // Act
+    string element = stack.Top;
+
+    // Assert
+    Assert.False(stack.IsEmpty);
+}</pre>
+
+<ul>
+  <li>Benefits</li>
+  <ul>
+    <li>Readability</li>
+    <li>Consistency</li>
+  </ul>
+  <li>Liabilities</li>
+  <ul>
+    <li>More verbose</li>
+    <li>Might need to introduce local variables</li>
+  </ul>
+  <li>Related issues</li>
+  <ul>
+    <li>One assert per test?</li>
+    <ul>
+      <li>Much agile dogma says there should only be one assert</li>
+      <li>Pragmatic view: test should only test one <em>thing,</em> but if that one thing takes multiple asserts, that's fine</li>
+    </ul>
+  </ul>
+</ul>
+
+<h3>Lesson #2: Keep your tests close</h3>
+<ul>
+  <li>Tests should be as close as possible to the production code</li>
+  <li>Same assembly?</li>
+  <li>Treat them like production code</li>
+  <li>They have to be kept up-to-date</li>
+  <li>Visibility (let you see <code>internal</code>)</li>
+  <ul>
+    <li>(I would argue that, if you think you need to test your internal state, what's really going on is that you've got another object that wants to get out.)</li>
+  </ul>
+  <li>Liabilities</li>
+  <ul>
+    <li>Should you ship your tests?</li>
+    <ul>
+      <li>If so, you need to test your tests. Whole new level.</li>
+      <li>Need to make sure your tests don't modify the state of the system</li>
+      <li>If No, how do you separate the tests from the code when you release?</li>
+    </ul>
+    <li>Various tool issues</li>
+  </ul>
+</ul>
+
+<h3>Lesson #3: ExpectedException leads to uncertainty</h3>
+<pre>[Test]
+[ExpectedException(typeof(InvalidOperationException))]
+public void PopEmptyStack()
+{
+    Stack&lt;string&gt; stack = new Stack&lt;string&gt;();
+    stack.Pop();
+}</pre>
+<ul>
+  <li>Problem #1: where's the assert? A: it's in the framework. Violates 3A.</li>
+  <li>Obfuscates the test to some extent.</li>
+  <li>Better:</li>
+</ul>
+<pre>[Fact]
+public void PopEmptyStack()
+{
+    Stack&lt;string&gt; stack = new Stack&lt;string&gt;();
+    Exception ex = Record.Exception(() => stack.Pop());
+    Assert.IsType<InvalidOperationException>(ex);
+}</pre>
+<ul>
+  <li>Makes the exception more explicit.</li>
+  <li>Lets you inspect the exception object.</li>
+  <li>Another possibility is NUnit's <code>Assert.Throws()</code>:</li>
+</ul>
+<pre>[Fact]
+public void PopEmptyStack()
+{
+    Stack&lt;string&gt; stack = new Stack&lt;string&gt;();
+    Assert.Throws&lt;InvalidOperationException&gt;(delegate {
+        stack.Pop(); });
+}</pre>
+<ul>
+  <li>Downside: Act and Assert are in the same spot.</li>
+  <li>Other problems with ExpectedException:</li>
+  <ul>
+    <li>Don't know which line of code threw the exception. Test can pass for the wrong reason. (This, IMO, is the most compelling reason to avoid ExpectedException.)</li>
+    <li>ExpectedException forces people to use TearDown. With Record.Exception or Assert.Throws, you can keep the teardown in the test if you like.</li>
+  </ul>
+</ul>
+
+Alternatives to ExpectedException
+<ul>
+  <li>Benefits</li>
+  <ul>
+    <li>Readability</li>
+    <li>Identify and isolate the code you expect to throw</li>
+  </ul>
+  <li>Liabilities</li>
+  <ul>
+    <li>Act and Assert are together in Assert.Throws</li>
+    <li>Anonymous delegate syntax leaves something to be desired</li>
+  </ul>
+</ul>
+
+<h3>Lesson #4: Small fixtures</h3>
+<ul>
+  <li>Your code should be a book for people to understand</li>
+  <li>If the fixture has 1,000 tests, it's hard for someone to know where to start</li>
+  <li>Better: fixtures focused around a single activity</li>
+  <ul>
+    <li>Maybe even a fixture for each method</li>
+    <li>Can use nested classes for this. Outer class is named for the class you're testing, with nested classes for each behavior.</li>
+  </ul>
+  <li>Benefits</li>
+  <ul>
+    <li>Smaller, more focused test classes</li>
+  </ul>
+  <li>Liabilities</li>
+  <ul>
+    <li>Potential code duplication</li>
+    <ul>
+      <li>May consider duplicating code if it's for the purpose of communication (but use this carefully)</li>
+    </ul>
+    <li>Issues with test runners -- not all can deal with nested classes</li>
+  </ul>
+  <li>Related issues</li>
+  <ul>
+    <li>Do you need SetUp and TearDown?</li>
+  </ul>
+</ul>
+
+<h3>Lesson #5: Don't use SetUp or TearDown</h3>
+(I smell a holy war)
+<ul>
+  <li><em>If</em> the tests are not all orthogonal, you can end up with a test that doesn't need anything from the SetUp method.</li>
+  <li><em>If</em> SetUp takes a long time, you'd be paying the price for every test, even those that don't need all of it.</li>
+  <li><em>If</em> there are tests that don't need all of SetUp, readability suffers.</li>
+  <li>It's a hacking point. It's a place where people can add code that you might or might not like.</li>
+  <li>When asked about the duplication, he suggested pulling the duplicated code into a method, and calling it at the beginning of each test. That wouldn't necessarily be a totally bad idea, if SetUp was the only thing he was trying to get rid of.</li>
+  <li>Benefits</li>
+  <ul>
+    <li>Readability (<em>if</em> it removes duplication)</li>
+    <li>Test isolation (but only if it means you get rid of <em>all</em> fixture state, and put absolutely all your state into <em>local</em> variables)</li>
+  </ul>
+  <li>Liabilities</li>
+  <ul>
+    <li>Duplicated initialization code</li>
+    <li>Things he didn't mention, that I will (having run into all of them):</li>
+    <ul>
+      <li>Duplicated cleanup code</li>
+      <li>Try..finally in every test to make sure your cleanup code gets run</li>
+      <li>Signal/noise ratio: if a test gets too long, it's much harder to tell what it's actually trying to accomplish</li>
+      <li>Poor test isolation: if you have any fields on your fixture class, you <em>will</em> forget to initialize some of them in some of the tests, which will introduce test-order dependencies (since NUnit shares the same fixture instance among all the tests in the suite)</li>
+    </ul>
+  </ul>
+  <li>Related issues</li>
+  <ul>
+    <li>Small fixtures</li>
+  </ul>
+</ul>
+
+<h3>Lesson #6: Don't use abstract base test classes</h3>
+He's apparently specifically referring to the practice of putting <em>tests</em> on a base class, and inherit them in descendants. We use this technique, though sparingly; you do take a big hit in readability, so it really has to be worth having the same tests (including newly-written tests) apply in more than one place.
+
+What's wrong with base classes?
+<ul>
+  <li>If the tests don't all apply to all the derived classes, you'd have a problem. (Um, duh. You'd notice when they failed, wouldn't you?)</li>
+  <li>Removes duplication at the expense of readability. (Fair point.)</li>
+  <li>He wants us to put the test logic into a utility function instead, and call that from the different descendants. (Trouble is, that doesn't help make sure that all new tests get added to all the fixtures. You don't use this pattern unless you <em>want</em> all the tests in all the descendants.)</li>
+  <li>Benefits</li>
+  <ul>
+    <li>Readability</li>
+    <li>Test isolation</li>
+  </ul>
+  <li>Related issues</li>
+  <ul>
+    <li><a href="http://www.agileprogrammer.com/dotnetguy/archive/2007/04/03/22553.aspx"> The Testable Object Pattern</a></li>
+  </ul>
+</ul>
+
+<h3>Lesson #7: Improve testability with Inversion of Control</h3>
+<ul>
+  <li>Martin Fowler article: <a href="http://martinfowler.com/articles/injection.html">Inversion of Control Containers and the Dependency Injection pattern</a></li>
+  <li>Dependency Injection</li>
+  <ul>
+    <li>Constructor injection</li>
+    <li>Setter injection</li>
+  </ul>
+  <li>Don't want errors to cascade across all parts of the program.</li>
+  <li>Benefits</li>
+  <ul>
+    <li>Better test isolation</li>
+    <li>Decoupled class implementation</li>
+  </ul>
+  <li>Liabilities</li>
+  <ul>
+    <li>Decreases encapsulation</li>
+    <li>Interface explosion</li>
+  </ul>
+  <li>Related issues</li>
+  <ul>
+    <li>Dependency injection frameworks are overkill for most applications</li>
+  </ul>
+</ul>
+
+Side note: Mocks are good for interaction testing, bad for state testing.

@@ -1,0 +1,9 @@
+---
+title: "DGrok download updated  #.NET  #Delphi  #dgrok"
+sort: 2466
+---
+<p>If you tried to download DGrok before now, you may have had trouble opening the ZIP. Sorry about that.</p>
+
+<p>I use <a href="http://www.7-zip.org/">7-Zip</a> on my home dev machine, because it's free and open-source. It also comes with a command-line EXE, so I made a Rake task to automatically build a ZIP file for the DGrok distribution (took me most of Sunday to get everything right). It, ah, didn't occur to me that 7-Zip would default to using its own file format, instead of standard ZIP. (It worked fine on my machine!)</p>
+
+<p>I dug through the docs and found the "no, really, make a ZIP file" parameter (<code>-tzip</code>, if you're interested). The updated <a href="http://www.excastle.com/dgrok/DGrok-0.1.zip">DGrok 0.1</a> is now available for download. Let me know if the download causes you any problems.</p>

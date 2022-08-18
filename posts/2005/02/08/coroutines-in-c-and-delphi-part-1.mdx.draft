@@ -1,0 +1,36 @@
+---
+title: "Coroutines in C# and Delphi: Part 1  #.NET  #Delphi"
+sort: 2111
+---
+I've been thinking about some of the cool things I could do with coroutines, especially with regards to unit tests. So over the weekend, I wrote a coroutine library in C#.
+
+
+
+If you haven't dealt with coroutines ("generators" for the Python crowd), they're interesting beasts. You create a coroutine and call it, much like you would call any other routine; and it runs for a while, and then sends a return value back to its caller. But it doesn't actually <em>return;</em> instead, it just <em>"yields"</em> the value back to the caller. The difference is that after a yield, the coroutine's state â€” local variables, etc. â€” still exists, and later, you can tell the coroutine to resume where it left off, and run a while longer, until it yields again (or, in the end, returns for real).
+
+If you've read about C# 2.0 iterators, you've got the basic idea. But coroutines are much more powerful. In particular, I believe that a C# iterator is a single routine, and if you have any yield statements, those have to occur inside that single routine. (Correct me if I'm wrong â€” I don't actually have Whidbey installed, and haven't tested this. But based on what I've read about them, I believe this is correct.) But if you're using a coroutine, that yield can come anywhere: when you yield a coroutine, it's not just the local variables that are saved for later, it's also the <em>call stack.</em>
+
+Which means, for example, that coroutines can use recursion to their heart's content. If I had something like this:
+
+<pre>public class TreeWalker : Coroutine {
+    private TreeNode _tree;
+    public TreeWalker(TreeNode tree) { _tree = tree; }
+    protected override Execute() {
+        Walk(_tree);
+    }
+    private void Walk(TreeNode tree) {
+        if (tree != null) {
+            Walk(tree.Left);
+            Yield(tree);
+            Walk(tree.Right);
+        }
+    }
+}</pre>
+
+Here I'm doing a recursive in-order traversal of my binary tree... but the call site doesn't need to deal with the recursion â€” or even care that there's recursion going on. The call site would just look something like this:
+
+<pre>foreach (TreeNode node in new TreeWalker(tree)) { ... }</pre>
+
+If you've read <a href="http://weblogs.asp.net/oldnewthing/">Raymond Chen</a>'s series of articles on <a href="http://weblogs.asp.net/oldnewthing/archive/2004/12/31/344799.aspx">using fibers to simplify enumerations</a>, this should all sound very familiar; he was basically using fibers to implement coroutines. I did the same thing, but avoiding fibers (more on this later, but read the <a href="http://weblogs.asp.net/oldnewthing/archive/2004/12/31/344799.aspx">dire warnings</a> at the end of Raymond's third article).
+
+I'll post the code a little later, once I've got a few more features added (like the ability to deal with exceptions inside the coroutine). I'll also be doing a Delphi version (probably both Win32 and .NET).

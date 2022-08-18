@@ -1,0 +1,6 @@
+---
+title: "Determine whether user is logged in as admin (Whidbey)  #.NET"
+sort: 2063
+---
+<p>I'm not actually coding in Whidbey yet, so this is mostly a bookmark so I can find it again later.</p>
+<p>Brad Abrams posted code a while back showing how to use some of Whidbey's new classes to determine <a href="http://blogs.msdn.com/brada/archive/2004/10/01/236870.aspx">whether the currently-logged-in user is an administrator</a>. Looks like their wrappers for the security stuff might actually make the security APIs usable.</p>

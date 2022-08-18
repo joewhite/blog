@@ -1,0 +1,99 @@
+---
+title: "Agile and Extreme Programming: A Pragmatic Approach (part 3)  #.NET  #Delphi  #borcon2005  #extreme programming"
+sort: 2216
+---
+<p>Wow, this is going on for a while. Looks like this is part 3 of 4. There's some Q&amp;A stuff, and then a lot of bits about how you can replace some of the scary bits of XP so management doesn't duck and run.</p>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Miscellaneous stuff coming out of Q&amp;A at the end of the break:</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">How do you account for time taken by documentation?</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Business analysts are usually an iteration ahead of the developers</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Formal documentation (Help files, etc.) is usually an iteration behind the developers</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">When you're ready to ship to the outside world, documentation usually catches up during the final testing phase</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Who writes the stories?</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Typically, the business analyst creates the stories and the release plan, and then gets it approved by the actual end-user.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Then technical stories get inserted (and may have dependencies). Keep these to a minimum, but they're always there.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Don't necessarily break everything down into sub-tasks.</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">How do you get started with the first iteration?</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Iteration 0</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Iteration 0 is where you create spikes, and establish architectural guidelines for things you know will be difficult to change.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Also find hardware, set up version control, CruiseControl, etc.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Ideally you want to be able to sit down and start coding at the beginning of Iteration 1.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">If necessary, add an Iteration -1.</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">"If you are FedEx-ing hardware around, you have a serious build problem."</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Project Velocity</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Measure of how fast work is getting done on your project</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Count how many user stories (or programming tasks) were completed during the iteration</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Total up the estimates that these stories received</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Helps future estimation during the next Iteration Planning Meeting</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">During the Iteration Planning Meeting, devs sign up for last week's velocity worth of stories</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Don't divide the velocity by # of developers &#8211; not a useful individual metric</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Doesn't help determine overall velocity</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Can't compare it to other projects</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Discourage team building</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">If A is behind and B is ahead, B should step forward and say "I'll help so we can finish everything on time"</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Re-estimate if needed</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">OK to use other metrics as long as they're reasonable, accurate, team-based, provide real value, and are simple enough to understand.</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Cyclomatic complexity &#8211; number of decisions/loops per method</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Together (for Java or .NET) will run audits and metrics for you</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">See Brian Sletten's "Applied Object-Oriented Metrics" or David Bock's "Software Metrics and the Great Pyramids of <?xml:namespace prefix = st1 ns = "urn:schemas-microsoft-com:office:smarttags" /><st1:City><st1:place>Giza</st1:place></st1:City>"</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Metrics are actually really simple. Estimated vs. actual.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">In general, don't try to measure this with Microsoft Project</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Iterations give you defense against manager's "This new feature's gotta go in right now!"</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">"Sure, we'll be happy to do that. Which of these accepted features do we take out of the iteration?"</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">They get to prioritize it.</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Iterative Development</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Divide everything into iterations</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Schedule tasks in the Iteration Planning Meeting</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">It is against the rules to look ahead and try to implement anything not scheduled in this iteration (YAGNI &#8211; You Ain't Gonna Need It)</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">There's always time later to respond to changing requirements. Don't try to do it now.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Hard to substitute</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Tight iterations provide valuable feedback</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Keep team focused</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Avoid "Big Bang" deployments</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Even if you must deploy that way, do internal "Little Bang" deployments</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Deploy often to User Acceptance Testing</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Tell the boss: "Find bugs faster!"</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Iteration Planning</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Meeting at the beginning of each iteration</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">User stories chosen by the customer (from the release plan, most important first)</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Failed acceptance test</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Translated onto index cards (before iteration planning, stories might be in Excel, or whatever is useful to the customer)</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Each task should be 1-3 ideal programming days (apply a multiplier to get "real world" days)</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Developers sign up for tasks, then estimate how long each will take</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Velocity lets you tell if the iteration is overbooked</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Don't be tempted to change your task and story estimates</li>
+<ul style="MARGIN-TOP: 0in" type=circle>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Planning relies on cold reality of consistent estimates</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Fudging them to be lower means you're lying to yourself &#8211; you're telling management "we don't trust our estimates", and management is telling you "we don't trust your estimates, either"</li></ul>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Estimates does include the time it will take to write the unit tests, but shouldn't assume time for bug-fixes</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">It's normal to re-estimate stories and release plan every 3-5 iterations</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Always do the most important stories (per the customer) first</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">If you've got Big New Stuff That Everyone Needs To Learn, try to include that in the estimates, or add a spike as a technical card (can't really do it as a spike, since everyone needs to learn it)</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Substitutions: Any kind of similar planning is OK, but keep it iterative</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Long-term estimates must be fluid</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Developers must create their own estimates. Gives dev buy-in, and estimates get better over time.</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Tell management: "We're getting developers more interested in the project management side, and honing their estimation skills."</li></ul>
+<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Move People Around</p>
+<ul style="MARGIN-TOP: 0in" type=disc>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Change dev assignments weekly, daily, or hourly</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Prevents serious knowledge loss and bottlenecks; spreads overall knowledge around</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">May be as simple as encouraging everyone to try working on a different section of the system at least part of each iteration</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Pair programming eliminates transition time &#8211; move one pair at a time</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Harder if you don't pair program</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Feedback goal is to spread understanding around the project</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Can accomplish this with regular code reviews &#8211; less effective but better than nothing</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Helps avoid the Truck Number anti-pattern (see <a href="http://c2.com/cgi/wiki?TruckNumberFixed">http://c2.com/cgi/wiki?TruckNumberFixed</a>)</li>
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Explain Truck Number to management. Explain that it's risk. Managers understand risk.<font size=2><?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><o:p></o:p></font></li></ul>

@@ -1,0 +1,21 @@
+---
+title: "Infinity and negative infinity are... equal?  #Delphi  #dunitlite"
+sort: 2426
+---
+<p>As I write DUnitAssertions, I'm baking in knowledge of how to compare floats intelligently. This means always providing an <a href="http://blog.excastle.com/2007/04/08/dunitassertions-epsilons/">epsilon</a>. If you choose to specify an epsilon of zero (or don't provide an epsilon in the first place), I call <code>Math.SameValue</code>, which provides its own reasonable default epsilon.</p>
+
+<p>While writing some tests for my code, I found an interesting <a href="http://qc.codegear.com/wc/qcmain.aspx?d=44301">bug</a> in <code>SameValue</code>. It thinks that <code>Infinity</code> and <code>NegInfinity</code> are equal!</p>
+
+<p>Just a <i>bit</i> off, that.</p>
+
+<p>Now curious, I did some debugging.</p>
+
+<p><code>SameValue</code> starts out by seeing if you have zero as an epsilon (which you will, if you don't specify the default parameter). If so, it calculates its own reasonable epsilon. Here's the code it uses:</p>
+
+<blockquote><code>Epsilon := Max(Min(Abs(A), Abs(B)) * ExtendedResolution, ExtendedResolution);</code></blockquote>
+
+<p>So it takes <code>ExtendedResolution</code> (a very small number) and multiplies it by +INF. The result? +INF, of course. So anything within infinity is considered "close enough".</p>
+
+<p>Hmm. I think I <i>may</i> have found the problem.</p>
+
+<p>And if Delphi's standard library functions work this poorly with infinities, I may just not spend too much time worrying about how my framework handles them...</p>

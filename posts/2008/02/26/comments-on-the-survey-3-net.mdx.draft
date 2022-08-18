@@ -1,0 +1,55 @@
+---
+title: "Comments on the survey #3: .NET  #Delphi  #delphi for .net  #delphi survey"
+sort: 2503
+---
+We have legacy Win32 code, but are moving toward .NET. Nevertheless, on the survey, I said that CodeGear should focus on Win32 support.
+
+Now, why would I say that? Because our .NET plans do not include Delphi.
+
+There are several reasons for that.
+
+<h3>Communication issues</h3>
+
+Borland/CodeGear blew it when they promised us a .NET 2.0 version of Delphi, and then changed their minds without telling anybody. As late as February 2007 (and possibly later), <a href="http://blog.excastle.com/2007/02/13/codegear-and-roadmaps/">CodeGear was still promising that they were "going to" release a .NET 2.0 compiler <i>the previous year</i></a>, even though they had scrapped those plans long before.
+
+Guys, changing your minds is fine. You're a business; you've got to do what's right for the business. But if you do change your minds, you need to actually <i>tell your customers.</i> The sooner the better.
+
+<h3>Keeping up (or not)</h3>
+
+Delphi hasn't kept up with .NET, and there's no evidence that that will change. .NET 2.0 shipped in November 2005; Delphi got .NET 2.0 support in September 2007, almost two years later (and how long had .NET 2.0 been available in prerelease forms before its release, precisely so that other vendors could keep up?). And Delphi's .NET 2.0 support just barely scratches the surface.
+
+
+
+RemObjects, the guys behind <a href="http://www.remobjects.com/chrome/">Chrome</a> (another Object Pascal language for .NET), had the right idea: just do the stuff that adds value (i.e., make a language), and let Microsoft do the grunt-work and heavy lifting involved in writing an IDE. Maybe that's why <a href="http://www.remobjects.com/product/page.asp?id={6E14CE42-6E2E-4B92-A710-E4212E15D61E}">Chrome has kept up with, and in some cases gone past, C#'s feature set</a>. In fact, from what I can tell, it looks like Chrome had a production-level release with LINQ support <i>before Microsoft did.</i>
+
+A small company like RemObjects or CodeGear <i>should</i> be able to be nimbler than Microsoft, <i>should</i> be able to release major innovations on a tighter schedule than the Microsoft behemoth. RemObjects has done that with Chrome. CodeGear hasn't -- not for .NET, anyway.
+
+(To be fair, Chrome isn't currently in our plans either.)
+
+<h3>Incompatible frameworks</h3>
+
+VCL.NET apparently isn't compatible with the rest of the .NET world. You need to make a special wrapper before you can use a WinForms control in VCL.NET, and I have yet to see anyone breathe a word about whether it's possible to go the other way and use VCL.NET controls in WinForms.
+
+That means that VCL.NET is only a viable choice when you're a group of Delphi programmers who will only ever work with other groups of Delphi programmers. If you're ever going to work with C# programmers, hire a contractor, look for code on the Internet -- or if you already have C# WinForms code of your own -- VCL.NET is a non-starter. This may not be a big deal for everyone, but it is for us.
+
+<h3>Refactoring tools</h3>
+
+I've already talked about the <a href="http://blog.excastle.com/2008/02/22/comments-on-the-survey-2-refactorings/">lack of refactoring tools for Delphi</a>. Visual Studio, on the other hand, has two big things going for it here. #1, it has a handful of built-in refactorings that actually work; and #2, it has <a href="http://www.jetbrains.com/resharper/">ReSharper</a>.
+
+I've already talked at length about how much ReSharper rocks (see my series, "The <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>â€). I filled 31 days just talking about version 2.5; I haven't even had a chance to look at all the new stuff in 3.0 or 4.0 yet. Delphi doesn't have anything that comes close.
+
+(It may sound like I'm contradicting myself here. On the one hand, I'm complaining about VCL.NET locking us in to a single vendor; on the other, I'm singing the praises of ReSharper, an add-in that only works with Visual Studio. There's one big difference, though: I can still compile my code without ReSharper.)
+
+<h3>Buggy IDE</h3>
+
+I could make a long, long list of the bugs in the Delphi IDE that slow us down on a daily basis. Visual Studio? Not so much.
+
+Delphi has half-baked features (<code>strict private</code> is fabulous until you use Class Completion or the refactoring tools), regressions from previous versions (missing Help topics jump immediately to mind), minor annoyances that add up on an hourly basis (using the IDE makes the command-line compiler stop working), compiler bugs (like the spurious "unit Foo recursively uses itself" that's fixed by doing a Build). Just off the top of my head. At least there aren't as many outright crashes these days; thank heavens for small favors.
+
+Don't get me wrong: Visual Studio isn't perfect. We've had some problems with it too. But far, far less often than Delphi.
+
+<h3>No comparison</h3>
+
+Frankly, there's just no reason to use Delphi for .NET development -- not when we could be using a <a href="http://msdn2.microsoft.com/en-us/vstudio/default.aspx">stable IDE</a> and <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">kick-ass</a> <a href="http://www.jetbrains.com/resharper/">refactoring tools</a>.
+
+We cross-compile some of our Win32 code into .NET, and that will continue. But CodeGear, don't put more effort into .NET for our sake. Not now. It would be too little, too late.

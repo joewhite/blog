@@ -1,0 +1,20 @@
+---
+title: "WPF design flaw of the day: no initial focus  #.NET  #wpf"
+sort: 2829
+---
+When you write a WPF app and start it up, nothing has focus.
+
+I'd call this a bug, but Microsoft has scads of testers. Somebody <em>had</em> to have noticed. So I can only conclude that somebody decided, on purpose, that when you write a WPF app and run it, the user shouldn't be able to just start typing.
+
+
+
+This is completely unlike the other two major GUI frameworks I've used (Delphi VCL and Windows Forms), where the app is usable by default: you open a window, your focus is in the first control in the tab order. I was therefore rather grumpy when I found out about the WPF brokenness.
+
+Fortunately, after some digging around in Reflector, I found a nice, general fix. Adding this to the window's constructor:
+
+<pre lang="csharp">Loaded += (sender, e) =>
+    MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));</pre>
+
+will re-enable the standard behavior: initial focus is in the first control in the tab order.
+
+This line could easily be pulled into a base class, so that all your windows can automatically inherit this behavior.

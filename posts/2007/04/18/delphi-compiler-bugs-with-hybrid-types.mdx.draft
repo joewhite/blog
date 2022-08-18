@@ -1,0 +1,20 @@
+---
+title: "Delphi compiler bugs with hybrid types  #Delphi  #dunitlite"
+sort: 2428
+---
+<p>I recently talked about something I called <a href="http://blog.excastle.com/2007/04/10/hybrid-types-in-delphi-mix-ins-anyone/">hybrid types</a>: a strategic combination of existing Delphi compiler features that basically give you a polymorphic record. All kinds of languagey goodness: automatic memory management, virtual methods, operator overloading, and a touch of mix-in semantics all in one.</p>
+
+<p>(Really it's just a record with methods, wrapping an interface reference. But you can do interesting things with the idea, and I'm using them fairly extensively as I write DUnitAssertions.)</p>
+
+<p>I've since found out, after several hours of troubleshooting, that the Delphi compiler doesn't always work very well with these hybrid types. I'll start with the bottom line:</p>
+
+<blockquote><pre>// Don't do this.
+MethodThatReturnsAHybridType.MethodOnTheHybridType;</pre></blockquote>
+
+<p>In particular, I was putting a method on my test classes called <code>Value()</code>, that took a TValue and simply returned it; then my tests would chain calls like <code>Value(5).Matches(...)</code>. TValue supports <code>operator implicit</code>; this was an easy way to cast integers, strings, etc. to TValue inside my tests. (I tried explicitly casting to <code>TValue(...)</code>, which is supposed to work, but I got a compiler Internal Error.) The <code>Value()</code> function seemed like a good compromise, but apparently not. The compiler generates broken code if you do this; it tended to crash my test app on exit.</p>
+
+<p>If a method returns a hybrid type, and you chain a call (as shown) to a method on that hybrid type, the compiler will do a double-free on the interfaced object that the hybrid type wraps. My <a href="http://qc.codegear.com/wc/qcmain.aspx?d=44634">QualityCentral report on the bug</a> has more details and a full repro case. I tried grovelling around in the assembly code to figure out what exactly the compiler is doing differently with this particular code, but finally gave up.</p>
+
+<p>It's broken for sure in Delphi 2006. They <i>still</i> haven't sent us our Software Assurance copies of Delphi 2007 (<a href="http://blog.excastle.com/2006/01/24/delphi-2006-is-here/">sound familiar?</a>), so I can't check whether it's still broken or not in the latest and greatest compiler.</p>
+
+<p>I shouldn't be surprised; this is far from the first compiler bug we've found relating to records-with-methods (although the others were mostly obscure "internal errors" that failed the compile, not incorrect codegen that screws up the heap at runtime). It's abundantly clear that the CodeGear developers never use this compiler feature themselves.</p>

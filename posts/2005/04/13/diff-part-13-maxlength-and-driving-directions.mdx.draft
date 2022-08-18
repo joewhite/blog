@@ -1,0 +1,27 @@
+---
+title: "Diff, part 13: MaxLength and driving directions  #.NET  #Delphi  #diff"
+sort: 2148
+---
+<p><a href="http://blog.excastle.com/2005/04/12/diff-part-12-more-state-mr-sulu/">Last time</a> in the <a href="http://blog.excastle.com/tag/diff/">diff saga</a>, I showed a <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">Longest Common Subsequence</a> (LCS) algorithm with real promise, but a big weakness: it's O(2<sup><small><i>n</i></small></sup>). Heat death of the universe, etc. We can improve on that.</p>
+<p>Remember that we build longer <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">CS</a>es by starting with shorter ones, and adding stuff onto the end. Suppose we write a new function MaxLength(CS<sub><small>A</small></sub>), which returns the length of the longest CS that starts with CS<sub><small>A</small></sub>. Let's go back to our last example:</p>
+<blockquote dir=ltr style="MARGIN-RIGHT: 0px">
+<p><font face="Courier New">A is (1 2 3 4)<br>B is (1 3 4 2)<br></font>Matches are <font face="Courier New">[0,0]</font>, <font face="Courier New">[1,3]</font>, <font face="Courier New">[2,1]</font>, and <font face="Courier New">[3,2]</font>.</p></blockquote>
+
+
+
+<p>Let's look at our function MaxLength with some CSes from this input:</p>
+<ul>
+<li>MaxLength(<font face="Courier New">[0,0]</font>) = 3, because <font face="Courier New">[0,0]</font> will grow into length-3 CS <font face="Courier New">[0,0] [2,1] [3,2]</font>.
+<li>MaxLength(<font face="Courier New">[0,0] [2,1]</font>) is also 3, because <font face="Courier New">[0,0] [2,1]</font> will grow into that same length-3 CS, <font face="Courier New">[0,0] [2,1] [3,2]</font>.
+<li>MaxLength(<font face="Courier New">[0,0] [2,1] [3,2]</font>) is &#8212; you guessed it &#8212; 3.
+<li>MaxLength(<font face="Courier New">[0,0] [3,2]</font>) = 2, because <font face="Courier New">[0,0] [3,2]</font> has already maxed out; there are no matches we can add at the end to make a longer CS.
+<li>MaxLength(<font face="Courier New">[2,1]</font>) = 2, because <font face="Courier New">[2,1]</font> will grow into <font face="Courier New">[2,1] [3,2]</font>.</li></ul>
+<p>Now, here's the plan. We follow our <a href="http://blog.excastle.com/2005/04/12/diff-part-12-more-state-mr-sulu/">stateful LCS algorithm</a>, but for every CS we've accepted so far, we also keep track of its MaxLength. Then, when we come up with a new CS, we calculate its MaxLength, and compare that to the MaxLengths that are already in our list. If the new MaxLength is better than anything in the list, then we throw away the CSes with worse MaxLengths, and add the new one. But if the new MaxLength is worse than anything in the list, then we throw the new one away.</p>
+<p>The highest MaxLength will always belong to CSes that are leading subsets of the LCS. That is, if the LCS is <font face="Courier New">[0,0] [2,1] [3,2]</font>, then <font face="Courier New">[0,0]</font> will have the highest possible MaxLength &#8212; 3, in this case &#8212; and so will <font face="Courier New">[0,0] [2,1]</font> and <font face="Courier New">[0,0] [2,1] [3,2]</font>. So if we immediately throw away any CS with a lower MaxLength &#8212; <font face="Courier New">[0,0] [1,3]</font>, for example, with a MaxLength of a mere 2 &#8212; then we'll home right in on our LCS. We won't waste time getting sidetracked, and we won't linger on CSes with obvious holes (<font face="Courier New">[0,0] [3,2]</font> has a MaxLength of 2, so out it goes).</p>
+<p>Well, okay, the obvious holes don't play too big a part in an example this short. But they're what makes our previous algorithm take exponential time. Fixing them is what makes the algorithm practical. And with MaxLength, we can do just that. Goody!</p>
+<p>Until reality sets in, at any rate.</p>
+<p>See, you can't actually know what any of the MaxLengths are until <em>after</em> you've generated all the longer CSes. Which pretty much only happens after you're done running the entire O(2<sup><small><i>n</i></small></sup>) LCS algorithm. So you have to go through the algorithm once, without optimizations, so you can run it again, with optimizations. Yeah, that makes a lot of sense.</p>
+<blockquote dir=ltr style="MARGIN-RIGHT: 0px">
+<p>Driver: "Will we get there faster if I turn left or right at this intersection?"</p>
+<p>Navigator: "Well, let's try turning left, and drive until we get there, and see how long it takes. Then we'll come back here, and the second time, we'll turn right at this intersection, and then drive until we get there. Then we'll know for sure which way will get us there fastest, and we can come back here again and take that route."</p></blockquote>
+<p>Okay. So, the MaxLength scheme probably isn't going to work. At all. However, it <em>is</em> a useful concept to build upon, and next time I'll show a variation that's nearly as useful, and not nearly as stupid.</p>

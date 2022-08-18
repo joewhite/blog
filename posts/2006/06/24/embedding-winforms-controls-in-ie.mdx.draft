@@ -1,0 +1,7 @@
+---
+title: "Embedding WinForms controls in IE  #.NET"
+sort: 2331
+---
+<p>I've had to dig this up several times before, so it's about time I blogged it.</p>
+<p>You can embed a .NET WinForms control directly into a Web page, much like a Java applet or an ActiveX control. It only works in IE, but unlike ActiveX, there's no security prompt and nothing to install. (Obviously, it runs in a sandbox, so it can't access your hard drive or anything.) You also have to be careful about what events you hook and suchlike; the security model is pretty restrictive (I've <a href="http://blog.excastle.com/2004/05/23/security-permissions-in-windows-forms/">blogged about this before</a>).</p>
+<p>Anyway, here's how to <a href="http://samples.gotdotnet.com/quickstart/winforms/doc/WinFormsIeSourcing.aspx">embed a UserControl into Internet Explorer</a>.</p>

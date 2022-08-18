@@ -1,0 +1,29 @@
+---
+title: "Rant: IE and local JavaScript  #Life  #Programming  #javascript"
+sort: 2653
+---
+So I'm writing a JavaScript-heavy application and testing it on my local machine. No problem, I think: just save the .html file on my disk and open it in a browser. Nothing could be simpler... if you're using FireFox or Chrome.
+
+IE, on the other hand, throws a hissy fit. "Danger!" it screams. "There's a file on your local hard drive with JavaScript in it! Cower! Panic! The end is near!"
+
+Okay, I took a bit of poetic license. What it actually says is, "To help protect your security, Internet Explorer has restricted this webpage from running scripts or ActiveX controls that could access your computer. Click here for options..."
+
+Same thing.
+
+It's so bad that, if I type a path to a local file into the address bar, IE won't even open it in the same window. It has to open a <em>new window.</em> Opening a local file involves opening IE, typing the path, clicking OK to its "sky is falling" dialog, letting it open its new window, Alt+Tabbing back to the original window, and closing it. All to open a file that's under my complete control, completely trusted, doesn't even require a network access.
+
+Oookay. I guess I get it: IE is a claustrophobe. It panics when it feels the four walls of the local hard drive closing in on it. The remedy, obviously, is to let it out, and make it feel like it's actually accessing the network. So I installed IIS, set up a virtual directory, and browsed to the web server on my local machine.
+
+FireFox works fine. Chrome works fine. IE runs screaming in horror. "Oh noes!" it cries. "You're trying to access an <em>intranet!</em> Oh, will nobody save me from the unspeakable dangers lurking on the private, firewalled network?"
+
+Yeah, yeah, poetic license again, but honestly, <a href="http://www.metrolyrics.com/youll-see-lyrics-rent.html">that boy could use some Prozac*. Or heavy drugs. Or group hugs.</a>
+
+* Actually, anti-depression meds aren't a good fit for the symptoms. Anti-anxiety might be better. Or possibly a good anti-psychotic.
+
+At least it does run JavaScript now. And you can tell it to shut up about the many perils of the Intranet zone. (For that matter, yes, I could configure it to allow JavaScript for local files. But that doesn't answer the question of why it's got ridiculous settings to begin with.)
+
+I just don't get it. When IE runs across JavaScript on the big bad Internet, it trusts it unquestioningly. Sure, there are zone settings; it won't let it do anything dangerous. But how is that <em>less</em> worthy of abject terror than something on <em>my own hard drive?</em> If I opened an EXE from my hard drive, Windows would quite happily let it install all the spyware it wants. But heaven forbid I open a Web page with some JavaScript animation. That might be <em>bad.</em>
+
+Can't we treat a Web page like a Web page and just open the damn thing? Is that too much to ask?
+
+(Apparently not, because everybody but IE can do it just fine...)

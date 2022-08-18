@@ -1,0 +1,26 @@
+---
+title: "Released: Tyler v0.01 alpha  #Delphi  #tyler"
+sort: 2521
+---
+<s><a href="http://tyler.excastle.com/downloads/tyler-0.01.zip">Tyler version 0.01</a> is now available for download. Currently there's just a source distribution, but it includes compiled EXEs.</s> <em>The ZIP download is no longer available, but you can check the code out of the Subversion repository: <a href="http://svn.excastle.com/tyler_delphi/tags/0.01/">version 0.01</a> or <a href="http://svn.excastle.com/tyler_delphi/trunk/">latest code</a>.</em>
+
+The feature set is pretty sparse at the moment, but what's there, works. It's the bare minimum that I decided would be worth releasing. Here's a brief rundown:
+
+<ul>
+<li><b>Pluggable display libraries.</b> You can select from "compatibility mode" (basic GDI via TCanvas), Asphyre eXtreme, and (un)DelphiX (but see note 1 below). Windowed mode only -- no fullscreen support in this version.</li>
+<li><b>Graphics.</b> These are primitive -- everything is a solid-color square. Walls are light gray, floors are dark gray, the hero is yellow, the wandering <acronym title="Non-player character">NPC</acronym> is white, and that's all you get. (Well, except for black.)</li>
+<li><b>Movement.</b> You can use the cursor keys to move the hero around the map. There's nothing yet to make you stop when you run into a wall or the <acronym title="Non-player character">NPC</acronym>, though.</li>
+<li><b>Map editing.</b> TylerEdit.exe lets you edit the map and save your changes. It's primitive, but it works. (But see note 2 below.)</li>
+</ul>
+
+Currently you can only have one map. Later you'll be able to have lots of them -- a world map, a map for each town, a map for each dungeon level.
+
+Some stuff is hard-coded in this version, like the initial position of the hero, and the position and movement of the <acronym title="Non-player character">NPC</acronym>. This will be improved in the next few versions.
+
+<b>Note 1:</b> The license agreement for (un)DelphiX does not allow me to redistribute its source code. So, the source distribution is (un)DelphiX-less. But it still compiles: if you download and compile the source distribution, (un)DelphiX support will be automatically disabled. To enable (un)DelphiX, see the notes in the <code>vendor\undelphix</code> directory.
+
+<b>Note 2:</b> The map file format will change in future versions. Any maps you create in this version probably will not work in v0.02 and later.
+
+<h3>What's next</h3>
+
+The next few releases will be working toward a major milestone: a finished game. Not a <i>long</i> game -- it'll probably take less than a minute to play from start to finish. And not a very exciting one. In fact, it'll be pretty stupid. But it'll be playable, and everything will be editable in the game editor. Stay tuned for more news of... <b>Stupid Quest.</b>

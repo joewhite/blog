@@ -1,0 +1,23 @@
+---
+title: "ng-rpg: Trying to scroll the world map with Angular animations  #Programming  #angular  #angular-game  #ng-rpg"
+sort: 3978
+---
+<p>I've talked before about how I'm <a href="http://blog.excastle.com/2013/10/14/latest-project-a-video-game-in-angularjs/">writing a Final Fantasy-style roleplaying videogame in AngularJS</a>. As is my wont, I'm actually trying to write a reusable framework that other people could use to build their own console RPGs; my game will just be a proof-of-concept for the framework.</p>
+
+<p>(I'm calling dibs on the name "ng-rpg".)</p>
+
+<p>One of the most basic things that a Final Fantasy-style RPG needs to do is let you walk around the map. <a href="https://angularjs.org/">Angular</a> has <a href="http://www.yearofmoo.com/2013/08/remastered-animation-in-angularjs-1-2.html">animation support</a> baked in, and I had some ideas on how I could implement "walk around the map" with animation and databinding, as crazy as that sounds. But I needed to do some testing to make sure I'd get good results.</p>
+
+<p>Let's say the user hits the left arrow on the keyboard. I always show the in the center of the screen, so for the hero to move left within the map, the map needs to slide to the right. I scale the tiles based on screen size, but let's say the map needs to move 100 pixels. Once it's moved 100 pixels, I need to check to see whether the left arrow is still held down; if so, I kick off the animation again, and the hero keeps moving smoothly westward through the (scrolling) map.</p>
+
+<p>Angular can do a bunch of this. I could use databinding to add a CSS class to the "map" div, and as long as I've defined the animations in my CSS, Angular would automatically kick off a nice animation to move everything 100 pixels.</p>
+
+<p>I also need to know when the animation is done, so I can't just use the built-in <a href="https://docs.angularjs.org/api/ng/directive/ngClass">ngClass</a> binding -- it has no way to give a "done" notification. Instead, I need to write my own directive, and have it use the <a href="https://docs.angularjs.org/api/ngAnimate/service/$animate">$animate service</a> to add the class and specify a "done" callback. Then in the callback, I can decide whether I need to restart the animation, or perhaps start a different animation, or just stop. So far so good.</p>
+
+<p>The question is, if the callback restarts the animation, what will the user see? Will the transition be seamless and continuous, or will there be a tiny pause before the animation restarts?</p>
+
+<p>To find out, I put together this <a href="http://plnkr.co/edit/8J1BhyI9WWlY5Klr4tKC?p=preview">proof-of-concept plunk</a>. It just has a box that you can move left and right using a couple of buttons, and each time you tell it to move, it does two animations in a row, so you can see whether there's a seam between them.</p>
+
+<p>The results were disappointing. With Angular 1.2, Chrome's animation is smooth and seamless; you can't even tell it's chaining two animations end-to-end. But in both FireFox and IE, there's a noticeable pause before it starts the second animation, so the animation is choppy instead of continuous. And in the Angular 1.3 beta (<a href="http://plnkr.co/edit/Kn0JUeG1QtCiPP5DWKfB?p=preview">plunk</a>), I haven't had any luck getting this technique to work at all -- if I remove and re-add the class in the "done" event, the animation doesn't restart.</p>
+
+<p>So it looks like pure-Angular animations won't really work for RPG maps (though I expect they'll be pretty slick for battle animations). But that's okay; my next map-animation proof of concept showed more promise. Stay tuned.</p>

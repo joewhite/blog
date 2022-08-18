@@ -1,0 +1,7 @@
+---
+title: "TMS component to show/emulate the Vista Task Dialog  #.NET  #Delphi"
+sort: 2387
+---
+<p>Vista has one cool new feature, which is their <a href="http://www.interact-sw.co.uk/iangblog/2005/12/21/taskdialog">Task Dialog</a>. It can show text and standard buttons, just like MessageBox, but it can also show hyperlinks in its captions, custom buttons at the bottom ("Save" and "Don't Save"), radio buttons, large buttons with explanations on them, a checkbox, a progress bar, and an expandable area. Basically it replaces all those custom MessageBox-like dialogs that we've all had to write to get a decently usable UI. Here's <a href="http://weblogs.asp.net/kennykerr/comments/458840.aspx">detailed info on how to use the Task Dialog in Vista</a>.</p>
+<p>Unfortunately, the Task Dialog is only available in Vista, which means that nobody can actually use it in programs until the whole world has moved on from Windows 2000 and XP. Third-party vendors to the rescue: TMS Software has a <a href="http://www.tmssoftware.com/vtd.htm">TTaskDialog</a> Delphi component that will show a Task Dialog when you're running under Vista, and will create a normal dialog with the same features (though not quite the same aesthetically-pleasing layout) in XP and earlier. They've got screenshots. Check it out.</p>
+<p>Anyone aware of any .NET libraries that will let you call out to a Task Dialog on Vista, and/or let you simulate a Task Dialog on XP and earlier?</p>

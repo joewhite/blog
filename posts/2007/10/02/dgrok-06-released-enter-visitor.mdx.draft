@@ -1,0 +1,26 @@
+---
+title: "DGrok 0.6 released: enter Visitor  #.NET  #Delphi  #dgrok"
+sort: 2475
+---
+<p><a href="http://www.excastle.com/dgrok/DGrok-0.6.zip">DGrok 0.6</a> is now available for download.</p>
+
+<p>New in this version:</p>
+
+<ul>
+<li>All documented compiler directives are supported (plus one undocumented one, <code>{$VARSTRINGCHECKS}</code>)</li>
+<li>Added support for hard casts to the <code>file</code> keyword, e.g., <code>file(AUntypedVarParameter)</code></li>
+<li>Changed PointerType to allow any type, not just QualifiedIdent. This allows things like <code>^string</code>.</li>
+<li>Fixed runtime cast error when a program or unit has a <code>begin</code>...<code>end</code> block or <code>asm</code> block for its initialization section. For simplicity's sake, all init sections are now represented by InitSectionNode.</li>
+<li><a href="http://blog.excastle.com/2007/10/01/83-backward-compatibility-or-why-dpr-returns-dproj-files/">Ignore .dproj files</a> when you search for *.dpr.</li>
+<li>Ignore <code>{$DEFINE}</code> and <code>{$UNDEF}</code> when they occur inside a false <code>{$IF...}</code> block. Oops.</li>
+<li>Ignore unrecognized compiler directives if they're inside a false <code>{$IF...}</code> block. This lets me ignore, say, FreePascal compiler directives (since they usually occur inside <code>{$IFDEF FPC}</code> blocks).</li>
+<li>Allow dotted names for packages (in the "<code>Package <i>Name</i></code>" line).</li>
+<li>Contains clauses now support "<code>in <i>filename</i></code>" specifiers. (Actually, contains clauses are now handled by the same rule as uses clauses.)</li>
+<li>Added support for <code>[assembly: Attribute(...)]</code> syntax. Yes, mostly I've been focusing on parsing Win32, but I have some need to deal with .NET code as well.</li>
+<li>Changed it so that not-yet-defined symbols are treated as false by <code>{$IFDEF}</code> rather than explicitly raising an error. The error served its purpose earlier, but I reached the pain point and shut it off.</li>
+<li>Added a Visitor class.</li>
+</ul>
+
+<p>Whew. Not bad for one evening's work.</p>
+
+<p>I think Visitor will really be the way you put the parser to work. I was hoping to get some examples into today's build, but I ran out of time. Play around if you like.</p>

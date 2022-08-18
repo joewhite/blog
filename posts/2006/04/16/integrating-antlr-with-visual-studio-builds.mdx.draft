@@ -1,0 +1,39 @@
+---
+title: "Integrating ANTLR with Visual Studio builds  #.NET  #Delphi  #antlr  #dgrok  #ruby"
+sort: 2285
+---
+So I'm trying to write a tool that will parse Delphi source code. From there, I hope to move on to writing a tool that will tell me things about that Delphi source code: where we have typecasts, which properties are assigned in base DFMs, etc. Whatever I need it to tell me, really.
+
+
+
+I fully expect that I'll never get far with this, but it's certainly an interesting toy for however long my attention span lasts. And I haven't played with compiler-compilers since college. It's kind of interesting to stick my foot back in.
+
+I'm currently playing with <a href="http://www.antlr.org/">ANTLR</a>, which is kinda like LEX and YACC rolled into one, but different. I'm using it because it can generate C# output. Sorta. (But that's another blog post.)
+
+After some frustration with having to remember to run ANTLR manually every time I edited the grammar file, I finally buckled down and integrated ANTLR with MSBuild, so Visual Studio would automatically save my grammar file, and then run ANTLR, every time I compiled in the IDE. It wasn't too hard, but there were a couple of wrinkles:
+<ul>
+	<li>I want my build to fail if ANTLR generates warnings. (Or I could show the warnings as warnings in Visual Studio, but that looks like it'd be a lot more work; I'd have to write an MSBuild plug-in. Failing is simpler for now.) But ANTLR has no option for "treat warnings as errors". Its exit code will tell you if there were genuine errors, but not if there were warnings. I had to work around this by writing a Ruby script that runs ANTLR and parses its console output.</li>
+	<li>ANTLR sends all its output to STDERR (even the "ANTLR Parser Generator version ..." banner â€” for shame!). Ruby's IO.popen() runs a process and captures its output, but it only captures STDOUT. Open3.popen3() is supposed to capture STDIN, STDOUT, and STDERR, but I couldn't get it to work on Windows, because it tries to fork(). I know <a href="http://www.alienlioquent.com/">Sam</a> figured out a way to get popen3 to work on Windows, but I don't remember the details. I wound up using IO.popen() and 2&gt;&amp;1, which is a hack, but it works.</li>
+	<li>My Ruby script doesn't check ANTLR's exit code; it just looks at ANTLR's console output. I didn't bother to figure out how to check the process's exit code after popen(). Looking at the output seems to work fine.</li>
+	<li>With this fix, when ANTLR fails, all that shows up in Visual Studio's "Error List" is "The command "RunAntlr.rb" exited with code 1." You have to go to the Output window to see the error. Again, I think I'd have to write an MSBuild plug-in to fix this, so this is good enough for now.</li>
+</ul>
+Here's my Ruby script. It's got hard-coded paths in it, but it works great for a quick hack. I called it RunAntlr.rb and put it in the same directory as my Delphi.g grammar file (which was itself in the same directory as my .csproj file). Written for ANTLR 2.7.5.
+<pre>Dir.chdir("C:/svn/AntlrTestbed02/DelphiParser")
+new_classpath = "C:\\Program Files\\antlr\\275\\lib\\antlr.jar;#{ENV['CLASSPATH']}"
+command = "java -classpath \"#{new_classpath}\" antlr.Tool Delphi.g 2&gt;&amp;1"
+exit_code = 0
+IO.popen(command) do |pipe|
+  pipe.each do |line|
+    puts line
+    if line !~ /^ANTLR Parser Generator/
+      exit_code = 1
+    end
+  end
+end
+exit(exit_code)</pre>
+
+Then I plugged it into my .csproj file. (To do this inside Visual Studio, first right-click the project in Solution Explorer and select "Unload Project", then right-click the project again and select "Edit &lt;ProjectName&gt;.csproj". Make the edits, save, then right-click and "Reload Project".)
+
+At the end of the .csproj file, there should be a couple of commented-out nodes: BeforeBuild and AfterBuild. Uncomment BeforeBuild and add this node inside it:
+
+<pre>&lt;Exec Command="RunAntlr.rb" /&gt;</pre>

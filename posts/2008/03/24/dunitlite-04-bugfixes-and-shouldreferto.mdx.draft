@@ -1,0 +1,30 @@
+---
+title: "DUnitLite 0.4: bugfixes and Should.ReferTo  #Delphi  #dunitlite  #tyler"
+sort: 2507
+---
+Version 0.4 of <a href="http://code.google.com/p/dunitlite/">DUnitLite</a> is available. It fixes a couple of fairly major bugs (noted below) and adds a minor new feature.
+
+Download it here: <a href="http://dunitlite.googlecode.com/files/DUnitLite-0.4.zip">DUnitLite 0.4</a>
+
+<h3>What is DUnitLite?</h3>
+For those who don't remember, DUnitLite is my set of add-ons to DUnit to make assertions more readable, in the spirit of NUnit's <a href="http://nunit.com/blogs/?p=44"><code>Assert.That(...)</code> assertions</a> (originally from NUnitLite). For example:
+
+<pre>
+Specify.That(Foo, Should.Equal(45));
+Specify.That(Bar, Should.Not.Equal(45));
+Specify.That(Baz, Should.Be.AtLeast(40));
+Specify.That(Quux, Should.Be.OfType(TSpecialQuux));
+</pre>
+
+<h3>What's new in 0.4</h3>
+<ul>
+<li>BUG: When you used TInsulatedTest (or TSpecification), DUnit was unable to count the number of passing tests -- it just reported 0 tests run. Fixed.</li>
+<li>BUG: When you used TInsulatedTest (or TSpecification), the test-suite nodes were labeled "TInsulatedTest" instead of the actual class name. Fixed.</li>
+<li>NEW: Added <code>Should.ReferTo(...)</code> (reference equality check). Currently only works for objects, not interfaces.</li>
+</ul>
+
+<h3>Score one for <a href="http://en.wikipedia.org/wiki/Eat_one's_own_dog_food">dogfood</a></h3>
+
+I'm using DUnitLite to write the tests / specifications for <a href="http://tyler.excastle.com/">Tyler</a>, so I'm quickly running into its bugs and limitations. This is the first time I've seriously tried to use DUnitLite in a project (its use of records-with-methods would reliably crash the pre-SR1 Delphi 2006 compiler we had at work at the time, and I never got back to it), so this is the first time I've actually noticed these gaping holes.
+
+Fortunately, I <i>wrote</i> DUnitLite, so it's really easy for me to fix the bugs. Don't be surprised if you see a few more releases in the near future.

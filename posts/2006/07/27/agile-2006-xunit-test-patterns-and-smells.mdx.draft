@@ -1,0 +1,256 @@
+---
+title: "Agile 2006: xUnit Test Patterns and Smells  #Programming  #agile2006  #extreme programming"
+sort: 2351
+---
+<p>xUnit Test Patterns and Smells<br>Gerard Meszaros and Greg Cook<br>Tuesday afternoon</p>
+<p>Book: "XUnit Test Patterns" &#8212; currently in second-draft review. Hopefully coming out this fall.</p>
+<p><a href="http://www.xunitpatterns.com/">xunitpatterns.com</a></p>
+<p>This session is going to be hands-on with a fair number of exercises.</p>
+<p>Terminology</p>
+<ul>
+<li>Test vs SUT vs DOC</li>
+<ul>
+<li>Test, which verifies the</li>
+<li>System Under Test, which may use</li>
+<li>Depended-on Component(s)</li></ul>
+<li>Unit vs Component vs Customer Testing</li>
+<ul>
+<li>Unit testing: single class</li>
+<li>Component: aggregate of classes</li>
+<li>Customer: entire application</li></ul>
+<li>Black Box vs White Box Testing</li>
+<ul>
+<li>Black box: know what it should do. xUnit tests are usually black-box tests of very small boxes.</li>
+<li>White box: know how it is built inside</li></ul></ul>
+<p>What does it take to be successful?</p>
+<ul>
+<li>Programming experience</li>
+<li>+ xUnit experience</li>
+<li>+ Testing experience (What test should I write?)</li>
+<li>!= Robust Automated Tests</li></ul>
+<p>It's crucial to make tests simple, and easy to write</p>
+<p>Expect to have at least as much test code as production code!</p>
+<ul>
+<li>Can we afford to have that much test code?</li>
+<li>Can we afford not to?</li>
+<li>Challenge: How to prevent doubling the cost of software maintenance?</li></ul>
+<p>Testware must be <em>easier</em> to maintain than the production code. The effort to maintain should be less than the effort saved by having tests.</p>
+<p>Goals of automated tests:</p>
+<ul>
+<li>Before code is written</li>
+<ul>
+<li>Tests as Specification</li></ul>
+<li>After code is written</li>
+<ul>
+<li>Documentation</li>
+<li>Safety net</li>
+<li>Defect localization (minimize debugging)</li></ul>
+<li>Minimizing cost of running tests</li>
+<ul>
+<li>Fully automated</li>
+<li>Repeatable</li>
+<li>Robust: should work today, tomorrow, next month, should work in leap years, etc. Not brittle. Shouldn't have to revisit tests unless the code it tests has changed.</li></ul></ul>
+<p>What's a "Test Smell"?</p>
+<ul>
+<li>Set of symptoms of an underlying problem in test code</li>
+<li>Smells must pass the "sniff test"</li>
+<ul>
+<li>Should be obvious that it's there (not necessarily obvious why &#8212; trust your gut)</li>
+<li>Should "grab you by the nose"</li>
+<li>Symptom that may lead you to the root cause</li></ul>
+<li>Common kinds of smells:</li>
+<ul>
+<li>Code smells &#8212; visible problems in code</li>
+<li>Behavior smells &#8212; test behaves badly</li>
+<li>Project smells &#8212; project-level, visible to Project Manager</li></ul>
+<li>Code Smells can cause Behavior Smells can cause Project Smells</li></ul>
+<p>Patterns: Recurring solutions to recurring problems</p>
+<ul>
+<li>Criterion: Must have been invented by three independent sources</li>
+<li>Patterns exist whether or not they've been written up in "pattern form"</li></ul>
+<p>Examples of test smells:</p>
+<ul>
+<li>Hard to understand</li>
+<li>Coding errors that result in missed bugs or erratic tests</li>
+<li>Difficult or impossible to write</li>
+<ul>
+<li>No test API</li>
+<li>Cannot control initial state</li>
+<li>Cannot observe final state</li></ul>
+<li>Sniff test: Problem is visible (in your face)</li></ul>
+<ul>
+<li>Conditional test logic (if statements in tests)</li>
+<li>Hard to code</li>
+<li>Obscure</li>
+<li>Duplication</li></ul>
+<ul>
+<li>Obtuse Assertion, e.g. AssertTrue(False) instead of Fail().</li>
+<li>Hard-wired test data. Can lead to fragile tests.</li>
+<li>Conditional test logic. Ridiculous example: if (condition) { ... } else Assert.Fail(); Why not just do Assert(condition)?</li>
+<li>Most unit tests are single-digit lines of code.</li></ul>
+<ul>
+<li>Smell: Obscure Test</li>
+<ul>
+<li>Verbose</li>
+<li>Eager (several tests in one method)</li>
+<li>General fixture (setting up stuff you don't need for every test)</li>
+<li>Obtuse assertion</li>
+<li>Hard-coded test data</li>
+<li>Indirect testing when there's a simpler way</li>
+<li>Mystery Guest</li></ul>
+<li>Conditional Test Logic</li>
+<li>Test Code Duplication</li></ul>
+<p>Patterns used so far:</p>
+<ul>
+<li>Expected Objects: compare entire objects, rather than each individual property</li>
+<li>Guard Assertions: if you've got test code that won't work under certain cases, assert those cases</li>
+<li>Custom Asserts</li>
+<ul>
+<li>Improve readability</li>
+<li>Simplify troubleshooting</li></ul></ul>
+<p>Get the conditional code out of the test method where you can't test it</p>
+<p>Finally and delete/free/etc. inside a test method: Is our test really about testing the destructors? (C++Unit, at one point, checked for leaks, so this might matter.) Housekeeping code doesn't add value to the test, because we don't know whether it works, it creates maintenance, and it creates coupling between what happens inside the test and the test. Housekeeping code is a test smell.</p>
+<p>Naive solution: Move housekeeping code to teardown. Does mean you have to move everything to fields. Don't do this just out of habit.</p>
+<p>Automated Fixture Teardown: AddTestObject() and DeleteAllTestObjects(), which frees everything (or deletes test data from the database, or whatever) even if there are exceptions.</p>
+<p>Transaction Rollback Teardown: Another way to do cleanup. Start a database transaction in SetUp, roll it back in TearDown. But make sure the system under test doesn't commit. (And only do this if you're already using a database. Don't use database in your test just to use this pattern!)</p>
+<ul>
+<li>Complex Undo Logic</li>
+<ul>
+<li>Complex fixture teardown code</li>
+<li>More likely to leave test environment corrupted, leading to Erratic Tests</li></ul>
+<li>Patterns used: Inline Teardown, Implicit Teardown (hand-coded), Automated Teardown, Transaction Rollback Teardown</li></ul>
+<p>Hard-coded test data / Obscure test. Creating objects that are only there because you have to pass them to other objects. Can also cause unrepeatable tests, especially if you're inserting a customer into the database to run your test.</p>
+<p>If the values don't matter to the test, you can just generate them. Call GetUniqueString(), etc. This tells the person reading the test that it doesn't matter.</p>
+<p>But if it's irrelevant, why even have it there? Don't create an Address and pass values to it, just make a CreateAnonymousAddress(), and then a CreateAnonymousCustomer(), etc.</p>
+<p>If it's not important to the test, it's important that it not be in the test.</p>
+<p>Smells:</p>
+<ul>
+<li>Obscure test because of irrelevant information.</li>
+<li>Patterns: Generated values, creation method (anonymous and parameterized), testcase class per feature, custom assertions</li></ul>
+<p>Suggestion: Call a method "AssertFoo" if it just asserts, "VerifyFoo" if it does some setup and then asserts.</p>
+<p>Hard to Test Code</p>
+<ul>
+<li>Too closely coupled to other software</li>
+<li>No interface provided to set state, observe state</li>
+<li>Only asynchronous interfaces provided. E.g., GUI.</li>
+<li>Root cause is lack of design for testability</li>
+<li>Temporary workaround: Test Hook. E.g., if (IsTesting) { ... } else { ... }</li></ul>
+<p>Test Double Patterns (different things we replace real code with when we're testing)</p>
+<ul>
+<li>Kinds of Test Doubles</li>
+<ul>
+<li>Test Stubs return test-specific values</li>
+<li>Mock Objects also verify method calls and arguments</li>
+<li>Fake Objects provide (apparently) same services in a "lighter" way, e.g., in-memory database for speed</li></ul>
+<li>Need to be "installed"</li>
+<ul>
+<li>Dependency Injection</li>
+<li>Dependency Lookup</li></ul></ul>
+<p>Testability Patterns</p>
+<ul>
+<li>Humble Object</li>
+<ul>
+<li>Objects closely coupled to the environment should not do very much</li>
+<li>Should delegate real work to a context-independent testable object</li>
+<li>Example: Humble Dialog. Don't test the dialog itself, instead have it immediately create a helper that has the logic.</li></ul>
+<li>Dependency Injection: client passes depended-on objects</li>
+<li>Dependency Lookup: code asks another object for its dependencies. Service Locator, Object Factory, Component Registry.</li>
+<li>Test-specific subclass. Descend from the real object, and override the stuff you want to fake.</li></ul>
+<p>Test Logic in Production</p>
+<ul>
+<li>if (Testing) { ... }</li>
+<li>Test code gets compiled in because production code depends on it</li></ul>
+<p>Behavior Smells</p>
+<ul>
+<li>We don't have to look for them. They come knocking. Usually at the most inopportune time.</li>
+<li>Tests fail when they should pass (or pass when they should fail)</li>
+<li>Problem is with how tests are coded, not a problem with the code under test</li>
+<li>Occasionally compile-time, usually test-time</li></ul>
+<p>Slow Tests</p>
+<ul>
+<li>Tests must run "fast enough".</li>
+<li>Impact</li>
+<ul>
+<li>Impacts productivity.</li>
+<li>Lost quality due to running tests less frequently.</li></ul>
+<li>Causes</li>
+<ul>
+<li>Using slow components (e.g., database)</li>
+<li>Asynchronous</li>
+<li>Building a general fixture (that sets up too much stuff)</li></ul></ul>
+<p>Brainstormed ways to avoid slow tests</p>
+<ul>
+<li>Share the fixture between tests</li>
+<li>Avoid DB / external service access</li>
+<li>Fake Objects</li>
+<li>Eliminate redundant tests (fewer tests)</li>
+<li>Run slow tests less often</li>
+<li>Make individual tests run faster</li>
+<li>Faster hardware</li>
+<li>Multi-threaded execution</li>
+<li>Smaller datasets (fixtures or inputs)</li>
+<li>Faster production code</li>
+<li>Run fewer tests (subset)</li>
+<li>Test logic more directly</li>
+<li>Faster test execution (high-performance language)</li>
+<li>Run less production code in each test (more focused)</li></ul>
+<p>Shared Test Fixture</p>
+<ul>
+<li>Not recommended</li>
+<li>The theory: Improves test run times by reducing setup overhead</li>
+<li>Forces a standard test environment that applies to all tests</li>
+<ul>
+<li>which probably forces the fixture to be bigger</li></ul>
+<li>Bad smell alert: Erratic tests</li></ul>
+<p>Smell: Erratic Tests</p>
+<ul>
+<li>Interacting tests (depend on side effects of earlier tests)</li>
+<li>Unrepeatable tests (later test changes the initial state that an earlier test depends on, so you get different behavior when you run all the tests twice)</li>
+<li>Test Run War (if e.g. everyone uses the same database: random test failures when multiple people run tests at once)</li>
+<li>Non-Deterministic Test (passes, then run it ten minutes later and it fails)</li>
+<li>Resource Optimism (all pass on my PC, but fail on build machine)</li></ul>
+<p>Persistent Fresh Fixture</p>
+<ul>
+<li>Rebuild fixture for each test and tear it down</li>
+<ul>
+<li>At end of this test</li>
+<li>At start of next test that uses it (just in time)</li></ul>
+<li>Build different fixture for each test (e.g., different key value)</li>
+<li>Give each developer their own database sandbox</li>
+<li>Don't change shared fixture</li>
+<ul>
+<li>Immutable Shared Fixture</li>
+<li>What constitutes a "change" to a fixture? Which objects need to be immutable? If you add a flight, is that a change to the airport?</li></ul>
+<li>Build a new Shared Fixture each time you run the test suite</li></ul>
+<p>Fragile Tests</p>
+<ul>
+<li>Stops working after a while</li>
+<li>Interface Sensitivity</li>
+<ul>
+<li>Every time you change the code, tests won't compile or start failing</li>
+<li>Need to modify lots of tests to get things green again</li>
+<li>Greatly increases cost of maintaining the system</li></ul>
+<li>Behavior sensitivity</li>
+<ul>
+<li>Behavior of code changes but should not affect test outcome</li>
+<li>Cuased by depending on too much of code's behavior</li></ul>
+<li>Centralize object creation, so when you change the constructor signature, you only have to fix it once</li>
+<li>Date sensitivity (aka Fragile Fixture)</li>
+<ul>
+<li>If your test depends on what data is in the database, then someone else can change it and your tests will fail</li></ul>
+<li>Context Sensitivity</li>
+<ul>
+<li>Something changes outside the code (date/time, contents of another app)</li>
+<li>If current date is this, then expected result is this; else ...</li></ul>
+<li>Use stable interfaces</li>
+<li>Bypass GUI</li>
+<li>Encapsulate API from yourself (creation methods, etc.)</li>
+<li>Minimal fresh fixture</li>
+<ul>
+<li>Custom design for each test</li></ul>
+<li>Test stubs</li></ul>
+<p>Assertion Roulette</p>
+<ul>
+<li>Failure shows up in output, and you can't tell which assertion failed</li>
+<li>When you can't reproduce in your IDE, you have no idea what's going wrong</li>
+<li>Solution: Add assertion messages</li></ul>

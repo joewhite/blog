@@ -1,0 +1,21 @@
+---
+title: "ReSharper, day 29: Refactoring with interfaces  #.NET  #resharper"
+sort: 2410
+---
+<p>Welcome to day 29 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>Working with interfaces is, traditionally, pretty frustrating. You need them when you're writing testable code, so you can fake the filesystem and pass in null objects, but they're a pain when you're trying to follow what the code is actually doing.</p>
+
+<p>ReSharper has several features that make it much easier to work with interfaces. I've already covered two, <a href="http://blog.excastle.com/2007/02/11/resharper-day-11-code-navigation/">Navigate to Inheritor</a> and the <a href="http://blog.excastle.com/2007/02/12/resharper-day-12-type-hierarchy-view/">Type Hierarchy view</a>.</p>
+
+<p>Today I'll cover another ReSharper feature that's handy when you're working with interfaces: the "base method" prompt.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/BaseMethodPrompt.png" width="488" height="119" alt="ReSharper prompt: Method 'Engine.RoomScreen.Update(int)' implements method from interface 'IScreen'. Do you want to rename the base method?" border="0"></blockquote>
+
+<p>If you apply a refactoring &mdash; for example, a rename &mdash; to a method, and that method is there to satisfy an interface, ReSharper will ask if you want to apply that refactoring to the interface instead.</p>
+
+<p>This dialog box kind of klunky &mdash; it disrupts the flow of my thinking, and it's not the easiest question to understand. It just doesn't work the way I think. Unfortunately, I don't have any suggestions for improving it.</p>
+
+<p>That said, I do love this feature. If I decide to rename a method, ReSharper will automatically jump in there and ask if I want to rename it on the interface as well. Usually the answer is yes, because that'll keep the code compilable. (Sometimes the "yes" is preceded by "Oh yeah, that method <i>is</i> from an interface, isn't it?").</p>
+
+<p>This also applies to <a href="http://blog.excastle.com/2007/02/08/resharper-day-8-find-usages/">Find Usages</a>. If you try to Find Usages on a method that implements an interface, you'll get asked "did you mean the method here, or the same method when accessed via the interface?" In this case, you may have to do the search twice to really get all the usages of that method (although if you're diligent about only using the class through the interface, then you could just answer Yes and only do the search once.)</p>

@@ -1,0 +1,266 @@
+---
+title: "Agile 2006: Delivering Flawless Tested Software Every Iteration  #Programming  #agile2006  #extreme programming"
+sort: 2350
+---
+<p>Delivering Flawless Tested Software Every Iteration<br>Alex Pukinskis<br>Tuesday morning</p>
+<p>Wow. Standing-room only. (Well, sitting-on-the-floor-at-the-sides-of-the-room room only, anyway.)</p>
+<p>Recommended reading:</p>
+<ul>
+<li>"<a href="http://www.amazon.com/gp/product/0932633609/102-6585604-1339322?v=glance&amp;n=283155">Waltzing with Bears</a>" by DeMarco and Lister.</li>
+<li>"<a href="http://www.amazon.com/gp/product/0321205685/102-6585604-1339322?v=glance&amp;n=283155">User Stories Applied</a>"</li>
+<li>"<a href="http://www.xp123.com/xplor/xp0512/index.shtml">Twenty Ways to Split Stories</a>" (should be the right link according to Google, but the site appears to be down at the moment)</li></ul>
+<p>Random notes from throughout the session:</p>
+<ul>
+<li>If the devs get done with a story, and the customer says "Oh, but I wanted it to do this" that wasn't part of the initial conversation: if that additional change won't fit into the current iteration, it should probably be another story.</li>
+<li>Under Agile, we experience the same old problems with quality, just more often. Instead of once or twice a year, now the problems surface once a week.</li>
+<li>Common organizational problem: Not enough testers for the size of the development group. If this is a problem under agile, it was probably a problem before; but again, agile makes it visible more often.</li></ul>
+<p>Core principles of Agile testing</p>
+<ul>
+<li>When do we make sure the system really runs?</li>
+<ul>
+<li>Traditional: end of project (wait to address the risk until late in the project)</li>
+<li>Transitional: A few key milestones</li>
+<li>Agile: The system always runs.</li>
+<ul>
+<li>If it's not running, we don't know how long it will take to get it running again. Solution: never put it into a non-running state to begin with.</li></ul></ul>
+<li>When are tests written and executed?</li>
+<ul>
+<li>Traditional: After development, at the end of the project</li>
+<li>Transitional: After development, each iteration (may write tests concurrently with development, but run them after)</li>
+<li>Agile: No code is written except in response to a failing test. This is supposed to mean 100% code coverage. (And then there are those of us in the real world... but it's a good goal to aspire to.)</li></ul>
+<li>How do we manage defects?</li>
+<ul>
+<li>Traditional: Identify during the testing phase; log in a bug tracking tool</li>
+<li>Transitional: Identified during development; logged to fix later</li>
+<li>Agile: (Want) zero post-iteration bugs; new features are never accepted with defects</li></ul></ul>
+<ul>
+<li>Question put to audience: do we think "zero post-iteration bugs" is possible? Why not?</li>
+<ul>
+<li>Some answers: Tests might be badly coded, or might be testing the wrong thing; test authors might not know what all to test.</li></ul>
+<li>Ideal: Don't sign off on the story if there are any bugs, even low-severity. Slippery slope.</li>
+<li>If a story has a bug, fix it right away. If it's the end of the iteration, the customer needs to say either "fix it first thing next iteration" or "forget it &#8212; back out the whole story". Yes, the customer can bail on features if they get too expensive.</li></ul>
+<p>Communicate</p>
+<ul>
+<li>Even in an Agile project, analysis is still going on much like it does in Waterfall. It's just communicated face-to-face instead of being put into a binder.</li>
+<li>Agile development depends on disciplined communcation around requirements and testing.</li></ul>
+<p>Commit</p>
+<ul>
+<li>If a team doesn't <em>commit</em> to delivering flawless software every iteration... they won't <em>deliver</em> flawless software every iteration!</li>
+<li>At the end of the planning game, ask the developers how willing they are to commit to the plan: come hell or high water, we're getting this story set done, running, tested, and bug-free.</li>
+<li>Use the "fist of five": everyone holds up 1-5 fingers</li>
+<ul>
+<li>5 fingers: Great idea! I'm going to send an e-mail out to everyone to say how great we did on this iteration plan!</li>
+<li>4 fingers: Good idea.</li>
+<li>3 fingers: I can live with and support this idea.</li>
+<li>2 fingers: I have some reservations.</li>
+<li>1 finger: I can't support this. (BTW, use the <em>index</em> finger, please!)</li></ul>
+<li>Walking out of the iteration plan, you want everyone to be at 3+, saying that they'll make this happen, putting in overtime if necessary to get it done with quality.</li>
+<li>Alter scope if needed to get everyone to a 3+.</li></ul>
+<p>Automate</p>
+<ul>
+<li>Without significant automated-test coverage, it's too hard to know whether the system is running.</li>
+<li>Problems:</li>
+<ul>
+<li>Not enough information to write tests while the coders are coding</li>
+<li>Brittle tests</li>
+<li>Testing the GUI</li>
+<li>Waiting for someone else to write the automation</li>
+<li>Infrastructure</li>
+<li>Legacy code</li>
+<li>People who would rather make more features</li>
+<ul>
+<li>If you give in to this temptation, you will spend all your time debugging</li></ul></ul></ul>
+<p>Untested code <em><strong>has no value</strong></em></p>
+<ul>
+<li>...because we don't know what's wrong with it, so we don't know how bad it is, so we don't know if we can ship it</li>
+<li>Ron's "Running Tested Features" metric</li>
+<li>If you spend time writing code with no tests, you have tied money up in features we can't get value from yet. Compare to lean production.</li></ul>
+<p>Traditional balance of tests:</p>
+<ul>
+<li><strong>Many</strong> manual GUI acceptance tests. Easy to create, familiar, but slow.</li>
+<li><strong>Some</strong> automated GUI tests. Need specialists to create.</li>
+<li><strong>Few</strong> unit tests</li></ul>
+<p>Agile: Mike Cohn's Testing Pyramid</p>
+<ul>
+<li><strong>Few</strong> GUI acceptance tests. Small number of these, most of them automated.</li>
+<li><strong>Some</strong> FitNesse tests, driving development and acceptance.</li>
+<li><strong>Many</strong> unit tests. Use Test-Driven Development.</li></ul>
+<p>Acceptance vs. Developer tests</p>
+<ul>
+<li>Acceptance: Does it do what the customer expects? Build the right code.</li>
+<li>Developer: Does it do what the developer expects? Build the code right.</li>
+<li>We won't talk about developer tests or TDD today. It's a separate topic, it's hard, and besides, you can't leverage your TDD success if you're writing the wrong code.</li></ul>
+<p>Acceptance Tests define the business requirements</p>
+<ul>
+<li>Also known as Customer Tests, Functional Tests</li>
+<li>Can include Integration, Smoke, Performance, and Load tests</li>
+<li>Defines how the customer wants the system to behave</li>
+<li>Executable requirements documents</li>
+<li>Can be run any time by anyone</li>
+<li>Specify requirements, not design</li></ul>
+<p>Creating acceptance tests is collaborative</p>
+<ul>
+<li>There's "acceptance criteria" and then there's "acceptance tests". Criteria are things written down for people to look at. Tests are things in executable test frameworks for the computer to run.</li>
+<li>Acceptance criteria specified by Customer at start of iteration</li>
+<li>If you're serious about lean, acceptance tests will be written just before the developers implement the feature</li>
+<li>When possible, the Customer writes the acceptance tests</li>
+<li>Shift in thinking about how projects run</li>
+<li>Many Customers don't know how to write acceptance tests</li>
+<li>May require more information than we have when we're estimating the story</li>
+<li>Involves the testers earlier in the process</li></ul>
+<p>Testing can improve gradually</p>
+<ul>
+<li>First, work on getting good stories...</li>
+<li>Then, work on getting good acceptance criteria (in advance)...</li>
+<li>Then work on getting acceptance tests in advance.</li>
+<li>Want to have acceptance criteria by the end of the planning meeting.</li></ul>
+<p>Stories drive the development process.</p>
+<ul>
+<li>Tasks aren't worth accepting</li>
+<li>Use Cases are too large</li>
+<li>Use Case Scenarios are OK</li>
+<li>User stories are just right</li></ul>
+<p>What is a User Story?</p>
+<ul>
+<li>Small piece of business value that can be delivered in an iteration</li>
+<li>As ________, I want to ________ so that I ________.</li>
+<li>3 parts:</li>
+<ul>
+<li>Card: placeholder so we remember to build this feature</li>
+<li>Conversation: get details before starting coding. What does this mean?</li>
+<li>Confirmation: tests to confirm we did it right</li></ul></ul>
+<p>Guidelines</p>
+<ul>
+<li>Start with Goal stories (As ________, I...)</li>
+<li>Write in "cake slices" (vertical slices)</li>
+<li>Good stories fit the INVEST criteria</li>
+<ul>
+<li>Independent</li>
+<li>Negotiable</li>
+<li>Valuable</li>
+<li>Estimatable</li>
+<li>Small</li>
+<li>Testable</li></ul></ul>
+<p>Common Blunders</p>
+<ul>
+<li>Too large / small</li>
+<li>Interdependent</li>
+<li>Look like requirements docs</li>
+<ul>
+<li>Should be a conversation starter, not a requirement</li>
+<li>When you start specifying details, the coder might assume you've specified <em>all</em> the details, and not build what's not in the spec</li></ul>
+<li>Implementation details</li>
+<li>Technical stories (lose the ability to prioritize)</li></ul>
+<p>Each story includes acceptance criteria</p>
+<ul>
+<li>Customer makes first pass at defining criteria before iteration planning</li>
+<li>During the plan, discuss the criteria</li>
+<li>Negotiate between implementers and customer</li>
+<li>Should be short, easy to understand</li></ul>
+<p>Question: Why do this at the iteration planning, rather than waiting and doing it just-in-time before the developers start coding? Answer: knowing the criteria will clarify the scope, so we can give better estimates; and it will help catch big misunderstandings sooner.</p>
+<p>How to document acceptance criteria?</p>
+<ul>
+<li>Can write on the back of the card</li>
+<li>Can use a wiki, etc. (We could probably use Trac.)</li></ul>
+<p>Don't make the iteration longer to accommodate tests. If you do, you'll just get feedback less often.</p>
+<ul>
+<li>If you used to get 5 stories done each iteration, and the first iteration you go all-out on testing you only get 2 done, that's fairly normal. It will speed up over time.</li></ul>
+<p>
+<hr id=null>
+</p>
+<p>Story (apocryphal?) about a manufacturing plant that used to be owned by GM, then GM closed the plant and Toyota bought it and hired all the same people. Quality went up.</p>
+<p>There was a wire people could pull that would stop the entire production line. Under GM, people were told "never pull that wire". So if someone didn't have time to get something done, they'd just do a quick patch &#8212; if there's no time to put on a bolt, then leave it off, or do a spot-weld instead &#8212; since QA would catch it, and would redo it properly.</p>
+<p>Under Toyota, people were told "pull that wire any time something isn't right". It took them a month to get that first car out the door.</p>
+<p>But later, once they were up to full speed again, someone was touring the Toyota plant, and said, "Your production line is only taking up about a quarter of the space in this building. What's the extra for?" The answer: "Oh, that's where QA used to be."</p>
+<p>
+<hr id=null>
+</p>
+<p>Getting acceptance criteria during planning</p>
+<ul>
+<li>If the Customer can't answer the devs' questions on "how do we know when we're done?", then we can't commit to building it.</li>
+<li>These discussions take time, especially at first when the Customer doesn't know how to write acceptance criteria at the right level of detail.</li>
+<li>As we identify the acceptance criteria, they may give us a way to break stories down.</li></ul>
+<p>FIT</p>
+<ul>
+<li>Can test whatever you want; you just need to write a fixture that does what you want, and FIT calls it</li>
+<li>Tests can be hooked in at any level</li>
+<ul>
+<li>Testing from outside the UI is possible, but brittle</li>
+<li>Great to test just under the UI level (test what the controller calls)</li>
+<li>Test at service interfaces</li>
+<li>If you've hooked your fixtures in at the wrong place, it's easy to change without invalidating the tests</li>
+<li>Acceptance tests should test that the whole system works (minimize use of mocking)</li></ul>
+<li>Column Fixture for calculations. A column for each input, a column for each expected output. Multiple rows = multiple tests.</li>
+<li>Row Fixture to test lists.</li>
+<ul>
+<li>Verifies that search / query results are as expected</li>
+<li>Check that group, list, set are present</li>
+<li>Order can be important or unimportant</li></ul>
+<li>Action Fixture tests a sequence of actions</li></ul>
+<p>Bringing it all together</p>
+<ul>
+<li>Using sequences of tables</li>
+<li>Build / Operate / Check pattern (fitnesse.org)</li>
+<ul>
+<li>One or more tables to build the test data (ColumnFixture)</li>
+<li>Use a table to operate on the data</li>
+<li>Use a ColumnFixture or RowFixture to verify the results</li></ul></ul>
+<p>FitLibrary provides additional fixtures</p>
+<ul>
+<li>Common fixture patterns abstracted into a framework</li>
+<li>Allows more sophisticated tests</li>
+<ul>
+<li>DoFixture &#8212; testing actions on domain objects</li>
+<li>SetupFixture &#8212; repetitive data entry at start of test</li>
+<li>CalculateFixture &#8212; alternative to ColumnFixture</li>
+<li>ArrayFixture &#8212; ordered lists handled automatically</li>
+<li>SubsetFixture &#8212; test specific elements of a list</li></ul>
+<li>Can operate directly on domain objects without writing custom fixtures</li></ul>
+<p>Writing Fixtures</p>
+<ul>
+<li>Fixture code should be as simple as possible</li>
+<li>Simple objects inherit from appropriate fixtures</li>
+<li>Public member variables and methods (AAAGH!?!)</li>
+<ul>
+<li>Yes, the "AAAGH!?!" was in the original slide</li></ul>
+<li>Develop System Under Test using TDD</li>
+<li>When development is done, wire up the fixtures and run the FIT tests</li></ul>
+<p>Organizing FIT tests</p>
+<ul>
+<li>Note: "Suites" in FitNesse are basically a way to include other tests (or other suites).</li>
+<li>Maintain a suite of regression tests (called something like RegressionSuite) from past iterations. These should always pass.</li>
+<li>Run regression suite with the build.</li>
+<li>Maintain a suite of "in progress" tests for the current iteration</li>
+<ul>
+<li>Begin the iteration with all tests failing</li>
+<li>End the iteration with most tests passing</li></ul>
+<li>At the end of the iteration, move newly passing tests into the regression suite</li>
+<ul>
+<li>Beware the FitNesse "Refactor / Move" command. At one point in time, it was horribly broken. Unknown whether it's fixed.</li></ul></ul>
+<p>FitNesse Configuration Tricks</p>
+<ul>
+<li>(note: I know very little about FIT, and stuff from this point on didn't get demoed during the session; so I don't know any details about this stuff.)</li>
+<li>Use root page for classpath settings</li>
+<li>On developer machines, set root page to import its subpages from the central wiki (<a href="http://localhost:8080/?properties">http://localhost:8080/?properties</a>)</li>
+<li>Manually exit XML files</li>
+<li>Use variables for hardcoded filenames</li></ul>
+<p>Day-to-day with FitNesse</p>
+<ol>
+<li>Product owners / tests / analysts create tests on the central wiki</li>
+<li>Developers verify that table design makes sense and fixtures ccan be written</li>
+<li>Developers update their local replicas of FIT tests</li>
+<li>Developers use TDD to implement features</li>
+<li>Developers try to run FIT tests locally</li>
+<li>Developers work with testers to get FIT tests passing locally (negotiate if needed)</li>
+<li>Developers integrate changes</li>
+<li>Continuous build verifies that changes work centrally</li></ol>
+<p>Other Agile testing tools</p>
+<ul>
+<li>Open source Web UI testing tools</li>
+<ul>
+<li>WATiR</li>
+<li>Selenium</li>
+<li>Canoo Web Test</li></ul>
+<li>Go the "last mile" to verify things fit together</li>
+<li>Tests written and maintained incrementally</li>
+<li>Tend to be more brittle</li></ul>

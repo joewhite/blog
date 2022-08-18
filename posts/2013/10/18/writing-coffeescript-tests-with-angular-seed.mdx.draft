@@ -1,0 +1,101 @@
+---
+title: "Writing CoffeeScript tests with angular-seed  #Programming  #angular  #angular-game  #coffeescript  #ng-rpg"
+sort: 3844
+---
+<p><em><strong>Updated 5/4/2014</strong> for Angular 1.2.16 and Karma 0.10.10.</em></p>
+
+<p>The first thing I did, after snagging a copy of <a href="https://github.com/angular/angular-seed">angular-seed</a>, was try to write a test in <a href="http://coffeescript.org/">CoffeeScript</a>. It didn't work out of the box, so I went hunting to figure out how to make it work.</p>
+
+<p>(I also found a few GitHub projects that are prepackaged angular-seed with CoffeeScript, but I didn't see any that have been kept up-to-date with new Angular versions like angular-seed has. <s>Maybe that'll change when Angular 1.2 ships.</s> <em>Nope, they've pretty much been abandoned.</em>)</p>
+
+<h3>Why CoffeeScript rocks for Jasmine/Mocha tests</h3>
+
+<p>As awesome as <a href="https://github.com/pivotal/jasmine/wiki/Suites-and-specs#nested-describes">nested describes</a> are, they're even more awesome in <a href="http://coffeescript.org/">CoffeeScript</a>.</p>
+
+<p>Jasmine tests look like this:</p>
+
+<pre><code>describe('calculator', function() {
+    it('adds', function() {
+        expect(calculator.add(2, 2)).toBe(4);
+    });
+});
+</code></pre>
+
+<p>CoffeeScript has some nice advantages for code like this.</p>
+
+<ol>
+<li>CoffeeScript has a built-in lambda operator, <code>-&gt;</code>, that replaces <code>function() {</code>. So that's a little less typing, and a lot less of the line taken up by furniture.</li>
+<li>CoffeeScript doesn't need curly braces. Instead, you indicate nested blocks by indenting them (and heck, you were doing that anyway).</li>
+<li>CoffeeScript lets you leave off the parentheses around a method's arguments. <em>(Unlike Ruby, you do still need the <code>()</code> if you're not passing any arguments.)</em></li>
+</ol>
+
+<p>Combine these, and you get code that looks like this:</p>
+
+<pre><code>describe 'calculator', -&gt;
+    it 'adds', -&gt;
+        expect(calculator.add 2, 2).toBe 4
+</code></pre>
+
+<p>Each line is shorter than before, so there's less typing and a little better signal-to-noise. But you also don't need those <code>});</code> lines at the end, because you don't need the close-curlies to end the lambdas, and you don't need the close-parens to end the argument lists for <code>describe</code> and <code>it</code> -- in both cases, the indentation suffices. Less ceremony, more essence.</p>
+
+<p>Until you see it on your screen, it's hard to appreciate just <em>how much</em> it improves your tests, not having all those <code>});</code> lines. Many tests will consist of a single assertion, so by cutting that worthless extra line, you go from almost 33% noise-by-line-count to 0%. Plus, the entire test goes from three lines to two -- so now you can fit 50% more tests on your screen. That's a win.</p>
+
+<p>The syntax is uncluttered enough that it can even be reasonable to put the whole test on one line:</p>
+
+<pre><code>describe 'calculator', -&gt;
+    it 'adds',      -&gt; expect(calculator.add 2, 2).toBe 4
+    it 'subtracts', -&gt; expect(calculator.subtract 6, 2).toBe 4
+</code></pre>
+
+<p>When you've got a bunch of little tests that are all on the same theme, this can work really well. That would look a lot uglier if it was <code>function() {</code> instead of <code>-&gt;</code>, and if you had to find a place for the <code>});</code> as well.</p>
+
+<p>And last but not least, it's really easy to find a text editor that can do code folding based on indentation (and not as easy to find an editor that can collapse based on curly braces). I use <a href="http://blog.excastle.com/2012/04/14/editing-coffeescript-with-sublime-text-2/">Sublime Text</a>, which is a bit pricey, but you can also do indentation-based code folding with the free <a href="http://www.scintilla.org/SciTE.html">SciTE</a> if you put it in Python mode. So if you've got a whole nested describe for your calculator's trig functions, and you want to collapse that because now you're focusing on hex arithmetic, you just fold that whole section of your code up into a single line.</p>
+
+<h3>CoffeeScript tests with angular-seed</h3>
+
+<p>It takes some ritual to get angular-seed working with CoffeeScript, but the good news is, you only have to do it once (well, once per project).</p>
+
+<p><strong>Updated 5/4/2014:</strong> With Angular 1.2.16 and Karma 0.10.10, the "preprocessors" and "coffeePreprocessor" sections no longer need to be added, so I removed them from the instructions below. If you're on a version where you do need them, you can copy them from the <a href="https://github.com/karma-runner/karma-coffee-preprocessor">karma-coffee-preprocessor readme</a>.</p>
+
+<p>All the changes are in <code>config/karma.conf.js</code>. Look for the parts I tagged "STEP 1" and "STEP 2".</p>
+
+<pre><code>module.exports = function(config){
+    config.set({
+    basePath : '../',
+
+    files : [
+      'app/lib/angular/angular.js',
+      'app/lib/angular/angular-*.js',
+      'test/lib/angular/angular-mocks.js',
+      'app/js/**/*.js',
+      // STEP 1: Add 'test/unit/**/*.coffee' to this list:
+      'test/unit/**/*.coffee',
+      'test/unit/**/*.js'
+    ],
+
+    autoWatch : true,
+
+    frameworks: ['jasmine'],
+
+    browsers : ['Chrome'],
+
+    plugins : [
+            // STEP 2: Add 'karma-coffee-preprocessor' to this list:
+            'karma-coffee-preprocessor',
+            'karma-junit-reporter',
+            'karma-chrome-launcher',
+            'karma-firefox-launcher',
+            'karma-jasmine'
+            ],
+
+    junitReporter : {
+      outputFile: 'test_out/unit.xml',
+      suite: 'unit'
+    }
+
+})}
+</code></pre>
+
+<p>Once that's done, you're off and running: you can drop a <code>.coffee</code> file in your project's <code>test/unit</code> directory, and the test runner will pick up all the tests in it and run them.</p>
+
+<p><s>Note that, at least with the current versions of angular-seed and jasmine, you'll have to stop and restart <code>scripts\test.bat</code> before it'll pick up the new test file. (This is true any time you add a new test file; it's not CoffeeScript-specific.) Watch mode apparently doesn't extend to watching for new test files. Just Ctrl+C to stop it, say Yes (or hit Ctrl+C again) to the "Terminate batch job (Y/N)?" prompt, and then run <code>scripts\test.bat</code> again, and you're on your way.</s> <em>No longer an issue with Karma 0.10.10.</em></p>

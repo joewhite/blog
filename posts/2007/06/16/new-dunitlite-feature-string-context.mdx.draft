@@ -1,0 +1,16 @@
+---
+title: "New DUnitLite feature: String context  #Delphi  #dunitlite"
+sort: 2450
+---
+<p>When you're comparing long strings, <a href="http://code.google.com/p/dunitlite/">DUnitLite</a> 0.2 (<a href="http://dunitlite.googlecode.com/files/DUnitLite-0.2.zip">download</a>) now shows just the context &mdash; the first character that's actually different, plus 30 characters before and after &mdash; instead of the entire string. If there's only a small difference buried in a really long string, this makes the difference much easier to spot.</p>
+
+<blockquote><pre>Specify.That(Query.Sql.Text, Should.Equal(ExpectedSql));
+
+Expected: ...'.TicketID = Tickets.ID'#13#10'WHERE Component = 42 AND Status = 1 A'...
+but was: ...'.TicketID = Tickets.ID'#13#10'WHERE Tickets.Component = 42 AND Tick'...</pre></blockquote>
+
+<p>Ellipses (<code>...</code>) are added at the beginning and/or end to show you when you're seeing a portion of the value, instead of the whole string.</p>
+
+<p>I'd like to do like NUnit does, and show another line with a little arrow <code>^</code> pointing to the first character that's different. Unfortunately, DUnit's test-failure output isn't shown in a fixed-width font, so I wouldn't have much way to get it to line up.</p>
+
+<p><a href="http://dunitlite.googlecode.com/files/DUnitLite-0.2.zip">Download DUnitLite 0.2</a> and give it a spin, and let me know how this feature works for you. I expect it to take some tuning and tweaking before it works reasonably well in most circumstances, and there's no better way to know what needs tweaking than to use it in the field.</p>

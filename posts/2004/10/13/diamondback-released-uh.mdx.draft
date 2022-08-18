@@ -1,0 +1,9 @@
+---
+title: "Diamondback released! (uh...)  #Delphi"
+sort: 2061
+---
+<p>Wow. Hallvard <a href="http://hallvards.blogspot.com/2004/09/dont-miss-delphi-launch-in-oslo.html">said</a> Borland was planning a Delphi launch event for yesterday, but I figured it'd be like the Delphi 8 "launch" at last year's BorCon &#8212; i.e., much hype and maybe the announcement of an actual release date.</p>
+<p>Nope. <a href="http://www.borland.com/delphi/">Delphi 2005</a> is <a href="http://shop.borland.com/delphi/">now available</a>.</p>
+<p>I knew it was coming fairly soon, since (a) the Diamondback preview turns into a pumpkin sometime around the 22nd of this month, (b) <a href="http://blogs.borland.com/abauer/">Allen</a> said just after BorCon that the team was going into <a href="http://blogs.borland.com/abauer/archive/2004/09/16/1376.aspx">pure bug-fix mode</a>&nbsp;and "nearing the end", and (c) <a href="http://blogs.borland.com/abauer/">Danny</a> said the version <em>after</em> Diamondback ("Whidbeyish" as I've been calling it) would come out <a href="http://blog.excastle.com/2004/09/11/dannys-net-20-talk-part-one/">in the Whidbey timeframe</a> (Whidbey being "summerish" 2005), and they've gotta leave themselves time to actually code the thing. So obviously Diamondback was going to be soon. But, man... it's out! And we've got four copies already on the way! Woohoo!</p>
+<p>(I sure hope they fixed <a href="http://blog.excastle.com/2004/10/05/diamondback-vs-our-code-base/">that little compiler bug</a>...)</p>
+<p><strong><u>Correction:</u></strong> As David pointed out in my comments, Delphi 2005 has <em>not</em> been released. <a href="http://blog.excastle.com/2004/10/13/my-bad/">My bad</a>.</p>

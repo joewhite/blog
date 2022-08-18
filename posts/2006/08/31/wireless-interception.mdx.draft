@@ -1,0 +1,9 @@
+---
+title: "Wireless interception  #Life"
+sort: 2361
+---
+<p>About a year ago, I read a post on <a href="http://www.schneier.com/blog/">Bruce Schneier's blog</a> about a team that had intercepted a wireless 802.11 network from a ridiculous distance away. Yesterday, it came up in conversation, but I didn't remember the distance they'd managed. After a bit of digging, I found the original article again. Time to blog it.</p>
+<p>This team set up a run-of-the-mill 802.11 network, and were able to <a href="http://www.enterpriseitplanet.com/networking/news/article.php/3524491">pick up its signal from 124.9 miles away</a>. They used, among other things, homemade custom antennas and surplus 12-foot satellite dishes (note the plural). Not original equipment from the wi-fi manufacturer, but not defense-budget, either.</p>
+<p>Schneier took the opportunity to <a href="http://www.schneier.com/blog/archives/2005/08/wireless_interc.html">point out</a>:</p>
+<blockquote>
+<p>Whenever you hear a manufacturer talk about a distance limitation for any wireless technology -- wireless LANs, RFID, Bluetooth, anything -- assume he's wrong.</p></blockquote>

@@ -1,0 +1,55 @@
+---
+title: "DUnitAssertions: Comparing records  #Delphi  #dunitlite"
+sort: 2427
+---
+<p>When you use a unit-testing framework to compare two records &mdash; two TPoints, say, or two TRectangles &mdash; would you expect it to stop at the first difference, or show all differences?</p>
+
+<p>Ah, the joys of writing new test-assertion frameworks.</p>
+
+<p>So if I wrote this code:</p>
+
+<blockquote><pre>R1 := Rect(1, 2, 3, 4);
+R2 := Rect(2, 3, 4, 5);
+Expect.That(R1, Tis.EqualTo(R2));</pre></blockquote>
+
+<p>...what should it output?</p>
+
+<p>It could stop at the first difference, and tell you which one failed:</p>
+
+<blockquote><pre>TRect.Left
+Expected: 1
+but was: 2</pre></blockquote>
+
+<p>Or it could compare each value separately, and show all the failures:</p>
+
+<blockquote><pre>TRect.Left
+Expected: 1
+but was: 2
+
+TRect.Top
+Expected: 2
+but was: 3
+
+TRect.Width
+Expected: 3
+but was: 4
+
+TRect.Height
+Expected: 4
+but was: 5</pre></blockquote>
+
+<p>Or maybe it should just show a compact form, and emit one failure:</p>
+
+<blockquote><pre>Expected: Rect(1, 2, 3, 4)
+but was: Rect(2, 3, 4, 5)</pre></blockquote>
+
+<p>That last one has the advantage of compactness, but it also loses some context &mdash; you don't exactly have Intellisense in the DUnit output window, to tell you which parameter is which.</p>
+
+<p>Perhaps:</p>
+
+<blockquote><pre>Expected: TRect(Left: 1, Top: 2, Width: 3, Height: 4)
+but was: TRect(Left: 2, Top: 3, Width: 4, Height: 5)</pre></blockquote>
+
+<p>But that could get really long, really quickly, if a record had lots of properties. And imagine extending the same thing to classes. Maybe just show the properties that are different?</p>
+
+<p>I don't know. Which makes the most sense to you guys? Are there other options you can see that might be better?</p>

@@ -1,0 +1,23 @@
+---
+title: "Delphi with a RAM disk... whee!  #.NET  #Delphi"
+sort: 2452
+---
+<p>Our shipment of Gigabyte i-RAM cards arrived yesterday. You plug in RAM cards, and plug the i-RAM into your disk controller: bam, you've got a 4GB RAMdisk.</p>
+
+<p>These things are sweet. I know, because we already had them installed on two of our development machines. People would show up early in the morning so they could start pairing at one of those stations.</p>
+
+<p>Here are some highlights:</p>
+
+<ul>
+<li><p>Our Build All used to take almost nine minutes. With the code and .dcu files on the i-RAM, it's down to three and a half minutes. (We're all looking forward to getting one of these on the continuous build machine.)</p></li>
+<li><p>Some of the slower Subversion operations &mdash; check out, commit, update, check for modifications (anything where Subversion has to scan the entire directory tree looking for changes) &mdash; are blazing fast.</p></li>
+<li><p>GExperts Grep is <i>speedy.</i> On a hard drive, we used to have to wait half a minute or so for the first Grep to come back, just because it took Windows so durned long just to iterate the directory tree. (Later searches were faster, since everything was in the disk cache.) Now, every search is fast, and it's a real jolt to go back to one of the disk-bound computers.</p></li>
+<li><p>The thing even has a battery back-up, so even if the power goes off, your data will be safe for a while. (They don't define how long "a while" is, but hey, you're doing frequent commits, right?)</p></li>
+<li><p>And good Lord, these things are <i>cheap</i>. They retail for around $140, plus the RAM (and you can buy cheap RAM, since the ATAPI bus is the bottleneck, not the speed of the RAM chips). For a business that makes its living doing disk-intensive work like compiling, this thing is a no-brainer. (And no, they're not paying me commission.)</p></li>
+</ul>
+
+<p>I wish we could get our regression-test datasets onto an i-RAM. But each i-RAM can only take a maximum of 4 GB of RAM, which won't cut it for our 20 or 30 GB of test data. We haven't tried yet, but I suspect you could RAID these things together... but these machines don't have nearly enough expansion slots to take that many i-RAM cards!</p>
+
+<p>The one big downside to the i-RAM is availability. It took us months to get our first two i-RAM cards. (For a while, we were wondering whether these things actually existed.) I suspect the manufacturer was the bottleneck, because we ordered them weeks apart from two different resellers, and when they finally arrived, they came within about a week of each other. Then, once we had tried them and decided we wanted them in all the computers, we had to wait again.</p>
+
+<p>But they're finally here, and by the time I get there in the morning, I suspect all the machines will have our source repository checked out onto the RAMdisk, ready and rarin' to go. Sweet!</p>

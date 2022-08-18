@@ -1,0 +1,9 @@
+---
+title: "Packrat Parsing  #.NET  #Delphi  #dgrok"
+sort: 2455
+---
+<p>Over the past few days, I've taken a couple of looks back at parser generators, with an eye toward (possibly) resuming work on DGrok, my project to write a parser for the Delphi language.</p>
+
+<p>Along the way, I ran across a term I wasn't familiar with: <a href="http://pdos.csail.mit.edu/~baford/packrat/icfp02/">packrat parsing</a>. It claims to be a way to get the simplicity of a recursive-descent parser, together with the flexibility of an LL or LR parser like yacc. It also claims unlimited lookahead in linear time (at the cost of higher memory requirements).</p>
+
+<p>Don't know yet how promising packrat parsing will be &mdash; I've only read the first page or so of the paper &mdash; but it should at least be an interesting read.</p>

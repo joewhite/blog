@@ -1,0 +1,12 @@
+---
+title: "Console out from a non-console app  #.NET  #Delphi"
+sort: 2370
+---
+<p>We found out something interesting yesterday: Windows applications can write to STDOUT.</p>
+<p>Well, not when you're using Delphi. If a Delphi/Win32 app tries to WriteLn(), it will get an exception, saying, in effect, "You idiot, you don't have a console to write to!"</p>
+<p>On the other hand, if you're coding in C# (or even Delphi for .NET), and you do a Console.WriteLine (or Console.Out.WriteLine or Console.Error.WriteLine), you don't get an error. I had always assumed that was just a convenience, so you could put debug output into your code, and then not have to remove it when you compile that code into a Windows app. I had always assumed that Console.Out went to Stream.Null when you were in a Windows application.</p>
+<p>Nope. Go try it. Go into Visual Studio and create a new WinForms app. Make a button-click event that does Console.Out(). Build. Then go to the command prompt and type</p>
+<blockquote>
+<p><font face="Courier New">WindowsApplication1 &gt;out.txt</font></p></blockquote>
+<p>Run it. Click the button. Exit. And look at out.txt. Your output will be there. Cool, huh?</p>
+<p>(Later I'll blog about how we found this, and what we're using it for. Unless <a href="http://blog.briankohrs.com/">Brian</a> or <a href="http://blog.alieniloquent.com/">Sam</a> beats me to it.)</p>

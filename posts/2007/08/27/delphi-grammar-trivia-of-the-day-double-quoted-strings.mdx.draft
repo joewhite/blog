@@ -1,0 +1,15 @@
+---
+title: "Delphi grammar trivia of the day: double-quoted strings  #.NET  #Delphi  #dgrok"
+sort: 2456
+---
+<p>Quoted strings, in Delphi, use single quotes. Almost always.</p>
+
+<p>But did you know that the Delphi compiler supports double-quoted strings, too?</p>
+
+<p>I didn't either, until I wrote a Delphi lexer. I set it loose on all of the library source that ships with Delphi, and it complained about this <code>"</code> character that it didn't understand. In SysUtils.pas, as it turns out, there's a line that looks like this:</p>
+
+<blockquote><pre>CMP     AL,"'"</pre></blockquote>
+
+<p>Yep. Inside an <code>asm</code> block, you can have a double-quoted character literal. And since I use the same lexer for all source files (i.e., I don't have a separate lexer for <code>asm</code> blocks), I too have to support double-quoted strings.</p>
+
+<p>But I only support double quotes around a single apostrophe: <code>"'"</code>. After all, I don't want to encourage this sort of thing.</p>

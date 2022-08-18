@@ -1,0 +1,111 @@
+---
+title: "Databinding the videogame, part 6: logical coordinates  #.NET  #databinding  #databinding the videogame  #game-programming  #wpf"
+sort: 2794
+---
+Last time I <a href="http://blog.excastle.com/2009/04/26/databinding-the-videogame-part-5-making-the-map-2-d/">made my map 2-D</a>. However, the coordinates left something to be desired.
+
+The way I left the code last time, if I wanted to put two SteelPlates next to one another, I would need code like this:
+
+<pre lang="csharp">var steelPlate = new SteelPlate();
+m_map.Add(new Square(steelPlate, 0, 0));
+m_map.Add(new Square(steelPlate, 40, 0));</pre>
+
+That's a problem. In the GUI, each square happens to be 40 pixels by 40 pixels. But that 40-pixel thing is strictly a GUI matter. The map, and the Square class, are DataModel objects that should have <em>no</em> GUI awareness, and that includes GUI constants.
+
+Instead, I want to be able to write this:
+
+<pre lang="csharp">var steelPlate = new SteelPlate();
+m_map.Add(new Square(steelPlate, 0, 0));
+m_map.Add(new Square(steelPlate, 1, 0));</pre>
+
+That is, I want Square.X and Square.Y to be in logical coordinates, not in pixel coordinates. Then onscreen, the 1 should magically become 40 so that everything looks right.
+
+This is certainly doable -- in fact, there are several possible ways of dealing with it. Here are the most plausible ones I can think of:
+
+<ol>
+<li><strong>Scale transforms.</strong> This is a possibility, but not an easy one. I'd love to design all my terrain views to be 1x1 pixels, and then scale them up for display, but Visual Studio's WPF designer maxes out at 20x zoom. Designing my tiles at no better than 20x20 pixels in the designer, when they'll be at least 40x40 at runtime, feels way too cramped. I could always design them at 40x40, scale them down to 1x1 inside the MapView, and then scale the MapView back up, but that feels way too silly.</li>
+<li><strong>ViewModel collection.</strong> I thought about making a ViewModel, and explicitly binding the GUI to the ViewModel instead of directly to the DataModel. That seems like a great idea -- except that I'm dealing with a collection, which makes it more complicated. The back-end logic will need a collection of simple DataModel objects, so it can do things like collision detection; then the GUI would need to bind to a parallel collection of ViewModels; and both collections need to be kept in sync in the face of changes. It's possible to <a href="http://danicalbet.wordpress.com/2009/01/30/viewmodelling-lists/">make an observable collection that wraps and adapts another observable collection</a>, but that's an awful lot of work.</li>
+<li><strong>On-demand ViewModels.</strong> I would <em>love</em> to be able to use the same ViewModel as in #2, but manufacture the ViewModels on the fly as needed. This would be great if it worked, but I haven't been able to figure out how to do it. I can easily add another DataTemplate to map a Square to a SquareViewModel, but that puts the SquareViewModel nested inside another child control -- i.e., it moves <em>down</em> the visual tree. It doesn't do anything to make the ViewModel's X and Y available at the <em>top</em> level, which is where I actually have to <a href="http://blog.excastle.com/2009/04/26/databinding-the-videogame-part-5-making-the-map-2-d/">bind to Canvas.Left and Canvas.Top</a> using ItemContainerStyle. Much as I would love to do this one, it looks like a non-starter based on what I know about WPF.</li>
+<li><strong>ValueConverters.</strong> I could continue to bind the view directly to the DataModel, and use a custom ValueConverter to scale the X and Y values that get databound.</li>
+</ol>
+
+Option #4 is the simplest to implement. #2 would have the benefit of giving me a ViewModel class that I can unit-test, but first I would have to build a dynamic collection decorator and unit-test <em>that</em> thoroughly to make sure I'm actually getting the right ViewModel at the right time.
+
+I'm going to go with simplicity for now, and do #4. If it later turns out not to be good enough, I'll probably switch to #2.
+
+<h3>CoordinateConverter</h3>
+
+So I need a <a href="http://svn.excastle.com/databinding_the_videogame/tags/part6/Game.Core/GameViews/CoordinateConverter.cs"> CoordinateConverter</a> class:
+
+<pre lang="csharp">public class CoordinateConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter,
+        CultureInfo culture)
+    {
+        return ((int)value) * 40;
+    }
+    public object ConvertBack(object value, Type targetType, object parameter,
+        CultureInfo culture)
+    {
+        throw new NotSupportedException();
+    }
+}</pre>
+
+I only need a one-way binding: I'll only ever propagate the DataModel value to the GUI; I'll never change the GUI's Canvas.Left and expect that to propagate back down to the DataModel. So I don't need ConvertBack.
+
+Then I put a CoordinateConverter instance into <a href="http://svn.excastle.com/databinding_the_videogame/tags/part6/Game.Core/GameViews/MapView.xaml">MapView</a>'s Resources, and reference it from the X and Y Bindings:
+
+<pre lang="diff">@@ -3,8 +3,10 @@
+     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+     xmlns:TerrainDataModels="clr-namespace:Game.Core.TerrainDataModels"
+     xmlns:TerrainViews="clr-namespace:Game.Core.TerrainViews"
++    xmlns:GameViews="clr-namespace:Game.Core.GameViews"
+     MinWidth="40" MinHeight="40" Background="Gray">
+     <UserControl.Resources>
++        <GameViews:CoordinateConverter x:Key="CoordinateConverter"/>
+         <DataTemplate DataType="{x:Type TerrainDataModels:Square}">
+             <ContentPresenter Content="{Binding Path=Terrain}"/>
+         </DataTemplate>
+@@ -23,8 +25,8 @@
+         </ItemsControl.ItemsPanel>
+         <ItemsControl.ItemContainerStyle>
+             <Style>
+-                <Setter Property="Canvas.Left" Value="{Binding Path=X}"/>
+-                <Setter Property="Canvas.Top" Value="{Binding Path=Y}"/>
++                <Setter Property="Canvas.Left" Value="{Binding Path=X,
++                    Converter={StaticResource CoordinateConverter}}"/>
++                <Setter Property="Canvas.Top" Value="{Binding Path=Y,
++                    Converter={StaticResource CoordinateConverter}}"/>
+             </Style>
+         </ItemsControl.ItemContainerStyle>
+     </ItemsControl></pre>
+
+The only other detail is tweaking the random-number code in <a href="http://svn.excastle.com/databinding_the_videogame/tags/part6/Game/Window1.xaml.cs">Window1</a> so that the now-logical coordinates will actually fit into the window:
+
+<pre lang="diff">@@ -21,8 +21,8 @@
+         private void AddTerrain(Terrain terrain)
+         {
+             var random = new Random();
+-            var x = random.Next(200);
+-            var y = random.Next(200);
++            var x = random.Next(5);
++            var y = random.Next(5);
+             m_map.Add(new Square(terrain, x, y));
+         }
+         private void Dirt_Click(object sender, RoutedEventArgs e)</pre>
+
+<a href="http://blog.excastle.com/wp-content/uploads/2009/04/databindingthevideogamepart6.png"><img src="http://blog.excastle.com/wp-content/uploads/2009/04/databindingthevideogamepart6-150x150.png" alt="databindingthevideogamepart6" title="databindingthevideogamepart6" width="150" height="150" class="alignright size-thumbnail wp-image-2820" style="float:right;"/></a>
+
+<h3>Today's test project</h3>
+
+You can <a href="svn co http://svn.excastle.com/databinding_the_videogame/tags/part6/">browse today's code online</a>, or check it out from my Subversion repository:
+
+<pre>svn co http://svn.excastle.com/databinding_the_videogame/tags/part6</pre>
+
+<h3>What's next?</h3>
+
+There's obviously some work that needs to be done around encapsulation and map generation, but I think I want to get more of the GUI working before I delve into logic too deeply.
+
+As far as GUI work, map rendering is pretty much done, but I haven't touched scrolling yet. I <a href="http://blog.excastle.com/2009/04/25/databinding-the-videogame-part-4-terrain-collection/">already said I won't have scrollbars</a>, but I'll still have scrolling; it'll just be automatic instead of scrollbar-controlled. My map will be bigger than the screen, and the player will move through it. But before I add scrolling, I need a reason for it to scroll -- namely, <em>because</em> the player is moving around in it.
+
+So I think it's about time I make a little guy who can walk around the screen. Stay tuned.

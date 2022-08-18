@@ -1,0 +1,11 @@
+---
+title: "Subversion in n moments (where n is less than mere)  #Delphi  #extreme programming"
+sort: 2203
+---
+<p>It seems that I now have three co-workers who are also co-bloggers... Brian snuck in and I didn't know a thing about it until he posted his URL in a comment on my blog.</p>
+<p>He's been busy. He's already one-upped my <a href="http://blog.excastle.com/2005/05/31/mere-moments-guide-to-installing-a-subversion-server-on-windows/">Mere-Moments Guide</a> by writing a <a href="http://blog.briankohrs.com/2005/09/06/less-than-mere-moments-installation-of-subversion/">Less-Than-Mere-Moments Subversion Installer</a> that will do it all for you.
+
+
+
+All you have to do is keep pounding on the Next button, and this thing will install Subversion and TortoiseSVN, set up Subversion as a Windows service, create a new repository, configure authentication, and create your first project directory structure in the repository (and maybe one or two other things I forgot to mention). Slick. It assumes you want to do all the steps in order (there's no way to skip individual steps if you've already done them), but it does everything my Guide walks you through, and you'll end up with a working Subversion repository you can play with, in <em>less</em> than mere moments or less. <a href="http://blog.briankohrs.com/2005/09/06/less-than-mere-moments-installation-of-subversion/">Check it out.</a></p>
+<p>As if that weren't enough, the <em>next day</em> he attacked DUnit, pulled out the Win32 treeview and replaced it with a TVirtualTreeView, and cut the time to run 1,000 tests in the GUI from <a href="http://blog.briankohrs.com/2005/09/07/dunit-scalability-or-lack-thereof/">25 seconds down to 2 seconds</a>... and his changes look like they're linear as you add more tests, instead of quadratic like the old version. Whee!</p>

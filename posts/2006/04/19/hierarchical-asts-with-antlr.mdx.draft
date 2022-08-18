@@ -1,0 +1,70 @@
+---
+title: "Hierarchical ASTs with ANTLR  #.NET  #Delphi  #antlr  #dgrok"
+sort: 2286
+---
+Here's something interesting I learned about ANTLR: when you tell it to build an AST (abstract syntax tree, aka parse tree) in memory, the structure of the parser grammar has nothing to do with the structure of the parse tree. I.e., if you give it these parser rules (horribly simplified from my already-simplified grammar):
+<pre>const_section:
+  CONST (constant)+;
+constant:
+  IDENTIFIER EQUALS NUMBER SEMICOLON;</pre>
+and if you give it this as input:
+<pre>const
+  A = 5;
+  B = 6;</pre>
+I would expect to end up with a parse tree that looks like this:
+<pre>const_section
+  CONST
+  constant
+    IDENTIFIER 'A'
+    EQUALS
+    NUMBER 5
+    SEMICOLON
+  constant
+    IDENTIFIER 'B'
+    EQUALS
+    NUMBER 6
+    SEMICOLON</pre>
+Ah, but not so. You actually end up with a parse "tree" that looks like this:
+<pre>CONST
+IDENTIFIER 'A'
+EQUALS
+NUMBER 5
+SEMICOLON
+IDENTIFIER 'B'
+EQUALS
+NUMBER 6
+SEMICOLON</pre>
+Not a tree at all â€” just a flat list! Having a parser rule that says there's something called a "const_section" does not introduce a parse-tree node called "const_section". That is, the parse tree doesn't automatically reflect the structure of the parser rules.
+
+In fact, it turns out that the only things that even <em>can</em> appear in the parse tree are tokens â€” the things that come out of the lexer. The parser rules have nothing to do with the parse tree! Near as I can tell, the parser rules are more of a convenience than anything else: a handy way to name different parts of the parser rules, but not to impose any kind of structure per se. They include a bit of scoping, but no AST structure.
+
+You can impose a limited amount of structure if you wish, by marking individual nodes with the ^ suffix, which makes that node into a parent node, and the stuff around it into its children. That's very useful for things like arithmetic expressions (especially handy for infix operators like + and *), where there really isn't any higher-level structure that you care about as long as the order of operations comes out right.
+
+
+
+But I do want higher-level structure. An identifier, an equal sign, a constant expression, and a semicolon all combine (if they come in the right place relative to a "const" keyword) to become a constant: a concept in its own right, greater than the sum of its parts. And so I want a parse tree with a node called "constant". And above that, one called "const block". And above that, one called "interface section". And so on.
+
+How to do this, when there's no token for "constant"? By definition, a constant isn't one single token; it's a collection of tokens that take on a different meaning in combination.
+
+Well, it took some scratching around, but I got it working. (Test-first, of course, so I'd know when I was done.) You need to use the parser's tokens{} block to introduce an imaginary token â€” one that the lexer won't produce, but that is still technically a token, and so can still appear in the parse tree. Then you can write some funky-looking code at the end of the parser rule. It ends up looking a little like this:
+<pre>class DelphiParser extends Parser;
+options {
+  buildAST = true;
+}
+tokens {
+  CONST = "const";
+  CONST_SECTION;
+}
+const_section:
+  CONST (constant)+
+  { #const_section = #([CONST_SECTION, "const ..."], #const_section); };
+// ...</pre>
+I won't go into depth on what most of this means, but I will break down that stuff inside curly braces at the end. Stuff in curly braces in an ANTLR grammar can mean a lot of different things, but inside a parser rule, it means "whenever the parser rule matches this far, run this block of code." Within this, you can use some magical ANTLR syntax, which will be replaced with appropriate mundane C# code when ANTLR does its codegen.
+
+<font face="Courier New">[CONST_SECTION, "const ..."]</font> is shorthand for "create a new AST node with token type CONST_SECTION and text "const ...". It gets codegenned as a call to the AST factory.
+
+<font face="Courier New">#(ast1, ast2, ast3, ast4, ...)</font> is shorthand for "create an AST with ast1 as the root and ast2, ast3, ast4, ... as its children".
+
+So the net result is, once the const_section rule is completely done parsing, we know everything's a match and we're not going to be adding anything more into it, then we synthesize a new node with the CONST_SECTION token type, wrap it around whatever we had already parsed for the const_section rule, and say, "Okay, this is what we really parsed in the first place." Poof: instant (induced) tree.
+
+So there ya go. Not exactly everything you'll ever need to know to use ANTLR, but a good start if you're parsing things that fall into a natural hierarchy.

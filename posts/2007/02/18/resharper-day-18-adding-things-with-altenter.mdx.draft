@@ -1,0 +1,94 @@
+---
+title: "ReSharper, day 18: Adding things with Alt+Enter  #.NET  #resharper"
+sort: 2399
+---
+<p>Welcome to day 18 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>Yesterday, I talked about the <a href="http://blog.excastle.com/2007/02/17/resharper-day-17-change-all-with-altenter-and-introducing-the-red-light-bulb/#redlightbulb">red light bulb</a> and how you can use it to invoke Change All. Today I'll talk about a couple more of the quick fixes in the red-light-bulb menu. As before, whenever you see the red light bulb, you can drop down its menu by pressing <b>Alt+Enter</b>.</p>
+
+<h4>Context sensitivity</h4>
+
+<p>When you have an undefined (red) symbol, ReSharper will give you options to define it. It's smart about which options to show:</p>
+
+<ul>
+<li><p><b>Create property</b> (which really should say "create <i>read-only</i> property", since that's what it does) is shown if the symbol starts with a capital letter.</p></li>
+<li><p>There's also <b>Create get/set property</b>, but that's only shown if this particular usage is the target of an assignment. (It's not cool enough to look at all the usages and see if <i>any</i> of them are assigned to. <b>Update:</b> they've gotten other requests for this, and are already planning to implement it in the next version of ReSharper.)</p></li>
+<li><p><b>Create field</b> and <b>Create local variable</b> are shown if the symbol starts with a lowercase letter.</p></li>
+<li><p><b>Create method</b> is shown (instead of property/field/variable) if the symbol is followed by an open parenthesis.</p></li>
+<li><p>Related is <b>Create set accessor</b>, which is shown when you press Alt+Enter where the code is trying to set a read-only property. This one is actually based on a red squiggly, not a red symbol.</p></li>
+</ul>
+
+<p>These are all smart, but not as eerily smart as <a href="http://blog.excastle.com/2007/02/17/resharper-day-17-change-all-with-altenter-and-introducing-the-red-light-bulb/">Change All</a>:</p>
+
+<blockquote>
+<table border="1">
+<tr valign="top">
+<th style="font-size: 0.9em;">Type this, and...</th>
+<th style="font-size: 0.9em;">Create Local Variable</th>
+</tr><tr valign="top">
+<td style="font-size: 0.9em;"><code>if (a)</code></td>
+<td style="font-size: 0.9em;"><code>bool a;</code></td>
+</tr><tr valign="top">
+<td style="font-size: 0.9em;"><code>ArrayList.Adapter(b)</code></td>
+<td style="font-size: 0.9em;"><code>IList b;</code></td>
+</tr><tr valign="top">
+<td style="font-size: 0.9em;"><code>c.PixelOffsetMode = PixelOffsetMode.Half;</code></td>
+<td style="font-size: 0.9em;"><code>object c;</code></td>
+</tr>
+</table>
+</blockquote>
+
+<p>If Create Local Variable was as smart as Change All, that third line would generate <code>Graphics c;</code> instead of just plain <code>object</code>. (I suspect the difference is because Change All has to see which already-existing symbols match the usage, so it's got to look at perhaps a few dozen variables and properties. Create Local Variable doesn't have the advantage of an already-filtered starting point, so to do the same thing, it would have to look at every one of the tens or hundreds of thousands of classes in the .NET Framework, which might well be pretty slow. But it'd be pretty cool. <b>Update:</b> Support agrees. They've added a feature request, and said it would be in the next version of ReSharper!)</p>
+
+<h4>Smarts about the type</h4>
+
+<p>When it's building the Alt+Enter menu, ReSharper doesn't look at how a symbol is used. But once you select an option, it does.</p>
+
+<p>If you just use a symbol one place, like this:</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/CreateVariable01.png" width="300" height="20" border="1"></blockquote>
+
+<p>ReSharper will simply declare the variable as the exact type, <code>Bitmap</code> in this case. (It takes the cursor straight to the newly-declared variable, though, with a temporary Code Template; so if you want a different type, you can type it in.)</p>
+
+<p>But if you also use the symbol in a place that expects a base type, like this (DrawImage expects Bitmap's parent type, Image, for its first parameter):</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/CreateVariable02.png" width="300" height="35" border="1"></blockquote>
+
+<p>then Create Variable will give you a choice of which type you want to use, and will default to the base type:</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/CreateVariable03.png" width="300" height="60" border="1"></blockquote>
+
+<h4>Options for properties</h4>
+
+<p>When you create a property, ReSharper again creates a temporary Code Template. You start out at the return type, which you can accept or change. Then when you hit Tab, you get a choice of how to generate the getter/setter code:</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/CreateProperty01.png" width="244" height="83" alt="ReSharper after using Alt+Enter to create a property, showing the options to use either a backing field or the default body template" border="1"></blockquote>
+
+<ul>
+<li><p><b>Backing field</b> will do what its name suggests: it will declare a field with the appropriate type and name (following the Naming Conventions settings you've specified in ReSharper Options), return the field from the getter, and (if applicable) set it in the setter. If the field already exists, it won't be added again.</p></li>
+<li><p><b>Default body template</b> will throw an exception in the getter and the setter.</p></li>
+</ul>
+
+<h4>Options for methods</h4>
+
+<p>When you use Alt+Enter to create a method, the temporary Code Template will let you specify the return type, the parameter types, and the parameter names. Nothing too surprising here.</p>
+
+<p>What's pretty cool, though, is that ReSharper's <a href="http://blog.excastle.com/2007/02/14/resharper-day-14-suggested-variable-names/">variable name suggestions</a> kick in. If the call site was passing a variable or property, ReSharper will default to using that same variable name for the parameter name; beyond that, it makes the usual suggestions based on the type name.</p>
+
+<p>When you Tab to a parameter that has more than one suggested name, the dropdown completion box will appear. Of course, you can always type a name that isn't in that list.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/CreateMethod01.png" width="244" height="83" alt="ReSharper after using Alt+Enter to create a method, showing the parameter name suggestions" border="1"></blockquote>
+
+<p>You can even type a prefix (e.g., "first") and then press Ctrl+Space to suggest the rest of the name. (Unfortunately, this won't catch the variable name from the call site, it'll only suggest based on the type name. For example, in the above code, if I typed <code>first</code> and pressed Ctrl+Space, I would get <code>firstInt</code>, not <code>firstCount</code>.)</p>
+
+<h4>Limitation: Getting back</h4>
+
+
+
+<p>When you use any of these commands, ReSharper puts the cursor inside the new declaration, so you can use the temporary Code Template to change the type or the code. But when it's done, you have to figure out how to get back to where you were.</p>
+
+<p>ReSharper has a <b>Go to last edit location</b> command, accessed via <b>Ctrl+Shift+Backspace</b>. It seems to be able to get you back where you started, some of the time at least. It won't do anything the first time you hit it, but if you're lucky, the second time, it'll take you back to the formerly-red symbol. (But if you then use Alt+Enter to complete something else, and try to get back again, it doesn't seem to work as expected.)</p>
+
+<h4>Limitation: Not naming-convention savvy</h4>
+
+<p>These features are not smart enough to follow the "Naming Convention" page in ReSharper Options. Given the semi-standard of fields starting with <code>_</code>, one would expect that symbols that already start with <code>_</code> wouldn't get the option to create a local variable; and one would further expect that symbols without the <code>_</code> would either not get the "Create field" option, or would add the <code>_</code> when you create a field. ReSharper doesn't do any of this; Create Field and Create Local Variable are both completely oblivious to Naming Convention settings. (I've entered a feature request for this.)</p>

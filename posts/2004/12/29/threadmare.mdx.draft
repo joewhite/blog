@@ -1,0 +1,7 @@
+---
+title: "Threadmare  #.NET  #Delphi  #dgrok"
+sort: 2092
+---
+<p><a href="http://distribucon.com/blog/">Dan Miser</a> posted some <a href="http://distribucon.com/blog/archive/2004/12/23/367.aspx">links</a> to articles on multithreading. I've already read "<a href="http://www.pergolesi.demon.co.uk/prog/threads/ToC.html">Multithreading - the Delphi Way</a>", but "<a href="http://sklobovsky.nstemp.com/community/threadmare/threadmare.htm">Waking from Threadmare</a>" was new to me, so I spent a few minutes browsing through it. Methinks I'm going to have to spend some time reading it in more depth.</p>
+<p>One interesting tidbit in "Waking from Threadmare" was a new take on <a href="http://www.cs.oberlin.edu/~jwalker/nullObjPattern/">null objects</a>. The author suggests making all the public methods non-virtual, and starting each one with "<font face="Courier New">if Self = nil then Exit;</font>". Then "nil" becomes a null object &#8212; you can call methods on a nil reference, and it just works. Obviously this only works in Delphi for Win32; in other languages, or in .NET, you would have to use a proper null object. But it's still an intriguing idea.</p>
+<p>His system for inter-thread communication looks very intriguing. It only allows status reporting, so I'm wondering how you have your thread return data when it's done (why doesn't Finish take a data object?), but it still looks well worth some more digging. It should apply to .NET, too (maybe I can use it in <a href="http://www.dgrok.com/">DGrok</a>).</p>

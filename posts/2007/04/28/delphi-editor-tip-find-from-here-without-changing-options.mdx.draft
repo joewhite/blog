@@ -1,0 +1,21 @@
+---
+title: "Delphi editor tip: Find from Here without changing options  #Delphi"
+sort: 2438
+---
+<p>If you're used to searching from the top of the file, here's a way to do the occasional "search from here" in the Delphi IDE, without messing up the options for next time.</p>
+
+<p>In Delphi's "Find" dialog, we almost always leave the Origin option set at "Entire scope", so that whenever we do a search, it starts at the top of the file. Occasionally, someone will change that to "From cursor", and it always throws me off the next time I try to do a search. I usually have to re-try my search a couple of times before I figure out that's what the problem is.</p>
+
+<p>But this doesn't have to be a problem, because it's easy to search from the current cursor position without ever changing the "Origin" option. Here's all it takes:</p>
+
+<ol>
+<li><b>Highlight some text.</b> Select something in the editor. This works especially well if you highlight the text you're going to be searching for.</li>
+<li><b>Open the Find dialog (Ctrl+F).</b> If you highlighted the text you'll be searching for, you can just click OK. Otherwise, either type the search text, or press the Down arrow to re-select your most recent search text.</li>
+<li><b>Click OK (or press Enter).</b> Leave the "Origin" option set to "Entire scope"; you won't need to change it.</li>
+</ol>
+
+<p>When you click "OK", the IDE will see that you have text selected, and will search <i>within that selection,</i> instead of searching from the top of the file. So effectively, you're searching from the current cursor position; but you're doing it without changing the "Origin" option, so "Origin" will still be set to "Entire scope" the next time you search.</p>
+
+<p>(Side note: incremental search [Ctrl+E] also searches from the current cursor position. But if your cursor is already at the thing you want to find the next occurrence of, selecting the word and hitting Ctrl+F Enter is better.)</p>
+
+<p>(Another tip: Ctrl+K T selects the current word.)</p>

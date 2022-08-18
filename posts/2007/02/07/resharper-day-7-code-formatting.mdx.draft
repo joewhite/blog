@@ -1,0 +1,127 @@
+---
+title: "ReSharper, day 7: Code formatting  #.NET  #resharper"
+sort: 2303
+---
+<p>Welcome to day 7 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>ReSharper has a great deal of support for code formatting. It basically falls into three categories: as-you-type, on-demand per file, and on-demand for multiple files.</p>
+
+<h4>Formatting as you type</h4>
+
+<p>This doesn't sound new, does it? Visual Studio has had this for a while now. But of course ReSharper's formatting options are <a href="http://blog.excastle.com/2007/02/06/resharper-day-6-shared-options-in-the-resharper-file/">versionable and sharable</a>, so you won't have some computers putting a space after typecasts and others removing it. This alone is a win.</p>
+
+<p>Another nifty ReSharper formatting feature is in how it handles Enter inside empty curly braces. It's a little better than the way Visual Studio handles the same thing, and ties nicely in with the <a href="http://blog.excastle.com/2007/02/04/resharper-day-4-auto-closing-delimiters/">automatic closing delimiters</a>:</p>
+
+<blockquote>
+<table cellspacing="8" cellpadding="0" border="0">
+<tr valign="top">
+<td>Starting out with an empty statement.</td>
+<td><img src="http://blog.excastle.com/images/resharper/BraceFormatting1.png" width="100" height="17"></td>
+</tr><tr valign="top">
+<td>Type an open curly brace...</td>
+<td><img src="http://blog.excastle.com/images/resharper/BraceFormatting2.png" width="100" height="17"></td>
+</tr><tr valign="top">
+<td>and press ENTER.</td>
+<td><img src="http://blog.excastle.com/images/resharper/BraceFormatting3.png" width="100" height="45"></td>
+</tr>
+</table>
+</blockquote>
+
+<h4>Formatting an entire file: Ctrl+Alt+F</h4>
+
+<p>ReSharper also has a command to reformat the entire source file you're working on. If you press <b>Ctrl+Alt+F</b>, you'll get the "Reformat Code" dialog box:</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/ReformatCode.png" width="476" height="197" alt="ReSharper's Reformat Code dialog box" border="0"></blockquote>
+
+<p>Notice that it can do more than just tweak your whitespace. You can also tell it to fix some of those <a href="http://blog.excastle.com/2007/02/01/resharper-day-1-the-gray-the-red-and-the-squiggly/">grays</a> in your code. <b>Optimize "using" directives"</b> and <b>Remove redundant 'this.' qualifier</b> are pretty self-explanatory. <b>Shorten references</b> will change <code>System.Drawing.Graphics</code> to simply <code>Graphics</code> (adding the necessary <code>using</code> if needed).</p>
+
+<p>We always check all of these boxes; we want our code as clean as it can get. It remembers your settings for next time.</p>
+
+<p>Update: <a href="http://blog.excastle.com/2007/02/07/resharper-day-7-code-formatting/#14018">Maruis points out that <b>Ctrl+Alt+Shift+F</b> will do a silent reformat</a>, without popping up the dialog, and just using whichever options you already had selected. Awesome! Thanks, Maruis!</p>
+
+<p>Here are some other things ReSharper does when it reformats your code:</p>
+
+<ul>
+<li><p><b>Adds explicit visibility specifiers.</b> If you have classes with no visibility specifier, it will add the <code>internal</code> for you. Fields with no visibility get the <code>private</code> added. (As with everything in ReSharper, this is configurable. So if for some reason you wanted your code to be less readable, you could turn this option off.)</p></li>
+<li><p><b>Puts simple getters and delegates on a single line.</b> If the getter/setter/delegate body is a single statement (e.g., an assignment or a return), ReSharper will put it on a single line, along with the braces. So ReSharper would take this poorly-formatted code:</p>
+<pre>public Color BorderColor {
+    get
+    {
+        return _borderColor;
+    }
+    set { _borderColor = value; Invalidate(); }
+}</pre>
+<p>and reformat it to look like this:</p>
+<pre>public Color BorderColor
+{
+    get { return _borderColor; }
+    set
+    {
+        _borderColor = value;
+        Invalidate();
+    }
+}</pre>
+<p>Since Visual Studio 2005 doesn't bother showing the extra layer of "collapse" plus signs for single-line getters and setters, this is a really nice feature.</p></li>
+</ul>
+
+
+
+<h4>Reformatting a project or solution</h4>
+
+<p>Finally, ReSharper has an option to reformat lots of files at once. Simply right-click on a folder, project, or solution, and select "Reformat Code".</p>
+
+<p>It may be obvious, but is worth noting anyway, that if you've made any other changes to your code, you should commit them to your source-control repository before you do this. Reformatting an entire solution is worthy of its own commit. It will change things, sometimes in ways you don't want, and until you either change its settings, or adapt to its quirks, you'll probably want the chance to selectively revert some of its changes.</p>
+
+<h4>Things it doesn't get quite right #1: delegate indentation</h4>
+
+<p>By default, ReSharper indents your inline delegates a ridiculous amount. This is one of those where I think they got the default wrong: I want my code to follow normal indentation. I don't want half of it ragged-center-aligned like this:</p>
+
+<pre>Block incrementer = delegate {
+                        ++i;
+                        ++j;
+                    };
+Block resetter = delegate {
+                     i = 0;
+                     j = 0;
+                 };
+</pre>
+
+<p>I did finally find the way to fix this. The options for formatting anonymous methods are spread across two separate pages in ReSharper options: <b>Braces Layout</b> and <b>Other</b>. The "don't indent a ridiculous amount" is on the Other page, and it's called "Indent anonymous method body". Turn it off, and set the brace option to "At end of line", and you get something much nicer:</p>
+
+<pre>Block incrementer = delegate {
+    ++i;
+    ++j;
+};
+Block resetter = delegate {
+    i = 0;
+    j = 0;
+};</pre>
+
+<h4>Things it doesn't get quite right #2: Xceed licensers</h4>
+
+<p>ReSharper tries to shorten qualifiers as much as it can. In suitably odd circumstances, it can decrease readability. Here's one such case, and how we worked around it (which I think worked out quite well).</p>
+
+<p>We use <a href="http://www.xceed.com/">Xceed components</a> in our software. One of our big frustrations with Xceed is the way they do licensing: they give you a license key, which is one of those ridiculously long strings of letters and numbers, and at runtime you have to write startup code that puts the key into a static property, like this:</p>
+
+<pre>Xceed.Grid.Licenser.LicenseKey = "LOTS-OF-LETTERS-AND-NUMBERS";
+Xceed.Editors.Licenser.LicenseKey = "SOME-OTHER-LETTERS-AND-NUMBERS";</pre>
+
+<p>Yes, you have to set a license key for each Xceed assembly you use. Otherwise, some of them will complain at runtime. (Some of them, oddly enough, won't, but we set their license keys anyway, just to be sure.)</p>
+
+<p>The oddness is with a class named <code>LicenseKey</code> in multiple different assemblies. ReSharper tries to shorten that like this:</p>
+
+<pre>using Xceed;
+using Xceed.Grid;
+...
+Licenser.LicenseKey = "LOTS-OF-LETTERS-AND-NUMBERS";
+Editors.Licenser.LicenseKey = "SOME-OTHER-LETTERS-AND-NUMBERS";</pre>
+
+<p>Yuck. Here's how we worked around it; ReSharper leaves this version alone:</p>
+
+<pre>using GridLicenser = Xceed.Grid.Licenser;
+using EditorLicenser = Xceed.Editors.Licenser;
+...
+GridLicenser.LicenseKey = "LOTS-OF-LETTERS-AND-NUMBERS";
+EditorLicenser.LicenseKey = "SOME-OTHER-LETTERS-AND-NUMBERS";</pre>
+
+<p>It's a workaround for a tool limitation, but I think it actually reads better this way.</p>

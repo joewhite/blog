@@ -1,0 +1,19 @@
+---
+title: "Diff, part 3: Introducing the Longest Common Subsequence  #.NET  #Delphi  #diff"
+sort: 2131
+---
+<p>In the <a href="http://blog.excastle.com/2005/03/29/diff-part-1-a-definition-and-a-stupid-implementation/">last</a> <a href="http://blog.excastle.com/2005/03/29/diff-part-2-head-and-tail-matches/">two</a> articles, I've begun outlining what diff is all about. This time, I'll start to go into how it's actually done.</p>
+<p>It turns out that it's hard to find out what's different between two lists, but much easier to find out what's the same. So, we start by finding the Longest Common Subsequence (LCS), a much easier problem than diff. Once we've got the LCS, the diffs are easy. So we can throw away our <a href="http://blog.excastle.com/2005/03/29/diff-part-1-a-definition-and-a-stupid-implementation/">stupid diff implementation</a>, and use LCS instead... once we figure out how to do an LCS, anyway.</p>
+<p>But first, <em>what</em> is a Longest Common Subsequence? I'll illustrate with these two lists, A and B:</p>
+<blockquote dir=ltr style="MARGIN-RIGHT: 0px">
+<p><font face="Courier New">A is (1 2 3)<br>B is (1 4 5 3)</font></p></blockquote>
+
+
+
+<p>A <em><strong>subsequence</strong></em> of A is just a subset of A. <font face="Courier New">(1 2)</font> is a subsequence of A; so are <font face="Courier New">(1 2 3)</font>, <font face="Courier New">(3)</font>, and <font face="Courier New">()</font> (the empty list). However, <font face="Courier New">(3 2)</font> is not a subsequence of A. To be a subsequence, the elements have to stay in their original order. <font face="Courier New">(2 2)</font> isn't a subsequence of A either; no fair repeating stuff (though it would've been fine if there were two 2s in the original).</p>
+<p>A <em><strong>common subsequence</strong></em> of A and B would be anything that's a subsequence of A, and is also a subsequence of B. There are four in this case: <font face="Courier New">()</font>, <font face="Courier New">(1)</font>, <font face="Courier New">(3)</font>, and <font face="Courier New">(1 3)</font>.</p>
+<p>The <em><strong>longest common subsequence</strong></em> is just the longest of all possible common subsequences. Here, it's <font face="Courier New">(1 3)</font>.</p>
+<p>The LCS tells us what's the same between A and B. And once we know what's the same, the diff is pretty straightforward. Actually, any common subsequence would do (our stupid implementation is actually the degenerate case, using <font face="Courier New">()</font> as its common subsequence). But if we use the longest possible common subsequence, we'll end up with the shortest possible set of diffs, which is exactly what we want.</p>
+<p>So, how do we implement LCS? Well, we could build all the possible subsequences of A, check to see which ones are also subsequences of B, and keep track of the longest one we've found so far. When we're done, we've got our LCS.</p>
+<p>It would work, but it would be stupid. A list of length 3 has 8 possible subsequences. A list of length 10 has 1,024. Length 20? 1,048,576. Length 100? 1,267,650,600,228,229,401,496,703,205,376 possible subsequences. And if you're comparing files with a few thousand lines? You'll be there a while.</p>
+<p>Hmm. Maybe we need a not-so-stupid LCS algorithm.</p>

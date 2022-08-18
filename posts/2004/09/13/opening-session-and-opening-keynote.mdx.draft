@@ -1,0 +1,31 @@
+---
+title: "Opening session and opening keynote  #Delphi  #borcon2004"
+sort: 2029
+---
+<p>I'm posting this a little late, since Nick <a href="http://www.lemanix.com/nick/archive/2004/09/12/1283.aspx">already</a> <a href="http://www.lemanix.com/nick/archive/2004/09/13/1287.aspx">posted</a> about this stuff. I'll just add on to what he had to say.</p>
+<p><strong>Opening session (Sunday night)</strong></p>
+<p>There was the obligatory light show (the lightning effects were pretty cool; I wonder what kind of equipment they needed to make that work), techno music (they should sell the soundtrack), and abstract computer-generated videos (I particularly liked the mood-lit clocks and the plasmafied ASCII). It was interesting to watch DavidI getting bouncy. And the <a href="http://www.marcocantu.com/Development/borcon2004/intro_keynote/EPSN0014_t.jpg">dancing girls</a> were an interesting bit of spice, with their 80's hair, and what couldn't exactly be called miniskirts &#8212; they were really more like mini denim loincloths.</p>
+
+
+
+<p>This is Dale's sixth BorCon, DavidI's 19th, and DavidI's mom's first. (He apologized to her about the dancing girls. It's not clear whether he actually even knew about them.)</p>
+<p>The new buzzword is "Software Delivery Optimization", which extends ALM. They basically make it a continuum:</p>
+<ul>
+<li>Build software (Delphi, etc.)
+<li>Build software right (ALM: CaliberRM, StarTeam, etc.)
+<li>Build the right software (SDO)</li></ul>
+<p>The basic idea is to extend the process up to the decisionmakers, and make sure they're involved in knowing what the costs and risks are of changes. I'll be interested to see what all they come up with for this.</p>
+<p>They pointed out that people have tried this before, with things like CASE tools, but those focused on the business needs and not the code. Borland, being Borland, focuses on the code and grows from there.</p>
+<p>I'll have to see if I can drag our director of development to BorCon next year. There's a fair bit of stuff for him to chew on.</p>
+<p><strong>Opening keynote</strong></p>
+<p>I agree with Nick: San Jose Taiko's performance was very cool. The song they started with was called "Matsuri", which means "festival".</p>
+<p>More about SDO, including the skit. I liked the programmer's comment, when the "project manager" came over and said "good morning": "Why is it a good morning? It's 8:28 am. Talk to me at 10:00."</p>
+<p>The interesting statistics they cited:</p>
+<ul>
+<li>30% of software projects are canceled before completion
+<li>54% are over budget
+<li>66% are not considered successful by their companies
+<li>90% were delivered late</li></ul>
+<p>And the big reason is that management makes decrees that have a huge impact on the timeline (their example was "we need a new feature, and we need to move the deadline up by a month, and we need to take five people off the project" &#8212; the end result was "we can do it, but we need to keep those five people on the project").</p>
+<p>They also talked about new projects on the horizon: Project Themis (team infrastructure, coming first half of 2005), Project Hyperion (visibility and predictability, coming in 12 to 18 months), and Project Prometheus (enterprise resource planning, also coming in 12 to 18 months).</p>
+<p>Lots of buzzwords. I hope they offer some good sessions next year that give us a solid sense of what this stuff means.</p>

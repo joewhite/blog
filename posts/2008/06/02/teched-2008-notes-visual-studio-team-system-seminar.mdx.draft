@@ -1,0 +1,623 @@
+---
+title: "TechEd 2008 notes: Visual Studio Team System seminar  #.NET  #Delphi  #teched2008"
+sort: 2536
+---
+Today was the Team System preconference seminar.
+
+Brief summary: Team System might be a good solution for continuous builds, especially if you don't do pair programming. But if you've already got Subversion and CruiseControl, or if you do promiscuous pairing, you would lose some features by moving to Team System. Up to you to decide whether that's a good trade.
+
+Here's a dump of the notes I took during the session, haphazard, disorganized, and undigested. There were a lot of questions and side notes along the way, which I jotted down as they came up, so there's not a whole lot of structure here. I also didn't bother taking notes on the stuff I'm not interested in, like Web application testing (which was a good chunk of the afternoon).
+
+I'll do more blog posts later to add some sensible commentary and more of my own thoughts, including some elaboration on the brief summary above. If you don't want to wade through pages of bullet points, or if you want some explanation on how I reached my conclusions, you might want to wait for those later posts.
+
+<h3>Improve Software Quality with Visual Studio Team System (undigested notes)</h3>
+
+Steven Borg
+Jeff Levinson
+Shad Timm
+Northwest Cadence
+www.nwcadence.com
+blog.nwcadence.com
+
+Process (SDLC)
+<ul>
+  <li>Release: deploy</li>
+  <li>Analysis: gather requirements</li>
+  <li>Architecture: design</li>
+  <li>Construction: build</li>
+  <li>Testing: verify quality</li>
+  <li>Repeat</li>
+</ul>
+
+<h3>WHAT CAN GO WRONG</h3>
+
+Analysis
+<ul>
+  <li>Poor requirements</li>
+  <ul>
+    <li>No mind-reading tools available... yet</li>
+  </ul>
+  <li>Lack of traceability</li>
+  <ul>
+    <li>What pieces of code relate to a given requirement</li>
+    <li>"Oh yeah, that'll just take me a couple hours to add"</li>
+  </ul>
+  <li>How do you know when a requirement is finished?</li>
+  <ul>
+    <li>Not knowing allows for stealthy and subtle scope creep</li>
+  </ul>
+</ul>
+
+Construction
+<ul>
+  <li>Requirements are unknown</li>
+  <li>Requirements change w/o devs knowing</li>
+  <li>Poor code quality</li>
+  <li>Poor code maintainability</li>
+  <ul>
+    <li>Dev A: "It's so complex I don't recognize the code."</li>
+    <li>Dev B: "But you wrote it, didn't you?"</li>
+  </ul>
+  <li>Code changes not linked to specific requirements or bugs</li>
+  <li>Builds break all the time</li>
+  <li>"It works on my machine!"</li>
+  <li>Devs constantly have to provide status to Project Managers</li>
+  <ul>
+    <li>How do you tell how a project is going?</li>
+  </ul>
+</ul>
+
+Testing
+<ul>
+  <li>Integration quality (e.g. build breaks)</li>
+  <li>Knowing if the requirement has been met</li>
+  <li>Communication problems between testers and devs</li>
+  <ul>
+    <li>Test cases and bugs "thrown over the wall"</li>
+    <li>Testers can't adequately document test failures for devs</li>
+    <li>Devs can't find the code that broke (see "it works on my machine")</li>
+  </ul>
+</ul>
+
+Release
+<ul>
+  <li>Not knowing what code is in the release</li>
+  <ul>
+    <li>Happens more often than it should</li>
+    <li>Will not pass a SOX audit...</li>
+  </ul>
+  <li>Regression bugs</li>
+  <ul>
+    <li>Dev: "I fixed Bug #265,357 yesterday"</li>
+    <li>User: "Bug #265,358 is the same as #265,357"</li>
+  </ul>
+  <li>Inability to handle hot fixes or maintenance releases in the source code branch structure</li>
+</ul>
+
+<h3>DEMO</h3>
+
+Sample site: "Kigg" (digg clone)
+Built on ASP.NET MVC framework
+Many demo demons... all on purpose
+
+Side note: right-click solution, "Check in"
+Can associate checkin with a work item
+Conflict resolution looks a lot more complicated than with SVN, and takes a lot of time and a lot of dialog boxes
+
+Side note: TFS 2008 has a feature to automatically get latest version of a file when you start typing... but <em>just that one file.</em> How stupid is that? (It's optional, and off by default. The feature is called "Get Latest on checkout". Don't turn it on.)
+
+TFS, like VSS, operates on a check-out system (pessimistic locking). TFS 2005, when you check out, just makes the file writable (may be a historical version).
+
+Always do a Get Latest (on the entire solution) before you start editing.
+
+<h3>WHAT IS QUALITY?</h3>
+How do you measure it?
+<ul>
+  <li>Lack of bugs</li>
+  <li>Determined by the customer</li>
+  <ul>
+    <li>Business value</li>
+  </ul>
+  <li>How well does it meet the requirements?</li>
+  <li>Requirements document determines quality</li>
+  <ul>
+    <li>But... "That's not what I meant"</li>
+  </ul>
+  <li>Relying on requirements is "kind of a deathtrap"</li>
+  <ul>
+    <li>Note: session on Thursday on change management will go into this more</li>
+  </ul>
+</ul>
+
+Side note: sounds like they may have something to say about bugfixes in a branch, and how to make sure they get merged into branch?
+
+<h3>THE BIG DEMO</h3>
+
+What do you need?
+<ul>
+  <li>Tests</li>
+  <li>Automated build</li>
+  <li>Functional tests</li>
+</ul>
+Demo: Starting with code you inherited... how do you do all this?
+
+<h3>IMPLEMENTING AN AUTOMATED BUILD</h3>
+
+.vsmdi file -- list of tests
+Add new test list
+Types:
+<ul>
+  <li>Unit tests (can be split into customer vs. developer)</li>
+  <li>Functional / Web tests</li>
+  <li>Load tests</li>
+  <li>Manual tests</li>
+  <li>VSTS has no built-in knowledge of these types. It's just suggested to make different lists.</li>
+</ul>
+
+Create a build
+Walk through a wizard
+Select one or more solutions... select debug, release, or both
+Select which test lists you want to run
+Retention policy... how many do you want to keep? How many failed, how many succeeded, etc. Automatic cleanup.
+Select a "stage" directory: there's a build server, a TFS server, and auser. You tell TFS, "Give me a build", and it delegates that to the build machine, which has to be told where you want to drop it. That's the "Builds will be staged to the following share" option.
+Select what triggers the build. "None" / "Build each check-in" (queued) / "Accumulate until prior build finishes (fewer builds)" / "Every week on the following days"
+Can have as many build servers as you like
+Default implementation: one build script will run on one build machine; if you want one script to run across all, you need a third-party tool
+We would do our daily / fast / medium / slow builds much the same way as today, with multiple build machines
+
+Can manually queue a build
+<ul>
+  <li>Can specify MSBuild command-line parameters</li>
+  <li>Can select a "build agent" (which build machine you want it to run on)</li>
+  <li>After you queue it, you can monitor its progress</li>
+  <li>Your build will seldom work its first time. Wrong security settings, wrong workspace settings, problems with references, etc. You'll have to spend some time looking at the log file.</li>
+  <ul>
+    <li>Build log can be thousands of lines. There are some hyperlinks that will take you to just a small piece of the log, but it may not always give you all the context you need.</li>
+    <li>References are going to be a frequent problem. Build server wipes out the workspace and rebuilds. References to DLLs that you installed somewhere (e.g. MVC framework) are stored with relative paths that probably won't work on the build PC, so add those DLLs to source control.</li>
+    <li>Need VS installed on build server if you're going to run unit tests.</li>
+  </ul>
+  <li>TFS has something called "workspace mappings", which sounds like it's kind of like an SVN checkout but not really. They got a build error because, as I gather, they tried to make their automated build use a workspace that was for the wrong user, or something.</li>
+  <li>Best practice: Start with an automated build. And <em>start small!</em></li>
+  <li>Best practice: Put everything in version control. NUnit, MVC framework, etc. Not only does this help with the build, it helps when you need to set up a new development PC.</li>
+  <ul>
+    <li>What about dependencies on other projects that other devs are working on? - ideally everything goes into a solution. Solution file doesn't have to be in version control. Can mix and match branches, etc. Also want a master solution in revision control, which is used for building. Every developer should have the same workspace structure (relative paths).</li>
+  </ul>
+</ul>
+
+Build Automation is not F5.
+Is...
+<ul>
+  <li>Collecting</li>
+  <li>Assembling</li>
+  <li>Validating</li>
+  <li>Auditing</li>
+</ul>
+Helps you avoid integration errors
+Team Build 2008
+<ul>
+  <li>VSTS 2008 Team Foundation Serv er Build</li>
+  <li>Core feature of TFS - not upsell</li>
+  <li>Build automation in Team System</li>
+  <li>Provides "F5" experience</li>
+</ul>
+
+Key features in Team Build 2005 (abbreviated)
+<ul>
+  <li>Reports</li>
+  <li>Warehouse support for historical trends</li>
+  <li>Multiple build types</li>
+</ul>
+
+New in 2008 (abbreviated)
+<ul>
+  <li>Continuous integration</li>
+  <li>Build queuing</li>
+  <li>Scheduled builds</li>
+</ul>
+
+<ul>
+  <li>Build initiated from TFS</li>
+  <li>Prepare build agent and create build numer</li>
+  <li>Sync sources (blow everything away and check out again - by default, can customize e.g. for continuous build)</li>
+  <li>Compile and Analyze (can be anything you want - MSBuild, Perl script, whatever)</li>
+  <li>Tests</li>
+  <li>Update work items</li>
+  <li>Calculate code metrics</li>
+  <li>Build report</li>
+  <li>Copies to drop location</li>
+  <li>Publishes results to TFS</li>
+  <li>Notify subscribers</li>
+</ul>
+
+Team Build uses MSBuild
+Build agent loads .proj file
+
+Customizing the build
+<ul>
+  <li>Core build defined in TfsBuild.proj</li>
+  <li>If you want to do anything other than compile, you'll have to edit that file</li>
+</ul>
+
+Desktop builds
+<ul>
+  <li>Can run the same build that will run against the server, but locally. F5 ran, but the build does extra stuff that I want to test.</li>
+  <li>If you don't have Team Build Agent locally, you can just do "msbuild TfsBuild.proj".</li>
+  <li>Doesn't blow away your workspace.</li>
+  <li>Uses your changes; doesn't get other changes from the server.</li>
+  <li>Can be a false sense of security (e.g. prerequisites).</li>
+</ul>
+
+Team Build has a managed API. You can queue builds, etc.
+
+Side note: builds with VS 2005 only use one processor, but VS 2008 uses all your processors
+
+Can set policy to not allow checkins on broken CI build. You can override it to fix the build.
+
+Can double-click the failed build, scroll down, and see a list of commits and view the diffs.
+
+"Annotate" = SVN Blame, though a little nicer. The revision numbers in the gutter are hyperlinks, and pop up the list of all the other changes that were made in that commit.
+
+VSTS <em>does</em> have atomic commits. (That means it might actually be a usable option!)
+
+Retention
+<ul>
+  <li>Multiple folders: <em>BuildName</em>_<em>CurrentDate</em>_<em>SequentialNumber</em></li>
+  <li>Want to keep a few failed builds so people can figure out why and when they failed</li>
+  <li>Probably don't want to keep any stopped builds</li>
+  <li>"Partial builds" = built, but tests failed. Treat them like failed builds.</li>
+  <li>There's an option to assign a "quality" to one of these builds, and then mark it as "retain", where it'll be kept forever.</li>
+  <li>Note: retention policy is not stored under version control. It's stored in a database.</li>
+  <ul>
+    <li>But you can use the API to create a build.</li>
+  </ul>
+</ul>
+
+<h3>HOW TO DO UNIT TESTING WITH TFS</h3>
+
+[TestMethod]
+public void PaycheckTest() // Bi-monthly
+{
+  Worker target = new Worker("John Smith");
+  target.Salary = 52000;
+  double actual = target.GetPaycheck();
+  double expected = 2000;
+  Assert.AreEqual(actual, expected, "Wrong paycheck amount");
+}
+(oops - logic is wrong)
+
+ExpectedException attribute
+No Assert.Throws
+Each test should only test one thing, so Assert.Throws isn't too necessary (I would dispute this a bit)
+
+TDD:
+<ul>
+  <li>Never write a single line of code unless you have a failing automated test</li>
+  <li>Eliminate duplication</li>
+</ul>
+The test represents the requirement
+<ul>
+  <li>If there is no requirement (test), then there's no code to write</li>
+</ul>
+Duplicate code == bad design (DRY)
+
+Side note: in MVC, model tests == programmer tests; controller tests bleed into customer tests
+
+Purpose of programmer test is to define only what is needed. Code should be enough to make the test pass, no more, no less.
+
+Test List
+<ul>
+  <li>When starting a task, make a list of tests you think you'll need.</li>
+  <ul>
+    <li>Make sure it's complete, but as simple as possible.</li>
+  </ul>
+  <li>Interesting idea: Write the test in a way the customer can understand.</li>
+</ul>
+
+Order of execution
+<ul>
+  <li>[AssemblyInitialize]</li>
+  <li>[ClassInitialize]</li>
+  <li>[TestInitialize]</li>
+  <li>[TestMethod]</li>
+  <li>[TestCleanup]</li>
+  <li>[ClassCleanup]</li>
+  <li>[AssemblyCleanup]</li>
+</ul>
+
+Right-BICEP
+<ul>
+  <li>Are the results right?</li>
+  <li>Boundary conditions</li>
+  <li>Inverse relationships</li>
+  <li>Cross-check results using other means</li>
+  <li>Error conditions</li>
+  <li>Performance characteristics</li>
+</ul>
+
+CORRECT boundary
+<ul>
+  <li>Conformance</li>
+  <li>Ordering</li>
+  <li>Range</li>
+  <li>Reference - does it reference anything external not under control of the code itself?</li>
+  <li>Existence</li>
+  <li>Cardinality</li>
+  <li>Time</li>
+</ul>
+
+TDD problems
+<ul>
+  <li>Requires training</li>
+  <li>Writing the wrong test</li>
+  <li>Requires developer to take a functional requirement and put it into code</li>
+  <ul>
+    <li>Business functionality = many requirements</li>
+    <li>May need to test a long chain of responsibility. Mock objects help, but they're limited and you can still run into issues when you get to functional testing.</li>
+  </ul>
+  <li>Unit test as much as possible. Can't really test threading. UI testing is hard.</li>
+  <li>100% code coverage isn't good enough.</li>
+</ul>
+
+Side note: VSTS test framework lets you write tests for private methods. Generates reflection code for you.
+
+Can see a list of all tests that are not in a test list yet. Automatically finds unit tests you add and shows them here. So then you decide which test list to add them to. You only get this if you have the Tester edition, though.
+
+Side note: forthcoming version of VSTS has "aftershocks". When you modify code, it'll mark tests that are affected by that change.
+
+Side note: they do, now, have a menu item to run all the tests in the solution. You can also right-click inside a method body and select "Run test", or right-click outside the method to run all the tests in the class.
+
+Can set an option to generate code-coverage info. You have to select which test run you want to see code coverage for; looks like a pain.
+
+Right-click a method, select "Add unit test". Generates a method name, e.g. "MyMethodTest", "MyMethodTest1", etc.
+
+Can write a data-driven test that reads its data from e.g. an Excel spreadsheet. (FIT?)
+
+Adding a new test does not add it to the test list. Eww.
+
+Code coverage metrics will not be gathered if you target "Any CPU". You have to set the build type to "x86" or "x64" or something specific. On the other hand, if you want to deploy a Web site, you have to set the build type to "Any CPU".
+
+If a build fails, you can set it up to automatically create a work item, and attach info about which test failed. If tests failed, it adds a file under the issue's "Links" tab that you can double-click to see details about the test failures. Make sure to set it up to happen on partially failed builds, too.
+
+Bad: By default, Team System allows you to commit without a comment. You need to install a PowerToy to change this. Even if you do change it, anyone can override (though you can hook up an alert e-mail to the whole team if they do override).
+
+Build notifications: red spinning light, vacuum cleaner (to tell you your code sucks).
+
+Side note: Power tools give you an app to listen for build events. Pops up toast alerts for whatever kinds of notifications you want to see.
+
+QA shouldn't be finding programmers' bugs; programmers should be doing that. QA should be making sure the app meets the requirements, and finding deep logic problems. QA, in general, shouldn't be writing unit tests; they should be doing functional, acceptance, and regression testing. Regression testing might use some of the same tools as unit testing, but acceptance and functional testing probably won't.
+
+I asked whether MS's testing framework lets you build hierarchical test suites like DUnit, and like is possible with recent versions of NUnit. The answer is no. You can do some stuff like that with test lists, but you can't do a test-list setup and test-list teardown. (I assume you could get partway there with ordered test lists.)
+
+Related Content (abbreviated)
+<ul>
+  <li>Interactive Theater Sessions</li>
+  <ul>
+    <li>DVP05-TLC: Q&A on VSTS Best Practices (Tuesday)</li>
+    <li>DVP09-TLC: Applying Feature Driven Development Techniques to VSTS (Wednesday)</li>
+    <li>DVP01-TLC: Testing using Mock Objects (Wednesday)</li>
+    <li>DVP03-TLC: VSTS Worst Practices (Thursday)</li>
+    <li>DVP07-TLC: Software Configuration Management - Branching Done Right (Thursday)</li>
+  </ul>
+  <li>Breaking Sessions</li>
+  <ul>
+    <li>ARC303: Designing for Testability (Wed)</li>
+    <li>DVP318: Agile Talk on Agility (Wed)</li>
+    <li>TLA324: How I Became a Team Build Muscleman (Wed)</li>
+    <li>DVP313: Understanding Branching and Merging with VSTS</li>
+    <li>DVP301: Making Your Test Lab Obsolete with Team Test and Virtualization (Thu)</li>
+    <li>DVP204: End to End Software Configuration and Change Management (Thu)</li>
+  </ul>
+</ul>
+
+CODE METRICS / CODE ANALYSIS
+
+Static Code Analysis: Analyzing code for patterns / bugs (FxCop)
+<ul>
+  <li>Start small on things that are important to you -- don't check everything at once. Perhaps start with design rules.</li>
+</ul>
+
+Side note: Can set check-in policy that doesn't let you check in if it violates the policy
+<ul>
+  <li>Some only available with Power Tools, e.g. requiring check-in comment, forbidden patterns, etc.</li>
+  <li>Testing policy: must run test list before checking in</li>
+  <li>Work item: must associate with a work item</li>
+  <li>Work item query: must associate with a work item that's part of a specified query</li>
+  <li>Custom path policy: only applies policies to a particular folder in the source control tree, e.g. a particular branch</li>
+  <li>Always have option to override policy failure and continue checkin. You're prompted to type in a reason.</li>
+</ul>
+
+Dynamic Code Analysis: Analyze your code while it's running to find performance bottlenecks
+<ul>
+  <li>Sampling</li>
+  <ul>
+    <li>Can't do in VPC</li>
+    <li>Stops your code every given interval, figures out what method you're in, then resumes</li>
+  </ul>
+  <li>Instrumentation</li>
+  <ul>
+    <li>Inserts probes in your code: one instruction before and one instruction after each line of code</li>
+  </ul>
+  <li>Good to start off with sampling, because it doesn't (significantly) affect your app's performance. Especially on a running system.</li>
+  <li>Instrumentation gives you better monitoring.</li>
+  <li>For Web site performance testing, start with instrumentation instead. 95% of the time is actually IIS, so sampling likely won't even stop while your app is running.</li>
+</ul>
+
+Hotpath (new feature in VSTS2008)
+<ul>
+  <li>Automatically finds slowest path (the bottleneck) through your app</li>
+  <li>Denoted by a flame in the calltree view</li>
+  <li>Only for instrumentation</li>
+</ul>
+
+Using results to improve execution time
+<ul>
+  <li>Look for methods taking the longest time (summary page)</li>
+  <li>Examine call stack to find which lines are taking the longest</li>
+  <ul>
+    <li>Usu. loops</li>
+    <li>Try to remove boxing / unboxing</li>
+  </ul>
+  <li>If memory issues, enable .NET Object Allocation</li>
+  <ul>
+    <li>See which objects survive to Gen2 and determine if those can be released - GC is expensive</li>
+    <li>Must be enabled in Performance Session properties</li>
+  </ul>
+</ul>
+
+Side note: can performance test your unit tests. Right-click unit tests and select "Create performance section". Only with Developer Edition.
+
+<h3>CODE METRICS</h3>
+<ul>
+  <li>Class Coupling. Higher is bad.</li>
+  <li>Class Inheritance. How deep is your inheritance chain? Too high is bad.</li>
+  <li>Lines of Code.</li>
+  <li>Cyclomatic Complexity. How many paths are there through your code? Good indication of how many unit tests you need to write to get full coverage. Higher is bad.</li>
+  <li>Maintainability Index. Overall indication of complexity based on lines of code, cyclomatic complexity, and computational complexity. 0-100, where 60 is horrible and higher is good. Has to be extraordinarily low before MS's hard-coded thresholds will turn yellow or red.</li>
+</ul>
+
+<h3>WORK ITEMS</h3>
+<ul>
+  <li>Title</li>
+  <li>Assigned To</li>
+  <li>Description</li>
+  <li>"Scenarios" and "Tasks" - Add a scenario, then you can add a task that's linked to it</li>
+</ul>
+
+Failing build creates a work item -- mark it as resolved, and then when the tests pass, it's noted that it really is fixed
+
+<h3>DATABOUND TESTS</h3>
+<ul>
+  <li>Can select a database or a CSV</li>
+  <li>Bind form post parameters to a column in the CSV</li>
+  <li>Specify a property to say "run once for each row in the CSV"</li>
+  <li>Can convert the Web test to code</li>
+  <ul>
+    <li>Databinding becomes attributes and Context lookups, so you can do it for unit tests as well</li>
+  </ul>
+</ul>
+
+ASIDE: VSTS AND PROMISCUOUS PAIRING
+Commits use your Windows login; there's no way to get prompted for your credentials at commit time. The command line does allow "commit as" another user, but your login has to be granted permissions to commit on that other person's behalf, which is probably a superset of the permissions to commit yourself (not verified).
+
+Subversion does this nicely, once you get everything set up just so, but VSTS's automated builds don't work with third-party revision-control systems.
+
+Side note: when you check in and associate with a work item, it defaults to resolving that work item. You can change that (to just associate with the work item, without resolving it), but it seems like the wrong default to me.
+
+Note: When you add a bug, you can specify which automated build it applies to. When a new build runs and the test passes, "Resolved in build" is automatically filled in.
+
+Side note: Test .proj file is not automatically checked out when you edit. So when you go to save, it's still read-only. You can choose to overwrite the read-only file, but then it won't get checked in, because it's not checked out. (HUGELY deficient compared to SVN.)
+
+"Database Professionals" (part of Team Suite): Can create projects so you can put MSSQL schema in version control, and can create unit tests for stored procedures. Stored-procedure unit tests are code written in Transact-SQL, plus test-success conditions selected from a list in the GUI. Doesn't quiet yet work with VSTS, though (doesn't store relative paths the same way as everything else).
+
+Tools exist for importing history. Their recommendation is, if you don't need history, then just import a snapshot into VSTS and keep your old system in case you need history; but if you do want history in VSTS (and you're not moving from VSS), you'll need to do some coding. Issues can just be imported as an Excel file.
+
+<h3>BRANCHING</h3>
+There is no "one size fits all" branching strategy. Depends on release frequency, dependencies. Pick a pattern that fits your company's business needs.
+<ul>
+  <li>Release by Manifest</li>
+  <ul>
+    <li>Avoid if you can</li>
+  </ul>
+  <li>Branch by Release</li>
+  <ul>
+    <li>Good for maintaining multiple versions</li>
+  </ul>
+  <li>Branch by Quality</li>
+  <ul>
+    <li>Good for maintaining single versions</li>
+  </ul>
+  <li>Branch by Feature</li>
+  <ul>
+    <li>Good for long running features and uncertain inclusion</li>
+  </ul>
+</ul>
+
+Release by Manifest (aka Release by Label)
+<ul>
+  <li>Time-consuming</li>
+  <li>Single release at a time</li>
+  <li>Doesn't support SOX compliance</li>
+  <li>Typically requires some custom code</li>
+  <li>Label the code you want to release, then start working on release 2</li>
+  <li>Bug comes in on release 1... oops.</li>
+  <li>Check out code from release 1 on one machine, make the change, build on that machine, and release. Then manually merge it into release 2. Lots of hoping and wishing.</li>
+</ul>
+
+Branch by Release
+<ul>
+  <li>Allows for easily maintaining multiple versions</li>
+  <li>Simple to roll fixes forward from earlier versions</li>
+  <li>Simple pattern -- least amount of work to maintain</li>
+  <li>Can be used in combination with other patterns</li>
+  <li>Con: Depending on the application, may require separate testing environments</li>
+  <li>His sample slide shows branching the <em>new</em> release, rather than having a trunk and branching the old release. That's because of a limitation in MSTS that only makes merges work well between related branches.</li>
+  <li>In MSTS, when you branch, you LOSE YOUR HISTORY. (Well, it's still there, but the tools hide it by default.) Improved in next version. But that's another version not to do trunk with VSTS.</li>
+  <li>Trunk still might be good if you're not maintaining multiple versions, e.g. if you're really doing agile and you release every two weeks, and don't maintain old versions. It depends on your release frequency.</li>
+</ul>
+
+Branch by Quality
+<ul>
+  <li>Microsoft-recommended, but not a good pattern if you maintain more than one version</li>
+  <li>Prod -> QA -> Dev. Dev has many changes, QA and Prod only get changed through merges.</li>
+  <li>Merge down, copy up.</li>
+  <li>Test cycles (1)</li>
+  <ul>
+    <li>Code has not been released to production</li>
+    <li>Bug is found in code under test</li>
+    <li>Development on next release has begun</li>
+    <li>Release 1 is done in Dev, so you label it and merge up to QA.</li>
+    <li>Start working on release 2 in Dev.</li>
+    <li>QA finds a bug. Can't fix it in Dev branch. Can't fix it in QA branch because QA is immutable.</li>
+    <li>Make a hotfix branch off of QA. Fix there. Merge back into QA, re-label, re-test. If test succeeds, merge into R2 branch in Dev.</li>
+    <li>Gets really complicated when you have multiple releases and a lot of bugfix branches. Need to really know what you're doing with labels, merging, etc.</li>
+    <li>At some point, you have to deal with merge conflicts, which you can't run your continuous build on. Resolve them on one PC and do all your testing there, and only commit and merge when you know everything works.</li>
+    <li>All QA <em>and release</em> builds come out of QA branch. You don't build out of the production branch; it's just there for safekeeping.</li>
+  </ul>
+</ul>
+
+Side note: don't use VSTS labels for auditing. They're not immutable, and changes to the label aren't tracked.
+
+Branch by Feature
+<ul>
+  <li>Isolate features for varions reasons</li>
+  <ul>
+    <li>Longer time to develop - won't fit in an iteration</li>
+    <li>Independent of other features</li>
+  </ul>
+  <li>Allows for release of features as ready</li>
+  <ul>
+    <li>No dependency on when other features are ready</li>
+  </ul>
+  <li>Always combined with another pattern for release strategy, e.g. Branch by Release or Branch by Quality</li>
+  <li>When you're ready to merge into Dev, you first merge all the latest changes from Dev into the Feature1 branch, test, and then copy back into Dev</li>
+  <li>Test cycles are entirely independent of the feature branches</li>
+  <li>When a feature is complete, it's merged back to dev and the branch is "closed"</li>
+  <li>What happens when you want to modify common code? Not insurmountable by any means, but it's a question you need to answer.</li>
+</ul>
+
+Side note: viewing branch history is at the folder level. If you branch at a sub-folder, you won't see that on the Branches tab for the parent folder. So be consistent about where you branch.
+
+Determine Your Needs (suggested)
+<ul>
+  <li>How many versions do you need to support?</li>
+  <ul>
+    <li>1 = Branch by Quality or Release by Manifest</li>
+    <li>2+ = Branch by Release</li>
+  </ul>
+  <li>Second, what length of iterations? Or Waterfall?</li>
+  <ul>
+    <li>Waterfall = Branch by Quality (assumes only one release and maintenance)</li>
+    <li>Iterations = Branch by Release. Feature branches may be needed depending on length of release.</li>
+  </ul>
+</ul>
+
+Final Thoughts
+<ul>
+  <li>These are the main patterns. Tailor them as necessary.</li>
+  <li>Goal: Least amount of work to meet your needs</li>
+  <li>Remember the impact of schedule on your time frames.</li>
+  <ul>
+    <li>Sometimes it's better to freeze development.</li>
+    <li>Or use shelving (aka make a patch) at opportune times to reduce complexity.</li>
+  </ul>
+</ul>

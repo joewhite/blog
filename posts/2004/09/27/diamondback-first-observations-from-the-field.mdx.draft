@@ -1,0 +1,27 @@
+---
+title: "Diamondback: First observations from the field  #Delphi"
+sort: 2045
+---
+Just a few scattered observations...
+
+I had borrowed a laptop from work and taken it to BorCon, figuring that there might be some demo CDs or something that I could play around with while I was there. (<a href="http://blog.excastle.com/2004/09/13/whoo-happy-dance/">Little did I know</a>.) And since that machine was going to have its hard drive wiped and re-Ghosted when I got back, I figured I'd play around with some beta software, so I installed Visual C# Express. I've already <a href="http://blog.excastle.com/2004/09/12/new-toy-whidbey/">blogged a bit</a> about that.
+
+Since this wasn't a live development machine, installing the Diamondback preview was a no-brainer. But it was also just a toy machine. Sure, I played with it a little, and worked on a little toy app in the airport. Sync Edit is pretty cool, although as it is, to move the cursor around, you can only use the keyboard. I wish they'd let me <em>click</em> on one of the underlined symbols without canceling Sync Edit mode. (I've gotta get that one into <a href="http://qc.borland.com/">QC</a>.)
+
+And Declare Variable is going to be very cool. At first, I thought that I would prefer the C# way, where you just declare a variable wherever you need it; you don't <em>need</em> IDE support for a Declare Variable refactoring, because you don't have the hassle of jumping up to the var section and then back down to the code you're working on. But after trying it, the Delphi way is actually much, much cooler... because the IDE will just magically figure out <em>what type</em> that new variable should be.
+
+Think about it. Say you've got a mile-long expression, and you don't know what the hell it does, and you're trying to break it down. To use Fowler's "Introduce Explaining Variable" refactoring to get a handle on the code. So you're pulling out sub-expressions and assigning them into temporary variables. So far so good. But in C#, if you want to pull part of the expression â€” say it's something like "Workspace.Persistence.Tables[tableIndex]" â€” into a temporary variable, you have to start by declaring the variable. But first you have to know what type that variable has to be. And when it's the variable behind an indexer, as in this example, then it's just that much more of a pain to figure out what that variable's type should be. Even if you originally wrote the code, you might not know that datatype off the top of your head. (Heck, <em>especially</em> if you wrote that code.)
+
+But in Delphi, you just type <font face="Courier New">Foo := Workspace.Persistence.Tables[tableIndex];</font> And a red wavy underline appears under Foo, and you right-click it, select "Add Variable", accept the defaults in the dialog that pops up, and the IDE just figures it out. No wandering through IDE tooltips looking for something that actually tells you the datatype, no hunting through SDK docs, no firing up Reflector. It just does it. Now, that's cool.
+
+
+
+At the Meet the Team session, I was very interested to learn that, contrary to what was said last year, Diamondback does still support old-style objects. Mainly because of a very vocal minority of the Delphi community who really, really wants them to stay. (A minority of one, as it happens. I actually sat next to him in a couple of sessions this year, and Danny said he's done some amazing things with those old-style objects.)
+
+Not only does the compiler still support old-style objects, the refactoring engine supports them as well. However, its support is incomplete: the engine can't find constructor and destructor calls if you use the <font face="Courier New">New(MyVar, Init);</font> and <font face="Courier New">Dispose(MyVar, Done);</font> syntax. And that's exactly what our old-style objects did. (Of course, I can't imagine this being high on their priority list to fix.) I'd been hoping that we would be able to use Diamondback to refactor those old-style objects into new-style ones, but it wouldn't have worked too well without being able to see the constructors and destructors.
+
+(Not that it matters anymore â€” with some help, we got rid of all our old-style objects last week. But that's another story.)
+
+This much I was able to glean just from playing around with the Diamondback preview. But that was with no real-life source code for it to chew on â€” just little stuff I made up on that laptop.
+
+When I got back to the office, I decided to try it out with some <em>real</em> code... (Stay tuned.)

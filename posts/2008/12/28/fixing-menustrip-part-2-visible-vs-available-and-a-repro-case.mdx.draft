@@ -1,0 +1,87 @@
+---
+title: "Fixing MenuStrip, part 2: Visible vs. Available, and a repro case  #.NET  #Delphi  #fixing-menustrip  #menustrip"
+sort: 2597
+---
+<img src="http://blog.excastle.com/wp-content/uploads/2008/12/menustripbugsingle.png" title="Screenshot of buggy MenuStrip, showing cut-off top menu item" width="118" height="89" style="float: right; margin-left: 1em;" />
+
+Not all MenuStrips will exhibit the <a href="http://blog.excastle.com/2008/12/14/fixing-menustrip-part-1-introduction-and-screenshots/">scrolling bug</a>.
+
+In a nutshell: if you ever hide any menu items, you're living dangerously.
+
+<h3>Visible and Available</h3>
+
+First, an aside on how you go about hiding menu items.
+
+ToolStripMenuItem has two visibility properties: <strong>Visible</strong> and <strong>Available</strong>. They both do the same thing, except when they don't.
+
+To be more specific, both their setters do the same thing. So if you want to hide a menu item, you can either set Visible to false, or you can set Available to false. Same thing. So why are there two properties for the same thing?
+
+The difference is if you ever want to read the properties, to find out whether the item is already hidden. <em>The Visible getter does not do what you want.</em> Never use it. Reading Visible does not tell you "did I set Visible to true?" No, that's what Available is for. (Obviously.) No, reading Visible tells you "is the menu currently popped up on the screen?" Which has a usefulness score of somewhere less than or equal to toe fungus.
+
+Summary: always use <strong>Available</strong>. Never use Visible. The one exception is the form designer -- Available isn't shown in the Property Grid, so there you're stuck with Visible.
+
+<h3>The repro case(s)</h3>
+
+Here's the repro case I've been working with. There may be simpler repro cases, but this one is expressive enough to be interesting. Here are the contents of my File menu:
+
+<ul>
+<li>New</li>
+<li>Open</li>
+<li>Import <em>(hidden)</em></li>
+<li>Export <em>(hidden)</em></li>
+<li>Exit</li>
+</ul>
+
+If you write some simple code to create a MenuStrip and add those items, you'll see the bug. If you use the form designer to do the same thing, you won't see the bug.
+
+That's because the designer-generated code will instantiate all the menu items, then add them to the File menu's DropDownItems collection, and <em>then</em> set all the menu items' properties, including Visible. If you do that, with these five items, no bug. If you set <s>Visible</s> Available to false <em>before</em> adding the items to the menu, you see the bug. Don't ask me, I didn't write the buggy code.
+
+However, if you only hide one of the menu items, not both, then you'll still see the bug even with the designer. In fact, the menu will scroll so far you'll only see the last item, followed by a whole bunch of white space.
+
+If you show and hide menu items at runtime, you'll never get back to the "bug with both hidden" state, at least not as far as I've been able to tell -- that only happens if you hide them before you add them to the menu, and then never touch their <s>Visible</s> Available property again.
+
+But anytime you're only hiding one of the two -- hiding Import and showing Export, or vice versa -- you've got the bug. Design-time, runtime, whatever.
+
+<h3>Simple repro</h3>
+
+Create a new project and paste the following code into its Main method.
+
+C#:
+
+<pre>var Form = new Form();
+var Menu = new MenuStrip();
+var File = new ToolStripMenuItem("&File");
+File.DropDownItems.AddRange(new[]{
+    new ToolStripMenuItem("&New"),
+    new ToolStripMenuItem("&Open"),
+    new ToolStripMenuItem("&Import") {Available = false},
+    new ToolStripMenuItem("&Export") {Available = false},
+    new ToolStripMenuItem("E&xit")});
+Menu.Items.Add(File);
+Form.Controls.Add(Menu);
+Form.Show();
+Application.Run(Form);</pre>
+
+Delphi Prism:
+
+<pre>var Form := new Form();
+var Menu := new MenuStrip();
+var File := new ToolStripMenuItem("&File");
+File.DropDownItems.AddRange([
+  new ToolStripMenuItem("&New"),
+  new ToolStripMenuItem("&Open"),
+  new ToolStripMenuItem("&Import", Available := False),
+  new ToolStripMenuItem("&Export", Available := False),
+  new ToolStripMenuItem("E&xit")]);
+Menu.Items.Add(File);
+Form.Controls.Add(Menu);
+Form.Show();
+Application.Run(Form);</pre>
+
+Feel free to play around with these. I did a test project with a couple of checkboxes so I could toggle the menu items' visibility at runtime. It was kind of fun to poke at, but I still have no idea how they got it to screw up the way it does.
+
+<h3>What's next?</h3>
+
+Tune in next time for the Microsoft-sanctioned workaround for their bug, and a bit of stumbling since it's a pretty awful workaround. Hang in there, it'll get better.
+
+This post is part of the <a href="http://blog.excastle.com/tag/fixing-menustrip">Fixing MenuStrip</a> series.

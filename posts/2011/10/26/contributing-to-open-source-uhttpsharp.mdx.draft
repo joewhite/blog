@@ -1,0 +1,13 @@
+---
+title: "Contributing to open source: uhttpsharp  #.NET"
+sort: 3345
+---
+I've been using open-source since at least my senior honors project in college, 15 years ago. I'm well overdue to give something back.*
+
+Last night I made my very first commit to an open-source project: <a href="https://github.com/raistlinthewiz/uhttpsharp">uhttpsharp</a>, "a very lightweight & simple embedded http server for c#". And I've added quite a bit of stuff in the day since that first commit -- file serving, customizable index and error pages, keep-alive support. I'm thinking about adding NuGet support at some point.
+
+If you need a simple HTTP server for .NET, and you don't want to use HttpListener (e.g. because you don't want to require admin permissions to register the URI prefix), go check it out.
+
+* Actually, I've done plenty of open-source work before, if you count stuff that I wrote myself. And some of that stuff does count; I think a few people have found <a href="http://dgrok.excastle.com/">DGrok</a> helpful. But I have a strong tendency toward <a href="http://en.wikipedia.org/wiki/Not_Invented_Here">not-invented-here syndrome</a>... and this time I offered to contribute to an existing open-source project, that I heard about through posts on StackOverflow. So it's not just me writing something by myself, which is cool.
+
+Well, okay, I'm contributing to this project so I can use it in another project that I <em>am</em> writing by myself...

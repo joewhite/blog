@@ -1,0 +1,44 @@
+---
+title: "First impressions: Vault  #.NET  #Delphi  #dgrok"
+sort: 2082
+---
+<p>We've been looking at <a href="http://blog.excastle.com/2004/08/30/source-control-and-vault-diff/">switching source-control systems</a> at work, and one of the new systems we're looking at is <a href="http://www.sourcegear.com/vault/">SourceGear Vault</a>.</p>
+<p>I've played around with Vault at work, but I haven't actually used it in a real project. So, since it's free for a single-user installation, I decided a while back to download it at home, and use it for <a href="http://www.dgrok.com/">DGrok</a>.</p>
+<p>Here are my impressions so far:</p>
+<p><strong>Installing</strong></p>
+<p>Vault consists of three separate pieces: the server, the admin tool, and the client. Accordingly, they also have three installers.
+
+
+
+But they do try to make life a little easier: the server installer is actually an "everything" installer, which you can, if you so choose, use to install all three products on the same PC.</p>
+<p>Lovely, says I. I'm installing all three on my home computer, so I'll just use the server installer, and select everything.</p>
+<p>That was mistake #1.</p>
+<p>So I logged in under an administrator account, installed all three products, logged back in with my development account, opened up the Start menu... no Vault.</p>
+<p>Log out. Log back in as an admin. Make sure it's really there in the Start menu. It is. Check the folder properties for the "Vault" Start menu folder. Yep, they put it under the administrator's Start menu, instead of under the All Users Start menu.</p>
+<p>Sigh. Uninstall. Reinstall. This time, keep a sharp eye out for the "install for all users / install for just me" radio buttons, all the while grumbling at SourceGear for not making "all users" the default.</p>
+<p>The radio buttons <em>aren't there.</em></p>
+<p>This really bugs me. Am I going to have to log in as admin, find the Users control panel applet, promote my development account to administrator, Fast User Switch back to the startup screen, log in as my development user, install Vault, log out, switch back to my administrator account, and remove admin privileges from my development account? Yuck. I've done it before, but it doesn't exactly make me want to send the vendor a nice basket of fruit for Christmas.</p>
+<p>Well, I thought, maybe they just didn't put those radio buttons in the server installer. That would sort of make sense; the Web service is only directly runnable by a single user, after all. Of course, that user is actually a daemon account, not the user who's doing the installing. So it doesn't make a lot of sense in either case.</p>
+<p>But I downloaded the other two installers, and uninstalled, and reinstalled the server, this time selecting only the server. Then I installed the admin tool from its own installer.</p>
+<p>No radio buttons.</p>
+<p>I'm getting disgusted at this point, but I decide to take the plunge, and go ahead and install the client too. And, lo! I did look, and it did have the bless&#233;d radio buttons.</p>
+<p>Finally.</p>
+<p>It does mean that I'm going to have to do some jerking around any time I want to use the admin tool. But at least Vault is basically usable without going through too many stupid contortions one way or another.</p>
+<p><em>Lesson learned: Don't use the Vault server installer to install the Vault client. Just don't do it.</em></p>
+<p><strong>Visual Studio integration</strong></p>
+<p>Visual Studio integration was fairly painless. And let me tell you, once you've got Vault going, it's way faster than VSS.</p>
+<p>This really surprised me. With Vault, you've got a .NET client piece, talking over a Web service, to an .asmx running on Microsoft IIS, which then connects to an SQL Server database. That's a hell of a lot of overhead. Obviously, client/server has serious benefits when you're running on a network, but since VSS just talks to flat files, I would've expected VSS to be much faster when everything's on the local computer. Apparently not so.</p>
+<p>Checkouts, in particular, are imperceptible with Vault, whereas checkouts with VSS (with the repository on my local PC here at home, mind you) always brought Visual Studio to a dead stop for one or two seconds.</p>
+<p>Score one for Vault.</p>
+<p><strong>Visual Studio diffs</strong></p>
+<p>Vault's <a href="http://blog.excastle.com/2004/08/30/source-control-and-vault-diff/">diff window</a> is one of the things I was most looking forward to. Unfortunately, there's some poor implementation here that makes it less than a pleasure to use.</p>
+<p>When I'm using VSS, and I want to view diffs from Visual Studio, I right-click on a file and select "Compare Versions". There's a brief delay, and then a VSS diff window pops right up, nicely maximized so I can see everything.</p>
+<p>When I'm using Vault, and I right-click and select "Compare Versions", I don't get diffs. Instead, I get a huge dialog box with six radio buttons (one of them grayed out), edit boxes, Browse buttons, and a grayed-out checkbox. Gaah. Okay, what does it say? "Compare the working file/folder to:" The radio button for "The last version retrieved from the repository" is selected. Okay, that's fine. Click OK.</p>
+<p>(When VSS asks questions like this, it always &#8212; <em>always</em> &#8212; has a checkbox saying "Only show this dialog if I'm holding the Shift key". I <em>like</em> that feature. I use that feature <em>all the time.</em> That's why VSS diffs only take me two clicks. It really disturbs me that Vault doesn't have anything like it.)</p>
+<p>Now it pops up a diff window, but no matter how much I try, that diff window is always tiny when it pops up. It's about half as tall as the screen, and about half as wide as the screen. <em>Every time.</em> So we're talking 25% of the available real estate, and that's not even counting overhead from things like toolbars and status bars and gutters. It makes absolutely no effort to remember the window position from one diff to the next, even within a single Visual Studio session. And nowhere can I find a preference to tell the damn thing to always maximize.</p>
+<p>The annoyances add up. Quickly.</p>
+<p>So, with VSS, I was always two clicks away from a usable diff. Two clicks that were pretty close together on the screen. But with Vault, I have to do those two clicks, then get my mouse over to a little OK button halfway across the screen (actually, I usually just hit ENTER with my left hand), and then move the mouse halfway across the screen again to get to the teensy little Maximize button (although I usually just double-click on the title bar, since it's a bigger target).</p>
+<p>When I do get that diff window up, those sub-line-level diffs are nice. But geez. C'mon, guys, get with the program:</p>
+<ol>
+<li>Don't ask me what I want to compare against. You're slowing me down. Just go ahead and use the option I selected last time. But once the diff window is open, let me change my mind; put those six options in a dropdown menu or a sidebar. (And remember my selection for next time.)</li>
+<li>And maximize the diff window by default. Always. <em>Always.</em></li></ol>

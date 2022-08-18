@@ -1,0 +1,46 @@
+---
+title: "ReSharper, day 1: The gray, the red, and the squiggly  #.NET  #resharper"
+sort: 2295
+---
+Welcome to the first of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>. In these first few posts, I'll give you a general overview of the out-of-box experience: the first things you'll notice after you install.
+
+These first two days will be about shiny things. Then Day Three will be important: it's the "ReSharper survival guide, or, What's up with my keybindings?" After that, it's back to the shiny.
+
+So you've just installed ReSharper and opened up a solution in Visual Studio. Chances are, the first thing you'll notice is all the grays.
+<blockquote><img src="http://blog.excastle.com/images/resharper/GrayNamespaces.png" alt="ReSharper: gray namespaces" border="1" height="94" hspace="12" vspace="2" width="310" />
+<img src="http://blog.excastle.com/images/resharper/GrayCode.png" alt="ReSharper: gray code" border="1" height="94" hspace="12" vspace="2" width="310" /></blockquote>
+ReSharper also has reds and squigglies, but you probably won't see those just yet. But it's cool: you will once you start coding.
+
+Grays are the first thing you'll see, but I'll describe the squigglies and the reds first. I'll leave the grays till last, because they're the coolest.
+
+Since these first few days are just an overview of ReSharper, I'll be saying "I'll cover this later" a lot. Right now I'm just trying to give you a flavor of the first things you'll see, not an in-depth guidebook. The depth will come later.
+<h4>The reds and the squigglies: real-time compiler errors</h4>
+When you have code that won't compile, ReSharper will show it either in red, or with squiggly underlines.
+
+"Big deal," you may say. "Visual Studio already has squigglies like that." True. But Visual Studio only shows the squigglies after you compile. ReSharper points out compiler errors in real-time, as you type. It does its magic completely in the background.
+
+You can see the error message by hovering the mouse over the red or squiggly (you'll see a tooltip), or using the cursor keys to put the cursor inside the red or squiggly (the error will be shown on the status bar).
+<blockquote><img src="http://blog.excastle.com/images/resharper/RedsAndSquigglies.png" alt="ReSharper: reds and squigglies" border="1" height="59" hspace="12" vspace="2" width="516" /></blockquote>
+The difference between the reds and the squigglies: red is only for identifiers that can't be found â€” class names, method names, variable names, etc. Squigglies are for all other sorts of compiler errors.
+
+Identifiers are shown differently because ReSharper has special features to help you fix them. I'll cover the reds in one of my later posts about that wonderful Swiss Army knife, Alt+Enter.
+<h4>The grays: finding dead code</h4>
+A couple of years ago, our code base was full of functions that were never used, but that we were afraid to delete because we "might need them someday". We had entire units that were never used. We had commented-out code, that had been commented out for years, that we were afraid to delete.
+
+We have since embraced the <a href="http://c2.com/xp/YouArentGonnaNeedIt.html">YAGNI</a> principle â€” to the extent that, whenever we find unused code, we delete it without a second thought. That's probably why we love the "grays" feature of ReSharper (called "warnings" in their docs).
+
+ReSharper finds the code you don't need, and shows it in gray.
+<blockquote><img src="http://blog.excastle.com/images/resharper/GrayUnreadVariable.png" alt="ReSharper: gray unread variable" border="1" height="60" hspace="12" vspace="2" width="310" />
+<img src="http://blog.excastle.com/images/resharper/GrayOverride.png" alt="ReSharper: gray unused override" border="1" height="60" hspace="12" vspace="2" width="310" /></blockquote>
+
+Namespace "using"s that you don't actually need. Variables that you don't use. Parameters that you don't use. Unused private methods, properties, and fields. Qualifiers ("this." and "Some.Namespace.") that aren't needed. Variables that you write to, but never read. Overrides that do nothing but call inherited. All gray, and most likely safe to delete. And again, it does this in real time.
+
+
+
+The rules are, of course, configurable. If your shop's coding standards say that you should use "this.", then you can disable that warning in ReSharper. The options are in the ReSharper menu &gt; Options &gt; Highlighting.
+
+ReSharper also has tools to help you fix these warnings. Most of them take two keystrokes, one of which is Enter. Again, I'll go into this later in the month, when I cover Ctrl+Alt+F, Alt+Enter, and the context menu in Solution Explorer.
+
+One could wish that it went further, and showed you everything that you don't use â€” even if it's public, show it in gray if nothing in the solution ever uses it. (Granted, that wouldn't be for everybody â€” library developers wouldn't want such a feature. We develop applications for sale, so we would love it.) Alas, they don't have an automated way to do this. Pity. (But they do have something close: Safe Delete. I'll cover it, yes, later in the month.)
+
+It's amazing how quickly you get used to the color-coding. Now, whenever we're developing in Delphi and notice that a parameter isn't used, we'll joke, "Oh. It's gray. So we'll just hit Alt+Enter, and..."

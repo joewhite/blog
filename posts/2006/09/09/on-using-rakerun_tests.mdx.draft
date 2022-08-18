@@ -1,0 +1,39 @@
+---
+title: "On using Rake.run_tests  #.NET  #Delphi  #dgrok  #extreme programming  #ruby"
+sort: 2365
+---
+Okay, an update to my <a href="http://blog.excastle.com/2006/09/05/the-coolness-that-is-rake/">previous Rake post</a>. <a href="http://rake.rubyforge.org/">Rake</a> does have some nice facilities for running tests, but the code I posted isn't quite the right way to do it.
+
+When you use rake/runtest, you should put the require <em>inside</em> your test task (inside each test task, if you have more than one). Like so:
+<pre># RIGHT
+task :test do
+  require 'rake/runtest'
+  Rake.run_tests "**/*tests.rb"
+end
+
+# WRONG
+require 'rake/runtest'
+task :test do
+  Rake.run_tests "**/*tests.rb"
+end</pre>
+
+The reason: the WRONG version will always (indirectly) require <font face="Courier New">'test/unit'</font>, which will <em>always</em> run your tests, even if you go through a code path that doesn't register any.
+
+Here's what it looks like if you have the WRONG version and run <font face="Courier New">rake -T</font> (list all the interesting targets to the console, but don't run any of them). Note that it's running the tests, even though there aren't any to run.
+<pre>C:\svn\dgrok-r&gt;rake -T
+(in C:/svn/dgrok-r)
+rake all  # Runs everything
+Loaded suite c:/Program Files/ruby/bin/rake
+Started
+
+Finished in 0.0 seconds.
+
+0 tests, 0 assertions, 0 failures, 0 errors
+
+C:\svn\dgrok-r&gt;</pre>
+Here's what it looks like if you use the RIGHT code above. It still runs the tests when you execute the "test" target, but when you're not doing anything that involves test running, it doesn't give you all that nonsense about how it ran 0 tests in 0.0 seconds:
+<pre>C:\svn\dgrok-r&gt;rake -T
+(in C:/svn/dgrok-r)
+rake all  # Runs everything
+
+C:\svn\dgrok-r&gt;</pre>

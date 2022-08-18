@@ -1,0 +1,17 @@
+---
+title: "Delphi macros: on recipes and power tips  #Delphi  #macros"
+sort: 2509
+---
+As I blog sporadically about Delphi macros, I'll have two kinds of posts.
+
+One will be <b>recipes</b>: detailed steps to get something done. Little or no theory -- I won't say much about why <i>these</i> particular steps. But I'll talk about what the macro does, and when and why to use it. You've already seen this with my <a href="http://blog.excastle.com/2008/03/30/delphi-macro-recipes-fields-to-properties/">Fields to Properties macro recipe</a>.
+
+
+
+The other sort of post will be <b>power tips</b>. This is where I'll dig into the theory and the building blocks -- where I <i>will</i> get into "why <i>these</i> steps instead of something else". When you would use Ctrl+Arrow and when something else would be better -- that sort of thing. These are the things you can use to build your own power macros, and to tune the recipes to your needs.
+
+Don't be surprised if you also see some posts about when <i>not</i> to use macros -- when some other IDE feature will serve you better. It's all about the easiest way to get something done.
+
+A complete list of all my macro-related posts -- both recipes and power tips -- is available through my blog's <a href="http://blog.excastle.com/tag/macros/">"macros" tag</a>.
+
+The first power tips will be coming soon. As always, if you have questions or suggestions, fire away in the comments.

@@ -1,0 +1,65 @@
+---
+title: "XP: Fail first  #.NET  #Delphi  #extreme programming"
+sort: 2182
+---
+We've been doing Extreme Programming for almost five months now, and brought in some <a href="http://st-www.cs.uiuc.edu/users/droberts/">pretty</a> <a href="http://www.testing.com/">sharp</a> <a href="http://st-www.cs.uiuc.edu/users/brant/">XP</a> <a href="http://www.xprogramming.com/">geeks</a> several times. I've been learning a lot along the way, and I haven't been sharing very much of it. (Bad geek! No M&amp;Ms!)
+
+So I decided I'd start writing about some of the things I've learned along the way, and more than that, <em>how</em> I learned them. Abstract principles are great, but anecdotes are a lot easier to learn from.
+
+I'll start with something I actually learned a couple of years ago, long before we started doing XP: <strong>Make your tests fail first.</strong>
+
+XP teaches that you should write your tests first, and then write the code that will make them pass. An important detail of this, which people sometimes gloss over when talking about it, is this: once you've written your test, but before you've written the actual code, you should run your test and make sure it fails.
+
+I learned this by not doing it. I was writing a test to make sure that a particular method threw an exception if you passed it an invalid input. The code looked something vaguely like this:
+<pre>procedure TestMyWidget.TestValidatesInputs;
+begin
+  try
+    TMyWidget.Create(nil);
+    Fail('Expected an exception');
+  except
+    { do nothing -- test passes if we get an exception }
+  end;
+end;</pre>
+(I don't think it was checking for nil; it was something a little subtler than that, but I don't remember the details now.)
+
+
+
+I wrote the test, wrote the validation code that would make it pass, ran the tests, got a green bar. All was well, right?
+
+Well, no. All was not well, as I discovered a few days later, after a tedious debugging session. Because, in fact, my validation code wasn't validating correctly. It wasn't throwing an exception when it should have. And my test didn't catch it. Why?
+
+Because I expected the Fail method to make my test fail, somehow, mystically, magically. I didn't understand how it worked. I thought it set a flag somewhere, and if the test finished and that flag was set, then the test failed. Right?
+
+Nope. The Fail method works by throwing an exception. Which my "except" clause promptly swallowed. The test, as I originally wrote it, would pass under two different conditions:
+<ol>
+	<li>if TMyWidget.Create threw an exception, OR</li>
+	<li>if TMyWidget.Create did not throw an exception, and the test called Fail.</li>
+</ol>
+Yeah. The test would never fail.
+
+<em>Lesson learned:</em> It's not enough to make sure your tests pass when you expect them to. You also have to make sure they <strong>fail when you expect them to,</strong> because that tests your tests. If a test doesn't fail when you expect it to, then it's probably not testing what you think it's testing.
+
+That's why you expect failure points along the way:
+<ol>
+	<li>Write a test for a method that doesn't exist yet.</li>
+	<li>Try to compile. The compile should fail, because the method doesn't exist yet. This is failure #1. <strong>If you expected to get failure #1, and you didn't, stop and find out why.</strong></li>
+	<li>Write the method, just to make the compiler happy, but <em>don't implement it yet.</em> Put an empty method body, return a bogus result, whatever.</li>
+	<li>Run your test. The test should fail, because you haven't written the code to make it pass yet. This is failure #2. <strong>If you expected to get failure #2, and you didn't, stop and find out why.</strong></li>
+	<li>Then, and only then, write the code to make the test pass.</li>
+</ol>
+There will be times when you don't expect failure #1, because you're testing a new feature of an existing method. There will even be times when you don't expect failure #2, because you're just adding a few extra tests as a safety net for code that's already working. Both of these are fine, and have their place.
+
+But most of the time, you'll at least expect failure #2. And you should see to it that you get that failure.
+
+<hr id="null" />The correct version of the above code, by the way, would be this:
+<pre>procedure TestMyWidget.TestValidatesInputs;
+begin
+  try
+    TMyWidget.Create(nil);
+    Fail('Expected an exception');
+  except
+    <strong>on EInvalidOperation do</strong>
+      { do nothing -- test passes if we get an <strong>EInvalidOperation</strong> }
+  end;
+end;</pre>
+This test fails when it's supposed to. It also documents (and tests) the expected behavior of the code: it should throw an EInvalidOperation, and not, for example, an EAccessViolation. Better for the human reader, and better for the test.

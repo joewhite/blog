@@ -1,0 +1,45 @@
+---
+title: "Delphi macro power tip: Start of line  #Delphi  #macros"
+sort: 2511
+---
+Today's <a href="http://blog.excastle.com/2008/03/31/delphi-macros-on-recipes-and-power-tips/">Delphi-macro power tip</a>: <b>getting to the start of a line</b> -- for several different definitions of "start".
+
+This is most useful for macros that operate on a single line at a time, but it can sometimes be helpful in other sorts of macros as well.
+
+<h3>Example</h3>
+
+The <a href="http://blog.excastle.com/2008/03/30/delphi-macro-recipes-fields-to-properties/">Fields to Properties macro recipe</a> starts with <b>Home</b>, followed by <b>Ctrl+Right arrow</b>.
+
+<h3>Column 1</h3>
+
+What "start of line" means will depend on what your macro does. Sometimes you just want to get your cursor to the beginning of the line. For this, plain old <b>Home</b> is what you want.
+
+<h3>First alphanumeric character</h3>
+
+Sometimes you want to get the cursor to the first non-blank character on the line. Unfortunately, I don't know an easy way to do this in all cases.
+
+But often, it's good enough to get to the first <i>alphanumeric</i> character on the line. This worked well enough for the <a href="http://blog.excastle.com/2008/03/30/delphi-macro-recipes-fields-to-properties/">Fields to Properties macro recipe</a>.
+
+To do this, just do <b>Home</b> followed by <b>Ctrl+Right arrow</b>.
+
+The downside is, if the line starts with punctuation -- an open parenthesis, for example -- Ctrl+Right arrow will skip right past it. This isn't always what you want, and I don't know of a clean and reliable way <i>to</i> get to the first non-whitespace character. But there are several things that can get you close.
+
+<h3>Column N</h3>
+
+Never underestimate the simplest thing. If, for every line you'll be operating on, the interesting stuff will always start in column 5, don't be afraid to do <b>Home</b> followed by pressing <b>Right arrow four times</b>. It sounds silly, but sometimes it's just what you need.
+
+<h3>Correcting after Ctrl+Right arrow</h3>
+
+If you know that every line is going to start with an open parenthesis, followed immediately by an alphanumeric character, then simply do <b>Home</b>, <b>Ctrl+Right arrow</b>, and then correct for it with <b>Left arrow</b> to put the cursor before the parenthesis.
+
+If you <i>don't</i> know that every line will have that open parenthesis, then do whatever you think will get you closest most of the time -- probably <b>Home</b> followed by <b>Ctrl+Right arrow</b> -- but do it <a href="http://blog.excastle.com/2008/04/01/delphi-macro-power-tip-advance-last/">at the <i>end</i> of the macro</a>, not the beginning. Then you can adjust the cursor position as necessary before you hit Ctrl+Shift+P.
+
+<h3>Deleting leading whitespace</h3>
+
+Okay, I <i>do</i> know of one way to put the cursor just before the first non-space character on the line, even if it's punctuation. You don't do it by moving the cursor -- instead, you do it by moving the text, by deleting the leading whitespace! If you're radically rewriting the line, sometimes you can get away with this.
+
+If you know the line has leading whitespace, do <b>Home</b> followed by <b>Ctrl+T</b>.
+
+I love Ctrl+T. It's called "delete to end of word", and it deletes everything from the current cursor position, through the end of the current word, plus any whitespace following it. It's kind of like Ctrl+Shift+Right arrow followed by Delete, with one very interesting exception: unlike Ctrl+Right arrow, Ctrl+T <i>stops</i> at punctuation. So Ctrl+T, at the beginning of a line, will delete only the whitespace.
+
+One catch is that, if you end up with a line that <i>doesn't</i> have leading whitespace, you'll delete the first word in the line! To avoid that, add whitespace first (yes, it's cheesy, but it works): <b>Home</b>, <b>Space bar</b>, <b>Home</b> again (or Left arrow), then <b>Ctrl+T</b>.

@@ -1,0 +1,11 @@
+---
+title: "DGrok 0.2 released  #.NET  #Delphi  #dgrok"
+sort: 2468
+---
+<p><a href="http://www.excastle.com/dgrok/DGrok-0.2.zip">DGrok 0.2</a> is now available.</p>
+
+<p>It can now parse 13 of the Delphi RTL source files (only 78 more to go). It should be able to parse interface sections in full, with the exception of class (and record) helpers and records with variant sections.</p>
+
+<p>I also made some improvements to the demo app. The biggest change, apart from fixing the hard-coded path, is that you can double-click a filename in the treeview. This brings up that file in a new window -- and if there was an error parsing the file, the cursor is positioned at the error location. (But no, there's no GUI yet for specifying IFDEFs.)</p>
+
+<p>Next stop: <a href="http://www.excastle.com/dgrok/Grammar.html#Statement">Statements</a>.</p>

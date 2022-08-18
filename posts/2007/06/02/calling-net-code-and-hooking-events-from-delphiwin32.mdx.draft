@@ -1,0 +1,15 @@
+---
+title: "Calling .NET code, and hooking events, from Delphi/Win32  #.NET  #Delphi"
+sort: 2445
+---
+<p>A while back, my colleague <a href="http://blog.alieniloquent.com/">Sam</a> blogged about our experiences with using a .NET library from Win32. We wound up having to write glue code in managed C++. I recently had occasion to want to link to all three of his posts at once, so here they are.</p>
+
+<ol>
+<li><a href="http://blog.alieniloquent.com/2006/12/31/exposing-net-code-in-a-dll-via-c/">Exposing .NET code in a DLL via C++</a></li>
+<li><a href="http://blog.alieniloquent.com/2007/01/01/calling-into-the-c-dll-from-delphi/">Calling into the C++ DLL from Delphi</a></li>
+<li><a href="http://blog.alieniloquent.com/2007/01/02/hooking-up-a-delphi-progress-event-to-a-net-object/">Hooking up a Delphi progress event to a .NET object</a></li>
+</ol>
+
+<p>Note that this code is pretty hairy, but it's also pretty formulaic. It's absurd how much code it takes to hook one .NET event from Win32, but if you don't need events, it's merely unpleasant.</p>
+
+<p>(Yes, we know about <a href="http://www.remobjects.com/product/?id={B6BD1030-F630-4DA8-9018-73C03265A0EF}">Hydra</a>, but it's not polished enough for us yet. For example, the way it marshals a Win32 exception into .NET is different from the way it marshals a .NET exception into Win32; one way (I don't remember which) works great, but the other direction just gets you something like an "External exception" and you lose your original exception message. We haven't needed it badly enough yet to want to figure out, and work around, all its quirks.)</p>

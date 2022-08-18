@@ -1,0 +1,30 @@
+---
+title: "Beyond Compare and binary DFMs  #Delphi  #beyond compare"
+sort: 2532
+---
+Binary DFMs are a pain, because you can't see what changed between two versions. Right?
+
+That's what we thought. We've been avoiding binary DFMs since time immemorial, especially back in the Dark Ages when we used <a href="http://blog.excastle.com/2004/08/12/things-you-really-dont-want-to-see-from-your-source-control-system/"> VSS</a>, which won't even keep revision history for binary files. Even now that we're on <a href="http://subversion.tigris.org/">Subversion</a> -- which has no problem with binary files, thank you -- we still avoid binary DFMs. Among other things, it's hard to write a Ruby script to grep through a directory of binary DFMs. And, of course, they're hard to diff. Or so I thought.
+
+So imagine my surprise yesterday when I was writing a Ruby script to grep through our code and DFMs, and it dumped out some gibberish and beeped a couple of times. I looked, and sure enough, we had a binary DFM. It wasn't even some fringe GUI that we had written once and never modified -- we had, in fact, made several changes to the DFM in the past year.
+
+This really puzzled me. Did this file get accidentally changed to binary format recently? But we should've noticed when we checked in. We shouldn't ever check in without looking at the diffs first. And of course you can't diff a binary DFM, right?
+
+But I looked at the file history. That file had been in our repository for years, binary all the way. It had been modified several times. Surely people had tried to look at the diffs. So what happened?
+
+I will, at this point, call your attention to two things:
+
+<ol>
+<li>We've been happy users of the superb <a href="http://www.scootersoftware.com/">Beyond Compare</a> diff tool for almost three years, and have made it our default diff viewer for <a href="http://tortoisesvn.tigris.org/">TortoiseSVN</a>.</li>
+<li><img src="http://blog.excastle.com/wp-content/uploads/2008/05/contextmenubeyondcompare.png" alt="Taskbar right-click menu for Beyond Compare" title="Taskbar right-click menu for Beyond Compare" width="180" height="98" align="top" class="alignnone size-full wp-image-2533" />
+
+Beyond Compare is <a href="http://blog.excastle.com/2008/05/31/a-way-to-tell-if-an-app-was-written-in-delphi/"> written in Delphi</a>.</li>
+</ol>
+
+
+
+Yep. Of course Beyond Compare, as a Delphi app, has some Delphi-isms built in. It's so cool that it can <i>diff binary DFMs</i>, and make them look just like text in the diff viewer. Internally, I'm sure they call <code>Classes.ObjectBinaryToText</code> (handy thing about writing a tool in Delphi that works with Delphi code, you get the library functions for free), so as far as you can tell when you're looking at diffs, the file looks like it's been a text DFM all along.
+
+My only gripe is that it does this utterly silently. There's no indication that this is a binary DFM that it converted to text for your convenience. And since binary DFMs are inconvenient in other ways (e.g., <a href="http://trac.edgewall.org/">Trac</a> can't show diffs on them), I'd rather not have any binary DFMs in our code base at all. So in some ways, I'd almost rather not have this feature -- I'd notice the binary DFMs a lot sooner if they looked like garbage in the diff window.
+
+Then again, when I re-saved the DFM as text, it was sure nice to have those diffs to show that nothing important had changed. Binary DFM on the left, text DFM on the right, and the handful of changes highlighted just as nice as you please.

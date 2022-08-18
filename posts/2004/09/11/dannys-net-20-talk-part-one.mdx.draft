@@ -1,0 +1,51 @@
+---
+title: "Danny's .NET 2.0 talk: Part One  #Delphi  #borcon2004"
+sort: 2024
+---
+<p>Covering <a href="http://homepages.borland.com/dthorpe/blog/delphi/">Danny Thorpe</a>'s preconference tutorial on .NET 2.0. This is the first of two parts (I'm writing this during the break).</p>
+
+
+
+<p>.NET 2.0 is a topic that's already been covered fairly exhaustively by Microsoft and others. And yet, I've already taken two and a half pages of notes.</p>
+<p>Highlights so far:</p>
+<ul>
+<li>Diamondback will <em>not</em> have any of the new .NET 2.0 features. It will target .NET 1.1.
+<li>The version after Diamondback will support .NET 2.0 new stuff, and will come out about the same time as Whidbey ("summerish" 2005).
+<li>.NET 2.0 Delphi will support generics and type inferencing, and may even push the envelope.
+<li>.NET 2.0 Delphi will probably have to support partial classes, because ASP.NET 2.0 requires them.
+<li>Delphi generics may work on Win32, but will probably only work with interfaces and maybe classes.</li></ul>
+<p>More detailed notes follow. They may bore you.</p>
+<ul>
+<li>You can compile against .NET 2.0 today in Delphi 8. There's a compiler switch that lets you specify which runtime version to target.
+<li>Danny is talking technical, not marketing. Microsoft is giving a .NET 2.0 presentation later in the conference, and they got in touch with Danny to ask if their content would overlap. He said no, that wouldn't be an issue.
+<li>.NET 2.0 will be the first binary breaking change since .NET was released, and will really test Microsoft's versioning features.
+<li>Features and schedule <em>really</em> driven by Yukon
+<li>64-bit stuff:
+<ul>
+<li>MS will not release 64-bit support in anything earlier than .NET 2.0, even though they've got it working
+<li>Itanium 2, but not Itanium 1 (MS jokes that they have the largest installation of Itanium 1 machines in the world, and they're not going to support it)
+<li>Assembly needs extra header flags to run as 64-bit ("I actually tested this and I know what I'm doing" flags)
+<li>Otherwise emulated (interpreted!) 32-bit mode
+<li>Delphi will support 64-bit-capable .NET (i.e., it can set these header flags)
+<li>P/Invoke will bind directly to 64-bit APIs. 32-bit WinAPIs will not even be accessible.</li></ul>
+<li>Delphi will support generics in the 2005 timeframe
+<ul>
+<li>Type inferencing: No coding done yet, but Danny doesn't anticipate problems
+<li>Anticipates pushing the envelope
+<li>Better constraint syntax (as opposed to C#'s "where" that looks like SQL)
+<li>.NET lets you, and Delphi will let you, define both TList and TList<t> in the same scope
+<li>C# has a syntax ambiguity that Delphi will not:<br><font face="Courier New">class Boo<t> { ... }<br>void Foo(System.Type x) { ... }<br>void Goo(bool x) { ... }<br>Foo(Boo<int>);<br>Goo(a < b);<br></font>C# has a devil of a time figuring out the difference between the last two lines, because when it's parsing the input, it doesn't know what the tokens mean. Delphi won't have that problem, because it knows that Boo is a class name and a is a local variable: there is no ambiguity.</li></ul>
+<li>Anonymous methods: Evaluating; don't know if Delphi will have
+<li>Same for iterators
+<li>Partial classes:
+<ul>
+<li>ASP.NET 2.0 will use "code-beside" using partial classes (not code-behind as in 1.x)
+<li>So Delphi will probably need partial classes; Danny thinks it can be done, even with top-down parser
+<li>Syntax: won't call them "partial"</li></ul>
+<li>Side note: VB.NET 2.0 won't be able to declare generic types!
+<li>Side note: D8 already supports XML doc comments
+<li>Edit & Continue: Last word was, can't edit currentscope, nor anything on stack! (makes it kinda useless, doesn't it?)
+<ul>
+<li>C# won't have it
+<li>Delphi will wait and see</li></ul>
+<li>...oops, Danny's about to start again, I'll post more later.</li></ul>

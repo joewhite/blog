@@ -1,0 +1,25 @@
+---
+title: "Managed Spy: a read-write PropertyGrid for other processes  #.NET  #Delphi"
+sort: 2436
+---
+<p>There's a debugging tool that lets you inspect .NET WinForms controls <i>from other processes</i>, in a PropertyGrid. And not only can you inspect controls' properties, you can change them, too. And log which events get fired in that app. And it's got an API you can use for writing automated GUI-testing tools.</p>
+
+<p>Wow.</p>
+
+<p>The tool is called <a href="http://msdn.microsoft.com/msdnmag/issues/06/04/managedspy/">Managed Spy</a>, and it was the topic of an article in MSDN Magazine, which means that not only does it come with full source code, it also comes with an article that explains how it works. (It also comes with a mile-long Microsoft license agreement, which basically amounts to "you're on your own, don't sue us, and don't open-source our stuff".)</p>
+
+<p>I ran it, and it couldn't find any .NET top-level windows running. But from skimming the article, I knew that it excluded its own process ID from the list. So I launched another copy of the app, and the second one could see the first one just fine. (I love skating around design decisions.)</p>
+
+<p>It's got a few limitations. It can only see types that are serializable; so, for example, you can't inspect (or modify) the nodes in the treeview, because they can't be binarily serialized. But most of the properties, it can view just fine. It's certainly a fun toy to play with (hey, I can see the sub-controls inside a PropertyGrid!).</p>
+
+<p>I spent a good five or ten minutes just changing controls' background colors and border styles. Is this great, or what? Entire applications become big coloring books!</p>
+
+<p>Oh, and it might also be useful for testing someday.</p>
+
+<p>What I find really interesting is that they're injecting a <i>managed</i> DLL into another process's process space, and it works just fine. The injected managed DLL has no problem talking to the CLR inside that process. That just blows my mind. And it comes with full source code, and its own API. Sweet.</p>
+
+<p>One nitpick: the article's author refers to using the Managed Spy API to "unit test" applications. I'm sorry, but if you're testing at the GUI level, that is <i>not</i> a unit test. It's a GUI test, or an integration test; and it still falls under the category of "automated test". But a focused test for a single class by itself, it ain't.</p>
+
+<p>Still. <i>Sweet</i> <s>toy</s> tool.</p>
+
+<p>Via an article from <a href="http://www.scip.be/index.php?Page=Welcome&Lang=EN">Stefan Cruysberghs</a> called <a href="http://www.scip.be/index.php?Page=ArticlesProgram16&Lang=EN">Freeware and open source developer tools for Delphi and .NET</a>. (In turn via <a href="http://www.delphifeeds.com/">DelphiFeeds</a>.)</p>

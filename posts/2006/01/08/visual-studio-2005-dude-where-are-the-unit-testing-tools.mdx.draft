@@ -1,0 +1,10 @@
+---
+title: "Visual Studio 2005: Dude, where are the unit-testing tools?  #.NET"
+sort: 2257
+---
+<p>So all the developers on our team recently got copies of Visual Studio 2005. (Year-end and leftover budget: two great things that go great together.)</p>
+<p>The question came up of which edition to get: Architect, Developer, or Tester. The person on our end said, "Get Tester for all the QA people, and Architect for all the developers." Sounded reasonable to me: in every development environment I've ever used, Architect is the edition with all the goodies.</p>
+<p>Well, apparently not so with Microsoft these days, as I found when I tried to write some unit tests, using the new unit-testing framework that's <em>supposed</em> to ship as part of Visual Studio 2005's Team System thingy, and then did some research to find out why I couldn't.</p>
+<p>Apparently, Microsoft has decided that architects don't write code. Oh heavens no. Architects don't <em>need</em> tools for unit testing, or profiling, or code coverage, or static analysis. Apparently, architects just bring the specs down from the mountain, and then goof off until the next release.</p>
+<p>In my world, the term "architect" does not mean "doesn't sully their hands with code". I can sorta see an architect not needing profiling and code coverage, if they're on a team of, say, five hundred or more. But an architect would still need unit testing tools because the tests are <em>part of the spec.</em> The spec <em>isn't complete</em> without acceptance tests that say, "The feature isn't done until this test passes."</p>
+<p>Complete specs, it appears, are not a concern at Microsoft.</p>

@@ -1,0 +1,43 @@
+---
+title: "WatchCat  #Life"
+sort: 2072
+---
+WatchCat is a little freeware utility I found quite a few years back (I was developing on Windows 95 at the time, if that gives you any idea).
+
+It's a sweet little tool. It can minimize windows to the system tray, so they're not hogging so much space on your taskbar. Once WatchCat is running, you just right-click on a window's Minimize button, and away it goes; left-click the tray icon, and the window pops right back.
+
+It can also hide windows entirely (not even a tray icon; use WatchCat's context menu to bring them back), and you can even set it to automatically minimize/tray/hide certain windows after a timeout period. You tell it how to identify windows (which ones get hidden, which ones get minimized to the tray, what each window's timeout value is, whether you need a password to bring the window back, etc.) by writing regular expressions against the class name and/or title bar text. (I used to use this for Web-based admin interfaces, so they would vanish from my desktop after a while of disuse, and not be sitting there for anyone to read over my shoulder â€” remember, Windows 95, so no "lock workstation".)
+
+You can also assign hotkeys to various Windows functions. I used to set it so the Pause key would start the screensaver. (I never did figure out why Microsoft didn't do that by default.) Then I would set a password on my screensaver... so with WatchCat, I guess I <em>did</em> have a "lock workstation" on Win95.
+
+Much time has passed. I'm no longer developing on Windows 95 (thank God).
+
+But I just found myself needing WatchCat again.
+
+I've been doing a lot of refactoring the past few days, so I always have a large number of applications open. (Since it's not like I have <a href="http://blog.excastle.com/2004/09/12/john-kasters-diamondback-talk/">an IDE with built-in refactoring</a> or anything.) (Yet.) (Anxiously waiting for the Diamondback release in November sometime.)
+
+Here's a quick look at my taskbar right now:
+<ul>
+	<li>Task Manager (launched from my Startup menu, so I can always keep an eye on CPU usage) (except when Windows randomly loses Task Manager's tray icon)</li>
+	<li>Visual SourceSafe</li>
+	<li>Delphi 6 (where I'm actually doing the coding)</li>
+	<li>Visual Studio .NET 2003 (in case I need to make changes to SearchForm)</li>
+	<li>SearchForm (an app I wrote in Visual Studio .NET; it lets me do fancy searches through Delphi source, drag files to the Delphi IDE, and check files in/out of VSS. It's sort of <a href="http://www.dgrok.com/">DGrok</a>'s little brother, but I wrote it on work time, so it's proprietary.)</li>
+	<li>DelphiTools (a Delphi code parser and refactoring tool that we hired <a href="http://st-www.cs.uiuc.edu/users/brant/">John Brant</a> to write for us; we use this for Find References, Rename refactorings, and a few more-specialized tools)</li>
+	<li>Programmer's File Editor (an MDI text editor where I keep a few cross-reference files open, like the "which unit is symbol X defined in?" report and the "who descends from class Y?" and "who implements interface Z?" reports that DelphiTools generates. I use an MDI editor so I don't have to have three SDI editors all taking up space in the taskbar.)</li>
+	<li>Untitled - Notepad (various notes I make and refer back to throughout the day)</li>
+</ul>
+
+
+
+I've had all of these open all day. Then there are the browser windows I open when I need to look for something online (or blog about WatchCat), the chat windows from conversations on our internal Jabber server, Outlook whenever I need to read my e-mail, SharpReader and RssBandit whenever I'm reading RSS feeds, Windows Explorer windows, etc.
+
+I run out of taskbar space reeeeeal quick these days. I think it's been at least twice today that I've overflowed and the taskbar has acquired a scrollbar. So I went looking for WatchCat, so each app could be 16 pixels wide, instead of 40 or whatever a taskbar button is.
+
+I had some trouble finding it; the author's Web site is no more, and a couple of the shareware sites I found didn't have WatchCat listed anymore. I eventually found it <a href="http://tucows.mundofree.com/preview/70177.html">here</a>.
+
+There have been some new features since the last time I used it. Now you can assign hotkeys to various folders on your hard drive, so that just hitting a key will bring up a context menu showing the folder contents. I am definitely gonna have to spend some time fiddling with that. (Actually, maybe they did have it before. But I've spent a lot of time trying to do the same thing with the Quick Launch bar and its relatives, and I'm thinking WatchCat may be a way better solution.)
+
+Only downside is that it doesn't grok 32-bit icons, so when it paints the icons in the menu, anything with transparency looks kind of ugly. But I can live with that.
+
+One odd thing: on WatchCat's About page, it says it's distributed under the GPL. Yet it isn't distributed with source. Doesn't that violate the license?

@@ -1,0 +1,40 @@
+---
+title: "ReSharper, day 0: Basics and installation  #.NET  #resharper"
+sort: 2294
+---
+<p>I figured that, before I got too far into my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>, I'd cover the dull stuff that nevertheless is worth covering. Feel free to skip ahead to Day 1 (though if you do install ReSharper, you might want to at least skim this post).</p>
+
+<h4>IDEs and versions</h4>
+
+<p>The latest versions of <a href="http://www.jetbrains.com/resharper/">ReSharper</a> will only work with Visual Studio 2005. There's an older version still available that works for Visual Studio 2003, but it doesn't have all the coolest features.</p>
+
+<p>As of this writing, the latest version of ReSharper (which came out less than a week ago) was 2.5.1. It fixed several minor bugs in 2.5, which means I have a little less material than I'd figured on, since I'd been planning to talk about how to work around some of the annoyances. On the other hand, 2.5.1 seems to have broken a couple of minor things that worked in 2.5 (which I've already reported to them).</p>
+
+<h4>Stuff to know about installation</h4>
+
+<p>Be warned: the first time you install ReSharper, it will prompt you to install a Visual Studio hotfix. <i>This takes for-freaking-ever.</i> It's been a while since we installed it on our work PCs, so I don't remember how long it took there; but I recently installed it on my home laptop, and it took (no kidding) more than four hours. Granted, my home laptop is only an 850 MHz with 256 MB of RAM, but still. Four hours. Just so you know.</p>
+
+<p>(Yes, ReSharper is worth the install time. But you might want to start the install fifteen minutes before you leave work for the day, so you can click all the Yeses and then go home. ReSharper will be ready to install the next morning.)</p>
+
+<h4>Installing help (or not)</h4>
+
+<p>ReSharper's installation wizard will ask whether you want to install its Help. They warn you that this will take a long time because they have to rebuild the indexes for all the MSDN help on your machine.</p>
+
+<p>They're not kidding about it taking a long time; it makes installation take probably half an hour or so (and that's on our beefy 3GHz work PCs with 2 GB of RAM).</p>
+
+<p>But... I don't get it. None of ReSharper's dialogs have Help buttons. None of them even respond to F1. And when I bring up Help from Visual Studio, I have yet to be able to find any ReSharper help topics in there. So I'm not sure just exactly what Help they're installing!</p>
+
+<p>So for ReSharper 2.5.1 at least, I'd recommend not checking the box to install Help. There doesn't seem to be any point.</p>
+
+<h4>Stuff on their Web site</h4>
+
+<ul>
+<li><a href="http://www.jetbrains.com/resharper/">ReSharper home page</a></li>
+<li><a href="http://www.jetbrains.com/resharper/download/index.html">ReSharper download page</a> (includes a link to get a 30-day evaluation key, if you need one)</li>
+<li><a href="http://www.jetbrains.com/resharper/buy/commercial.html">ReSharper pricing</a></li>
+<li><a href="http://www.jetbrains.com/support/resharper/index.html">ReSharper support</a></li>
+</ul>
+
+<p>Their support is quite responsive. As I was writing these articles, several times I was tempted to write "Now, it would be so much cooler if ReSharper could do such-and-so..." But each time, I made myself stop writing, went to their Web site, and sent them a bug report or an enhancement request. They're really good about responding &mdash; usually I hear something back within hours. Even if it's "we'll add this to our list", it's good to get that quick response back.</p>
+
+<p>And one time, a month or two ago, their response was "We've added that feature; it's in the update that's coming out later this week." Probably they had already added it before I even asked, but still, it's pretty cool (and rare) for a company to be that communicative about bug reports and feature requests.</p>

@@ -1,0 +1,136 @@
+---
+title: "Running Windows 8 Release Preview in a virtual machine  #Programming  #metro  #virtualbox  #vmware  #windows-8"
+sort: 3413
+---
+<p>I just spent the whole weekend trying to get the Windows 8 Release Preview and Visual Studio 2012 Release Preview running in a VM on my personal laptop. I think I may have it working now, though I've been burned by enough false starts that I'm not willing to call it yet. But I've certainly learned enough to be worth sharing.</p>
+
+<p>If you're more interested in the destination than the journey, skip ahead to the <a href="#tldr" title="Too Long; Didn't Read">tl;dr</a>.</p>
+
+<h3>Reasons for a VM</h3>
+
+<p>I didn't want to install Windows 8 as the primary OS on my laptop, for two main reasons:</p>
+
+<ul>
+<li>I'm not impressed with its stability. The week I was at TechEd with the company laptop, the video driver crashed an average of twice a day. Sometimes it recovered, but sometimes (usually when waking from sleep) the machine <a href="http://techcrunch.com/2011/09/14/windows-8-has-a-friendlier-blue-screen-of-death/">bluescreened</a>. (Granted, that's just the video driver; but the Windows 7 video driver never had any problems.)</li>
+<li>My laptop came with some software called <a href="http://www.hp.com/united-states/campaigns/beats/all-products.html">Beats Audio</a> that seriously improves the sound quality. Because it was shovelware, I don't have a separate installer for it, so I would have no way to install it on Windows 8, and watching Netflix would suck a lot without the good audio.</li>
+</ul>
+
+<p>The second reason was really the biggie. What can I say? I bought this laptop for audio first, development second.</p>
+
+<p>So my choices were between a VM and dual-boot. And a VM would make it a whole lot easier to switch back to Windows 7 to watch Netflix, so I was leaning strongly toward a VM if I could make it work.</p>
+
+<h3>Requirement: Run fullscreen</h3>
+
+<p>My laptop's screen is 1366x768. Windows 8 disables some features, like <a href="http://www.winsupersite.com/article/windows8/windows-8-feature-focus-snap-142986">Snap</a>, if your screen is any smaller than 1366x768. Since I want to develop Metro apps, and test them with things like snapped mode, I have to be able to run my VM fullscreen. I assumed this wouldn't be a big deal.</p>
+
+<p>What a fool I was...</p>
+
+<h3>First failure: VirtualBox</h3>
+
+<p>I started with a c|net article called <a href="http://news.cnet.com/8301-10805_3-57390656-75/install-windows-8-virtually-with-free-software/">Install Windows 8 virtually with free software</a>. It covered both <a href="https://www.virtualbox.org/">VirtualBox</a> and <a href="http://www.vmware.com/products/player/">VMWare Player</a>. I've used VMWare before (Workstation though, not Player), so I figured I'd try something new, and try VirtualBox first.</p>
+
+<p>The version of VirtualBox I tested is 4.1.18. The UI is pretty clean and usable. I created the virtual machine, installed Windows 8, installed the Guest Additions, switched to fullscreen mode, and...</p>
+
+<p>...it didn't go fullscreen.</p>
+
+<p>My laptop's screen is 1366x768. VirtualBox, in fullscreen mode, only ran the guest at <strong>1360</strong>x768. So there was a three-pixel black bar at the left and right sides of the screen.</p>
+
+<p>I tried using Snap just on the off-chance that Microsoft had left a few pixels leeway on that 1366x768 requirement. They had not.</p>
+
+<p>Six pixels. So close, and yet so far.</p>
+
+<p>I did some research, and found that <a href="https://www.virtualbox.org/ticket/2047">VirtualBox used to have a bug where it would round the width down to the nearest multiple of 8</a>. (Which doesn't make the slightest bit of sense. It's not like it's a memory-alignment issue; each individual pixel is already 32 bits, so everything is already 32-bit aligned.)</p>
+
+<p>But they claimed to have fixed this bug 19 months ago. So either they broke it again, or they lied about having fixed it.</p>
+
+<p>I found a <a href="http://askubuntu.com/a/127077">StackExchange question</a> from someone else with the same problem, and they claimed to have fixed it by going into the VirtualBox settings and bumping up the guest's video memory to 128MB. But my guest was already set to 128MB of video memory; that had been the default. I tried increasing it to 256MB, but no good: the screen was still that fatal 6 pixels too narrow.</p>
+
+<p>It was about this time that I decided to <a href="http://superuser.com/q/443445/61788">post a question on SuperUser</a> and then try plan B. Alas, the question didn't get an answer until I knew enough to go back and answer it myself. But that's later.</p>
+
+<h3>Second failure: VMWare Player</h3>
+
+
+
+<p>I soon lost count of how many hoops I had to jump through just to <em>download</em> VMWare Player. I had to register, but I couldn't register because they already had a registration under my e-mail address, but they wouldn't accept my best guess at a password, so I had to do the "Forgot Password" and reset my password. Then I went back to the download page, and they prompted me to log in again. (Earth to VMWare: I <em>just entered</em> my new password when I reset it!) So I logged in again, and then they forgot what it was I had wanted to download. I used Google to find the download page again, and then they'd let me select the software to download, but they asked me to accept the license agreement first, and when I did, they promptly forgot what I was downloading again.</p>
+
+<p>Downloading VMWare Player was almost as maddening as it had been trying to get VirtualBox to <em>work</em>.</p>
+
+<p>But I finally did manage to get it downloaded. The version of VMWare Player I used is 4.0.4. I can't say I care for the puffy blue window, but it seemed functional enough. Followed the <a href="http://news.cnet.com/8301-10805_3-57390656-75/install-windows-8-virtually-with-free-software/">instructions</a> to get Windows 8 installed (apparently VMWare is pretty touchy about Windows 8 unless you perform all the right song and dance), and got it up and running. Great!</p>
+
+<p>I installed the VMWare Tools in the guest, installed the <a href="http://www.microsoft.com/visualstudio/11/en-us/downloads">Visual Studio 2012 release preview</a>, created a new Metro grid application, ran it, and...</p>
+
+<p>...FAIL. The app started up fine, the first screen animated in -- and the instant the animation stopped, all the images disappeared.</p>
+
+<p><img src="http://blog.excastle.com/wp-content/uploads/2012/07/GridApp1.png" alt="" title="GridApp1" width="250" height="141" style="margin-right: 20px;" /><img src="http://blog.excastle.com/wp-content/uploads/2012/07/GridApp2.png" alt="" title="GridApp2" width="250" height="141" /></p>
+
+<p>The "Grid application" project template comes with some sample images that it displays on the grid tiles. They're all various shades of solid gray, but they're still images. And apparently the video driver in VMWare Tools has a problem with the way Metro apps display images. So as soon as the screen is done animating in, all the tiles vanish, and all that's left is the text.</p>
+
+<p>Older versions of Windows had someplace in Display Options where you could ratchet down the video acceleration if things weren't displaying properly, but either Windows 8 doesn't have those options anymore, or they were disabled for the virtual video driver inside VMWare. I looked inside the VMWare Tools options, but there was nothing about graphics acceleration. And unlike VirtualBox, VMWare doesn't seem to have video acceleration options in the host app. Nowhere could I find even a single knob to try to fix this problem.</p>
+
+<p>And there's no way in hell I can develop a Metro app in a VM that can't show half the app's UI.</p>
+
+<p>I spent a while longer trying to make this work. I tried a <a href="http://blogs.msdn.com/b/b8/archive/2012/01/04/refresh-and-reset-your-pc.aspx">refresh of Windows</a>, in case it was some Windows setting that had gotten out of whack. Then reinstalled VS2012, re-created my project, re-ran it. And the images re-disappeared.</p>
+
+<p>There's not even anywhere to <em>go</em> from here. Dead-end on VMWare Player.</p>
+
+<h3>Third failure: Forcing Snap</h3>
+
+<p>During the course of my research, I had run across some articles that said there was a Registry setting that would <a href="http://www.addictivetips.com/windows-tips/enable-windows-8-snap-feature-and-how-to-snap-metro-application/">force Windows 8 to always enable Snap</a>, even if the screen resolution was too low.</p>
+
+<p>I figured I could give that a go; as long as I planned carefully, the six-pixel error might not throw off my testing <em>too</em> much. So I went into my six-pixels-too-small VirtualBox VM, created the Registry setting, and tried snapping some apps. But the "snap" gutter never appeared: it just wanted to task switch, not snap.</p>
+
+<p>Well, maybe I need to restart Windows in the VM before the setting will take effect. Tried it. Still no good.</p>
+
+<p>It looks like the "force Snap" Registry hack no longer works in the Release Preview.</p>
+
+<h3>Eventual, roundabout, partial success: Remoting into VirtualBox</h3>
+
+<p>VirtualBox has a feature where it can run an <a href="http://en.wikipedia.org/wiki/Remote_Desktop_Protocol">RDP</a> server, so you can remote into your virtual machine. So I figured, hey, maybe I can minimize the VirtualBox window and Remote Desktop into the VM. Remote Desktop doesn't have any stupid multiple-of-8 restrictions, so it might work.</p>
+
+<p>So I went into VirtualBox and enabled "Remote Display" (their name for their RDP server), and then tried to connect to it.</p>
+
+<p>Here's a little tip for UI designers: if a particular feature will only work if the user has installed an add-on product, then don't show the UI options for configuring that feature <em>unless the user has actually downloaded and installed the necessary add-on.</em> I burned quite a bit of time trying to figure out why all my settings were accomplishing nothing. Turns out you have to download and install the <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox Extension Pack</a> before VirtualBox will actually <em>support</em> all the RDP options you've spent the last hour fruitlessly trying to configure.</p>
+
+<p>If you want to try to use VirtualBox's RDP support, don't expect it to work in any kind of reasonable way; just save yourself time and <a href="http://www.virtualbox.org/manual/ch07.html">read the manual</a>. I finally got it set it up, and managed to get the headless server started from the command line.</p>
+
+<p>And Remote Desktop connected! And gave me a black screen.</p>
+
+<p>So I minimized Remote Desktop and looked in the server's console window, to see if it had reported any errors. It had not, but now I noticed a mysterious new window on my host machine, and it looked like <em>it</em> was showing the VM screen that was supposed to be getting sent over Remote Desktop. This mystery window's title bar said "Chromium Render SPU", so off to Google I went.</p>
+
+<p>Turns out <a href="https://forums.virtualbox.org/viewtopic.php?f=6&t=43586">the problem here is VirtualBox's 3D acceleration</a>. If you have 3D acceleration enabled, then the host renders to the mystery window instead of to RDP. Very screwed up. But the message-board thread said all you have to do is disable 3D acceleration, and Remote Desktop will start working.</p>
+
+<p>So I shut down my VM (trying to click in about the right place in Remote Desktop to hit the "power" icon, then minimizing everything so I could look at the mystery window and see if I'd clicked in the right place; rinse, repeat), then went into my VM's settings and turned off 3D acceleration, connected Remote Desktop again, and ha, I got a login screen!</p>
+
+<p>I maximized the Remote Desktop window, and it went fullscreen, but the remote desktop was only 1024x768, centered on my 1366x768 screen. So I went into "Screen resolution" on the remote machine, and lo and behold, for the first time in VirtualBox, 1366x768 was an option in the list! I selected it, and...</p>
+
+<p>(angelic choir)</p>
+
+<p><em>...it worked.</em> My VM was running fullscreen at 1366x768.</p>
+
+<p>Then, on some crazy whim, I shut down the VM, opened it the normal way through VirtualBox Manager, <em>and it was still 1366x768.</em> Something I had done while trying to enable Remote Desktop had actually fixed the original problem!</p>
+
+<h3>Coming down from the euphoria, and a conclusion</h3>
+
+<p>So somehow, in this long crazy string of events, I had done something that had finally kicked VirtualBox over the hump and into proper fullscreen support. I was a little nervous about touching anything at this point, lest it revert to its original broken state. But at the same time, I like to clean up after myself. I don't really want an unauthenticated RDP server running on my laptop anytime I'm running Windows 8.</p>
+
+<p>So I started backing out my changes. I turned off the RDP server. And as long as I'm running locally, I might as well turn 3D acceleration back on. Restart the VM...</p>
+
+<p>Black bars.</p>
+
+<p>1360x768.</p>
+
+<p>And at this point I had an inkling of a suspicion. (And it was this suspicion alone that kept me from descending into madness.) I shut down the VM, turned 3D acceleration back off, and started the VM.</p>
+
+<p>Worked like a charm. Fullscreen goodness.</p>
+
+<p>What a letdown. I had burned an entire freaking weekend on what boiled down to a single buggy setting.</p>
+
+<p>(What's worse, I can't even <a href="https://myprofile.oracle.com/EndUser/faces/profile/createUser.jspx">report the bug</a> without giving Oracle three forms of ID and a note from my mother. Who the hell made the <a href="http://sheldoncomics.com/archive/120618.html">Marketing department</a> the gatekeepers for the <em>bug tracker?</em>)</p>
+
+<p>Anyway, the VM seems to be working so far. No blank screens, no mystery windows. It actually does run fullscreen, no black bars, the full 1366x768. I can snap apps like a champ. I installed VS2012 in the VM, created a new grid app, and ran it, and not a single image disappeared. It all seems fine, though of course only time will tell.</p>
+
+<p>One freaking setting.</p>
+
+<h3><a name="tldr">tl;dr</a></h3>
+
+<p>To run Windows 8 in a VM: Don't bother with VMWare Player. Use <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a> and disable its 3D acceleration.</p>

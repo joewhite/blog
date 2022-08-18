@@ -1,0 +1,21 @@
+---
+title: "XamlParseException in WinRT  #.NET  #visual-studio-2012  #winrt"
+sort: 3515
+---
+<p>I'm writing a video game (as always), this time as a Windows 8 app. Currently I'm still developing on a VM running the Release Preview of Windows 8 and Visual Studio 2012, but I just got a chance to build and run on a machine running the final RTM versions of both.</p>
+
+<p>When I ran my app, it showed the splash screen for a second or so, then dumped me back to the Start screen. So I tried running under the debugger, and got a XamlParseException: "XAML parsing failed."</p>
+
+<p><em>&lt;rant&gt;</em></p>
+
+<p>I've commented before that Microsoft obviously put their most junior programmers to work on writing the WinForms ToolStrip in .NET 2.0. (If you haven't had to deal with the flaky design, and <a href="http://blog.excastle.com/2008/12/14/fixing-menustrip-part-1-introduction-and-screenshots/">bugs</a>, of ToolStrip, be glad.) They <em>had</em> to give ToolStrip to their junior devs, because all their experienced devs were already busy working on WPF.</p>
+
+<p>With WinRT, it's pretty clear that all their junior people were working on error handling. The number of things that fail with absolutely meaningless errors (e.g. "A COM error occurred") is staggering. Makes me wonder what they've got the senior devs busy on, if it's not WinRT.</p>
+
+<p><em>&lt;/rant&gt;</em></p>
+
+<p>Anyway, it turns out the problem is a <a href="http://bestw8apps.com/2012/08/migrating-windows-rp-application-to-windows-8-rtm-xamlparseexception/">codegen bug if your assembly has a dot in its name</a>. There's a simple workaround: go into Project Properties > Application tab > Assembly name, and change it to something with no dots in it. (I'll probably also rename the .csproj and the folder to match, but that's not necessary.)</p>
+
+<p>The <a href="http://support.microsoft.com/kb/2739194">knowledgebase article</a> says this is a problem with XAML-based controls, but I haven't seen a problem with our WPF4 code at work. So either it's only WinRT (rather than all XAML as the KB article suggests), or it's only a problem with .NET 4.5.</p>
+
+<p>There's allegedly a <a href="http://support.microsoft.com/kb/2739194">hotfix</a> that will fix the codegen bug properly, but there's no actual way to <em>download</em> the hotfix. Easiest thing is to rename the assemblies, or wait for the service pack.</p>

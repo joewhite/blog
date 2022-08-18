@@ -1,0 +1,36 @@
+---
+title: "Application.HandleException's parameter  #Delphi"
+sort: 2195
+---
+The interesting bit first: You can pass nil to TApplication.HandleException.
+
+Okay, now on to the background. When you're writing Delphi code, and you throw an exception from a button's OnClick handler or some such, your app doesn't crash. (WinForms could learn a thing or two from Delphi.) Instead, you get a dialog box showing the exception message. Once you click OK to that dialog, your application continues to run.
+
+This is handled by the top-level message loop, which catches exceptions and calls Application.HandleException. HandleException, by default, shows the error dialog. (You can customize this by hooking Application.OnException, in which case the dialog is not shown, and your OnException handler is called instead.)
+
+Actually, it's not just the top-level message loop; quite a few places in the VCL call HandleException â€” basically anywhere exceptions could occur, and are recoverable. And TApplication.HandleException is public, so your code can call it too. If you're catching exceptions and showing them to the user yourself, consider it a best practice to use Application.HandleException, instead of ShowMessage or MessageDlg.
+
+HandleException takes one parameter, and for the longest time, I thought I had to pass the exception instance for that parameter, like so:
+
+<pre>try
+  DoSomething;
+except
+  on E: Exception do
+    Application.HandleException(E);
+end;</pre>
+
+
+
+It turns out I was wrong â€” I was doing more work than I needed to. That one parameter is, in fact, the ubiquitous <font face="Courier New">Sender: TObject</font> of TNotifyEvent fame. The VCL code usually passes Self.
+
+Even more interestingly, this parameter is never used. Oh, it gets passed along to your OnException handler, if you have one; but what on earth would you do with it? What good would it do to know which control threw an exception? (Actually, you don't even get that. A quick look through the VCL source shows that the parameter might be a TControl, a TDragObject, a TDataModule, a TDataSet, the TApplication... good luck finding out <em>anything</em> useful from that parameter.)
+
+Bottom line: HandleException's Sender parameter is, in effect, worthless; it doesn't tell you anything worth knowing.
+
+So now I just do this:
+
+<pre>try
+  DoSomething;
+except
+  Application.HandleException(nil);
+end;</pre>

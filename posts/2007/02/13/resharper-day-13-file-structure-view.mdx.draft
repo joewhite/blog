@@ -1,0 +1,37 @@
+---
+title: "ReSharper, day 13: File Structure view  #.NET  #resharper"
+sort: 2393
+---
+<p>Welcome to day 13 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>For several versions, Delphi has had a Structure view, which shows your fields and methods and properties in a treeview. ReSharper takes this several steps further with their File Structure view, which is accessible with <b>Ctrl+F11</b>. Not a great shortcut, but then, you'll probably only show the window once and then keep it docked.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/FileStructure.png" width="343" height="221" alt="ReSharper's File Structure view" hspace="12" border="0"></blockquote>
+
+<h4>Sorting methods</h4>
+
+<p>Theoretically, you could use this to see your code's structure at a glance. I don't really use it for that; my fingers have the shortcut for Collapse All memorized (I think it's Ctrl+M Ctrl+O, but I never have to think about it... let's see... yeah, that's right).</p>
+
+<p>What I <i>do</i> use the File Structure view for is re-ordering. We find life is a lot easier if we keep all our methods alphabetical; but ReSharper doesn't have an option for that, so it's always putting extracted methods in the wrong place. But you can drag and drop in the File Structure window...</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/FileStructureReordering.png" width="343" height="221" alt="ReSharper's File Structure view" hspace="12" border="0"></blockquote>
+
+<p>and when you drop the method in the new place, ReSharper will move the method in the Code Editor.</p>
+
+<p>It sometimes does the wrong thing with respect to blank lines, but until ReSharper adds options to keep things in the right order (which, given the number of different coding styles out there, would be a tall order), drag-and-drop of tree nodes, followed by "collapse all" and a bit of blank-line cleanup, is a far sight faster than cut and paste.</p>
+
+<h4>If you like regions...</h4>
+
+<p>For those who actually use regions and like them, ReSharper's File Structure view makes them all pretty and collapsible.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/FileStructureRegionExpanded.png" width="295" height="221" alt="ReSharper's File Structure view, showing an expanded region" hspace="12" border="0"><img src="http://blog.excastle.com/images/resharper/FileStructureRegionCollapsed.png" width="295" height="221" alt="ReSharper's File Structure view, showing a collapsed region" hspace="12" border="0"></blockquote>
+
+
+
+<h4>If you don't like regions...</h4>
+
+<p>Personally, I think that regions make code harder to read &mdash; and besides, if your code is so complicated that you need regions to keep it organized, that's a <a href="http://www.martinfowler.com/bliki/CodeSmell.html">smell</a> that your class is doing too much.</p>
+
+<p>If you're in this camp, ReSharper is there for you. See that little blue "X" in the top-right of the region box? A single click on that, and the region tags go away. (It only deletes the #region and #endregion lines, not the region's contents.) And then, since you're already in the File Structure window, you can go ahead and drag to reorder the methods.</p>
+
+<p>Of course, if you accidentally remove region tags when you didn't intend to, it's a code change like any other, so you can undo it.</p>

@@ -1,0 +1,78 @@
+---
+title: "Interfaces and reference equality: beware  #Delphi  #interfaces"
+sort: 2523
+---
+In Delphi for Win32, you can't necessarily use the "equals" operator to tell whether two interfaces both point to the same object. The following code:
+
+<pre>var
+  Foo: IFoo;
+  Bar: IBar;
+begin
+  Foo := MyObj as IFoo;
+  Bar := MyObj as IBar;
+  Assert(Foo = Bar);</pre>
+
+will <b>fail</b> -- even though both <code>Foo</code> and <code>Bar</code> point to the same object.
+
+Let's look at why that happens, and what you can do if you want a comparison that would succeed.
+
+<h3>Memory layout of an interface reference</h3>
+
+<b>Note:</b> If you don't care about the technical details, and just want to know how to work around the problem, skip ahead to the "Workaround" section.
+
+Let's dig into the memory layout of an interface reference:
+
+<pre>var
+  Foo: IFoo;
+begin
+  Foo := TFoo.Create;
+
+<img src="http://blog.excastle.com/wp-content/uploads/2008/05/interfacevmt.png" alt="Memory layout of a Delphi/Win32 interface reference" title="Memory layout of a Delphi/Win32 interface reference" width="534" height="195" /></pre>
+
+An interface is a pointer to a pointer to an interface <acronym title="Virtual Method Table">VMT</acronym>. This means there's a slot in the object's instance data, just like any other instance field (except that it's not visible in code), that automatically holds a VMT pointer. This field is automatically initialized during object construction. This is exactly the same way VMTs for Delphi classes are handled, except that the <i>class's</i> VMT pointer is always at offset 0 within the block of memory allocated for the instance. <i>Interface</i> VMT pointers have to be at a nonzero offset, since offset 0 is already spoken for; they're added at the end just like fields. (This will be familiar to those who remember Turbo Pascal objects, whose VMTs didn't have to be at offset zero.)
+
+
+
+And there's the reason for the problem. Every interface you define gets a VMT all its own (even if it has the exact same methods as its parent interface, it still has its own VMT), so there has to be a slot in the instance data for the <code>IFoo</code> interface VMT, and another slot for the <code>IBar</code> interface VMT.
+
+When you cast the object instance to <code>IFoo</code>, you're really taking a pointer to the invisible "<code>IFoo</code> VMT pointer" field inside the object. When you cast to <code>IBar</code>, you're taking a pointer to the "<code>IBar</code> VMT pointer" field. Those two are at different memory locations, so a reference-equality check will fail.
+
+<b>Bonus trivia:</b> Because the interface pointer (which is also what's passed as the implicit <code>Self</code> pointer when you call a method on the interface) isn't at the same address as the object, the compiler has to generate a method stub that does a <code>Self</code>-pointer fixup, then call the <i>actual</i> method. The interface VMT points to this <a href="http://en.wikipedia.org/wiki/Thunk">thunk</a> method, not to the actual method body. You always wanted to know that, didn't you?
+
+<h3>A failed workaround: changing the variable types</h3>
+
+So if the problem is the variables being of different types, let's just make them both the same type:
+
+<pre>var
+  Foo: <b>IInterface</b>;
+  Bar: <b>IInterface</b>;
+begin
+  Foo := MyObj as IFoo;
+  Bar := MyObj as IBar;
+  Assert(Foo = Bar);</pre>
+
+The <code>Assert</code> will <i>still</i> fail, even though both variables are of type <code>IInterface</code>! Why?
+
+That's because the <code>Foo</code> variable <i>still</i> points to the <code>IFoo</code> VMT pointer inside the instance. <code>IFoo</code> descends from <code>IInterface</code> (as all interfaces do), so an <code>IFoo</code> reference is assignment-compatible with an <code>IInterface</code> variable, and is stored <i>as-is</i> in that variable -- still pointing to the <code>IFoo</code> VMT pointer.
+
+So even though a reference may be stored in a variable of type <code>IInterface</code>, it does not necessarily point to the <code>IInterface</code> VMT pointer for that class. This becomes a particular problem when you add different interfaces to an <code>IInterfaceList</code>: they're stored in a list of <code>IInterface</code> variables, but they're not canonicalized to point to the <code>IInterface</code> VMT pointer. So, for example, <code>TInterfaceList.IndexOf</code> can give you the wrong answer, if you're not careful about the types of your interface references.
+
+<h3>The workaround</h3>
+
+The fix is really simple: just <code>as</code>-cast both variables to <code>IInterface</code>. This normalizes them, and puts them on an even footing for comparison.
+
+When you <code>as</code>-cast to an interface type, you get back a pointer to the interface VMT pointer for that exact interface -- none of that weirdness with assignment-compatibility and putting an <code>IFoo</code> reference into an <code>IInterface</code> variable: when you cast to <code>IInterface</code>, by golly, you get an <code>IInterface</code> all the way. <code>QueryInterface</code> and <code>SysUtils.Supports</code> will also canonicalize to the interface you specify.
+
+(You could even use something other than <code>IInterface</code>, as long as you know both instances will support it. But every interfaced object can be cast to <code>IInterface</code>, so using <code>IInterface</code> makes for a nice general solution.)
+
+So to revisit the code at the top of the article, the correct way to compare the interfaces would be something like this:
+
+<pre>var
+  Foo: IFoo;
+  Bar: IBar;
+begin
+  Foo := MyObj as IFoo;
+  Bar := MyObj as IBar;
+  Assert(Foo <b>as IInterface</b> = Bar <b>as IInterface</b>);</pre>
+
+Now, the assertion will pass.

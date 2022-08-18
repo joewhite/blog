@@ -1,0 +1,20 @@
+---
+title: "Diff, part 4: Matches  #.NET  #Delphi  #diff"
+sort: 2133
+---
+<p>Another installment in the <a href="http://blog.excastle.com/tag/diff/">How Diff Works</a> series:</p>
+<p>Last time, I talked about <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">Longest Common Subsequence (LCS)</a>, basically a "what's the same between these two lists". So, how do you go about finding the LCS?</p>
+<p>Well, you look for matches. (Note: "match" is my own word for this, and may not correspond with anyone else's terminology.) A match is an element that exists somewhere in list A, and is also somewhere in list B. The LCS is just a bunch of matches strung together.</p>
+<p>So to continue our <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">earlier example</a>, if we have these two lists:</p>
+<blockquote dir=ltr style="MARGIN-RIGHT: 0px">
+<p><font face="Courier New">A is (1 2 3)<br>B is (1 4 5 3)</font></p></blockquote>
+
+
+
+<p>then we have two matches. The first match is the element <font face="Courier New">1</font>, which appears at A[0] and B[0]. The second match is <font face="Courier New">3</font>, which appears at A[2] and B[3].</p>
+<p>Each "match" is, in fact, a <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">common subsequence</a> (of length 1). So if we take our two matches and string them together, we get the LCS, <font face="Courier New">(1 3)</font>.</p>
+<p>(If you think that's all there is to it, keep reading. I've got several more articles to go.)</p>
+<p>Another useful way to express this LCS is <font face="Courier New">[0,0] [2,3]</font>. (Note that I'm making up this notation, so if square brackets are the wrong thing to use, please correct me.) This shows <em>where</em> the matches occur in the original lists, rather than showing <em>what</em> the elements are: the first match is at A[0] and B[0], the next match is at A[2] and B[3].</p>
+<p>One situation where indexes are handier is when you're doing a case-insensitive diff. A[0] might be "Hello, world!" and B[0] might be "hElLo, WoRLd!". If you're doing a case-insensitive compare, then A[0] and B[0] are considered equal, even though, in the eyes of the computer, they're not; so which one shows up in the LCS? If it doesn't matter, then you probably didn't want the actual elements in your LCS anyway, and would be better off with the indexes. The same question applies when you're ignoring whitespace, an extremely common option when you're comparing source code.</p>
+<p>Using the indexes also makes some operations easier, like showing the two files side-by-side, or generating Unix-diff-style output. And, most important for these articles, it turns out that keeping track of the indexes is essential to building the LCS.</p>
+<p>Mathematically speaking, the LCS contains elements (like <font face="Courier New">(1 3)</font>), not indexes. But from here on, when I say LCS, I'll usually mean a list of pairs of indexes (like <font face="Courier New">[0,0] [2,3]</font>), because that's generally going to be more relevant.</p>

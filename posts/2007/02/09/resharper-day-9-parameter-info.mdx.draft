@@ -1,0 +1,27 @@
+---
+title: "ReSharper, day 9: Parameter Info  #.NET  #resharper"
+sort: 2305
+---
+<p>Welcome to day 9 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>Yesterday I talked about one Visual Studio feature (<a href="http://blog.excastle.com/2007/02/08/resharper-day-8-find-usages/">Find All References</a>) that ReSharper replaced, enhanced, and changed the keystroke for. Today I'll talk about another: Parameter Info, formerly Ctrl+Shift+Space.</p>
+
+<p>ReSharper's parameter info, accessible via <b>Ctrl+P</b>, shows all the overloads at once, instead of just one like Visual Studio's:</p>
+
+<blockquote>
+<p><img src="http://blog.excastle.com/images/resharper/VisualStudioParameterInfo.png" width="353" height="52" alt="Visual Studio parameter info" border="1"><br>Visual Studio's parameter info</p>
+
+<p><a href="http://blog.excastle.com/images/resharper/ReSharperParameterInfo.png"><img src="http://blog.excastle.com/images/resharper/ReSharperParameterInfoSmall.png" width="450" height="97" alt="ReSharper parameter info" border="1"><br>ReSharper's parameter info (click to enlarge)</a></p>
+</blockquote>
+
+<p>If the method you're calling doesn't have any overloads, ReSharper's parameter info is pretty similar to Visual Studio's. But if you ever call overloaded methods (i.e., if you ever use anything in a Microsoft-provided assembly), the new parameter info has several decided advantages:</p>
+
+<ul>
+<li><p><b>See where you're going.</b> Whenever I'm writing custom painting code in .NET, I have to face the dreaded Death by Overload. Seriously, what is up with System.Drawing? Some of the methods have <a href="http://msdn2.microsoft.com/en-us/library/system.drawing.graphics.drawimage(VS.80).aspx">30 different overloads</a>. When you know you want an overload that takes ImageAttributes (and of course they're all way at the bottom of the list), it's nice to be able to see lots of overloads at once.</p></li>
+<li><p><b>You can use the cursor keys!</b> When Visual Studio's Parameter Info tooltip is visible, you can't use the up and down cursor keys &mdash; VS hijacks them to mean "show the parameter info for the next/previous overload". I've had to develop the habit of hitting "End" followed by "Right arrow" when I want to move to the next line (or "Esc" followed by "Down arrow", but those keys are a lot farther apart...) But with ReSharper, you use Ctrl+P and Ctrl+Shift+P to cycle through the overloads, not up and down. So the cursor keys are available for actually moving through your code. Sweet!</p></li>
+<li><p><b>Skip the ones that don't apply.</b> When you use Ctrl+P and Ctrl+Shift+P to cycle through the overloads, it will only step to the overloads that match the parameters you've already entered. For example, in the above code, I'm calling Graphics.DrawImage, and passing an Image and an int. If I press Ctrl+P again, it will skip the next overload in the list, because it takes a Rectangle as its second parameter &mdash; obviously not one I want, because I'm not passing a Rectangle. Instead, it will go two down, to the next overload that takes floats.</p></li>
+</ul>
+
+
+
+<p>According to their Web site, <a href="http://www.jetbrains.com/resharper/features/codeAssistance.html">ReSharper's parameter info is supposed to show inapplicable overloads in gray</a>. Unfortunately, this feature is broken in ReSharper 2.5.1 (I told support about it, and they said it's <i>supposed</i> to work; they're looking into it.)</p>

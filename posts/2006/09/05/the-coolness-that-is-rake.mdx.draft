@@ -1,0 +1,43 @@
+---
+title: "The coolness that is Rake  #.NET  #Delphi  #dgrok  #extreme programming  #ruby"
+sort: 2364
+---
+<a href="http://rake.rubyforge.org/">Rake</a> is cool enough as a build tool, but wait until you check out its library.
+
+First off, if you use <a href="http://en.wikipedia.org/wiki/Make_(software)">make</a> or <a href="http://ant.apache.org/">ant</a>, you owe it to yourself to look into Rake. The syntax is so much more readable than either, and you have a full-fledged programming language right there in your build script. The docs have a <a href="http://rake.rubyforge.org/files/doc/rakefile_rdoc.html">concise introduction to Rakefiles</a>; Martin Fowler has a longer article called "<a href="http://martinfowler.com/articles/rake.html">Using the Rake Build Language</a>".
+
+But wait! There's more!
+
+So Rake's documentation is pretty sketchy. Mention is made of some cool libraries that ship with it, but no details. So I decided to RTFS, and I found much of coolness.
+
+<strong>Coolness #1: All the coolness comes right out of the box.</strong> You <em>don't even need to <font face="Courier New">require</font> anything</em> from your rakefile (unless you're doing really fancy stuff). Just write a rakefile containing some tasks, run rake, and you're off and running.
+
+<strong>Coolness #2: They add an ext() method to the String class.</strong> Treats the string as a filename; returns a new filename with the extension changed to whatever you specify. Equivalent to Delphi's ChangeFileExt() or .NET's Path.ChangeExtension. Something that's sorely lacking from Ruby out of the box.
+
+<strong>Coolness #3: A built-in command to shell out to Ruby.</strong> They have a method to shell out, and another one specifically to shell out to another Ruby process.
+
+When you want to shell out (e.g. to run your compiler), you should use the sh() and ruby() methods, which will automatically fail the task if the process returns a nonzero exit code. (By default, the value returned by a task block is ignored; if you want to fail the task, you need to do it explicitly with fail() or raise or some such, or call something like sh() that does it for you.)
+<pre>rule '.rb' =&gt; ['.y'] do |t|
+  sh "racc", t.source, "-o", t.name
+end
+task :test do
+  ruby "test_all.rb"
+end</pre>
+<strong>Coolness #4: Built-in support for running unit tests.</strong> I already wrote a test_all.rb, but if I'd looked at Rake, I wouldn't have had to. This works just as well:
+
+<em>[Note: It turns out that this sample code isn't the right way to do it; see <a href="http://blog.excastle.com/2006/09/09/on-using-rakerun_tests/">this post</a> for corrected code. Still the same number of lines, just better-behaved.]</em>
+
+<pre>require 'rake/runtest'
+task :test do
+  Rake.run_tests "**/*tests.rb"
+end</pre>
+
+If you follow their convention of having your tests in test/test*.rb, you don't need to pass an argument to Rake.run_tests at all. I like my tests to be next to the files they're testing, so the above example is what I prefer.
+
+There's also a TestTask if you want fancier options, like modifying your $LOAD_PATH before running the test. (TestTask actually launches a new Ruby process via the ruby() method; Rake.run_tests runs them in-process.)
+
+<strong>Coolness #5: FileList.</strong>
+
+FileList is a list of files, much like an array. But instead of giving it individual filenames, you can give it patterns, like 'lib/**/*', and it comes back as an array of matching filenames. (It can take both include and exclude patterns.) It lazy-initializes its contents, so if you create a FileList but then don't run the task that uses it, it's basically free. By default, it ignores CVS and .svn directories.
+
+But coolest of all, FileList has shorthand methods: sub(), gsub(), ext(), egrep(). Want to return a new copy of a FileList with all the extensions changed? No sweat. Want to grep through every file in a FileList, and do something with each file whose contents match a given regex? egrep() to the rescue. I may never again have to write six whole lines of code to recursively grep through a directory tree of source files.

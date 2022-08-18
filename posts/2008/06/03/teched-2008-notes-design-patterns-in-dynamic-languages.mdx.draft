@@ -1,0 +1,294 @@
+---
+title: "TechEd 2008 notes: \"Design Patterns" in Dynamic Languages  #.NET  #Delphi  #teched2008"
+sort: 2538
+---
+These notes are probably fairly coherent. They're definitely worth the read if you're interested in design patterns and know something about Ruby, although I don't know whether my notes would stand up very well if you don't already know Ruby.
+
+"Design Patterns" in Dynamic Languages
+Neal Ford
+Software Architect / Meme Wrangler
+ThoughtWorks
+
+Pattern solutions from weaker languages have more elegant solutions in dynamic languages
+
+Ruby on Rails is running on IronRuby (as of RailsConf last week)
+
+"Design Patterns: Making C++ Suck Less" by GoF
+<ul>
+  <li>Really good for two things</li>
+  <ul>
+    <li>Good definition for common kinds of problems we encounter</li>
+    <li>Insomnia cure</li>
+  </ul>
+  <li>Examples in C++ and Smalltalk</li>
+  <li>People mistakenly thought it was a recipe book</li>
+</ul>
+
+Patterns define common problems. Dynamic languages give you better tools to solve those problems.
+
+
+
+Not "static vs. dynamic". It's "ceremony vs. essence". Statically-typed languages like C# require a lot of ceremony to get things done; long distance between intent and result. Dynamic languages have less distance.
+
+<h3>ITERATOR</h3>
+
+Side note: Neal isn't a big fan of UML, because it's not technical enough for technical people, and too technical for non-technical people. This is the only talk where you'll ever see him use UML.
+
+Provide way to access elements of an aggregate sequentially without exposing the details.
+
+<pre>container.each {|i| puts i}</pre>
+
+Built-in iterator: <code>each</code>. Can also make an iterator object. C# has very similar things: <code>IEnumerable</code>/<code>IEnumerator</code> and <code>foreach</code>
+
+<h3>COMMAND</h3>
+
+Encapsulates a request as an object.
+
+<pre>commands = []
+(1..10).each do |i|
+  commands << proc { count += i }
+end</pre>
+
+Any language with closures already has Command built-in. There's a trend here: languages are adding built-in patterns. C# has this too.
+
+But: Command pattern may also support undoable operations.
+
+<pre>class Command
+  def initialize(do_proc, undo_proc)</pre>
+
+Dynamic languages don't preclude structure, but they let you delay it until necessary.
+
+See blog post / rant: "<a href="http://steve-yegge.blogspot.com/2006/03/execution-in-kingdom-of-nouns.html">Execution in the Kingdom of Nouns</a>". Command was essentially designed to give you a way to pass verbs around.
+
+<h3>BUILDER</h3>
+
+Separate construction process so the same process can create different representations.
+
+Dynamicize with ad hoc combinations: <code>method_missing</code>. So instead of calling several methods in a row to set up different features, you can do things like parsing the method name: <code>add_cd_and_dvd_and_turbo</code> ("And" is a "bubble word" in DSL terms: it's there for readability only.)
+
+Used by Rails for find methods: find_by_column1_and_column2_...
+
+<h3>INTERPRETER</h3>
+
+Given a language, define a grammar and interpreter. (Tough to use as a recipe!)
+
+Admission that the language you're writing your app in isn't expressive enough to get the job done.
+
+<a href="http://en.wikipedia.org/wiki/Greenspun's_Tenth_Rule"> Greenspun's Tenth Rule</a>:
+
+<blockquote>Any sufficiently complicated C or Fortran program contains an ad hoc, informally-specified, bug-ridden, slow implementation of half of Common Lisp.</blockquote>
+
+GoF book assumes you're writing a parser, but an increasingly common solution is an internal DSL (e.g. LINQ).
+
+<pre>recipe = Recipe.new "Spicy bread"
+recipe.add 200.grams.of "Flour"
+recipe.add 1.lb.of "Nutmeg"</pre>
+
+Need to be able to add methods to numbers. No problem. Open class. More flexible than extension methods in C#, because you can change or remove methods.
+
+<pre>class Numeric
+  def gram
+    self
+  end
+  alias_method :grams, :gram
+  def pound
+    self * 453.59237
+  end
+  alias_method :pounds, :pound
+  alias_method :lb, :pound
+  alias_method :lbs, :pound
+  def of ingredient
+    if ingredient.kind_of? String
+      ingredient = Ingredient.new(ingredient)
+    end
+    ingredient.quantity = self
+    ingredient
+  end
+end</pre>
+
+Side note: I might have done <code>of</code> by making a <code>to_ingredient</code> method on both <code>String</code> and <code>Ingredient</code>, and call that. Wonder if that would actually be better or not, though it would avoid the <code>kind_of?</code> call.
+
+Semi-external DSL:
+
+<pre>ingredient "flour" has Protein=11.5, Lipid=1.45, Sugars=1.12, Calcium=20, Sodium=0</pre>
+
+Do a couple of substitutions to change that into a legal line of Ruby code, and then do <code>instance_eval</code>.
+
+Internal DSL == embedded interpreter. Meets the intent of the GoF interpreter pattern better than lex/yacc, especially since it's less prohibitive. Ruby on Rails is essentially a collection of internal DSLs.
+
+<h3>FACTORY</h3>
+
+Define interface for creating an object; let subclasses decide which class to instantiate.
+
+Trivial in Ruby:
+
+<pre>def create_from_factory(factory)
+  factory.new
+end</pre>
+
+<h3>DECORATOR</h3>
+
+Attach additional responsibilities dynamically. Flexible alternative to subclassing.
+
+<pre>module Decorator
+  def initialize(decorated)
+    @decorated = decorated
+  end
+  def method_missing(method, *args)
+    args.empty? ?
+      @decorated.send(method) :
+      @decorated.send(method, args)
+  end
+end
+
+Whip.new(Coffee.new).cost</pre>
+
+Or, make the decorations modules:
+
+<pre>module Whipped
+  def cost
+    super + 0.2
+  end
+end
+
+x = Coffee.new
+x.extend Sprinkles
+x.extend Whipped</pre>
+
+Or make it even nicer:
+
+<pre>Coffee.with Sprinkles, Whip</pre>
+
+<h3>RECORDER</h3>
+
+<pre>class Recorder
+  def initialize
+    @messages = []
+  end
+  def method_missing(method, *args, &block)
+    @messages << [method, args, block]
+  end
+  def play_back_to(obj)
+    @messages.each do |method, args, block|
+      obj.send(method, *args, &block)
+    end
+  end
+end</pre>
+
+Interesting nuance: what about methods that are already defined on Recorder, e.g. <code>to_s</code>? Anticipated in Ruby 1.8: there's a class called BlankSlate.
+
+<h3>ADAPTER</h3>
+
+Convert one interface to another. Round hole / square peg.
+
+<pre>class SquarePegAdapter
+  def radius
+    Math.sqrt(((@peg.width / 2) ** 2) * 2)</pre>
+
+That's the traditional adapter: a wrapper. But in Ruby, you could solve it a different way:
+
+<pre>class SquarePeg
+  def radius
+    Math.sqrt(((width / 2) ** 2) * 2)
+  end
+end</pre>
+
+Can also add methods to a single instance instead of the entire class.
+
+What if SquarePeg already had a <code>radius</code> method?
+
+<pre>class SquarePeg
+  include InterfaceSwitching
+  def width
+    @width
+  end
+  def_interface :normal, :width
+
+  def width
+    @width / 3
+  end
+  def_interface :holes, :width
+
+  def initialize(width)
+    set_interface :normal
+    @width = width
+  end
+end</pre>
+
+Then you can use a <code>with_interface</code> method to adapt the class to a particular interface, <code>yield self</code>, then put itself back. Short-lived adapter.
+
+<h3>DYNAMIC LANGUAGE PATTERNS</h3>
+
+<h3>ARIDIFIER</h3>
+
+Pragmatic Programmer: "Don't Repeat Yourself."
+
+Ceremonious languages create floods. They create repetition you don't even see because you're so used to it. Essence languages allow aridification.
+
+<pre>class Grade
+  class << self
+    def for_score_of(grade)
+      case grade
+        when 90..100: 'A'
+        when 80..90 : 'B'
+        when 70..80 : 'C'
+        when 60..70 : 'D'
+        when Integer: 'F'
+        when /['A-D]/, /[F]/ : grade
+        else raise "Not a grade: #{grade{"
+      end
+    end
+  end
+end
+
+def test_numerical_grades
+  for g in 90..100
+    assert_equal "A", Grade.for_score_of(g)
+  end
+  for g in 80..90
+    assert_equal "B", Grade.for_score_of(g)
+  end</pre>
+
+Lots of repetition. Better:
+
+<pre>TestCrades.class_eval do
+  grade_range = {
+    'A' => 90..100,
+    ...
+
+  grade_range.each do |k, v|
+    method_name = ("test_" + k + "_letter_grade").to_sym
+    define_method method_name do
+      ...</pre>
+
+No duplication. You write the loop once, inside that call to <code>define_method</code>.
+
+<h3>STATE</h3>
+
+Door with states: Open and Closed. Model the states as mixins, and <code>extend</code> them. Problem: old methods don't go away.
+
+Solution: <a href="http://www.somethingnimble.com/bliki/mixology">Mixology</a> Ruby gem that adds <code>unmix</code> and <code>mixin</code> methods.
+
+Dynamic languages use language facilities to create simpler solution. GoF solutions are all structural; that's why they all have UML diagrams: the way to solve problems is to add structure. You can still do that in dynamic languages, but often don't need to.
+
+Understand patterns for what they are: descriptions of common problems. Don't get caught up in implementation details. Implement solutions that are more elegant and take advantage of your tools.
+
+"Simplexity": taking complicated code and move it to another place; may add more complexity somewhere else, but simplifies other code. Languages with strong metaprogramming.
+
+Q&A
+
+Which of these patterns are implementable in IronRuby? -- They're running IronRuby against the Ruby language specs. Virtually all of these should run now.
+
+Looks like cleverness for cleverness' sake. -- Compare to AOP or LINQ. Not everyone on your team has to understand how it works internally. But don't go hog-wild with this stuff. Metaprogramming was 3.5 - 5% of his team's Ruby code. Use metaprogramming surgically, not as a sledgehammer.
+
+Some programmers don't understand e.g. C++ templates. Is metaprogramming the same kind of problem? -- No, because in C++, templates are in your face all the time; the complexity is hard to hide. In Ruby, it just looks like you're adding keywords to the language.
+
+Why not just write your own language on the DLR? -- Some people probably will, but writing a good, expressive language is really hard, way harder than making a good framework.
+
+At a company that doesn't use any dynamic languages, how to decide which one to use? -- Start using one to do something you already need to do; you'll get a flavor for how it feels and how its concepts map to your view of the world. Start with infrastructure stuff. Start using rake, or writing tests with IronRuby, or do scripting.
+
+Aren't these languages dangerous because you don't have static typing? -- Yes. But: a compiler is a good verifier, but only for a very small surface area. Unit testing, with dynamic languages, is not optional. (Arguably, it's not optional with static languages either.)
+
+Can you create unit tests that cover all possible scenarios? -- Sure. They go for 100% code coverage.
+
+Does he know whether RSpec works in IronRuby? -- Doesn't know, but if Rails works, RSpec likely does.

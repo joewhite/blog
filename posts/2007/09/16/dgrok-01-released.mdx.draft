@@ -1,0 +1,23 @@
+---
+title: "DGrok 0.1 released  #.NET  #Delphi  #dgrok"
+sort: 2464
+---
+<p>I can successfully parse four of the source files that ship with Delphi. I'd say that's a major milestone. So I'm releasing <a href="http://www.excastle.com/dgrok/DGrok-0.1.zip">version 0.1 (alpha) of DGrok</a>.</p>
+
+<p>The source code is included in the download. DGrok is open-source, under the <a href="http://www.opensource.org/licenses/osl-3.0.php">Open Software License</a> (I'd rather use GPL, but I'm stuck with OSL because of NUnitLite).</p>
+
+<p>I've included a GUI demo app that shows off the current capabilities a bit. It has two major screens: <b>Ad-Hoc Parsing</b> and <b>Parse Source Tree</b>.</p>
+
+<p><img src="http://blog.excastle.com/images/DGrok-0.1-AdHoc.png" width="400" height="256" alt="Screenshot of DGrok's Ad-Hoc Parsing screen" /></p>
+
+<p>Ad-Hoc Parsing lets you type in some source code, select which parse rule you want to use, and click Parse (Alt+P). The box in the lower right shows either the parse tree (if parsing was successful) or the error message. Additionally, if there was an error, the focus is put back in the edit box, and the cursor is moved to the error location.</p>
+
+<p>If you want to type an entire source file, select the Goal rule (this is selected by default when the app starts). Or you could use Unit, if you know it's really a unit and not a project, library, or package. If you just want to play around with expression parsing, select Expression. Or whatever. There's a Grammar.html included in the ZIP that shows which rules are working in this release, and to what extent.</p>
+
+<p><img src="http://blog.excastle.com/images/DGrok-0.1-SourceTree.png" width="400" height="256" alt="Screenshot of DGrok's Parse Source Tree screen" /></p>
+
+<p>The Parse Source Tree tab lets you point DGrok at a directory, and set it loose. It will automatically search through subdirectories for .pas files (I should probably make it look at .dpr and .dpk files as well), load them, and try parsing them. (Since it knows they're entire files, it doesn't need to ask you which rule to apply; it automatically uses Goal.) If a file parses successfully, it gets listed under the "Passing" node; otherwise, the files are listed by error message. As you can see, there are still a lot of errors, so I must not be done yet.</p>
+
+<p>Note that there isn't currently a GUI for telling it which $IFDEFs evaluate to "true" and which evaluate to "false". And if it doesn't know whether something is true or false, it bombs out with an error. This is on purpose &mdash; I wanted to make absolutely sure I didn't miss anything that should be defined &mdash; but it's probably inconvenient if you're trying to parse anything other than the Delphi RTL source that I've already tuned it for. I'll get a GUI for this in a future version.</p>
+
+<p>Happy parsing!</p>

@@ -1,0 +1,21 @@
+---
+title: "Databinding the videogame, part 1  #.NET  #databinding  #databinding the videogame  #game-programming  #mvvm  #wpf"
+sort: 2683
+---
+This weekend, I decided to take a while off from my JavaScript video game, and play around with WPF a bit.
+
+To keep things simple, I played around with re-creating what I could remember of a game I wrote long ago for text-mode BASIC, called "The Pit". Didn't get too far on that goal, but it kept me from being totally aimless. And in fairly short order, not only did I have a little stick-figure guy sliding smoothly across the screen in response to left and right cursor keys, I also had him plummeting to his doom whenever he walked off a cliff. Good times.
+
+
+
+But since I was just playing, I was hacking all the game logic into the GUI. Decent way to get a feel for things, but not sustainable. And I got tired of always having to convert my in-game coordinates (1.0 = one tile) to screen coordinates (40 "pixels" = one tile) and back, and of having to track the horizontal and vertical coordinates in totally different ways (due to the way my game's scrolling works), and of trying to keep my data model of "which tiles are obstacles" in sync with the GUI.
+
+So that's when I decided I would databind my video game.
+
+Only makes sense, doesn't it? Keep the player's coordinates in logical scale, maintain them in one place, and have the databinding automatically handle the multiplying by 40 and the different rules for horizontal vs vertical scrolling. Add tiles to the Map data-model object and have them automatically appear on the screen. Databind the visual effects, like automatically showing the air-friction fireball when the player starts falling too fast. And I could even write unit tests for all the game logic. (Theoretically, anyway. How do you unit-test <a href="http://msdn.microsoft.com/en-us/library/system.windows.media.animation.doubleanimation.aspx">DoubleAnimation</a>?)
+
+Prepare to be entertained; I know precious little about WPF. I don't have a copy of Expression Blend, and have to make do with the mind-bogglingly awful WPF designer in Visual Studio. I can write XAML for databinding, but only barely. I have no idea how much overhead there is in WPF databinding (though honestly, it can't possibly be slower than trying to run JavaScript in IE). I have no idea when to use StaticResource vs an inline DataTemplate inside &lt;ItemsControl.ItemTemplate&gt;. I get the general gist of the <a href="http://msdn.microsoft.com/en-us/magazine/dd419663.aspx">Model-View-ViewModel</a> pattern, but no real clue of how to design an effective view model in practice.
+
+But I can use WPF animation to move a stick figure across the screen. I should be good to go.
+
+I've got some stuff working. Learned some things by doing them the wrong way around, getting stuck, and eventually simplifying. And now I'm going to start blogging about some of it. Stay tuned.

@@ -1,0 +1,73 @@
+---
+title: "New DUnitLite feature: Test insulation with TInsulatedTest and TSpecification  #Delphi  #dunitlite"
+sort: 2453
+---
+<p><a href="http://code.google.com/p/dunitlite/">DUnitLite</a> 0.3 (<a href="http://dunitlite.googlecode.com/files/DUnitLite-0.3.zip">download</a>) has a new feature: test insulation. Test-case instances live only as long as it takes to run them.</p>
+
+<p>Here's a quick illustration of the difference. Given this test case:</p>
+
+<blockquote><pre>type
+TestFrabjulizer = class(TTestCase)
+published
+procedure TestFoo;
+procedure TestBar;
+procedure TestBaz;
+end;</pre></blockquote>
+
+<p>With out-of-the-box DUnit, you'd see something like this:</p>
+
+<ul>
+<li>Three instances of TestFrabjulizer are created, one for each test.</li>
+<li>The DUnit GUI is displayed.</li>
+<li>You select some tests and press Play.</li>
+<li>The existing TestFrabjulizer instances are executed in turn.</li>
+<li>You close the program. The TestFrabjulizer instances are freed.</li>
+</ul>
+
+<p>But if instead of TTestCase, you descend from DUnitLite's new TInsulatedTest, the behavior looks like this instead:</p>
+
+<ul>
+<li>The DUnit GUI is displayed.</li>
+<li>You select some tests and press Play.</li>
+<li>An instance of TestFrabjulizer is created for TestFoo, executed, and freed.</li>
+<li>An instance of TestFrabjulizer is created for TestBar, executed, and freed.</li>
+<li>An instance of TestFrabjulizer is created for TestBaz, executed, and freed.</li>
+<li>You close the program.</li>
+</ul>
+
+<p>This scheme has several benefits over DUnit's default behavior:</p>
+
+<p><b>Interfaces work the way you expect.</b> You can put interface-reference fields on your test case, and they'll be automatically freed when the test is done &mdash; just like the way you're used to them getting freed when you're done using any other object.</p>
+
+<blockquote><pre>TestFrabjulizer = class(TTestCase)
+strict private
+FFrabjulizer: IFrabjulizer;
+...
+end;
+
+procedure TestFrabjulizer.SetUp;
+begin
+inherited SetUp;
+FFrabjulizer := TFrabjulizer.Create;
+// With TTestCase, you need to nil FFrabjulizer in TearDown.
+// With TInsulatedTest, you don't: it'll go away automatically.
+end;</pre></blockquote>
+
+<p><b>Inline records and arrays are practical.</b> Much like the previous item, but instead of <code>IFrabjulizer</code>, use <code>TMyBigRecord</code> or <code>array [0..3] of array [0..1023] of Double</code>. With TTestCase, this is a quick way to make your test app run out of memory, especially if you have thousands of tests like we do. With TInsulatedTest, it's a handy way to simplify your test: no mucking around with GetMem and FreeMem, and the memory is automatically initialized to all zero bytes.</p>
+
+<p><b>Tests can't interact with themselves.</b> If you run a test twice in a row, it gets clean instance variables each time, so there's no chance of problems due to dangling state that you forgot to zero out in SetUp. (Of course, global variables can still screw you up.)</p>
+
+<h3>TSpecification</h3>
+
+<p>There's a lot less to say here, but 0.3 also introduces a new TSpecification base class.</p>
+
+<blockquote><pre>uses Specifications;
+
+type
+FrabjulizerSpec = class(TSpecification)
+...
+end;</pre></blockquote>
+
+<p>TSpecification is really just TInsulatedTest, with very little added. Mostly this is to help stick with the "specification" mindset, rather than having a specification that descends from something with "test case" in its name.</p>
+
+<p>TSpecification also, through a type-aliasing trick, makes <code>Specify.That</code> and <code>Should...</code> available to all of its descendants, without those descendant units needing to explicitly use the Specifiers unit. It's kind of cute. (<code>Specify</code> and <code>Should</code> are, of course, still available outside of TSpecification.)</p>

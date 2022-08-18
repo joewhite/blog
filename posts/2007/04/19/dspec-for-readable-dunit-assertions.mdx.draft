@@ -1,0 +1,17 @@
+---
+title: "dSpec for readable DUnit assertions  #Delphi  #dunitlite"
+sort: 2431
+---
+<p><a href="http://sourceforge.net/projects/dspec">dSpec</a>, from Jody Dawkins of <a href="http://delphixtreme.com/">delphixtreme.com</a>, has the same goal as <a href="http://blog.excastle.com/2007/04/04/new-project-dunitassertions/">DUnitAssertions</a>: <a href="http://blog.excastle.com/2007/03/25/nunitlite-embedded-readable-tests/">readable tests</a>. Here are some examples from her post titled "<a href="http://delphixtreme.com/wordpress/?p=12">dSpec Update</a>":</p>
+
+<blockquote><pre>Specify.That(Foo).Should.Equal(3);
+Specify.That(Bar).Should.Be.OfType(TBlueWidget);
+Specify.That(Baz).Should.Be.GreaterThan(50).And.Be.LessThan(60);</pre></blockquote>
+
+<p>Thanks, Jody, for letting me know about dSpec. It looks pretty cool.</p>
+
+<p>dSpec and DUnitAssertions take somewhat different approaches. dSpec uses what I would think of as more of a <a href="http://wiki.ayende.com/Rhino%20Mocks%20Documentation.ashx">RhinoMocks-style syntax</a>, whereas DUnitAssertions is more <a href="http://blog.excastle.com/2007/03/25/nunitlite-embedded-readable-tests/">NUnitLite-like</a>. But dSpec has one huge advantage over DUnitAssertions: it's released. (I'm still waiting for paperwork from Legal. Plus I'm not done yet.)</p>
+
+<p>I'll probably keep working on DUnitAssertions, since I think there might be benefits to both approaches; perhaps someday we'll see something that combines the best of both. But I may well start <i>using</i> dSpec. If you're looking to write readable DUnit assertions today, dSpec is your ticket.</p>
+
+<p>Thanks, Jody!</p>

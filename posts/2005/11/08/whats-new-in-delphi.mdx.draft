@@ -1,0 +1,175 @@
+---
+title: "What's New in Delphi?  #Delphi  #borcon2005"
+sort: 2223
+---
+Someone didn't plan very well. There were people standing in the aisles, because there weren't enough chairs in the room. Heck, there wasn't enough <em>space</em> in the room. Several people I've talked to have wondered why they didn't have it in the same big room where we had the opening keynote, since the majority of conference attendees are going to be interested in the new version of Delphi.
+<p class="MsoNormal" style="margin: 0in 0in 0pt">&nbsp;</p>
+<p class="MsoNormal" style="margin: 0in 0in 0pt">But anyway. Here's <a href="http://blogs.borland.com/abauer">Allen Bauer</a>'s session, "What's New in Delphi?"</p>
+<p class="MsoNormal" style="margin: 0in 0in 0pt"><o:p> </o:p></p>
+<p class="MsoNormal" style="margin: 0in 0in 0pt">What's New in <st1:place>Delphi</st1:place>?</p>
+
+<ul style="margin-top: 0in" type="disc">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">C++Builder &amp; Delphi support for C++</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">VCL Designer &amp; HTML Designer</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Block completion</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Live templates</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Editor enhancements (gutter, change bars, line numbers, etc.)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">New debugging functionality</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Together design-only projects (no code behind them) â€“ you can just create diagrams to visualize stuff</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">New refactorings</li>
+</ul>
+<p class="MsoNormal" style="margin: 0in 0in 0pt">RTL</p>
+
+<ul style="margin-top: 0in" type="disc">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Memory manager (both Delphi and C++, thread-aware, minimizes contention, helps with fragmentation, significant performance boost â€“ replacing memory manager in IDE reduced startup time, at the time, from 20 seconds to 12 seconds)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">RTL functions from FastCode project</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Inlined RTL functions, like Length(string) -- "incredible" increase in performance</li>
+</ul>
+<p class="MsoNormal" style="margin: 0in 0in 0pt">VCL</p>
+
+<ul style="margin-top: 0in" type="disc">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">New components (TGridPanel, TFlowPanel)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Margins &amp; Padding</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Align with margins</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Intellimouse / Mouse wheel (click-and-scroll for pretty much anything with a scrollbar, just by including one unit)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Tray Icon component (in the VCL, not just a sample â€“ and they fixed it)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Gradient support in TToolBar and TControlBar</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Mouse Enter/Exit events (that are reliable ;-)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">New PopupMode property on TApplication, to deal with TForm.PopupMode issues from Delphi 2005. Default is Delphi-7-and-before behavior, so you have to be explicit when you want to fix stacking stuff.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Fixes and more fixesâ€¦ (QC)</li>
+</ul>
+<p class="MsoNormal" style="margin: 0in 0in 0pt">IDE â€“ <st1:place>Delphi</st1:place> support for C++Builder</p>
+
+<ul style="margin-top: 0in" type="disc">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">C++ devs used to have to do various magical incantations to generate all the support files (HPP, LIB, BPI) they need from a component package. Now one compiler option (-jl) that generates all that stuff.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Component palette now filters components: C++ Only, <st1:place>Delphi</st1:place> Only, Delphi &amp; C++. No, C++ components won't work in <st1:place>Delphi</st1:place> (right now), so it won't actually let you drop them on a design surface (since your app wouldn't compile). Also, <st1:place>Delphi</st1:place> components that aren't built with C++ support files won't be available when you're designing a C++ app.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">VCL designer guidelines!
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">New Padding and Margins properties control the distances</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Top, bottom, &amp; baseline alignment</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Extensible â€“ component devs can define their own guidelines (e.g., if you have multiple text baselines, or other alignment points)</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">HTML designer
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Markup preservation: leave my HTML alone! (now does a "pretty good job" of that)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Error Insight inside the tag editor</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Block Completion and LiveTemplates
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">type "TMyClass = class" and hit Enter. It adds the "end;" for you. (Also for record. Presumably for interface as well?)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">type "var" inside a method body, hit some magic keystroke (Tab?); a variable declaration appears right there on that line. Fill in the name and type, do something else magic, and that declaration jumps up into the "var" section of the current method.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">"Surrounds" template: wrap selection in a region. Template is itself a LiveTemplate, so you can tab to the different fields.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Templates pane in IDE â€“ select code, double-click "(*" in the list.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Space for autocompletion, Tab for manually handled; some have to be manually invoked (like Surrounds).</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Templates are also part of Code Completion. Hit Ctrl+Space, and you'll see "(*" in the list.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">File &gt; New &gt; Other &gt; Code Template. Give it a name and description, author, specify the language ("<st1:place>Delphi</st1:place>"), put the code in the CDATA, save it to the right magic location, and it should just work. Define jump points (how?). Open existing templates and see how they work.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Templates know where you are in your code â€“ context-aware.</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Editor enhancements
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Uncluttered look</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Gutter is smaller than before; icons try to stay out of each other's way, but will overlap a bit when they have to</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Change bars. Yellow = changed since last save; green = saved, but changed since last open.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Line number shows on every tenth line, as well as current line. (Configurable)</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Intellimouse clicking works in IDE editor (as well as in apps you write, if you want it)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Debugging features
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Treeview-type drilldown/expansion inside tooltip expression hints</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Treeview drilldown in Locals view, Watch view</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Enable and disable watches</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">In-place editing in Watches window</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Remote Debugging will be back</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">When a file is opened because you stepped into it during debugging, that file's tab shows a different icon so you can see it was implicitly opened. Then when you stop debugging, they go away! (Won't close the currently active file.)</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">CodeGuard (C++ only) completely rewritten and revamped</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Demand-loading of things like Together support (so, faster startup time)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">New refactorings: <st1:place>Delphi</st1:place>
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Change parameters (add, remove, change type; will try to modify callers, or flag them as needing manual attention). Add: specify default value.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Push Up / Down Method</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Extract Superclass for a group of classes</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Introduce Field / Variable</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Safe Delete (makes sure nobody is using it)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Extract Interface</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">C#Builder refactorings gets all the same refactorings</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">C++Builder just gets Rename refactoring in this release; more to come later</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">RTL â€“ what's new?
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">High-performance, thread-safe/aware Memory Manager</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Win32 only</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Based on FastMM4 by Pierre le Riche</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Intelligent thread locking. Old memory manager was designed for interactive UI on a single processor, and got contention on multithreaded server apps. New guy is better.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Fragmentation resistant</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Replaces old Borland memory manager</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Just recompile to get new memory manager</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Can use external memory manager to get diagnostics, etc.
+<ul style="margin-top: 0in" type="square">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">May be able to detect when you access memory that's already been freed??</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">New RTL functions from FastCode project
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Move, Pos, PosEx</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">CompareMem</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">StrCopy, StrComp, UpperCase, LowerCase</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Power, ArcCos, ArcSin</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Length() is now inlined
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Eliminates the call overhead for checking string lengths</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Does this apply to Length(dynamic array) too?</li>
+</ul>
+</li>
+</ul>
+<p class="MsoNormal" style="margin: 0in 0in 0pt">VCL â€“ new properties</p>
+
+<ul style="margin-top: 0in" type="disc">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Margins
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Defines a "no fly" zone *outside* the control</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Used for designer guidelines</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Defaults to 3 pixels</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">AlignWithMargins
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">As the name implies â€“ uses Margins for alignment (alTop, etc.)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Margins never violate other margin space</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Padding
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Defines a "no fly" zone *inside* container (the inside of the padded cell)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Only on containers (TForm, TFrame, TPanel, etc.)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Defaults to 0 pixels, so there's no need for an AlignWithPadding</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Guides see that it's 0 and fake it up to 5 when you're dragging in design mode.</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Guidelines do go outside the parent â€“ can drag-align buttons on two different panels.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">You can install a design-time package and redefine how you want guidelines to work. So if you want to use the larger of two margins, instead of adding them, then you can write a package to do it.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">GridPanel
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Select it, double-click a control in the Palette, it puts it into the top-left cell. Double-click in the Palette again, the control goes into the next cell in the grid panel.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Flickers a lot at design time because it's got to draw the grid lines. Better at runtime.</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Can copy/paste between VCL and VCL.NET design surfaces.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">FlowPanel
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Works well in combination with child controls' AlignWithMargins</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Can change flow direction</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">No hard returns</li>
+</ul>
+</li>
+</ul>

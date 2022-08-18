@@ -1,0 +1,46 @@
+---
+title: "ReSharper, day 10: Go To Type  #.NET  #resharper"
+sort: 2306
+---
+<p>Welcome to day 10 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>Today's topic is <b>Ctrl+N</b>: Go to Type.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/CtrlN.png" width="436" height="100" alt="ReSharper's Go To Type pop-up" border="1"></blockquote>
+
+<p>You press Ctrl+N, and a little window pops up. You type in part or all of a type name, and it shows you a list of matches. Then you select one and press Enter, and it opens that file.</p>
+
+<p>The only time you still need Solution Explorer is when you're adding new files. Other than that, Ctrl+N is about all you need.</p>
+
+<p>And it has shortcut features:</p>
+
+<ul>
+<li><p><b>Search by title caps.</b> If you type capital letters, it will try to match as if you were typing an acronym. So if you type <code>MDT</code>, it will match MyDataTable and MenuDropTag. (You can mix and match this with ordinary searching, so you could search for <code>MDatT</code> and find MyDataTable.)</p></li>
+<li><p><b>Wildcards.</b> You can type <code>*</code> to match zero or more characters, or <code>+</code> to match one or more characters. (This is a fileglob-style wildcard; it means "zero or more of any character".)</p></li>
+</ul>
+
+<p>Ctrl+N is in fairly direct competition with <a href="http://blog.excastle.com/2006/06/08/pimp-your-ide-visual-studio-hacks/">VSFileFinder</a>; they both do pretty much the same "let me see a list of files matching a particular pattern so I can open one of them" thing. So I figured it'd be interesting to compare the two. Here's how they stack up:</p>
+
+<ul>
+<li><p>Stuff where ReSharper is definitely better:</p></li>
+<ul>
+<li><p>VSFileFinder doesn't support the title-caps thing that ReSharper has.</p></li>
+<li><p>Ctrl+N already has a keybinding, whereas I've never been able to bind a keystroke to VSFileFinder that survived exiting and restarting Visual Studio.</p></li>
+<li><p>Ctrl+N goes away as soon as you're done with it, whereas VSFileFinder is a dockable window that keeps taking up space even after you're done searching.</p></li>
+</ul>
+<li><p>Stuff where VSFileFinder is a little better:</p></li>
+<ul>
+<li><p>Neither tool requires you to know the entire name of the thing you're searching for; they both let you specify parts of the name. However, VSFileFinder lets you specify those parts in any order; <code>data table</code> would match both DataTable and TableOfData. ReSharper is more limited; you have to specify the parts in the same order they appear in the type name (and you have to remember to type <code>*</code> between each one, instead of being able to just type a space in VSFileFinder).</p></li>
+<li><p>Searching by substring is much easier with VSFileFinder. If you want to find all types that contain "Foo" anywhere in their name, you have to type <code>*Foo</code> in ReSharper, whereas with VSFileFinder you only have to type <code>Foo</code>.</p></li>
+</ul>
+<li><p>Stuff where VSFileFinder is definitely better:</p></li>
+<ul>
+<li><p>VSFileFinder makes it easy to open multiple files at once (precisely <i>because</i> the window is always visible and taking up space). This is a real win for tests &mdash; you can type <code>Foo</code>, see both "Foo" and "FooTests" in the list, and click on both of them to open both files. ReSharper doesn't have this option.</p></li>
+</ul>
+</ul>
+
+
+
+<p>That last item, in particular, illustrates that ReSharper and VSFileFinder are aimed at subtly different goals, and both tools have their place. (We have both of them installed on all of our development PCs.) But of the two, I usually end up using ReSharper's Ctrl+N. That bit about having a keystroke bound is pretty persuasive.</p>
+
+<p>If for some reason you don't keep one class per file, you might also be interested in <b>Ctrl+Shift+N</b>, which searches on filenames (instead of type names like Ctrl+N does).</p>

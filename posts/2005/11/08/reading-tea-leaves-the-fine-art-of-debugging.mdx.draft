@@ -1,0 +1,308 @@
+---
+title: "Reading Tea Leaves: The Fine Art of Debugging  #.NET  #Delphi  #borcon2005"
+sort: 2219
+---
+Here's my notes from <a href="http://blogs.borland.com/dcc/">Danny</a>'s session yesterday. Again, this is a big brain dump, and even if most of it looks boring and commonsense, keep reading â€“ there's some good stuff buried in here. Somewhere. So here goes:
+<p class="MsoNormal" style="margin: 0in 0in 0pt"><o:p> </o:p></p>
+<p class="MsoNormal" style="margin: 0in 0in 0pt">It was let slip that they would repeat what they did last year â€“ we will get a demo build of Delphi 2006 at the con. I was hoping so, but it's good to have it confirmed. Yay!</p>
+<p class="MsoNormal" style="margin: 0in 0in 0pt"><o:p> </o:p></p>
+<p class="MsoNormal" style="margin: 0in 0in 0pt">Before You Begin</p>
+
+<ul style="margin-top: 0in" type="disc">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">The point where it fails is often a while after the point where it goes wrong.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Find a reproducible test case. If you can't repro it, you'll just be grabbing at straws. And often it's operator errorâ€¦
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Access Violations are good, because they're really easy to identify. Something like "This one report prints upside-down, and we have no idea why" is a lot harder to track down.</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Understand what the code is supposed to be doing. If the user says "It should be blue", find out whether they're right. Get a baseline description of the expected/desired behavior.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Discover what the code is actually doing.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Identify assumptions violated by reality.
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Need to be able to separate yourself (observer) from what you thought you wrote â€“ look at what it's actually doing. Be objective.</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Fix the problem without breaking what works.
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Experienced programmers tend to have a fear of changing working code.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">How many other places is this routine called? Don't break the 90% case.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">If you're a library vendor, be careful of adding a virtual method to a base class â€“ will break binary compatibility.</li>
+</ul>
+</li>
+</ul>
+<p class="MsoNormal" style="margin: 0in 0in 0pt">Process: Iterative Convergence</p>
+
+<ul style="margin-top: 0in" type="disc">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Find the bug's "critical point"
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">It's rare that you'll be able to go straight to the line of code (unless it's an AV or other exception)</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Study the execution path to the critical point</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Breakpoint bracketing</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Start at a high level and work down (and move back up if it doesn't hit any of your breakpoints)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Watch out for bug movement
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">You move your breakpoints down a level, and suddenly it's breaking outside where it used to look like it was.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Probably means it's not as consistently reproducible as you thought.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Or that you're debugging a paint message with only one monitor.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Or that you have more than one bug. When you're in a buggy area, there tends to be more than one bug, because it's probably code that hasn't been exercised very well before. (Fix one, another pops up, etc.)</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Watch out for Heisenberg effects
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">When the act of debugging changes the behavior.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Very rare in modern debuggers, but still sometimes true</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Win32 code can check whether it's being debugged â€“ some code might choose to run differently based on that flag</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">The way Windows allocates memory is slightly different under the debugger â€“ can occasionally make things work under the debugger when they fail outside it</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">How to deal with it?
+<ul style="margin-top: 0in" type="square">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Console output</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">OutputDebugString</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Writing to a log file</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Watch out â€“ any of these could actually change the behavior, too (especially if multithreaded, or lots of disk I/O, etc.)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="MsoNormal" style="margin: 0in 0in 0pt">Bug Types</p>
+
+<ul style="margin-top: 0in" type="disc">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Crashes and Exceptions
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">If this happens in a method that the debugger doesn't have debug info for, it'll stop at the next place up the call stack that it does have debug info for.</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Resource management (memory leaks, handle leaks)
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Things like not being able to do the same thing twice in a row, with an error like "cannot open file"</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Do try..finally</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Recursion and re-entrancy
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Watch out for API calls that do their own message pumping</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Especially if your message handlers deal with global state</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Memory overwrites â€“ always fun
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Especially if the memory has already been freed. It's not a failure that it got overwritten â€“ it's a failure that somebody's still pointing to it!</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Thread collisions accessing shared resources
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Test multithreaded code on single and dual processor â€“ deadlock, etc. may not fail on a single-processor machine, and then may consistently fail within 10 seconds on a multi-processor machine</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Single-proc machine might switch threads every 10 ms, so you're really unlikely to get interrupted within this particular set of three critical instructions (or whatever). Not true on a multi-processor or multi-core machine.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Hyperthreaded machine is probably good enough for testing most of these, but you may need multiple actual processors to check for things like bus contention</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Very little difference between a 2-processor machine and a 16-processor one. Huge difference between 1- and 2-processor.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Hyperthreading is the Way of the Future. Intel and AMD are both saying they've maxed out on CPU speed â€“ only way up is to add cores.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Few apps are multithreaded today, because it's hard to do. Danny wants Borland to make this easier for coders. (applause)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Rats, I forgot to ask him whether the <st1:place>Delphi</st1:place> compiler is going multithreaded.</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Timing problems
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Arrival of events</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">When the app just disappears:
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Might be a stack overflow, plus there's nowhere else for the system to go.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">But often, you've got a window handle whose WndProc is in a DLL, and the DLL has been unloaded, and the page is no longer in memory. Next time you call it, you get an exception, and there's no exception handler in the stack for that window-proc call. Windows message dispatching is not exception-safe. Bye-bye.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">May be COM â€“ it doesn't unload DLLs immediately. There's an API to force it to unload them all (OleClear? OleFlush?). Not necessarily ActiveX, but often.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt"><st1:place>Delphi</st1:place> IDE: Load ActiveX control that likes to create window handles outside the IDE frame and doesn't free them properly. Will blow up when something broadcasts a message to those dangling handles after the ActiveX DLL is unloaded (minimizing IDE, changing system settings, etc.)</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Special interactions
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Painting
+<ul style="margin-top: 0in" type="square">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Solution: ask your boss for dual monitors</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Could try remote debugging, but that brings up timing issues</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Focus changes
+<ul style="margin-top: 0in" type="square">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Hard to avoid when debugging â€“ focus does go to the debugger! Time for WriteLn and OutputDebugString again.</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Mouse drag
+<ul style="margin-top: 0in" type="square">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Putting a breakpoint in the middle of mouse-drag code isâ€¦ problematic.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Here, a remote debugger could help. But you'd need two people (or be extremely dexterous, to handle both mice).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">If a bug occurs when you compile with optimizations, and not if you compile without optimizations, you may be looking at an uninitialized variable.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Calling virtual method on garbage pointer</li>
+</ul>
+<p class="MsoNormal" style="margin: 0in 0in 0pt">Programmer, Know Thy Tools</p>
+
+<ul style="margin-top: 0in" type="disc">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Breakpoints
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Breakpoint Properties: It can actually be useful to look at the path in the "Filename", especially if the IDE isn't showing blue dots in a file you know you've compiled. You might be editing the file from the wrong directory.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Scenario: Problem is related to volume of traffic. Run a report, and somewhere over halfway through, it fails.
+Tactic: <st1:place><st1:placename>Use</st1:placename> <st1:placetype>Pass</st1:placetype></st1:place> Count, and overguess. The Pass Count decrements each time it goes through, so when it does blow up, look at the pass count at that point, and figure out exactly what to set the pass count to next time. (Cool!)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Breakpoint groups â€“ useful if you have several breakpoints that you turn on as a group, or off as a group (typically in code that's used a lot). Ignore them during application startup, then turn them on later.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Set a breakpoint that doesn't break, but does other special stuff like turning breakpoint groups on/off, log stuff, log the call stack, etc.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Q: Can you only break within a particular thread? A: Sort of â€“ use the Threads view to find the thread ID, then set a condition to check GetThreadID. Check with Chris Hesik, there may be something nicer going using named threads.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Data Breakpoints (note: it will break on the line after the assignment)</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Watches</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Local variable auto-watch</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Flyover evaluator tooltips
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Quickly evaluate a bunch of different things</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">"Sort of like reading a cactus by Braille"</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Evaluator
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Fails if you enter expressions at debug time that aren't in the executable â€“ if something got smart linked out, you can't evaluate it</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Threads view
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">In workstation .NET, GC happens in-process. In server .NET, GC happens in its own thread.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">When you break, the thread you broke on says "Stopped", and the others say "Suspended". When you single-step the one you're on, some of the others may also get to run briefly â€“ watch out for this!</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Modules view
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Select a module, then it'll show the addresses of all the entry points</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">If the debugger knows it's <st1:place>Delphi</st1:place> code, and has DCUs with debug info, it'll also show the units and methods in that module</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Event log
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Shows module relocations (Borland automatically runs rebase as part of their build process â€“ maybe we should look into this?)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Way back in the day, when things were shipping on floppy, the BDE was shipped without fixups (~20% size difference), because "We know where the Windows DLLs are loaded, so it'll be okay." Which was true, until the next major release of Windows. And it *still* ships without fixups today. Ewww.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">TDUMP will dump (among other things) the relocation table, so you can see how many fixups a DLL actually has â€“ help you figure out the cost of not rebasing</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Call Stack</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Inspectors</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">CPU Disassembly and FPU Views
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Top of CPU view shows something like "[$00409300]=$0040A214 Thread #1668". This shows up if the current instruction accesses a memory address.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Mixed source: source lines are shown in CPU view. These may not be in the original order, and a single line might be repeated (won't happen often with <st1:place>Delphi</st1:place> compiler, but will happen in C++).</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">First column is address of instruction in memory. To convert that to address in file, subtract base address ($00400000), then look in the binary and find the offset of the TEXT section and subtract that.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Then shows the hex representation of the instruction.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Function names that start with @ are compiler magic. WriteLn is very, very magic.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Lower-right pane is the stack.
+<ul style="margin-top: 0in" type="square">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Right-click &gt; Follow &gt; Near Code (neat!)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">If you see something starting with "0040â€¦", that's probably code (or a VMT, which also gets crammed into the code segment).</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">"7Câ€¦" is probably in a Windows DLL.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">"0012â€¦" is probably a stack address.</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Ctrl+Left and Ctrl+Right tells the CPU View to slide the disassembly start address one byte left or right.</li>
+</ul>
+</li>
+</ul>
+<p class="MsoNormal" style="margin: 0in 0in 0pt">Code Surfing</p>
+
+<ul style="margin-top: 0in" type="disc">
+
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Logical view, programmer's perspective (not CPU's perspective)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Demo high-level tools</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Prologue code generated at start of method</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">EBP is part of the stack-frame stuff. If you have local variables, or a try..finally, you'll have a stack frame, which generates EBP stuff. If the method is small enough, you might not have EBP, which can make debugging tough.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Try..finally is actually codegenned as a little inner method, with RET at the end and everything.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">"FS:" register is a magic segment register, which is thread-local. Each thread has its own FS.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">FS:[0] stores the address of a global linked list of pointers to exception frames.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">If you have a local variable of type string, a try..finally will be magically added behind the scenes</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">@LStrClr finalizes an AnsiString variable</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">For CALL, JMP, etc., the CPU view will look for method addresses it knows about, so it'll show "CALL TObject.Create" instead of just some cryptic address.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Parameter-passing conventions (see Help). Usually not all parameters go on the stack (EAX, EDX, and ECX usually hold the first three parameters), and the return value comes back in EAX. Some registers (like EAX) are considered volatile and can be trashed by any method you call. Others (like EDI) should be preserved.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">In a method, EAX passes in the Self pointer.</li>
+</ul>
+<p class="MsoNormal" style="margin: 0in 0in 0pt">Data Surfing</p>
+
+<ul style="margin-top: 0in" type="disc">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">After some code that instantiates a TFoo, and stores the reference in, say, EBX, right-click in the bottom pane of the CPU view, select "Goto Address", and type "EBX". Then view as DWORDs. The first DWORD is the VMT pointer.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Since the EXE is loaded at the same address every time, you have a high degree of address stability between program runs.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">[EBX] is the VMT (all classes have a VMT pointer at offset 0; this isn't old-style objects). [EBX+4] has the first instance variable. Compiler doesn't currently reorder fields to pack sub-DWORD-sized fields together, but the compiler semantics allow for that to be added later.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">[VMT+0] points to the code for the first virtual method; [VMT+4] is the second; etc. Magic stuff at negative VMT offsets.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Class name usually comes at the end of the VMT.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">To tell whether this is a valid object instance:
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Follow the VMT pointer.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Should be able to find the class name at the end of the VMT.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Everything in the VMT should point to valid code.</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">VMT may not be in your code segment, especially in the IDE. E.g., "TForm1", when you're editing it, points to a fake VMT that's synthesized by the IDE. Runtime-generated proxy. Fancy stuff.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Right-click on the current statement when it's a CALL, and select "Follow" to see the code there. So you can tell before you do a virtual call into nowhere. Lots of "???"s are a bad sign.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">"Goto Current EIP" moves the focus back to current instruction. "New EIP" moves EIP to the instruction you right-clicked on. Both really confusing names.</li>
+</ul>
+<p class="MsoNormal" style="margin: 0in 0in 0pt">Memory blocks</p>
+
+<ul style="margin-top: 0in" type="disc">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">This assumes <st1:place>Delphi</st1:place> 2005 and earlier (will change in Delphi 2006 with FastMM)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Memory block is preceded, and followed, by block size</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">If the block size preceding the block is odd (low bit set), that block has already been freed.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">When the block is freed, the first four bytes are overwritten to point to the next free block. (Meaning, if that block was an object instance, you just trashed the VMT pointer! I knew it usually crashed if you called a virtual method on a freed object, but I didn't realize it was guaranteed.)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">So, if you crash at a call to a virtual method, go back and look at the DWORD preceding the instance pointer. If it's odd, you know the object has already been freed.</li>
+</ul>
+<p class="MsoNormal" style="margin: 0in 0in 0pt">CPU Space</p>
+
+<ul style="margin-top: 0in" type="disc">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Looking at the app from the perspective of the machine</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Try to debug somebody else's code that you don't have source for. Reverse engineering.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">"Say what? Do that again." tricks.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Rerouting around AVs</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Strings: string pointer points to the beginning of the string content. Go back 4 bytes = length. Go back another 4 bytes = refcount. If refcount is -1, the RTL knows that string is a constant, and skips refcounting.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">String concatenations: @LStrCatN does it all in one swoop (i.e., adds all the lengths, then does one allocation). So A := B + C + D + E is better than A := B + C; A := A + D; A := A + E;</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">String literals are stored in the code segment in Win32, in a separate segment in Linux, and in a separate section in .NET.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Side note: typed constants in .NET (const X: string = 'Foo') are actually assignments that get run at startup. Regular constants (const X = 'Foo') aren't assignments and are inlined where they're used.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Can do a do-over with "New EIP", but be careful that all the interesting registers are still intact. In the sample Danny gave, he called a method that trashed EAX, which is where an instance method was being kept. So we couldn't go back and redo that same method call. :-(</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Be careful using "New EIP" with loops. Be careful that all necessary registers are set.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Slightly mind-bending thought: When you do "Evaluate/Modify", and change the value of, say, a local string variable, the debugger has to be smart enough to notice any registers that were pointing to that string, and update their values. Eek.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">How did it get here? = Where does it return to?
+<ul style="margin-top: 0in" type="circle">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Note: New feature that may be coming in DeXter = color-coding addresses in the stack pane of the CPU view: code addresses are one color, heap addresses another color, etc.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">If you follow the current stack location as code, you'd expect that to be the line you're going to return to.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">If the thing there isn't good code (e.g., if it's the beginning of a method, instead of the part of a method just after it called something else), look for something a ways up that is a stack address followed by a code address. This is probably a stack frame, and the code address should be good. (But if the code address is just a call to @HandleFinally, you'll probably want to keep going to the next frame.)</li>
+</ul>
+</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">If you're following a stack address and it looks like a string, look at the 8 bytes preceding the string data. If it's got a refcount and a length, it's a <st1:place>Delphi</st1:place> string (not a C string).</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">When you're looking at the stack, be careful of big uninitialized local variables (structures, buffers, etc.) â€“ they may be leftovers from an earlier call stack, and look like a real stack trace even though they're really bogus.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">If something is odd (low bit set), it's not a pointer.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Really dirty trick: Right-click in the data pane, "Goto address", and type "EIP". Now you can directly hack the code bytes, and e.g. change the immediate argument of a MOV (change a MOV EAX, 15 to a MOV EAX, 42 without recompiling). See, we've already got Edit and Continue, if you don't mind directly hacking machine codeâ€¦</li>
+</ul>
+<p class="MsoNormal" style="margin: 0in 0in 0pt">How toâ€¦</p>
+
+<ul style="margin-top: 0in" type="disc">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Recognize a freed memory block</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Recognize a bad instance pointer</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Crawl the stack when the debugger can't</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Figure out what interface you're inside (hmm, I don't think he actually covered this â€“ it was on the slide, but I think he was running out of time and didn't go into details)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Discover what other IIDs an interface implements: call QueryInterface, step into it, look for code that does 8-byte compares, and see what's there
+(shouldn't that be 16-byte compares? A GUID is 128 bits, right?)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Get a name for a GUID
+(Hmm, looks like we didn't actually go over this one either)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Find the name of the class you're inside</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Determine how many methods an interface has (look for a bunch of code pointers in the VMT; you can at least make an educated guess)</li>
+</ul>
+<p class="MsoNormal" style="margin: 0in 0in 0pt">And Sometimes the Bear Gets You</p>
+
+<ul style="margin-top: 0in" type="disc">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Modifying CPU registersâ€¦ pay attention! If you change something like EIP, there's no Undo.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Goto Address is relative to focused pane. Right-clicking on the pane does not focus it.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Unfortunate module names (winspool.exe) â€“ another thing that was on the slide but he didn't have a chance to explain, and that I didn't write down to ask him about after the session</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Calling destructive functions in the evaluator (calling Destroy in the evaluator?)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Debugging the wrong source file</li>
+</ul>
+<p class="MsoNormal" style="margin: 0in 0in 0pt">Other miscellanea</p>
+
+<ul style="margin-top: 0in" type="disc">
+<li class="MsoNormal" style="margin: 0in 0in 0pt">When the debugger breaks on an exception, it's too late to do a postmortem â€“ you can't Evaluate local variables, you've lost the Self pointer, etc. Someone asked who we would talk to about why that is and whether it can be changed. Answer: Talk to Chris Hesik. He should be at the Meet the Team. (Almost seems like I remember that this was improved in Delphi 2005 last year, but I don't have it on this machine to test.)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Since we covered objects' memory layout, I asked what it is that an interface reference actually points to. Answer: COM requires that it point to a pointer to a VMT; beyond that, COM doesn't care what's at the end of that pointer. So <st1:place>Delphi</st1:place> allocates a slot within your object's data, and puts a VMT pointer that points to stubs. Those stubs know which class and which interface they go with; they subtract the offset where that interface VMT pointer is stored within the instance, then call the actual method on the class. If the method on the class is virtual, then the stub is static, but contains a virtual method call. Everybody got that? (I understand what's going on, but I have no idea whether my explanation is making any sense at all!)<font size="2"><o:p></o:p></font></li>
+</ul>

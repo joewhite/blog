@@ -1,0 +1,7 @@
+---
+title: "Control.Invoke, BeginInvoke, and InvokeRequired  #.NET"
+sort: 2390
+---
+<p>I just ran across an article by <a href="http://weblogs.asp.net/justin_rogers">Justin Rogers</a> explaining <a href="http://weblogs.asp.net/justin_rogers/articles/126345.aspx">Control.Invoke, BeginInvoke/EndInvoke, and InvokeRequired in depth</a>.</p>
+
+<p>This is <i>not</i> light reading. But there are some interesting consequences to the way these things are implemented, that I wouldn't have expected. (E.g., Invoke doesn't just invoke a single delegate, even if you call it from the UI thread: it actually adds your delegate to the queue, and then processes the entire queue.)</p>

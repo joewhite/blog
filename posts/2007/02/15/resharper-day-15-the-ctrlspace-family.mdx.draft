@@ -1,0 +1,46 @@
+---
+title: "ReSharper, day 15: The Ctrl+Space family  #.NET  #resharper"
+sort: 2396
+---
+<p>Welcome to day 15 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>Yesterday, I talked about <a href="http://blog.excastle.com/2007/02/14/resharper-day-14-suggested-variable-names/">ReSharper's version of Ctrl+Space</a>. Today, I'll cover the other two family members that ReSharper adds: Ctrl+Shift+Space and Ctrl+Alt+Space.</p>
+
+<p>(Remember that <a href="http://blog.excastle.com/2007/02/09/resharper-day-9-parameter-info/">Parameter Info, which <i>used</i> to be Ctrl+Shift+Space, is now Ctrl+P</a>.)</p>
+
+<h4>Ctrl+Shift+Space: Filtered by expected type</h4>
+
+<p>Visual Studio's regular Ctrl+Space (and ReSharper's too) show every type from all the currently-imported namespaces. ReSharper also gives you a context-sensitive option, which only shows things of the right type &mdash; whatever type is expected at the current cursor position. You invoke the context-sensitive version with <b>Ctrl+Shift+Space</b>.</p>
+
+<p>For example, if I type</p>
+
+<blockquote><pre>Stream stream = new FileStream(fileName, FileMode.Open);
+StreamReader reader = new StreamReader(</pre></blockquote>
+
+<p>and then I hit Ctrl+Shift+Space, I'll get a fairly short completion list, because it's only showing things that could be a first parameter to the StreamReader constructor. <code>stream</code> will be one of the options in that list, and so will <code>Stream.Null</code>. And then, so are a bunch of static methods that return strings, since the StreamReader constructor has overloads that take strings.</p>
+
+<p>They haven't yet made this work for constructors. If I typed</p>
+
+<blockquote><pre>Stream stream = new</pre></blockquote>
+
+<p>and pressed Ctrl+Shift+Space, I would expect to see all the concrete descendant classes that I could use in this context. But I don't; it just gives me "No suggestions". Support tells me that the <code>new</code> scenario isn't supported yet, but is already in the plans for a future release.</p>
+
+<p>You know, though, this is one time I'd rather be working in Delphi. (Assuming, of course, that the Delphi IDE isn't locking up for half a minute at a time every time I move the mouse, while it tries to do [and re-do and re-do] its "background" compilation &mdash; probably a vain hope, but a guy can dream.) That's because Delphi's Ctrl+Space is cooler yet: it's context-sensitive, but it shows you not just expressions that are exactly the right type; it also shows you expressions you can use to get <i>to</i> the right type. E.g., if you're in a context that expects an Integer, Delphi would show TForm instances in the list, because they have properties of type Integer (Width, Height, Constraints.MinWidth, etc.) You quickly get used to this, and I have trouble adapting to ReSharper's much-more-restrictive context completion. Then again, maybe that's why Delphi is so godawful slow in trying to build that list.</p>
+
+<p><b>Update:</b> If I create a new, empty method and press Ctrl+Shift+Space inside it, the autocompletion box pops up, even though there doesn't seem to be a type to complete for. Ilya, one of the ReSharper developers, <a href="http://blog.excastle.com/2007/02/15/resharper-day-15-the-ctrlspace-family/#18155">explains</a>:
+
+<blockquote>Ctrl+Shift+Space in empty method, or at any other place where statement is expected, e.g. between two other statements - it expects "void" type, so it shows just methods which doesn't have return value.</blockquote>
+
+<p>Thanks, Ilya!</p>
+
+<h4>Ctrl+Alt+Space: types from all namespaces</h4>
+
+<p>Moving in a different direction, <b>Ctrl+Alt+Space</b> only shows type names &mdash; no properties, no methods, no constants; just types. But unlike Ctrl+Space, it looks in <i>all</i> namespaces, not just those you currently have <code>using</code>s for.</p>
+
+<p>(Their <a href="http://www.jetbrains.com/resharper/documentation/help20/AdvEditing/codeCompletionTypeName.html">documentation for Ctrl+Alt+Space</a> says that it completes names of types within the current solution, but that's not correct; it also completes types from any other referenced assemblies, so it works for things like FileStream and TestFixtureAttribute that come from Microsoft and/or third-party assemblies.)</p>
+
+<p>So far, this sounds only vaguely interesting. Well, here's the interesting part: when you select the type, ReSharper <b>automatically adds the appropriate <code>using</code> directive if you don't already have it</b>.</p>
+
+<p>(ReSharper has other features to add needed <code>using</code>s &mdash; in fact, I'm going to talk about one of them tomorrow &mdash; but I think I need to learn to use Ctrl+Alt+Space regularly: it promises to be faster and easier.)</p>
+
+<p>Ctrl+Alt+Space requires that you type the first few characters of the type name before hitting the keystroke. I contacted Support to ask if this was on purpose, and they said yes, it was; because they're building a list from all assemblies, they said it'd take too long if you hadn't typed something to filter the list. Fair enough (although it'd be nice if they noted the reason in their <a href="http://www.jetbrains.com/resharper/documentation/help20/AdvEditing/codeCompletionTypeName.html">documentation</a>).</p>

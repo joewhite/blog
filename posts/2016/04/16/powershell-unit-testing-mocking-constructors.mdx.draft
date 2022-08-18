@@ -1,0 +1,49 @@
+---
+title: "PowerShell unit testing: mocking constructors  #.NET  #Pester  #PowerShell"
+sort: 4051
+---
+<p>I started using PowerShell about a year ago (my new team uses it for both build and deployment scripts), and I keep meaning to start blogging about it.</p>
+
+<p>Today's tip: mocking constructors.</p>
+
+<p>In most languages, you can't write a unit test that intercepts constructor calls. If you have a method like this:</p>
+
+<pre><code>public void OpenBrowser() {
+    var driver = new FirefoxDriver();
+    // ...
+}
+</code></pre>
+
+<p>then your method is tightly coupled to the <code>FirefoxDriver</code> class, and (without refactoring) there's no way for your tests to call that method without creating a new instance of <code>FirefoxDriver</code>, and now everything is fraught with peril. This kind of tight coupling has been a problem since forever, and it's the reason why we have the Factory pattern.</p>
+
+<p>(Yes, you can use something like <a href="https://msdn.microsoft.com/en-us/library/hh549175.aspx">Microsoft Shims</a> or <a href="http://www.typemock.com/isolator">TypeMock Isolator</a> to intercept constructor calls, but those work by going outside the language and sinking their hooks deep into the .NET runtime. And you still have to return a <code>FirefoxDriver</code> instance; you can't substitute something else.)</p>
+
+<p>But in PowerShell, as I recently discovered, <em>you don't need the Factory pattern.</em> The way to create .NET objects is to call the <code>New-Object</code> function. And <a href="https://github.com/pester/Pester">Pester</a>, the PowerShell unit-testing framework, can mock any function. Including <code>New-Object</code>.</p>
+
+<p>Now, in C# code, I'm all about refactoring the code to use a factory (or a <code>Func&lt;T&gt;</code>, or dependency injection). But PowerShell is a different beast with different idioms, and I've found cases where mocking <code>New-Object</code> makes really good sense.</p>
+
+<p>Here's the basic template I work off of:</p>
+
+<pre><code>Mock New-Object {
+    [PSCustomObject] @{
+        Property1 = "value1"
+        Property2 = 42
+    }
+}
+</code></pre>
+
+<p>This tells Pester to replace the <code>New-Object</code> function with my own script block, which uses the <code>[PSCustomObject]</code> syntactic sugar to return a new object with two properties, <code>Property1</code> and <code>Property2</code>.</p>
+
+<p>The script block that you pass to <code>Mock</code> can also access the <code>$TypeName</code> and <code>$ArgumentList</code> parameters that were passed to <code>New-Object</code>, so you can do things like returning fakes for some classes but falling back to the original <code>New-Object</code> cmdlet for all other classes:</p>
+
+<pre><code>Mock New-Object {
+    $Type = Invoke-Expression "[$TypeName]"
+    if ([OpenQA.Selenium.Remote.RemoteWebDriver].IsAssignableFrom($Type)) {
+        [PSCustomObject] @{}
+    } else {
+        &amp; (Get-Command New-Object -CommandType Cmdlet) @Args
+    }
+}
+</code></pre>
+
+<p>But I'd been using this technique for a while before I had to get that fancy. Mostly in PowerShell you don't use <code>New-Object</code> a lot; arrays and hash tables and <code>[PSCustomObject]</code>s have their own dedicated syntax and don't need to go through <code>New-Object</code> (which is fine since they don't have any side effects you'd need to worry about mocking).</p>

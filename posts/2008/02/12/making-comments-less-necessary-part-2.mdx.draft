@@ -1,0 +1,13 @@
+---
+title: "Making comments less necessary, part 2  #.NET  #Delphi"
+sort: 2498
+---
+Back when I was a solo programmer and knew everything, I commented my code. I needed those comments to figure out what my own code was doing. They went stale as I made changes, but I kept writing them.
+
+Then I moved to Omaha and started working with a very sharp team. Six years later, I'm still learning. Among the things I've learned is that you can eliminate much of the need for comments by breaking down methods into smaller pieces, extracting classes, and naming things well.
+
+When I posted about <a href="http://blog.excastle.com/2008/02/10/making-comments-less-necessary/">making comments less necessary</a>, I figured there would be a lot of people who could benefit from that same knowledge, and tips on how to make it happen effectively. But when I read the comments, I found that most of you already know all about good naming.
+
+There goes the next post I was <em>going</em> to write.
+
+But that doesn't mean I've got nothing to say. Stay tuned, and we can argue some more. :-D

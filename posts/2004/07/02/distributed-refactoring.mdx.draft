@@ -1,0 +1,10 @@
+---
+title: "Distributed Refactoring  #.NET  #Delphi"
+sort: 1972
+---
+<p>Eric Gunnerson (Program Manager on Microsoft's C# team) has been blogging about his experiences at JavaOne. Since I'm not a Java programmer, I've just been skimming, but I noticed one bit that was extremely interesting:</p>
+<blockquote dir=ltr style="MARGIN-RIGHT: 0px">
+<p>One of the cool things that JBuilder does is distributed refactorings. This allows you to save a refactoring, ship it with a new version of your product, and then allow your client to apply that refactoring on their code to easily migrate to the new version.</p></blockquote>
+<p>One word: Wow.</p>
+<p>Five more words: When can C# have that?? It'd be a fabulous feature for Delphi, too, especially if it was available for both .NET and Win32.</p>
+<p>Just imagine if third-party control authors were free to refactor their public interfaces, and get rid of the cruft that invariably creeps in over time. Poorly-named properties, refactorings that move methods onto other classes... and being able to just do the refactoring, ship the new version of your control, and have everyone's code <em>automatically</em> be brought up to date. Wow...</p>

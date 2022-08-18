@@ -1,0 +1,17 @@
+---
+title: "Diff-idence  #.NET  #Delphi  #diff"
+sort: 2090
+---
+<p>Ah... long weekend. (Sigh... cold basement.)</p>
+<p>So there've been a couple of times at work lately when it would've been nice to have some code that would do diffs, on arbitrary lists of things. I've been writing tools to semi-automate some complicated refactorings, and it'd be nice to see what the tool changed before I tell it to save and check in. There's also an app my company sells that might benefit from some proper diff support (although it remains to be seen whether the customers actually want that).</p>
+<p>I've been curious about the diff algorithm for years, and on several occasions I've searched for Delphi code that will calculate diffs. No luck yet. So a year or two ago, I went hunting for a diff algorithm that I could translate into Delphi.
+
+
+
+I looked at GNU diff, but I wasn't too excited about reading C source code. But I had a hunch that somebody had probably written this for Perl, and I wasn't disappointed; a search of CPAN quickly turned up Algorithm::Diff.</p>
+<p>It's an interesting algorithm. A na&#239;ve approach to calculating diffs would take exponential time; but Algorithm::Diff is guaranteed to return the best possible set of diffs, and it runs in something like quadratic time, or possibly a little better. Its implementation is really pretty simple, once you get past the optimizations (including an if statement marked "optimization: most of the time this will be true" that never gets hit once by the test suite).</p>
+<p>Once I did get past the optimizations, it wasn't all that hard to understand <em>how</em> it works. Trying to figure out <em>why</em> it works took a little longer. In the end, the algorithm is pretty amazing &#8212; there are four or five seemingly-unrelated design decisions that all fit together, and the thing wouldn't work unless every one of those things was just so. Hard to imagine how somebody figured this all out to begin with, but the end result certainly is slick.</p>
+<p>Now I just need to sit down and code the algorithm. Sigh. (Although I'm thinking I can take a shortcut that the Perl code didn't take, and make the code both a little simpler in a couple of spots, and a little more memory-efficient.)</p>
+<p>Yes, I know there already <a href="http://www.codeproject.com/csharp/C__Diff_Algorithm.asp">two</a> <a href="http://www.codeproject.com/csharp/DiffEngine.asp">articles</a> on CodeProject about how to write a diff algorithm in C#. But it doesn't look like either one uses the same algorithm as the Perl code did, and I suspect Algorithm::Diff might end up being a better algorithm. (And, of course, the CodeProject articles don't have Delphi code... although I'll probably write a C# implementation too, mainly because Delphi is godawful expensive these days, so I don't have my own copy of it at home.)</p>
+<p>So here's the question for you guys. I know I'm supposed to be writing a <a href="http://blog.excastle.com/2004/10/24/grokking-delphi-source/">killer search tool</a>, but what would y'all think about me writing a few articles picking apart the diff algorithm? Presumably I'd write some code along the way, and end up with a working diff algorithm in C# and/or Delphi (ideally both).</p>
+<p>If I wrote about diff, would anybody read it? Let me know what you think.</p>

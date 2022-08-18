@@ -1,0 +1,154 @@
+---
+title: "NUnitLite: Embedded, readable tests  #.NET  #extreme programming"
+sort: 2415
+---
+<p>I'm about to write some unit tests for my Lua-based game engine, and decided it was time to take a look at <a href="http://www.codeplex.com/NUnitLite">NUnitLite</a>. Mainly because I want to play with its self-descriptive and, above all, <i>forwards</i> assertions:</p>
+
+<blockquote><pre>Assert.That(actual, Is.EqualTo(expected));
+
+// Output:
+1) TestFoo (Tyler.Tests.TestTest.TestFoo)
+Expected: 5
+But was:  4</pre></blockquote>
+
+<p>(I've ranted about <a href="http://blog.excastle.com/2006/09/02/assertions-the-right-way-around-in-ruby-anyway/">xUnit's backwards assertions</a> before, so I won't bore you with that again. Suffice to say, this is much, much cooler than NUnit.)</p>
+
+<p>So I downloaded it and tried it out, and found that there are some gotchas. Nothing show-stopping yet, but some things that it would've been really nice to know about before I started. So I'll share.</p>
+
+<p>
+<div><a href="#GettingNUnitLite">Getting NUnitLite</a></div>
+<div><a href="#ExitCode">Making NUnitLite return an exit code</a></div>
+<div><a href="#Overview">Quick overview of NUnitLite</a></div>
+<div><a href="#Project">Setting up an NUnitLite test project</a></div>
+<div>&nbsp; &nbsp; <a href="#ProjectNonAutomatable">Non-automatable</a></div>
+<div>&nbsp; &nbsp; <a href="#ProjectAutomatable">Automatable</a></div>
+<div><a href="#SampleFixture">A sample NUnitLite test fixture</a></div>
+<div><a href="#FailCompileOnTestFailure">Failing the compile when the tests fail</a></div>
+</p>
+
+<h4><a name="GettingNUnitLite">Getting NUnitLite</a></h4>
+
+<p>As of today, NUnitLite has not shipped any releases. So you'll have to download the latest code from the <a href="http://www.codeplex.com/NUnitLite/SourceControl/ListDownloadableCommits.aspx">NUnitLite source repository</a>. You can download any changeset, but you probably want the latest (the topmost row in the grid &mdash; changeset 11989 when I downloaded). Click the disk icon in the left column to download a ZIP.</p>
+
+<p>There's a solution file in NUnitLite\src, but don't bother opening it. It contains tests for NUnitLite itself, and those tests are <a href="http://www.nunit.org/">NUnit</a> tests &mdash; so they won't even compile unless NUnit is wherever they expect it to be.</p>
+
+<p>What you want is the NUnitLite\src\NUnitLite directory and project. Copy that into the solution directory where you want to start using NUnitLite, and add it to your solution. (NUnitLite is meant to be embedded, so you compile it in your solution just like all your other projects.)</p>
+
+<h4><a name="ExitCode">Making NUnitLite return an exit code</a></h4>
+
+<p>Out of the box, NUnitLite doesn't return a nonzero exit code when tests fail. This makes it completely worthless for any kind of automation. What good are unit tests if they don't fail the automated build?</p>
+
+<p>Fortunately, this is pretty easy to get around. You can do either of two things: modify the NUnitLite source code, or run the test-runner object yourself. I chose the latter, for now.</p>
+
+<p>See <a href="#ProjectAutomatable">below</a> for some code you can put in your program's <code>Main()</code> method to run NUnitLite properly, including return of a nonzero exit code when tests fail.</p>
+
+<h4><a name="Overview">Quick overview of NUnitLite</a></h4>
+
+<p>As with most test frameworks, you define "test fixture" classes and put test methods on them. Setup and teardown are supported.</p>
+
+<p>You can choose to make your test-fixture classes descend from the <code>NUnitLite.Framework.TestCase</code> class. This doesn't seem to gain you much, though, and TestCase doesn't have a default constructor, so you'd have to add an explicit constructor to your test fixture. Personally, I don't bother descending from TestCase.</p>
+
+<p><b>Test fixtures:</b> Your test fixture must have the <code>[TestFixture]</code> attribute, whether or not it descends from TestCase. There's no restriction on the class's visibility, although I always make them public out of habit.</p>
+
+<p><b>SetUp and TearDown:</b> If you're descending from TestCase, you can just override the SetUp and TearDown methods. Otherwise, make a method and tag it with the <code>[SetUp]</code> or <code>[TearDown]</code> attribute.</p>
+
+<p><b>Test methods:</b> Like DUnit, NUnitLite recognizes tests by name. Any public method whose name starts with <code>Test</code> (case-insensitive) is considered to be a test method. No more cluttering your code with all those stupid <code>[Test]</code> attributes! Yay! (Pity they didn't do the same thing for SetUp and TearDown, but, oh well.)</p>
+
+<p><b>Assertions:</b> In addition to the uber-cool <code>Assert.That()</code> assertions, NUnitLite also supports the old NUnit-style <code>Assert.AreEqual()</code> assertions.</p>
+
+<h4><a name="Project">Setting up an NUnitLite test project</a></h4>
+
+<p>Create a new console application. Replace its <code>Main()</code> method with either of the following blocks of code.</p>
+
+<p>Make sure that you've added the NUnitLite project to your solution. Then in your new console application, add a reference to NUnitLite (using the Projects tab of the Add Reference dialog). Also add a reference to the project containing the code you want to test.</p>
+
+<p>Then you need to write the <code>Main()</code> method that starts up your app and runs the tests. I'll present two different code blocks that both accomplish this; choose the one that suits your needs.</p>
+
+<p><b><a name="ProjectNonAutomatable">Non-automatable.</a></b> If you will always rely on visual inspection to see if the tests passed or failed (i.e., you're always running the tests manually, always looking at the output, and never automating anything), you can use this simple <code>Main()</code> routine:</p>
+
+<blockquote><pre>using NUnitLite.Runner;
+
+namespace <i>&lt;your namespace here&gt;</i>
+{
+public class Program
+{
+public static void Main(string[] args)
+{
+ConsoleUI.Main(args);
+}
+}
+}</pre></blockquote>
+
+<p><b><a name="ProjectAutomatable">Automatable.</a></b> If you actually care about making your tests automatable, you should use this <code>Main()</code> routine instead. It will return an exit code of 1 if any of the tests fail (or if any other type of exception occurs), so you can easily plug it into any style of automated or continuous build, and it will fail the build when the tests fail. (See <a href="#FailCompileOnTestFailure">below</a> for a way to make it fail the compile right in Visual Studio.)</p>
+
+<blockquote><pre>using System;
+using System.Reflection;
+using NUnitLite.Framework;
+using NUnitLite.Runner;
+
+namespace <i>&lt;your namespace here&gt;</i>
+{
+public class Program
+{
+public static int Main()
+{
+CommandLineOptions options = new CommandLineOptions();
+ConsoleUI runner = new ConsoleUI(options, Console.Out);
+try
+{
+TestResult result = runner.Run(Assembly.GetExecutingAssembly());
+if (result.IsFailure || result.IsError)
+return 1;
+else
+return 0;
+}
+catch (Exception ex)
+{
+Console.Error.WriteLine(ex.ToString());
+return 1;
+}
+}
+}
+}</pre></blockquote>
+
+<h4><a name="SampleFixture">A sample NUnitLite test fixture</a></h4>
+
+<blockquote><pre>using NUnitLite.Framework;
+
+namespace Tyler.Tests
+{
+[TestFixture]
+public class AdderTests
+{
+private Adder _adder;
+
+[SetUp]
+public void SetUp()
+{
+_adder = new Adder();
+}
+
+public void TestZeroes()
+{
+Assert.That(_adder.Add(0, 0), Is.EqualTo(0));
+}
+public void TestTwoPlusTwo()
+{
+Assert.That(_adder.Add(2, 2), Is.EqualTo(4));
+}
+}
+}</pre></blockquote>
+
+<h4><a name="FailCompileOnTestFailure">Failing the compile when the tests fail</a></h4>
+
+<p>If you want, you can set up your tests to run automatically every time you compile in Visual Studio, and to fail the compile if tests fail. Here's how:</p>
+
+<ul>
+<li><p>Make sure you used the "Automatable" <code>Main()</code> method (see <a href="#ProjectAutomatable">above</a>).</p></li>
+<li><p>In Solution Explorer, right-click on your project, and go to Properties.</p></li>
+<li><p>Go to the "Build Events" tab. In the "Post-build event command line" box, type the name of your test EXE. In my case, my project is called Tyler.Tests.csproj, so I just type <code>Tyler.Tests</code> for my post-build event.</p></li>
+</ul>
+
+<p>Save everything and build. Now, every time you build your test project, your test project will automatically run, and if it returns a nonzero exit code, Visual Studio will show "The command 'Tyler.Tests' exited with code 1" in the Error List window. Then you can press Ctrl+Alt+O to view the Output window, where you can see the test output, and see which tests failed and with what messages.</p>
+
+<p>Amusing side note: When I first tried hooking this in as a post-build event, I actually put it in as a <i>pre</i>-build event by mistake. And then I just couldn't figure out why the test kept failing even after I fixed the code...</p>

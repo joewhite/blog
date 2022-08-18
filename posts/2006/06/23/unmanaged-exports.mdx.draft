@@ -1,0 +1,6 @@
+---
+title: "Unmanaged exports  #.NET  #Delphi"
+sort: 2330
+---
+<p>I know that Delphi lets you write a .NET assembly with unmanaged exports (that you can then consume from Win32 code). But I can never remember how to get it right, and I always have to hunt for info online.</p>
+<p>It's about time I blogged some of the stuff I found. Here's an <a href="http://www.blong.com/Conferences/BorCon2004/Interop1/Win32AndDotNetInterop.htm">article about .NET-to-Win32 interoperability by Brian Long</a>; looks like it may have some good info.</p>

@@ -1,0 +1,47 @@
+---
+title: "DUnitAssertions: Universal value type  #Delphi  #dunitlite"
+sort: 2419
+---
+<p>DUnit has several overloads of the <code>CheckEquals</code> method, but we have our own testcase that descends from theirs and adds lots more overloads. Most of them are for enums. We have things like:</p>
+
+<blockquote><pre>type
+TMyTestCase = class(TTestCase)
+strict protected
+procedure CheckEquals(Expected, Actual: TFormBorderStyle; Msg: string = ''); overload;
+function EnumToStr(Value: TFormBorderStyle): string; overload;
+...
+procedure TMyTestCase.CheckEquals(Expected, Actual: TFormBorderStyle; Msg: string)
+begin
+CheckEquals(EnumToStr(Expected), EnumToStr(Actual), Msg);
+end;
+procedure TMyTestCase.EnumToStr(Value: TFormBorderStyle): string;
+begin
+Result := GetEnumName(Ord(Value), TypeInfo(TFormBorderStyle));
+end;</pre></blockquote>
+
+<p>Obviously, if you want other methods to support an enum too &mdash; <code>CheckNotEquals</code>, for example &mdash; you have to overload them too. This <i>really</i> makes me wish I were working in a language with a unified type system.</p>
+
+<p>When I started thinking about DUnitAssertions, enums were one of the first things I thought about, because you'd have to add overloaded methods in more than one place. Consider this assertion:</p>
+
+<blockquote><code>Expect.That(Form.BorderStyle, Tis.EqualTo(bsNone));</code></blockquote>
+
+<p>You'd have to add <code>TFormBorderStyle</code> overloads to <i>two</i> methods to make this work &mdash; <code>Expect.That</code> and <code>Tis.EqualTo</code> &mdash; instead of just having to overload <code>CheckEquals</code> like in DUnit. Yuck.</p>
+
+<p>After poking and prodding at this for a bit, I found what I think is a decent solution: I made a universal value type, which I'm calling <code>TValue</code>. It's a record type that supports <code>operator Implicit</code>, so you can supply an integer, an Int64, a floating-point value, a Boolean, a string, an object, an interface, or any enum type it knows about. Then all the assertions just take <code>TValue</code> parameters. So you can pass any type of value to those methods, without the methods themselves needing tons of overloads. The overloading is effectively moved from the methods onto <code>TValue</code>, and centralized there. It's actually kind of slick.</p>
+
+<p>"But," you may be thinking, "why a new type? What about <code>array of const</code>? What about <code>Variant</code>? Why make another universal value type, when Delphi already has at least two of them?"</p>
+
+<p>Simple answer: because Delphi's "universal" value types suck rocks when it comes to enums. With both <code>array of const</code> and <code>Variant</code>, if you pass in an enum value, they turn it into the ordinal value &mdash; so <code>bsDialog</code> becomes 3. All type information is utterly lost, and if the assertion ever failed, you would get something extremely unhelpful like "Expected 0 but was 3". In my view, that's unacceptable. If you're comparing enums, the assertion needs to say "Expected bsNone but was bsDialog".</p>
+
+<p>Having a custom-coded universal value type does fix that. It does introduce a few wrinkles of its own, though. For one, you have to write some code every time you want it to support a new enum. But that's not a huge deal; you already had to do that to compare enums in DUnit. Actually, with the universal value type, you only need to write one method instead of two or more:</p>
+
+<blockquote><pre>class operator TValue.Implicit(Value: TFormBorderStyle): TValue;
+begin
+Result := TValue.Create(TEnumValue.Create(Ord(Value), TypeInfo(TFormBorderStyle)));
+end;</pre></blockquote>
+
+<p>Once you've added the <code>operator Implicit</code> for your enum, everything else will just work &mdash; <code>Tis.Not.EqualTo</code> will just work with no extra effort. Even <code>Tis.GreaterThan</code> would come along for the ride, if you were sadistic enough to want to do greater-than / less-than comparisons on enums.</p>
+
+<p>A somewhat bigger issue is dependencies. With ordinary DUnit, you can write your own assertion methods that operate on enums, and put them in your own unit; there's no need to edit <code>TestFramework.pas</code> from the DUnit distribution. Not so with a universal value type that the test framework depends on. If you want to add a new enum to be supported, you'll have to edit <code>Values.pas</code>, which in turn is used by all the other DUnitAssertions units. So if you have a <code>TMyProprietaryEnum</code> type in your <code>ProprietaryStuff</code> unit, you'll actually have to change the <code>Values</code> unit <i>in the DUnitAssertions distribution</i> to depend on <code>ProprietaryStuff.pas</code>.</p>
+
+<p>This is distasteful, but remember that your test <i>project</i> already depends on <code>ProprietaryStuff</code>. The only case where I can see genuine problems with making <code>Values.pas</code> depend on <code>ProprietaryStuff.pas</code> is if you have multiple different DUnit test EXEs, and you don't want them all to depend on the same code base. In this case, you would have to have multiple separate copies of <code>Values.pas</code>, one for each project, and set your search paths accordingly so that each project finds its own <code>TValue</code>. Also distasteful, but it's the best option Delphi's type system leaves available.</p>

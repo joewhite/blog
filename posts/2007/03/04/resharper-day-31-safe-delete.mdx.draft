@@ -1,0 +1,37 @@
+---
+title: "ReSharper, day 31: Safe Delete  #.NET  #resharper"
+sort: 2412
+---
+<p>Welcome to day 31 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>. (Okay, so it's a day late. I took yesterday off.)</p>
+
+<p>The last ReSharper refactoring I'm going to cover is <b>Safe Delete</b>. It's accessible through the <a href="http://blog.excastle.com/2007/02/23/resharper-day-23-introduce-variable-and-introducing-ctrlshiftr-to-refactor/">Ctrl+Shift+R menu</a>, or directly via <b>Alt+Del</b>.</p>
+
+<p>Safe Delete brings up another of ReSharper's refactoring wizards. The first page (which, in many cases, is the only page you even see) is pretty boring, since there really aren't that many different ways to delete something.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/SafeDelete1.png" width="421" height="125" alt="The first page of ReSharper's Safe Delete wizard" border="0"></blockquote>
+
+<p>The general idea of Safe Delete is that it will delete something without breaking your code. It does two things:</p>
+
+<ul>
+<li><p><b>Checks for problems.</b> If you try to delete a method, and that method is still used somewhere, ReSharper will warn you, and give you a chance to cancel the delete. You can click one of the hyperlinks to jump to the code, or you can show all the problems in the <a href="http://blog.excastle.com/2007/02/08/resharper-day-8-find-usages/">Find Results window</a>.</p>
+<p><img src="http://blog.excastle.com/images/resharper/SafeDelete3.png" width="420" height="421" alt="ReSharper's Safe Delete wizard, warning of places that still use the member being deleted" border="0"></p></li>
+<li><p><b>Carries the changes through.</b> If you delete a parameter, all the call sites will be updated. If you delete a virtual method or an interface method, you get asked if you want to delete it from all the descendant classes as well.</p>
+<p><img src="http://blog.excastle.com/images/resharper/SafeDelete2.png" width="420" height="265" alt="ReSharper's Safe Delete wizard, asking if you want to delete descendant members as well" border="0"></p></li>
+</ul>
+
+<p>Safe Delete is fabulous in theory: if we suspect code is unused, we can confirm that it's not used <i>and</i> delete it <i>and</i> update all the call sites in a single operation. It even gives us a way to manually check for unused parameters, since ReSharper <a href="http://blog.excastle.com/2007/02/20/resharper-day-20-fix-errors-and-warnings-with-altenter/#unusedparameter">doesn't bother checking for unused parameters in public methods</a>. You wouldn't want to manually run Safe Delete on every parameter of every method in your solution, but when you suspect something's amiss, it's a good cleanup tool.</p>
+
+<p>But as I found while I was researching this post, its checks are far from perfect. It seems to do pretty well at carrying the changes through, but it's got a ways to go on checking for problems first. So:</p>
+
+<h4>A word of caution</h4>
+
+<p>Always compile just before, and again just after, you use Safe Delete. Because it can break your code.</p>
+
+<p>Here are a couple of cases I found in just a minute or two of poking around:</p>
+
+<ul>
+<li><p>If a method is used as a delegate, and you Safe Delete a parameter, ReSharper will let you. After that, obviously it doesn't match the same delegate type anymore, so the code won't compile. (They will warn you if you try to delete the entire method, though, so they're at least partly delegate-aware.)</p></li>
+<li><p>If you're overriding a method from another assembly (e.g., you're overriding <code>System.Windows.Forms.Control.IsInputKey</code>), and you Safe Delete a parameter from your method, ReSharper will delete the parameter without warning you about the ancestor. So the override won't compile anymore, since there's nothing with a matching signature for it to override.</p></li>
+</ul>
+
+<p>I don't mean to suggest that it's always going to break your code. Far from it, especially if you're paying attention. (I knew better than to try deleting a parameter of an event-handling method, I just wanted to see what it would do.) Its checks will catch you in most cases. But it's still a good idea to compile before and after.</p>

@@ -1,0 +1,234 @@
+---
+title: "Danny's \"What's New in the Diamondback Compiler" session  #Delphi  #borcon2004"
+sort: 2031
+---
+Covering <a href="http://homepages.borland.com/dthorpe/blog/delphi/">Danny Thorpe</a>'s session about what's new in the Diamondback compiler.
+
+I've <a href="http://blog.excastle.com/2004/09/11/dannys-net-20-talk-part-one/">already</a> <a href="http://blog.excastle.com/2004/09/11/dannys-net-20-talk-part-two/">posted</a> <a href="http://blog.excastle.com/2004/09/12/john-kasters-diamondback-talk/">several</a> <a href="http://blog.excastle.com/2004/09/13/allen-bauers-whats-new-in-diamondback-session/">times</a> about what's new in Diamondback. I won't duplicate any of that information here. And Danny was only talking about the compiler. Not about refactoring, not about databases, not about ASP.NET, not about ECO, not about VCL. Just the compiler.
+
+Therefore, this is going to be a long post.
+
+(Also, be sure to see my next blog post, with stuff Danny didn't say during the session. In particular, when are some of the other Delphi/.NET language features coming to Win32?)
+
+<strong>For..in</strong>
+<ul>
+	<li>Loops over the elements of a collection, without actually requiring you to care about indexing into the collection</li>
+	<li>When is it useful?
+<ul>
+	<li>When you don't care about the index, but just want the elements</li>
+	<li>When you don't want to do an indexed loop because getting a count and/or doing random access is expensive (linked lists, database tables)</li>
+	<li>Danny gave the example of asynchronous retrieval (a background thread is going out and getting the next element before you ask for it), which doesn't work so well with array indexes</li>
+	<li>Unordered / non-indexed data (sets, hashtables)</li>
+</ul>
+</li>
+	<li>You should think of the returned data as read-only. Do not change the collection while iterating. (You can change properties on the object you got, but don't try to replace the object in the collection)
+<ul>
+	<li>Modifying the underlying collection <em>should</em> cause the enumerator to throw an exception the next time you call MoveNext. (So don't modify the collection while you're iterating!)</li>
+	<li>Win32 implementation <em>may</em> allow writeback someday, but it might be full of gotchas. Assume that you should never modify the collection while you're iterating it.</li>
+</ul>
+</li>
+	<li>Because you treat the data as read-only (you are treating the data as read-only, right?), an enumerator <em>should</em> give you a stable view of the data.
+<ul>
+	<li>That means that, if you call Reset on the enumerator, and enumerate a second time, you should get the same data.</li>
+	<li>Not guaranteed to be in the same order the second time, though.</li>
+	<li>This is the theory. In reality, things like databases may not guarantee a consistent view, for performance reasons (because doing a read-only transaction might be cost-prohibitive). But if they did offer a consistent view, wouldn't that be nice?</li>
+</ul>
+</li>
+	<li>Syntax: <font face="Courier New"><strong>for</strong> MyObject <strong>in</strong> MyCollection <strong>do</strong> { statement };</font>
+<ul>
+	<li>Why not foreach?</li>
+	<li>Because Danny was reluctant to add a new keyword</li>
+	<li>Besides, should it have been '<font face="Courier New">foreach</font>' or '<font face="Courier New">for each</font>'?</li>
+	<li>As a mathematician, Danny asked, "Wouldn't '<font face="Courier New">for all</font>' be better?"</li>
+	<li>So, no new keywords for this.</li>
+</ul>
+</li>
+	<li>Supported in both Win32 and .NET
+<ul>
+	<li>.NET uses IEnumerable if it's there, otherwise looks for the code pattern</li>
+	<li>Win32 only supports the code pattern (probably because interfaces carry all that reference-counting baggage)</li>
+</ul>
+</li>
+	<li>The collection is held in a temporary variable.
+<ul>
+	<li>So, if you did <font face="Courier New"><strong>for</strong> MyRecord <strong>in</strong> LoadCollectionFromDatabase <strong>do</strong></font>, you'd still be fast, because LoadCollectionFromDatabase would only be called once.</li>
+	<li>Much like the way the <font face="Courier New">for</font> loop already caches its maximum value.</li>
+</ul>
+</li>
+	<li>Collection must fit one of these:
+<ul>
+	<li>Implement IEnumerable (.NET only, for now)</li>
+	<li>Have a method called GetEnumerator</li>
+	<li>Be an array, set, or string (or enumeration? Danny didn't remember for sure)</li>
+</ul>
+</li>
+	<li>Mechanics: (very familiar if you already know how C# does foreach)
+<ul>
+	<li>GetEnumerator returns an enumerator object, with MoveNext and Reset methods and a Current property
+<ul>
+	<li>You start with no current element (on a "crack", per Danny) and must call MoveNext to make the first element current</li>
+	<li>MoveNext returns False when there are no more elements (if the collection is empty, it returns False the first time you call it)</li>
+	<li>Reset rewinds the collection to the beginning. for..in does not call Reset.</li>
+</ul>
+</li>
+	<li>The enumerator is freed automatically at the end of the loop (inside a finally block).</li>
+</ul>
+</li>
+	<li>As I mentioned before, many classes in the VCL will support for..in.
+<ul>
+	<li>Not all, because when generics come out, they'll all be generics and it will only need to be implemented once</li>
+	<li>TList has TListEnumerator, <em>even in .NET</em> (and even though TList is just a thin wrapper around ArrayList), simply because Win32 does need TListEnumerator. (It's there as a placeholder for code compatibility between Win32 and .NET, for code that uses the enumerator directly instead of using for..in)</li>
+</ul>
+</li>
+</ul>
+<strong>Multi-unit namespaces</strong>
+<ul>
+	<li>Goal: Put symbols into a specific namespace while preserving unit make logic (which works by having a relationship between the unit name and the file on disk) and the syntax and the package support
+<ul>
+	<li>Relationship between assemblies and namespaces is many-to-many</li>
+	<li>There is <em>no</em> relationship between the namespace and the file on disk</li>
+</ul>
+</li>
+	<li><font face="Courier New">uses Namespace;</font> <strong>always</strong> refers to a namespace, <strong>never</strong> to a filename</li>
+	<li>In Delphi 8: (the old way)
+<ul>
+	<li>Unit name = .NET namespace. This works as an interim solution, let's get it shipped.</li>
+	<li>Problem: Exposes structure to the world. Component and library authors want to split code into multiple files, but that's a pain for their customers.</li>
+	<li>More segregated than most .NET namespaces</li>
+	<li>Can't inject code into a namespace you don't control (not that this was necessarily recommended practice to begin with)</li>
+</ul>
+</li>
+	<li>Diamondback: (the new way)
+<ul>
+	<li>unit Borland.Vcl.Classes;
+<ul>
+	<li>Rightmost segment is dropped. Types in this unit end up in <em>namespace</em> Borland.Vcl. (Borland.Vcl.TList)</li>
+	<li>'Classes' is still there behind the scenes (buried in the metadata), but it's not in the C# programmers' face</li>
+</ul>
+</li>
+	<li>uses Borland.Vcl.Classes;
+<ul>
+	<li>Compiler can find file on disk by appending '.pas'.</li>
+	<li>Compiler can also find this unit within a package, and only pulls symbols for that single unit.</li>
+	<li>This is using a unit, not a namespace.</li>
+</ul>
+</li>
+	<li>uses Borland.Vcl;
+<ul>
+	<li>This is using a namespace.</li>
+	<li>Only works for code that's already compiled into an assembly. Cannot work for static linking (because there's no way to find the .pas file).</li>
+	<li>Wide open; pulls in everything in the namespace, not just one unit.</li>
+</ul>
+</li>
+	<li>uses Borland.Vcl.*;
+<ul>
+	<li>This is either using a namespace, or using multiple units specified by a filespec. They amount to the same thing.</li>
+	<li>Works against code in packages, and against source/dcus.</li>
+	<li>Be careful. If you're going against source, this loads a lot of symbols from disk. (Compilation will be slow.)</li>
+	<li>The smart linker will be even smarter for this. If a unit is dragged in by the wildcard, but you don't ever reference any of its types, then its initialization section will <em>not</em> be compiled into the EXE.</li>
+	<li>This is here for completeness. Danny doesn't recommend using it normally.</li>
+	<li>Danny didn't talk about this, but I imagine it would be a bad idea for Borland.Vcl.Classes.pas to say <font face="Courier New">using Borland.Vcl.*;</font></li>
+	<li>Globals (global procedures/functions, global constants, global variables) are as discussed in my <a href="http://blog.excastle.com/2004/09/12/john-kasters-diamondback-talk/#namespaces">earlier post</a>: Borland.Vcl.Classes.MyGlobal becomes Borland.Vcl.Units.Classes.MyGlobal.
+<ul>
+	<li>The 'Units' is stuck in there because Delphi already allows a global named 'Classes' inside the unit named 'Classes'. (News to me! I thought that was a compiler error for duplicate identifier.) To avoid breaking it, they stuck an extra level in there.</li>
+</ul>
+</li>
+</ul>
+</li>
+	<li>Simple unit names (no dots in the filename) are an exception to this rule. When the rightmost segment is in fact the only segment, it's not dropped.
+<ul>
+	<li>But if the project has a default namespace, it's considered part of the filename.</li>
+	<li>So if the default namespace is Borland.Vcl, and the file is Classes.pas, then the "fully-qualified filename" (I'm not sure if this is Danny's terminology) is considered to be Borland.Vcl.Classes.pas, so the Classes <em>is</em> dropped.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<strong>A couple of interesting digressions</strong>
+<ul>
+	<li>Arrays in .NET can't be preinitialized, so if you have a global const array, it's actually initialized <em>in code</em> in the unit's class constructor (I'll have to reread the IL book â€” I know there is global data, since that's where strings are stored, but evidently it can't be used for arrays)</li>
+	<li>Note on unit initialization sections: If you have circular unit dependencies, the initialization order may not be the same between Win32 and .NET. This is because, when unit A touches something inside unit B, unit B's class constructor will fire immediately in .NET, whereas in Win32 the initialization section might not fire until later.</li>
+</ul>
+<strong>Function inlining</strong>
+<ul>
+	<li>Involves persisting the compiler's node tree to the .dcu. Not been done before.</li>
+	<li>Can produce significant speed boost <em>in certain cases</em></li>
+	<li>Caution: Code bloat risk!</li>
+	<li>Not quite like C macros, because these aren't textual replacements â€” instead, it grafts nodes into the syntax tree (it's after parsing, not before)</li>
+	<li>Works for most anything: procedures, functions, methods, and local procedures</li>
+	<li>'inline;' directive, looks like a calling convention
+<ul>
+	<li>Didn't Turbo Pascal have this a long time ago? Maybe it was just for assembler...</li>
+</ul>
+</li>
+	<li>Works for both Win32 and .NET (and <em>may</em> beat the JIT compiler in some cases, since the JITter goes for fast optimizations and low impact)</li>
+	<li>The 'inline' directive is just a suggestion to the compiler. The compiler can disregard it if it thinks you're wrong or stupid.
+<ul>
+	<li>Could decide it would make the call site too complex (by needing too many temps and blowing your registers)</li>
+	<li>The same procedure may be inlined at some call sites and not others</li>
+</ul>
+</li>
+	<li>This is still a top-down compiler. It must see the <em>body</em> of the inline procedure before it's used.
+<ul>
+	<li>In some cases with circular unit references, the compiler disables inlining on purpose.</li>
+</ul>
+</li>
+	<li>Doesn't work for procedures with an asm body, because that doesn't emit compiler tree nodes</li>
+	<li>Spliced into node tree <em>before</em> optimization
+<ul>
+	<li>Generates temps for stuff that's passed into the procedure</li>
+	<li>Then probably optimizes those temps right back out</li>
+</ul>
+</li>
+	<li>Restrictions on inlining stuff that access class privates
+<ul>
+	<li>Hard and fast rule in .NET: Can't inline these into another class</li>
+	<li>May relax this rule in Win32 code, post-Diamondback</li>
+</ul>
+</li>
+	<li>Best practices:
+<ul>
+	<li>Use only for very small functions</li>
+	<li>Always test performance and measure the benefit â€” don't assume it will speed up your code. It may slow it down!</li>
+</ul>
+</li>
+	<li>Caveats:
+<ul>
+	<li>Hidden temps; burns registers and stack</li>
+	<li>Can actually hurt performance</li>
+	<li>Causes unit dependency brittleness: users depend not just on your interface, but also your implementation. May not matter much for our code, but for this reason, expect Borland to be very conservative about using inline within the RTL and VCL!</li>
+</ul>
+</li>
+	<li>Since the procedure isn't always inlined, the compiler actually does emit a "real" procedure body as well
+<ul>
+	<li>@ operator returns this</li>
+	<li>Presumably the smart linker is vigilant, and if every call is inlined, the real body will be eliminated</li>
+</ul>
+</li>
+	<li>{$INLINE ON/AUTO/OFF} directive
+<ul>
+	<li>Affects the <em>call site</em></li>
+	<li>AUTO = compiler picks "small routines" to inline. Per Danny, this option is "scary" and will never be the default.</li>
+</ul>
+</li>
+</ul>
+<strong>Miscellaneous new features</strong>
+<ul>
+	<li>MOVZX (Optimization for P4/PIII processors. Will cause smaller/maybe-slightly-faster code on newer processors, at the expense of running slightly slower on older processors)</li>
+	<li><a href="http://homepages.borland.com/dthorpe/blog/delphi/2004_09_01_archive.php#109425945238760731">UTF8 and UCS2 source for both Win32 and .NET</a>
+<ul>
+	<li>Danny, weren't you going to show some amusing examples of this?</li>
+	<li>No Unicode allowed in published properties or methods (I think this restriction is Win32-only)</li>
+</ul>
+</li>
+	<li>Improved overload discrimination (can overload on 'type of' types)</li>
+	<li>Forward declarations for record types (.NET only)</li>
+</ul>
+<a title="dotnet20" name="dotnet20"></a><strong>Coming in Diamondback+1</strong>
+<ul>
+	<li>Whidbey support (well, yeah, you can compile against Whidbey in D8, but you can't consume generics so you're really a second-class citizen)</li>
+	<li>Generics (for .NET; see below)</li>
+	<li>May do something along the lines of partial classes</li>
+	<li>Records with methods for Win32?</li>
+	<li>(Also see my next blog post)</li>
+</ul>

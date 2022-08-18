@@ -1,0 +1,58 @@
+---
+title: "Agile 2006: The Lego XP Game  #Programming  #agile2006  #extreme programming"
+sort: 2347
+---
+<p>They put us in a small room, with only 6 tables. And the room isn't full. Probably only about 30 people in here. Tough to believe that you can give a thousand geeks a chance to play with LEGOs, and this is all that shows up. [Later I found out that they asked for a small room on purpose, so the game and the acoustics would be manageable.]</p>
+<p><strong>The setup</strong></p>
+<p>So here's how the game worked:</p>
+<ul>
+<li>You work for AnimalCo...</li>
+<li>...and are helping develop a brand new animal!</li>
+<li>The presenters are your customers.</li>
+<li>You are Agile!</li></ul>
+<p>We went in 10-minute iterations (those are 10 <em>ideal</em> minutes, mind you &#8212; there was actually a good bit of talking between each stage, but hey):</p>
+<ul>
+<li><strong>Story estimation &#8212; 3 minutes.</strong> We acted as developers, estimating how much time / how hard we thought each story would be. Each story got rated as Easy, Medium, or Hard.</li>
+<li><strong>Story signup (planning game) &#8212; 3 minutes.</strong> In this stage, we acted as the business. Each card conveniently had a business value (in dollars) written on it. Based on the value and the difficulty, we decided which cards we would commit to for the iteration. (Yes, in real life, this is supposed to be done by the customer.)</li>
+<li><strong>Development</strong> &#8212; 4 minutes. To your LEGO!</li></ul>
+<p>It was a bit of an odd situation, since we were picking which stories should go in, but we did have customers defining the acceptance criteria. Usually those would be combined, but I'm sure they did it on purpose, so we'd get the flavor of everything.</p>
+<p><strong>How it went</strong></p>
+<p>In the first iteration, there were stories for things like "Give the animal two legs", "Give the animal wings", "Give the animal a head", "Give it at least two eyes", etc. In later iterations, we got interesting monkeywrenches thrown in, like "Make the animal striped" (which was one of the ones at the maximum business value of $500). Imagine taking an existing LEGO animal and changing its color, especially when you're in a room with five other teams, and the LEGO bricks are a limited resource. One team did an incredible job of it. Ours negotiated with the customer: "Just how much of the animal needs to be striped? Can we just do the legs and torso?"</p>
+<p>(Yeah, our group ended up with a torso. We originally just attached the head directly to the legs, which the customer was fine with, but later we added a torso for the "make the animal at least 10 cm high" story. When the "give the animal a second head" story came along, we didn't have a convenient place to attach it, so it wound up with a second head growing out of its feet. The customer was OK with this too, although he didn't sign off on the card the first time because the second head didn't have a recognizable chin.)</p>
+<p>It took us a while to get the hang of the "customer" role they had in mind. Some debate ensued, for example, when Team A did not attach the legs to anything, since there was no story for adding a body &#8212; so they just made legs. (The customer did not accept that story as done. I'm pretty sure they got it in the second iteration.) It also turned out that they had expected us to get the customers' signoff during the iteration, rather than waiting until the end. (In four minutes they want us to build <em>and</em> get signoff? When each customer's time is divided between two tables? But then we do <em>know</em> the story's going to get signed off on.)</p>
+<p>Thing was, it worked. Again, I'm pretty sure that it was on purpose that they didn't tell us everything in advance, because it made it a lot more memorable. If they had told us to get the customer's signoff as soon as each story was done, then we would have done it that way. But as it was, not only did we find it out, and not only did we find it out in a more memorable way than having it buried in "here's the umpteen things we want you to do", but we also found out <em>why</em> it matters: because the customer might want those wings to actually support the animal's weight, and might pick it up by the wings to test it. (It did pass, just barely.)</p>
+<p><strong>Retrospectives</strong></p>
+<p>We did three iterations, and we did a retrospective at the end of each one. At the retrospectives, we didn't just talk about random things we noticed; they gave us a couple of tools for structuring the retrospective. These are definitely take-homes. I have no idea whether they would or wouldn't work for our team, but we should definitely try them.</p>
+<p>Tool #1: Draw two columns, and fill in:</p>
+<ul>
+<li>What's going well?</li>
+<li>What do you want to change?</li></ul>
+<p>(As opposed to "what's going badly". Keep it positive.) We used this tool at the end of the first iteration. The "going-well" list included things like simplicity, teamwork, early feedback from the customer (of course, some groups did better at that than others). The "change" list included explicit sign-off, common understanding, simplicity again. They included the customers in the retrospective as well, and one of them said (jokingly, I think) that he wanted to change his whole team (grin). I think that was the team that didn't attach the legs...</p>
+<p>Tool #2: Draw five spokes, to divide the writing area into five pie slices. Label them</p>
+<ul>
+<li>What do we want to start doing?</li>
+<li>What do we want to do more of?</li>
+<li>What do we want to keep doing?</li>
+<li>What do we want to do less of?</li>
+<li>What do we want to stop doing?</li></ul>
+<p>I only jotted down one of the things we came up with this time: for "what do we want to stop doing?", one group said "antagonizing the customer". (I think it was a different group this time.)</p>
+<p>One interesting idea they suggested was what I think they called "retrospective acceptance tests". For things you say you want to do differently (or that you want to keep doing, for that matter), ask "When we revisit this, how can we tell whether it worked?" That's going to be an interesting question to consider.</p>
+<p><strong>Other stuff</strong></p>
+<p>Big Visible Charts -- "Information Radiators"</p>
+<ul>
+<li>Being surrounded by information is part of XP.</li>
+<li>We should always know how this iteration is going, and how well the release is going.</li>
+<li>Big Visible Charts are a simple and easy way to report progress.</li></ul>
+<p>Iteration Burn-Up Chart: Target vs. Progress. How much would we expect to have finished by the end of the day on Wednesday? How much did we have finished?</p>
+<p>Watch the velocity. If it dips, either stories are getting harder, or you need to refactor.</p>
+<p>Agile methodologies are not prescriptive. Most agile failures involve people reading an agile book and taking it as a rulebook, and applying it rigidly. Not so much the point of being agile. (Back to practices being easier than principles.)</p>
+<p>Best way to introduce agile into a big waterfall shop: Use it on pilot projects. Gain their trust.</p>
+<p>Here's an interesting suggestion for something to keep an eye on while estimating: a RAID log. RAID stands for <strong>Risks, Assumptions, Issues, and Dependencies.</strong> Capture assumptions during estimation, escalate (to the customer) those that we think need it. Same with risks. When does a risk become an issue? Make this stuff big and visible. Put it on a wall.</p>
+<p>When you're blocked waiting for the customer's input: <strong>Defer decisions to the last responsible moment.</strong> Making the wrong decision amounts to wasting the customer's money, but so does doing nothing. If it becomes necessary, make a decision, and confirm with the customer as soon as possible.</p>
+<p><strong>Conclusions</strong></p>
+<ul>
+<li>Agile methods like XP should not be overly prescriptive. Again, this is coming back to the whole "practices are easy, principles are hard" thing. <a href="http://www.xpday.org/sessions.php">One page</a> I happened across today referred to <a href="http://en.wikipedia.org/wiki/Cargo_cult_programming">cargo-culting</a>, which I think is an extreme manifestation of the same thing.</li>
+<li>The team itself, not a book, should define how best it should work</li>
+<ul>
+<li>But knowing many agile methodologies will help</li></ul>
+<li>Agile = empowering the team to constantly strive for improvement, and creating an environment in which constant improvement is possible</li></ul>

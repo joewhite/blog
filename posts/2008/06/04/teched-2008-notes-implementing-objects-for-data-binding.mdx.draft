@@ -1,0 +1,208 @@
+---
+title: "TechEd 2008 notes: Implementing Objects for Data Binding  #.NET  #teched2008"
+sort: 2545
+---
+This, he advised us, was an advanced, specialized talk. It wasn't about how to use databinding to create UIs; it was more about how to make your objects support databinding, especially in WinForms.
+
+Implementing Objects for Data Binding
+<a href="http://www.lhotka.net">Rockford Lhotka</a>
+Principal Technology Evangelist
+<a href="http://www.magenic.com">Magenic</a>
+
+His focus: how to make OO work under various Microsoft technologies. As time has gone, our lives have gotten much easier, but as you dig in, you find the warts and gotchas.
+
+Data Binding
+<ul>
+  <li>ASP.NET Web Forms</li>
+  <ul>
+    <li>Simplest, least capable model</li>
+  </ul>
+  <li>WPF</li>
+  <ul>
+    <li>Interactive, but simple model</li>
+    <li>Lacks full functionality</li>
+  </ul>
+  <li>Windows Forms</li>
+  <ul>
+    <li>Interactive model with high functionality</li>
+    <li>Most complex model</li>
+    <li>If you support Windows Forms, you (almost certainly) support everything else. (WPF is diverging a tiny bit -- Rocky sees more of this than any of us will.)</li>
+  </ul>
+</ul>
+
+
+
+Rocky maintains the <a href="http://www.lhotka.net/cslanet/">CSLA.NET</a> open-source project, which already does all the plumbing for databinding to work. He didn't set out to become a databinding guru; he just found that it took a lot of time, and was worth sharing.
+
+He has a friend who got fed up and wrote his own databinding framework. Rocky didn't, because he thought Microsoft got really, really close in .NET 1.1. He thinks they did get better in .NET 2.0, and yet it still has holes.
+
+This will deal with .NET 2.0+. Changes to databinding are largely stalled at this point, with little or none changed after 2.0, because MS is focusing on WPF, and the WPF databinding story is very good (and yet it still has holes).
+
+Architecturally, the goal should be to have zero lines of code in the GUI. We're not there, even with WPF (though we're tantalizingly close).
+
+<ul>
+  <li>How rapidly does your database change? ...Not very fast.</li>
+  <li>How rapidly do your business rules change? ...Some, but the big things change slowly.</li>
+  <li>But UI changes all the time.</li>
+  <ul>
+    <li>Users don't help. "This is too complex! Too much clutter! Can't you make it into a wizard?" "This wizard is too awkward. Can't you make it one page?"</li>
+    <li>Users can't make up their minds, and technology keeps changing.</li>
+    <li>There's no code more expensive than the code in the GUI.</li>
+  </ul>
+</ul>
+
+Databinding is the main tool MS gives us to get rid of code in the GUI. It's a very clear, interface-based abstraction. That's why it's so important.
+
+Property Change Notification
+<ul>
+  <li>When your object changes, it should tell somebody.</li>
+  <li>History: In .NET 1, MS tried to tell us not to worry, that they'd take care of it all: change it here, we'll update it everywhere for you. But that doesn't take care of indirect changes, like with calculated fields. So there was a convention for magically-named events that they would listen to; but they refresh ALL the fields, so if you do the Right Thing and fire four change events, all the GUI refreshes four times. So you want to work around that and only fire one, but there's another wrinkle: databinding only listens to properties that are actually bound to controls, and the control has to be visible. Nothing wrong with having a size of 0x0, though. (I can already see the problems with tab order, and...)</li>
+  <li>In .NET 2, MS formalized this with: (most of these will be in System.ComponentModel)</li>
+  <ul>
+    <li>INotifyPropertyChanged. Forces you to raise an event called PropertyChanged. Much more discoverable... but all the same idiosyncracies are true to this day.</li>
+    <li>INotifyPropertyChanging. New with LINQ. Not used in databinding, at least not yet. Data context object in LINQ to SQL uses it.</li>
+    <li>Force declaration of notification events</li>
+  </ul>
+</ul>
+
+Field Refresh Issue
+<ul>
+  <li>If your property has a setter that does something.</li>
+  <li>When you type into a text box and tab out of it, the value is pushed down into the object. If your setter does some rules, like uppercasing the value, the GUI will not display the changed value, even if you raise PropertyChanged?</li>
+  <li>Windows Forms</li>
+  <ul>
+    <li>There's an optimization.</li>
+    <li>When they get PropertyChanged, they refresh all the fields <em>except</em> the one you just edited.</li>
+    <li>Solve by handling event on BindingSource</li>
+  </ul>
+  <li>WPF</li>
+  <ul>
+    <li>Doesn't refresh everything. Only refreshes the property that you said was changed.</li>
+    <li>Same optimization: their assumption is that nobody writes code in the set block.</li>
+    <li>Solve by always using a ValueConverter</li>
+  </ul>
+</ul>
+
+Demo
+<ul>
+  <li>You must fire PropertyChanged in your property setter. Otherwise you can set the property and the GUI won't refresh, even though the backing object is changed.</li>
+  <li>So you shouldn't bind automatic properties.</li>
+  <li>If your property setter doesn't save the exact value (i.e., if it does some validation or range checking), the GUI won't see it.</li>
+</ul>
+
+<ul>
+  <li>WPF binding: <code>Text="{Binding Path=Value1}"</code></li>
+  <li>Works fine unless the code is changed indirectly.</li>
+  <li>WinForms workaround: hook an event on BindingSource and manually refresh the display.</li>
+  <li>WPF workaround: Value converters (things that implement IValueConverter).</li>
+  <ul>
+    <li>Convert(...) and ConvertBack(...). Convert puts the value into the UI; ConvertBack puts it back into the object. This is how you e.g. format dates.</li>
+    <li>It turns out that if you have a value converter, WPF databinding will always refresh the display. So you can make a value converter that just does <code>return value;</code> from both methods.</li>
+    <li>IdentityConverter</li>
+    <li>Change XAML to <code>Text="{Binding Path=Value3, Converter={StaticResource IdentityConverter}}"</code></li>
+  </ul>
+  <li>So how does your UI developer know whether or not to use the IdentityConverter? A: They can't know, so they should always have a value converter on every binding: either a real one to do formatting and parsing, or an identity converter.</li>
+</ul>
+
+<ul>
+  <li>WinForms binding: <code>this.dataBindingSource.BindingComplete += handler</code>, and handler does <code>e.Binding.ReadValue();</code>.</li>
+  <li>dataBindingSource is a .NET 2.0 DataBindingSource component. He actually dragged one of his objects onto the form, and the designer created the DataBindingSource for him.</li>
+  <ul>
+    <li>DataBindingSource collects mystical stuff that was already there, and makes it more visible.</li>
+  </ul>
+  <li>CSLA puts this into an extender control; otherwise you need to do this in every screen.</li>
+</ul>
+
+Events and Serialization
+<ul>
+  <li>Event handlers cause forward references</li>
+  <ul>
+    <li>Your object ends up referencing the event handler</li>
+  </ul>
+  <li>BinaryFormatter follows / serializes all references</li>
+  <ul>
+    <li>Unless marked as NonSerialized</li>
+  </ul>
+  <li>Many event handler objects aren't serializable (Form, Page, etc.)</li>
+  <li>Marking an event NonSerialized does nothing</li>
+  <ul>
+    <li>You need to mark the backing field created by the compiler</li>
+  </ul>
+  <li>NetDataContractSerializer in WCF is very similar</li>
+</ul>
+
+<ul>
+  <li>BinaryFormatter serializes private fields, not properties (by default)</li>
+  <li>What if a field references another object?</li>
+  <ul>
+    <li>Serializes that other object</li>
+  </ul>
+  <li>What if the field points to an object that can't be serialized?</li>
+  <ul>
+    <li>Boom (with reverb). SerializationException. That's what you would expect.</li>
+  </ul>
+  <li>Events: if the form hooks your event (e.g. because you're doing databinding), you have a delegate field behind the scenes that refers to the form. So you can't serialize it.</li>
+  <li>NonSerialized attribute says "don't bother trying to serialize it", but an event is not a field. </li>
+  <li>Solution: declare your event as a custom event, and manually define the backing field. (Or in C#, just put <code>[field: NonSerialized]</code> on the event. Rocky doesn't like that syntax and would prefer to add the extra dozens of lines of code for every event; I'd go for the simplicity of the one-line fix.)</li>
+</ul>
+
+Lists and Collections
+<ul>
+  <li>Windows Forms or WPF</li>
+  <ul>
+    <li>IBindingList. ListChanged event, searching, sorting.</li>
+    <li>BindingList&lt;T&gt;. Already implements all the interfaces necessary for databinding to Just Work in WinForms.</li>
+  </ul>
+  <li>WPF only</li>
+  <ul>
+    <li>INotifyCollectionChanged. Subset of IBindingList: more like IPropertyChanged. "I will notify you if the list changed."</li>
+    <li>ObservableCollection&lt;T&gt;, which implements INotifyCollectionChanged but not all the other databinding stuff.</li>
+    <li>IEditableCollectionView</li>
+  </ul>
+  <li>So you just implement both, right? But WPF honors BOTH! So if you implement both, and then remove an item from a list, the UI removes two items.</li>
+  <li>Implement one or the other, not both.</li>
+  <li>Any behavior in the WPF one that's not in BindingList? A: No.</li>
+  <li>Any benefit to using ObservableCollection&lt;T&gt; in WPF? A: If you're already using BindingList, no.</li>
+</ul>
+
+<ul>
+  <li>BindingList&lt;T&gt; requires that the class have a public default constructor. What if your object doesn't have one, for any number of reasons?</li>
+  <ul>
+    <li>Add a class that descends from BindingList&lt;Data&gt;, sets AllowNew from the constructor, and overrides AddNewCore().</li>
+    <li>If you set AllowNew to true, you <em>must</em> override <code>AddNewCore()</code>.</li>
+    <li>Inside AddNewCore, you must do three things:</li>
+    <ul>
+      <li>Create a new instance.</li>
+      <li>Add the object to the collection.</li>
+      <li>Return it.</li>
+    </ul>
+  </ul>
+</ul>
+
+Validation Error Support
+<ul>
+  <li>IDataErrorInfo</li>
+  <ul>
+    <li>This is how your object can tell databinding whether each property is valid, and whether the object at large is valid.</li>
+  </ul>
+  <li>Simple, but of course idiosyncratic: if you do it the wrong way, life is not so much fun.</li>
+  <li>Interface makes you add two properties: Error, and an indexer based on column name (both return a string). If you return an empty string or a null, it means you have a problem <em>and</em> the string is the human-readable reason why.</li>
+  <li>Every time a field changes, not only do the fields get refreshed, so does the error info. So it can get called over and over again. Be very conscious of performance: you can't do anything here that takes any time.</li>
+  <li>Recommendation: check your rules when you set the property.</li>
+</ul>
+
+Supporting In-Place Grid Editing
+<ul>
+  <li>IEditableObject, which is a mess</li>
+  <ul>
+    <li>BeginEdit ("I might need you to undo yourself, so take a snapshot of your state")</li>
+    <li>EndEdit may be called ("Commit the changes")</li>
+    <li>CancelEdit ("Revert")</li>
+    <li>Ridiculously idiosyncratic.</li>
+    <li>The binding system may call BeginEdit many times; you should only honor the first.</li>
+    <li>They may never call EndEdit. If so, you should sort of assume it was called.</li>
+    <li>Best way to handle this when you've got master/detail bindings: hook CurrentChanged on the master BindingSource, and call EndEdit() on the detail.</li>
+  </ul>
+</ul>
+
+All code will be available via TechEd and via Rocky's Web site.

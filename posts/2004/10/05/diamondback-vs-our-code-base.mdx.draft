@@ -1,0 +1,27 @@
+---
+title: "Diamondback vs. our code base  #Delphi"
+sort: 2056
+---
+<p>Continuing <a href="http://blog.excastle.com/2004/10/02/diamondback-vs-virtual-pc/">where we left off</a> in the Diamondback saga:</p>
+<p>I was still attached to the idea of an undoable disk for the program files (and for Windows), so I set out to find another way to preserve source code across sessions.</p>
+<p>One possibility, of course, would have been to keep everything in VSS. But it takes a while to do a get of our full code base, and I didn't want to go there if I could avoid it. It would've meant a lot less time spent actually doing stuff, and a lot more time waiting. And it also would've meant checking a fair number of things into our live codebase when I wasn't sure yet whether they'd work. Not really the best option.</p>
+
+
+
+<p>What I wound up using was XCopy, using some of its fancier command-line switches. I started by doing a full get onto the virtual hard drive, then used attrib to turn off all the archive bits, and then committed the changes to the virtual hard disk, so it'd come up that way after every subsequent undo.</p>
+<p>Then I wrote a couple of batch files. One would copy any files with the archive bit set (i.e., any files that had been modified during a compiler session) up to a network drive; I would run that before shutting down the virtual machine. The other batch file would copy all of the files off that network location and onto the hard disk, clearing the archive bits in the process.</p>
+<p>All in all, I was pretty satisfied with the way that turned out. It was fast, it didn't require a lot of space on the network drive (since all I was copying were any files I had actually changed, plus any .dcus that I had recompiled during a given session), and it was easy to work with. Cool!</p>
+<p>This time, as I compiled all the packages, I created a project group as I went. (Actually, I had tried that last time, but was hampered Virtual PC's frequent crashes.) The fact that it actually worked this time, combined with the fact that most of the files that needed patching (mostly $IFDEFs checking for compiler versions) were already patched and checked in by that point, made for smooth sailing.</p>
+<p>End result: All packages compiled! Hallelujah!</p>
+<p>Open up our main application, and try to compile. And it churns merrily along...</p>
+<p>before coming back with "Access violation at address 02220A6C in module 'dcc90.dll'. Read of address 00000030."</p>
+<p>Aw, no. No. No! Compile again; same result. Build; same result. Reboot and revert the hard drive, then compile again; same result. In desperation, go into Project Options, uncheck "Compile using runtime packages", and compile again. Same result.</p>
+<p>Damn!</p>
+<p>So close.</p>
+<p>I did tinker with it a little more; I created a new project, added one of our medium-dependency units, and tried compiling. Worked just great. Doesn't look like there will be any simple repro I can boil this down to.</p>
+<p>(On the other hand, I have a perfect repro that I could pack up and ship to Borland if they wanted it. Chalk up another advantage for virtual machines.)</p>
+<p>I never did spend much more time chasing down exactly what was causing the problem, because I had already burned most of three days in this little escapade, and I really needed to get some real work done. Without the refactoring engine, as it turned out.</p>
+<p>Sigh.</p>
+<p>I'd submit a <a href="http://qc.borland.com/">QualityCentral</a> report, <a href="http://blog.excastle.com/2004/09/28/um-diamondback-and-qualitycentral/">if QualityCentral knew about Diamondback</a>. As it is, all I can do is hope someone from Borland reads this. I've got a ready-made Virtual PC hard disk ready to go, with easy repro steps!</p>
+<p>I've actually thought about opening two sessions of Diamondback, and using one to debug the other, so that I can (with a little luck) get an actual stack trace when the error occurs. Haven't gone that far yet, though.</p>
+<p>So... here our grand saga ends. Kind of a letdown, isn't it? I hope <a href="http://homepages.borland.com/dthorpe/blog/delphi/">Danny</a> finds this little bug before release. With luck, he's already found it and fixed it. Here's keeping my fingers crossed.</p>

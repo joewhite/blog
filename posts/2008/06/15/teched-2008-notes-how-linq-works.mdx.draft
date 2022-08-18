@@ -1,0 +1,113 @@
+---
+title: "TechEd 2008 notes: How LINQ Works  #.NET  #teched2008"
+sort: 2556
+---
+How LINQ Works: A Deep Dive into the Implementation of LINQ
+Alex Turner
+C# Compiler Program Manager
+
+This is a 400-level (advanced) talk about the implementation of LINQ.
+<ul>
+  <li>What's the compiler doing behind the scenes? Layers it translates down to</li>
+  <li>Differences between the translation in the object world vs. remote store</li>
+</ul>
+
+Example of LINQ syntax: GetLondoners()
+
+<pre>var query = from c in LoadCustomers()
+            where c.City == "London"
+            select c;</pre>
+
+<ul>
+  <li>They didn't want to bake any knowledge of how to do queries into the compiler; instead they use libraries, so you could even use your own implementation of <code>Where()</code> if you really wanted to</li>
+</ul>
+
+<code>Where()</code> as it would look with .NET 1.x delegates:
+
+<pre>bool LondonFilter(Customer c)
+{
+    return c.City == "London";
+}
+...
+var query = LoadCustomers().Where(LondonFilter);</pre>
+<ul>
+  <li>You don't really want to make a new method for each filter</li>
+  <li>Solved in .NET 2.0 with anonymous delegates, but they were too wordy to encourage use of functional libraries</li>
+  <li>Rewritten with C# 3.0 lambdas:</li>
+</ul>
+
+<pre>var query = LoadCustomers().Where(c =&gt; c.City == "London");</pre>
+
+Proving what it's actually compiled to:
+<ul>
+  <li>Use Reflector</li>
+  <li>In Reflector Options, set Optimization to ".NET 1.0", so it doesn't try to re-create the LINQ syntax for us</li>
+  <ul>
+    <li>Interestingly, it does still show extension-method syntax and anonymous-type instantiations. Have to turn optimizations off entirely to see those, but then you'll go crazy trying to read the code.</li>
+  </ul>
+  <li>Anonymous delegates make:</li>
+  <ul>
+    <li>A cache field with a wacky name and a <code>[CompilerGenerated]</code> attribute</li>
+    <li>A method with a wacky name and a <code>[CompilerGenerated]</code> attribute</li>
+    <li>Generated names have characters that aren't valid in C# identifiers, but that are valid for CLR. Guarantees its generated names don't clash with anything we could possibly write.</li>
+  </ul>
+</ul>
+
+<ul>
+  <li>Implementing Where: you don't really want to build a whole state machine. Use iterators instead:</li>
+</ul>
+
+<pre>static class MyEnumerable
+{
+    public static IEnumerable&lt;TSource&gt; Where&lt;TSource&gt;(
+        this IEnumerable&lt;TSource&gt; source, Func&lt;TSource, bool&gt; filter)
+    {
+        foreach (var item in source)
+            if (filter(item)
+                yield return item;
+    }
+}</pre>
+
+<ul>
+  <li>I didn't realize .NET 2 iterators were lazy-initialized. Cool.</li>
+</ul>
+
+Side note: You can set a breakpoint inside an anonymous delegate, or on a lambda expression, even if it's formatted on the same line of source code as the outer call. Put the cursor inside the lambda and press F9; I don't think you can click on the gutter to set a breakpoint on anything other than the beginning of the line.
+
+Side note: When you step into the <code>c.City == "London"</code> in the LINQ <code>where</code> clause, the call stack shows it as "Main.Anonymous method".
+
+<pre>var query = from c in LoadCustomers()
+            where c.City == "London"
+            select new { c.ContactName, c.Phone };</pre>
+
+<ul>
+  <li>Anonymous type:</li>
+  <ul>
+    <li>Generated with another C#-impossible name, and it's generic.</li>
+    <li>Immutable.</li>
+    <li>Default implementations for Equals, GetHashCode, ToString.</li>
+  </ul>
+</ul>
+
+LINQ to SQL: We don't want to do any of this anonymous-delegate generation. Instead, want to translate the <em>intent</em> of the query into T/SQL, so the set logic runs on the server.
+
+Side note: Generated NorthwindDataContext has a Log property. Set it to Console.Out and you'll get info about the query that was generated for us.
+
+<pre>Func&lt;Customer, bool&gt; myDelegate = (c =&gt; c.City == "London");
+Expression&lt;Func&lt;Customer, bool&gt;&gt; myExpr = (c =&gt; c.City == "London");</pre>
+<ul>
+  <li>The first is just a delegate.</li>
+  <li>The second is a parse tree.</li>
+  <ul>
+    <li>C# samples have an Expression Tree Visualizer that you can download.</li>
+  </ul>
+  <li>This runs a different <code>Where</code> method. That's because here we've got an <code>IQueryable&lt;T&gt;</code>, rather than just an <code>IEnumerable&lt;T&gt;</code>.</li>
+  <li><code>Where()</code> takes an <code>Expression&lt;Func&lt;TSource, bool&gt;&gt;</code> predicate. So the compiler generates an expression tree.</li>
+  <li><code>Where()</code> just returns <code>source.Provider.CreateQuery(...new expression...)</code>, where the new expression is a method call to <em>itself</em>, with parameters that, when evaluated, become the parameters it was called with. (Is your head spinning yet?) It basically just builds the expression-tree version of the call to itself, which is later parsed by LINQ to SQL and turned into an SQL query.</li>
+</ul>
+
+<ul>
+  <li>LINQ to Objects: code that directly implements your intent</li>
+  <li>LINQ to SQL: data that represents your intent</li>
+</ul>
+The difference is all in the extension methods.

@@ -1,0 +1,77 @@
+---
+title: "Advantage Error 5035: That record is locked by... you  #Delphi"
+sort: 2170
+---
+<a href="http://blog.excastle.com/2005/05/03/advantage-database-the-good/">The Advantage database is nice for some things</a>. But it has several significant downsides, which, of course, we knew nothing about until we started working with it. The one that's given us the most grief so far is the way it deals with record locks inside transactions, and the (now) dreaded (to us) Error 5035.
+
+There are two different ways to update records in Advantage. One is with an updatable recordset (either TAdsTable, or a SELECT TAdsQuery with RequestLive = True). The other is with SQL: INSERT, UPDATE, and DELETE queries. Advantage has two completely different, and incompatible, record-locking schemes for these. (In fact, the updatable-recordset record-locking scheme is incompatible with <em>itself.</em>)
+
+When you start a transaction in Advantage, and then try to modify a record, Advantage puts a lock on that record. (This is true even if you request optimistic record locking. Yes.) The error can occur if you then try to modify that same record again, from the same client, from the same connection, under the same transaction. If you're not insanely careful, that second update will fail, because the record is locked.
+
+Yes. <em>You</em> locked the record, from this client, from this connection, from this transaction. And now, whoo boy, no, you can't modify that same record again, because that record is <em>locked,</em> buddy. It doesn't matter that you're the freaking <em>owner</em> of that lock, that you're the one who modified the record to begin with. Nope. The record is locked, and Advantage will throw a nice little "Error 5035" exception if you try to modify that record again.
+
+Nice, eh?
+
+There are two workarounds. One is to never modify the same record twice under the same transaction. This was not an option for us, without a huge amount of redesign that would set us back weeks or months (and introduce several more weeks' or months' worth of bugs to fix).
+
+The other workaround is to understand what Advantage is doing with these locks, and how to avoid the error. We've already gone through that process, so I'll share the benefit of our experience.
+
+Advantage apparently has two different kinds of record locks behind the scenes. INSERT, UPDATE, and DELETE queries apply what I'll call an "SQL lock". Updatable recordsets apply what I'll call a "cursor lock", and that cursor lock belongs to one, specific cursor (i.e., one specific TAdsTable instance, or one specific RequestLive SELECT TAdsQuery).
+
+Some locks are compatible with other locks, meaning they work the way they ought to â€” you can make the second change without getting an exception. The rule is: All SQL locks are compatible with all other SQL locks. Cursor locks are <em>only</em> compatible with cursor locks that originate from the same cursor (i.e., the same TAdsTable or TAdsQuery instance). All other combinations, when attempted under a transaction, will give you an Error 5035.
+
+Examples: (just for illustration â€” obviously they should have try..finally, Commit, Rollback, etc.)
+<pre>// All queries will work just fine
+AdsConnection1.BeginTransaction;
+InsertQuery.SQL.Text := 'INSERT INTO Orders (ID, Value) VALUES (1, 5.50)';
+InsertQuery.ExecSQL;
+UpdateQuery.SQL.Text := 'UPDATE Orders SET Value = Value + 1';
+UpdateQuery.ExecSQL;
+// No problems, no exceptions</pre>
+
+<pre>// Multiple TAdsTable instances don't work
+AdsConnection1.BeginTransaction;
+AdsTable1.TableName := 'Orders';
+AdsTable1.AppendRecord([1, 5.50]);
+AdsTable1.Edit;
+AdsTable1.FieldByName('Value') := 6.50;
+AdsTable1.Post;
+// Everything up to this point will work just fine,
+// because it's all on the same TAdsTable instance.
+// Add a second TAdsTable, and things break:
+AdsTable2.FindKey([1]);
+AdsTable2.Edit; // &lt;-- exception, unless using optimistic locking
+AdsTable2.FieldByName('Value') := 6.50;
+AdsTable2.Post; // &lt;-- exception, even if optimistic</pre>
+
+<pre>// Mixing SQL and TAdsTable doesn't work
+AdsConnection1.BeginTransaction;
+AdsQuery1.SQL.Text := 'INSERT INTO Orders (ID, Value) VALUES (1, 5.50)';
+AdsQuery1.ExecSQL;
+AdsTable1.TableName := 'Orders';
+AdsTable1.Open;
+AdsTable1.FindKey([1]);
+AdsTable1.Edit; // &lt;-- exception, unless optimistic
+AdsTable1.FieldByName('Value') := 6.50;
+AdsTable1.Post; // &lt;-- exception</pre>
+
+<pre>// Yes, it fails even if you've freed the old table
+// and then created a new one
+AdsConnection1.BeginTransaction;
+Table := CreateAndOpenOrdersTable(AdsConnection1);
+Table.AppendRecord([1, 5.50]);
+Table.Free;
+Table := CreateAndOpenOrdersTable(AdsConnection1);
+Table.FindKey([1]);
+Table.Edit; // &lt;-- exception, unless optimistic
+Table.FieldByName('Value') := 6.50;
+Table.Post; // &lt;-- exception</pre>
+
+
+
+<p dir="ltr">Advantage not only knows about this problem, they apparently went out of their way to make it work this way. Something about different cursors not knowing about each others' changes, and that leading to possible index corruption if they didn't do the locks this way. There are several reasons why this doesn't make a bit of sense to me, but whatever the case, updatable cursors place a harsher lock than queries do, and the Advantage programmers apparently have no intention of changing this anytime soon.</p>
+<p dir="ltr">Bottom line: If you need to modify a table under an Advantage transaction, use all INSERT/UPDATE/DELETE queries if at all possible. If you absolutely must use updatable recordsets, make sure you only have one instance of that TAdsTable (or SELECT TAdsQuery) that's shared by everybody who wants to update that table, and that you never, ever use queries for that table while you're under that transaction. And if you can't follow those rules, then sorry, buddy, but you're screwed. Fortunately, you <em>can</em> mix and match for different tables; you can use SQL for some tables, and updatable recordsets for others, and have no problems.</p>
+<p dir="ltr">(For what it's worth, you can have multiple TAdsTables and SELECT queries open on the same table at the same time, as long as you only use one of them for edits while you're in a transaction.)</p>
+<p dir="ltr">We did a lot of work on this last week (and have more ahead of us next week), working around this nice little nightmare. Some of our tables now do all their updates via INSERT/UPDATE/DELETE queries; we redesigned and reimplemented others to use a single TAdsTable instance (thank God for unit tests), and when they want to delete a lot of records, they now set a filter, call TAdsTable.Delete until no records are left, and then clear the filter. Ugh â€” that's a hell of a lot of round trips to the server, when there really should be (and used to be, until Advantage started throwing this exception) only one.</p>
+<p dir="ltr">I shudder to think of what this Advantage design flaw will mean to us going forward. For one thing, we really want to have <em>more</em> parts of our code that use transactions, not fewer. And for another, I just can't imagine what will happen when we start moving more parts of this code into server-side extended stored procedures. How, exactly, am I supposed to use the same TAdsTable instance from both the client and the server? Eww.</p>
+<p dir="ltr">It's not the end of the world; we'll fix the last known case of this problem early next week, and hopefully there won't be any more. So we've only lost about one and a half pair-weeks, maybe two, to this problem. Heck, we spent longer porting our queries to Advantage, and that was with a total change in the way we located and named the tables. But still, it's extremely irksome that they wouldn't see this as a bigger problem than they apparently do.</p>

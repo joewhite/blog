@@ -1,0 +1,79 @@
+---
+title: "What *wasn't* in Danny's Diamondback session  #Delphi  #borcon2004"
+sort: 2032
+---
+Stuff that came up after <a href="http://homepages.borland.com/dthorpe/blog/delphi/">Danny</a>'s talk (which I <a href="http://blog.excastle.com/2004/09/13/dannys-whats-new-in-the-diamondback-compiler-session/">briefly summarized here</a>). Even those of you who were at the talk didn't hear this stuff yet. (Well, except for <a href="http://blogs.borland.com/abauer">Allen</a>, but I suspect he already knew all of this anyway.)
+
+
+
+<strong>Delphi for Mac?</strong>
+
+Now, don't get your hopes up. There is no official word on this yet. (It may be worth noting that this is not an official "no".)
+
+
+
+Yes, you can get partway there with Mono, but there's not much there for GUI. However, when someone was asking Danny about this after the session, he pointed out that Diamondback will be a multi-personality IDE (with the three personalities out of the box â€” Delphi/Win32, Delphi/.NET, and C#/.NET). And personalities will be part of the Open Tools API. (Not sure if that'll be totally cleaned up for Diamondback, but it's there.) Open Personality API?
+
+So, whether Borland writes a Mac personality or not (and mum's the word on that so far, so you can still hold out hope), somebody else might be able to. This is a pretty darned intriguing concept, I think.
+
+<strong>The features are coming! The features are coming!</strong>
+
+I spent a while grilling Danny about what will be in Diamondback for Win32, and what will sneak in later. Here are the results. (Tabular format makes the holes a little more glaring, doesn't it? Still, this is good stuff to hear word on...)
+<table style="border-collapse: collapse" border="1" cellpadding="1" cellspacing="0">
+<tr valign="bottom">
+<th>Feature</th>
+<th>Diamondback</th>
+<th>Diamondback+1
+(Whidbeyish)</th>
+</tr>
+<tr>
+<td>'strict private' and 'strict protected' in Win32</td>
+<td colspan="2">Yes</td>
+</tr>
+<tr>
+<td>'static' keyword in Win32</td>
+<td>No</td>
+<td><em>Forgot to ask</em></td>
+</tr>
+<tr>
+<td>Class constructors in Win32</td>
+<td>No</td>
+<td><em>Forgot to ask</em></td>
+</tr>
+<tr>
+<td>Nested classes in Win32</td>
+<td colspan="2">Yes [Note 1]</td>
+</tr>
+<tr>
+<td>Records with methods in Win32</td>
+<td>No</td>
+<td>Yes [Note 2]</td>
+</tr>
+<tr>
+<td>Operator overloading in Win32</td>
+<td>No</td>
+<td>Yes [Note 3]</td>
+</tr>
+<tr>
+<td>Custom attributes in Win32</td>
+<td>No</td>
+<td><em>Forgot to ask</em></td>
+</tr>
+<tr>
+<td>Generics in Win32</td>
+<td>No</td>
+<td>Researching</td>
+</tr>
+<tr>
+<td>Multicast delegates in Win32</td>
+<td>No</td>
+<td>Researching</td>
+</tr>
+</table>
+Note 1: Yes, they'll be there, but you won't be able to use them in published sections because RTTI won't be able to cope with them.
+
+Note 2: Records with methods will be there primarily because they're a prerequisite for operator overloading.
+
+Note 3: Will only be supported for record types.
+
+Usual disclaimers about forward-looking statements, but if Danny thinks it's going to be in a release, I'd say the odds are pretty darned good...

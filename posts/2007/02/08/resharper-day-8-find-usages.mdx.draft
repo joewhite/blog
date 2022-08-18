@@ -1,0 +1,41 @@
+---
+title: "ReSharper, day 8: Find Usages  #.NET  #resharper"
+sort: 2304
+---
+<p>Welcome to day 8 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>As I mentioned in the <a href="http://blog.excastle.com/2007/02/02/resharper-day-3-resharper-survival-guide-or-whats-up-with-my-keybindings/">survival guide</a>, ReSharper replaces Visual Studio's Find References (Shift+F12) with its own Find Usages (<a href="http://catb.org/jargon/html/R/random.html">randomly</a> changed to Alt+F7). Here's more info on how their version differs from the one in Visual Studio.</p>
+
+<h4>Filtering for "get" or "set" usages</h4>
+
+<p>Ever had a property that's read all over the place, but only set a few places, and you wanted to Find References to just the property setter? Here ya go.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/FindUsagesOfProperty.png" width="511" height="169" alt="ReSharper's Find Results window, showing the filter menu and its options to show only read or write usages" border="1"></blockquote>
+
+<p>This also applies to fields: you can find only places where a field is read, or only places where it's written. (Man, if <a href="http://www.aisto.com/roeder/dotnet/">Reflector</a> only had this feature!)</p>
+
+<p>As you can see from the screenshot, the Filter menu in the Find Results window has options for "Show Read Usages", "Show Write Usages", "Show Invocation Usages", "Show Other Usages" (I'm not sure what that means), and "Show Usages in Documentation" (I assume this means XML doc comments). I thought "Show Other Usages" would mean making a delegate that references a method, but apparently they use "Show Read Usages" for that.</p>
+
+<p>They've said that in a future version, you'll be able to right-click on the "get" or "set" keyword inside a property declaration, and select "Find Usages", and get just the read or write usages, as appropriate. I'm looking forward to that one.</p>
+
+<h4>Stepping through the results</h4>
+
+<p>After you do a Find Usages, you can use <b>Ctrl+Alt+Up</b> and <b>Ctrl+Alt+Down</b> to step through the results. It'll put the cursor on the next result, opening another file if necessary. It doesn't wrap when you get to the end, which is nice in a way, because it tells you you're done.</p>
+
+<h4>The Find Results tree</h4>
+
+<p>On the downside, I don't really like the way they present the search results in the Find Results window.</p>
+
+<p>In Visual Studio, everything was just shown in a list:</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/VisualStudioFindSymbolResults.png" width="532" height="186" alt="Visual Studio's Find Symbol Results window" border="1"></blockquote>
+
+<p>Every entry shows the filename and line number (and column number, as if you cared), so you at least know which class each reference is in. In ReSharper, on the other hand, everything's in a tree:</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/ReSharperFindUsagesCollapsed.png" width="223" height="136" alt="ReSharper's Find Results window, showing search results that are initially collapsed" border="1"></blockquote>
+
+<p>The tree starts out collapsed <i>every time,</i> so you're always at least one click (Expand All) away from even seeing your results. And if you change the "Group by" setting to "None", in an attempt to get rid of those layers of tree and see your results right away, then you don't get <i>anything</i> telling you which file a result came from: each line will show just the text of the matching line of code, but no filename or line number information.</p>
+
+<p>(I sent in an enhancement request, asking for the ability to show the results expanded by default. They said that there were a lot of other people asking for the exact same thing, so we may see that happen at some point.)</p>
+
+<p>On the other hand, once you do get them expanded, they can tell you not just which class the result was in, but also which method, something VS's list doesn't do.</p>

@@ -1,0 +1,210 @@
+---
+title: "TechEd 2008 notes: The Gentle Art of Pair Programming  #.NET  #Delphi  #teched2008"
+sort: 2543
+---
+I already know a fair bit about pair programming, but the session description said, "For those already working in a pairing environment, Wendy and Oksana include some novel viewpoints and interesting discussions on familiar topics." I think that worked out okay -- it's always good to hear how other people are doing agile, and they do a few things differently than we do.
+
+The description also said there would be "interactive and fun games", but the room was way too big and spread-out for that to work. There also wasn't much time for things like that once they'd answered all the questions; people were really curious about a lot of things. Questions and answers interspersed below.
+
+The Gentle Art of Pair Programming
+Oksana Udovitska
+Wendy Friedlander
+
+Usually an interactive session with games and some hands-on practice, but they got put in a lecture room instead, with not enough time for games
+
+Agenda
+<ul>
+  <li>Who are those chicks? <em>(their words, not mine -- I just copied the slide)</em></li>
+  <li>Let's get to know each other</li>
+  <li>What this pair programming is all about</li>
+  <li>Personalities and Pairing</li>
+  <li>Daily routines</li>
+  <li>It's all about the team</li>
+  <li>Respect and communication</li>
+  <li>Wrapping it up</li>
+</ul>
+
+Who Are Those Chicks?
+Oksana Udovitska and Wendy Friedlander
+<ul>
+  <li>Software developers</li>
+  <li>On cutting edge of agile practices</li>
+  <li>Wendy likes to code nonstop, do things her way, so was hesitant about pair programming initially; but changed her mind after trying it</li>
+  <li>Oksana enjoys pairing more than regular programming, because it's very social</li>
+</ul>
+
+A Day In Life Of Pairing
+<ul>
+  <li>Morning stand-up</li>
+  <ul>
+    <li>This is when you break into pairs and pick up tasks</li>
+  </ul>
+  <li>"War room hours"</li>
+  <ul>
+    <li>Uninterrupted coding</li>
+    <li>Try not to schedule meetings or get distracted.</li>
+    <li>~2 hours in morning and ~2 hours in afternoon.</li>
+  </ul>
+  <li>Break for lunch, yummy!</li>
+  <ul>
+    <li>Pair programming is very intense -- very emotionally and intellectually draining. Need breaks. Sustainable pace.</li>
+  </ul>
+  <li>More "War room hours"</li>
+  <li>Go home,  yippee!</li>
+</ul>
+
+Morning Stand Up
+<ul>
+  <li>Standing by the story board</li>
+  <li>Talk to the board</li>
+  <ul>
+    <li>Worked on this story</li>
+    <li>Finished these tasks</li>
+    <li>This is what we have left</li>
+  </ul>
+  <li>They switch pairs at stand-up, and again after lunch.</li>
+  <li>Promiscuous pairing: the person who is newest in the task stays on</li>
+  <li>Rotate pairs -- don't always pair with someone who thinks like you. Can use a chart to keep track.</li>
+</ul>
+
+Losing code ownership. Can stand up from a task in the middle, and have someone else take over. Trust that it will be done OK.
+
+
+
+May not have personal desks, but there is team space. So you need to like the people you work with -- but you can post pictures of your wife all over the place. Little knickknacks. Space Invaders screenshots. It seems scary, but you get used to it.
+
+Also, there are 2-3 hours a day when you're doing other things: making calls, researching on the Internet, going to meetings.
+
+More than two people in the room; you're in the same room with the other pairs on the team. They called this "osmotic information": even if you're not focused on it, you have some awareness of what others are doing. If another pair seems stuck, you can offer to help. If you're stuck, you can ask for help. If you need to make a decision that could affect the whole team for the next couple of weeks, you can talk to the group about it. (But try to only interrupt if you need to, because of context switching.)
+
+Do you have to match experience levels? -- Surprisingly enough, yes and no. Make sure you both understand what you're trying to do, but even if you're not the best person to complete the task, you still can have good ideas on how to approach it, and you learn really fast. Oksana's experience, as a newbie in a pairing environment, was that she didn't feel she was dragging anyone down. You immediately learn the things that you need to know.
+
+Depending on who you're pairing with, it's your responsibility to customize your behavior or put on a different pairing hat. If one person feels like they're dragging the pair down, that's the fault of the more experienced person. (Trading the keyboard often may help with this.)
+
+There is no driver: there's a typer. Both people should write every line of code. If you do it right, you're both engaged all the time.
+
+Coding-style conflicts: very different when you're pairing. Wendy said she writes code in a very different style when she's pairing than when she's alone. Oksana pointed out that you can change the code's style; nothing will stop you except your pair (who will probably point out that you could be writing new code instead). It becomes a lot more fluid, and people tend to start writing code, not necessarily in the same style as everyone else, but in a style that everyone else can read. Anyone can try something new, and if others don't like it, it'll get deleted (so don't take it personally -- must be a friendly environment). It becomes really easy to agree; the things that make sense stick around, and the things that don't make sense don't stick around, and you don't even remember who did it.
+
+Don't you get half as much done when you have two people on the same task? -- No, because:
+<ul>
+  <li>More focus</li>
+  <li>Blocked less often</li>
+  <li>More knowledge -- people can take vacations without everything else grinding to a halt</li>
+  <li>Compare cost of fixing early vs. fixing after a bug gets into production.</li>
+  <li>Start with a pilot project on something big and risky, and see if the benefit shows.</li>
+  <li>If the team is self-managing (as it should be in an agile shop), just do the pairing. As long as management is happy with the work, try stuff to see if it makes sense. Then reflect on it to decide whether it worked.</li>
+</ul>
+
+How many developers do you need to get this started? -- Probably 4-6 developers; 6 is a little large for getting everyone to agree all the time.
+
+What if there's an odd number of people? -- Can work alone, just needs a review afterward. Also lean on continuous integration. Or if you don't want to work alone, you can work on spikes (research into new technology, doing the quickest, dirtiest proof of concept), or maintain the build server, or review old code.
+
+Velocity: Different pairs of people work at different speeds. So you just have to look at how many story points you average as a team, and know that it won't be exact. Many agile teams don't put too much time into estimation, especially long-term estimation (and "three months out" changes every two weeks as the customer changes priorities).
+
+How do you do employee reviews? -- Everyone knows everyone's strengths. Some people are good at coding, some people make the pair happy, some people make the pair unhappy. It becomes a team thing -- the team did well, so the team gets a raise. Then maybe, if one person is especially good, they get a little extra.
+
+Becomes a very healthy environment. Don't have people being pathologically competitive and protective of their code and knowledge.
+
+Documentation: customer-facing documentation only, if needed. No design docs or comments (your tests are your comments). You probably will tend to have a wiki to store knowledge like port numbers, how to set up the build environment, etc.
+
+Do it together? Do it yourself?
+<ul>
+  <li>People are social animals</li>
+  <li>We can do things alone or together</li>
+  <li>Which do you prefer?</li>
+  <li>Learning to communicate with a pair can help you learn how to communicate with customers</li>
+</ul>
+
+What is pair programming?
+<ul>
+  <li>Team effort</li>
+  <ul>
+    <li>Everyone participates</li>
+    <li>No heroes</li>
+    <li>Good to put people who are inexperienced in a task on that task</li>
+    <ul>
+      <li>Have to be open to failing your commitment because you're not putting the hero on the task all the time.</li>
+    </ul>
+  </ul>
+  <li>Collaboration and sharing</li>
+  <ul>
+    <li>Knowledge transfers -- not knowledge transfer!</li>
+  </ul>
+</ul>
+
+Why pair?
+<ul>
+  <li>More interactive</li>
+  <li>Team spirit</li>
+  <li>Confidence</li>
+  <ul>
+    <li>Okay to ask questions and show vulnerability</li>
+    <li>Know others agree with your code and like it</li>
+  </ul>
+  <li>No more code reviews</li>
+  <li>Readability and consistency</li>
+  <li>Discipline</li>
+  <li>You can take vacation!</li>
+</ul>
+
+Why is it hard?
+<ul>
+  <li>Personal interaction</li>
+  <li>Everyone is unique</li>
+  <li>Less personal space and time</li>
+  <li>Very intense</li>
+  <li>Have to do the wrong thing sometimes to keep the flow going (don't spend two hours discussing why it's going to fail -- just write it and let it fail)</li>
+</ul>
+
+My way, your way, our way?
+<ul>
+  <li>Talk</li>
+  <li>Compromising isn't good. You can't really compromise between two different patterns; they don't mix. Choose your battles -- better to do it in a poor way, but completely. Or try it, show that it can't work, and then do the other way (and maybe you were wrong and it is good enough).</li>
+  <li>YAGNI</li>
+  <li>Know when to ask the team</li>
+</ul>
+
+Getting started
+<ul>
+  <li>How?</li>
+  <li>Commit. Make sure everyone on the team agrees that it's worthwhile to try, and try it for at least a week.</li>
+  <li>Switch pairs. Helpful if you're sitting in the same room, or at least nearby.</li>
+  <li>Can be done remotely, as long as you know you've got the technology working (VPN, screen sharing, etc.) But you do lose osmotic information; you don't know what other pairs are doing. Cameras are helpful. Skype + VNC. Pairing is probably the easiest agile practice to do from home.</li>
+  <li>Know your results.</li>
+  <ul>
+    <li>Know how to reflect on what's working and what isn't.</li>
+    <li>Don't be afraid to bring up things that should change.</li>
+    <li>Go around the room, have everyone say something we should keep doing and something we should change.</li>
+    <li>If you're doing agile, retrospectives are core. Otherwise you're being dogmatic.</li>
+  </ul>
+</ul>
+
+The most important thing
+<ul>
+  <li>Having fun!</li>
+  <li>If the walls are blank and everyone's staring at the monitors, you're doing something wrong. Joking, talking, arguing (in moderation).</li>
+</ul>
+
+Respect and communication
+<ul>
+  <li>Communicate</li>
+  <li>Respect your pair</li>
+  <ul>
+    <li>Be open to their suggestions</li>
+    <li>If something bad happened at home and you're in a bad mood, you have to leave it behind</li>
+    <li>Hiring process is really tricky. You need people on your team who will interact well.</li>
+  </ul>
+  <li>Express yourself and listen</li>
+</ul>
+
+Knowing when to mentor
+<ul>
+  <li>Pairs not matched</li>
+  <ul>
+    <li>It's rare that one person won't be mentoring. If you've got two experts pairing, they're probably not experts in the same thing.</li>
+  </ul>
+  <li>Frustration</li>
+  <li>Mentoring mindset</li>
+</ul>
+
+They think nine developers is too large for one team -- they suggested forming two sub-teams, each working on its own domain, and letting people move between sub-teams.

@@ -1,0 +1,7 @@
+---
+title: "TActionList for WinForms  #.NET  #Delphi"
+sort: 1974
+---
+<p>I've missed TActionList and TAction since I started working in .NET. And now I may be able to get them back. Someone posted an article on CodeProject with an <a href="http://www.codeproject.com/cs/miscctrl/actionlist.asp">ActionList class for WinForms</a>. Woo! I haven't tried it yet, but if it works well, this could be cool.</p>
+<p>Looks like they're using IExtenderProvider, which I hadn't thought about for actions but ought to work really well. Looks like a good design; you drop an ActionList on your form, it probably hooks Application.Idle so it can fire the actions' Update events, and then you just create the actions and set the new Action property that appears on all your controls. I'll have to see if it's got everything you really need (caption, imagelist and image index, Visible, etc.). But even if it just gives me an easy way to share the caption, enabled status, and click-handler among several UI elements, that'd be a good start.</p>
+<p>Thanks to <a href="http://dotnetdelphi.blogspot.com/2004/07/actionlists-for-net-windowsforms.html">Chris Woodruff</a> for posting the link.</p>

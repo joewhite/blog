@@ -1,0 +1,8 @@
+---
+title: "IComparable change  #.NET"
+sort: 2074
+---
+<p>Krzysztof Cwalina, one of the .NET library designers, asked a question on his blog about <a href="http://blogs.msdn.com/kcwalina/archive/2004/10/27/248847.aspx">a proposed change to IComparable&lt;T&gt;</a> in .NET 2.0.</p>
+<p>Right now, Whidbey has a generic interface called IComparable&lt;T&gt;, which lets an object compare itself to other objects; and IComparer&lt;T&gt;, which lets a third party compare objects. They're used for things like sorting, comparing, hashtable keys, etc. The problem is, the interfaces, as they're designed today in the Whidbey betas, pretty much assume that the objects you're comparing will have a natural order (i.e., they'll have a meaningful way to say that X is "less than" or "greater than" Y). If you're ever dealing with objects that don't have a natural order (e.g., points, rectangles, colors, directories, state-machine states, etc.), you would either have to make up an arbitrary ordering, or only implement half the interface (implement the Equals method, which doesn't ask about ordering, but throw an exception from Compare, which does).</p>
+<p>The design team is thinking about splitting those interfaces, so there's one interface for "are these equal?" and another for "which one is greater?". But they won't do it unless there's overwhelming support from the community.</p>
+<p>Let's <a href="http://blogs.msdn.com/kcwalina/archive/2004/10/27/248847.aspx">go overwhelm them</a>. (grin)</p>

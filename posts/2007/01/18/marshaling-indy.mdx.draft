@@ -1,0 +1,27 @@
+---
+title: "Marshaling Indy  #.NET  #Delphi"
+sort: 2292
+---
+<p>We've got some TCP/IP client/server apps. They use a custom protocol that looks a bit like HTTP, but isn't quite, for complicated reasons.</p>
+
+<p>At present, we use <a href="http://www.indyproject.org/">Indy</a> for all of our networking code. There are a lot of reasons for this, some of which went away over time, but the biggest reasons are (a) it's a solid network library for Delphi, which doesn't otherwise ship with any networking libraries beyond the Windows API, and (b) its server components are multithreaded right out of the box. Oh, and (c) it's free.</p>
+
+<p>We use the VCL version of Indy for both Win32 and .NET, because the all-.NET version didn't exist when we started. It works quite nicely on both sides. Or did, until we tried to get all exotic.</p>
+
+<p>Recently, we decided to try doing some interop between our Win32 DUnit tests and our .NET TCP server. Basically, our tests would create the server object and tell it to start listening for connections; would connect to it and do stuff; and then would shut down the server object. This would let us run end-to-end tests without actually needing to install our Windows service on the automated-build machine.</p>
+
+<p>Sounds great. We wrote a C++ DLL to translate between the unmanaged and managed code, gave it a couple of exports, and fired it up. It crashed.</p>
+
+<p>We tried debugging it. It died at the beginning of our server class, which descended from the Indy TCP server class. Apparently the blowup happened when our class called the inherited constructor.</p>
+
+<p>I was the odd man out earlier in the week, so I played around with Hydra, to see if we just hadn't done the C++ stuff right (or if the RemObjects people knew things we didn't). I wrote a Hydra plug-in in .NET that let me create and shut down the server socket. This didn't crash, but it didn't work either: when I tried to write an app to connect to the server, it would connect and then immediately disconnect.</p>
+
+<p>Weird.</p>
+
+<p>Somewhere in the mix of .NET 2.0, unmanaged-to-managed interop, P/Invoked socket API calls, TThread-based threading code in .NET, and who knows what else, there be monsters. Indy, apparently, does not like interop.</p>
+
+<p>And I confirmed that it was Indy, by writing my own multithreaded server socket. It worked just dandy in Hydra.</p>
+
+<p>My multithreaded server was just proof-of-concept, of course; not ready for production use. We wound up doing something else. But I took some notes on what was involved in getting a multithreaded server up and running, and will probably elaborate on it and blog some of it in the future.</p>
+
+<p>(Actually, getting it up and running isn't that hard. It's shutting it down that's the problem.)</p>

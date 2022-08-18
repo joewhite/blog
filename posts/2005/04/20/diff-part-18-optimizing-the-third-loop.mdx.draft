@@ -1,0 +1,99 @@
+---
+title: "Diff, part 18: Optimizing the third loop  #.NET  #Delphi  #diff"
+sort: 2159
+---
+<p>Our <a href="http://blog.excastle.com/tag/diff/">diff series</a> continues, once again focusing on optimization.</p>
+
+&PBOX_R&
+
+<p>On Monday, I sketched out our <a href="http://blog.excastle.com/2005/04/18/diff-part-16-a-look-back-and-a-big-o/">overall algorithm</a> to date. Last Friday, I showed an <a href="http://blog.excastle.com/2005/04/15/diff-part-15-implementing-expendable/">Expendable function</a> for eliminating <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">common subsequences</a> that aren't going anywhere. This time, I'll look at an interaction between those two pieces.</p>
+<p>Suppose we have three CSes so far:</p>
+<ul>
+<li><font face="Courier New">[1,1]</font></li>
+<li><font face="Courier New">[1,1] [2,2]</font></li>
+<li><font face="Courier New">[1,1] [2,2] [3,3]</font></li>
+<li><font face="Courier New">[1,1] [2,2] [3,3] [4,4]</font></li></ul>
+<p>And let's say the next match in our input is <font face="Courier New">[5,5]</font>. Our algorithm says to try appending the <font face="Courier New">[5,5]</font> to each of the existing CSes, then use Expendable to compare the new CS to existing CSes and trim things back. So we would come up with:</p>
+<ul>
+<li><font face="Courier New">[1,1] [5,5]</font>, which gets eliminated because Expendable(<font face="Courier New">[1,1] [2,2]</font>, <font face="Courier New">[1,1] [5,5]</font>) = <font face="Courier New">[1,1] [5,5]</font>. (See <a href="http://blog.excastle.com/2005/04/15/diff-part-15-implementing-expendable/">Expendable scenario #10</a>.)</li>
+<li><font face="Courier New">[1,1] [2,2] [5,5]</font>, which gets eliminated because Expendable(<font face="Courier New">[1,1] [2,2] [3,3]</font>, <font face="Courier New">[1,1] [2,2] [5,5]</font>) = <font face="Courier New">[1,1] [2,2] [5,5]</font>. (See <a href="http://blog.excastle.com/2005/04/15/diff-part-15-implementing-expendable/">scenario #10</a>.)</li>
+<li><font face="Courier New">[1,1] [2,2] [3,3] [5,5]</font>, which gets eliminated because Expendable(<font face="Courier New">[1,1] [2,2] [3,3] [4,4]</font>, <font face="Courier New">[1,1] [2,2] [3,3] [5,5]</font>) = <font face="Courier New">[1,1] [2,2] [3,3] [5,5]</font>. (See <a href="http://blog.excastle.com/2005/04/15/diff-part-15-implementing-expendable/">scenario #10</a>.)</li>
+<li><font face="Courier New">[1,1] [2,2] [3,3] [4,4] [5,5]</font>, which we keep.</li></ul>
+<p>Our first four tries wound up getting thrown away, and it looks like a pattern may be forming. But it's hard to tell whether the pattern is related to our specific inputs, or if it's true in general. Will the first few CS<sub><small><i>new</i></small></sub>s we generate always be wasted effort?</p>
+<p>Let's look at it a different way, one that doesn't depend so much on the particular inputs and the current state. Our algorithm-to-date uses Expendable in a specific way: it always passes an existing CS<sub><small><i>i</i></small></sub> as the first parameter to Expendable, and a proposed CS<sub><small><i>new</i></small></sub> as the second parameter. But we're not restricted to using Expendable this way; we can actually call it with any two CSes, including two proposed CS<sub><small><i>new</i></small></sub>s. That means we can compare our four new CSes to each other, and anything that drops out is, by definition, less worthy. If we never bother to pass those less-worthy CSes on to the rest of the algorithm, we know, from the way we defined Expendable, that we won't be hurting our chances of finding the longest possible CS.</p>
+<p>There are several different combinations of ways we could call Expendable on our four CS<sub><small><i>new</i></small></sub>s, but let's just call it with successive pairs and see what happens:</p>
+<ul>
+<li>Expendable(<font face="Courier New">[5,5]</font>, <font face="Courier New">[1,1] [5,5]</font>) = <font face="Courier New">[5,5]</font>. (See <a href="http://blog.excastle.com/2005/04/15/diff-part-15-implementing-expendable/">scenario #5</a>.)</li>
+<li>Expendable(<font face="Courier New">[1,1] [5,5]</font>, <font face="Courier New">[1,1] [2,2] [5,5]</font>) = [1,1] [5,5]. (See <a href="http://blog.excastle.com/2005/04/15/diff-part-15-implementing-expendable/">scenario #5</a>.)</li>
+<li>Expendable(<font face="Courier New">[1,1] [2,2] [5,5]</font>, <font face="Courier New">[1,1] [2,2] [3,3] [5,5]</font>) = <font face="Courier New">[1,1] [2,2] [5,5]</font>. (See <a href="http://blog.excastle.com/2005/04/15/diff-part-15-implementing-expendable/">scenario #5</a>.)</li>
+<li>Expendable(<font face="Courier New">[1,1] [2,2] [3,3] [5,5]</font>, <font face="Courier New">[1,1] [2,2] [3,3] [4,4] [5,5]</font>) = <font face="Courier New">[1,1] [2,2] [3,3] [5,5]</font>. (See <a href="http://blog.excastle.com/2005/04/15/diff-part-15-implementing-expendable/">scenario #5</a>.)</li></ul>
+<p>So of our four CS<sub><small><i>new</i></small></sub>s, three turned out to be expendable with regards to each other. (This is the same thing we saw above, but this time we've eliminated one variable &#8212; we're just looking at the CS<sub><small><i>new</i></small></sub>s; the outcome no longer depends on what CSes we already happened to have on tap.) And there seems to be a pattern here: scenario #5 keeps showing up. Let's take a closer look at scenario #5:</p>
+<blockquote dir=ltr style="MARGIN-RIGHT: 0px">
+<table style="BORDER-COLLAPSE: collapse" cellSpacing=0 cellPadding=2 border=1>
+<tbody>
+<tr vAlign=top bgColor=#f0f0f0>
+<td><font size=2>#</font></td>
+<td><font size=2><strong>Len</strong></font></td>
+<td><font size=2><strong>AI</strong></font></td>
+<td><font size=2><strong>BI</strong></font></td>
+<td><font size=2><strong>CS<sub><small>1</small></sub></strong></font></td>
+<td><font size=2><strong>CS<sub><small>2</small></sub></strong></font></td>
+<td><font size=2><strong>Make CS<sub><small>1</small></sub> win</strong></font></td>
+<td><font size=2><strong>Make CS<sub><small>2</small></sub> win</strong></font></td>
+<td><font size=2><strong>Exp</strong></font></td></tr>
+<tr bgColor=#ffffff>
+<td><font size=2>5</font></td>
+<td align=middle><font size=2>&lt;</font></td>
+<td align=middle><font size=2>=</font></td>
+<td align=middle><font size=2>=</font></td>
+<td><font face="Courier New" size=2>[3,3]</font></td>
+<td><font face="Courier New" size=2>[0,0] [3,3]</font></td>
+<td><font size=2>None possible</font></td>
+<td><font size=2>EOF</font></td>
+<td><font size=2>1</font></td></tr></tbody></table></blockquote>
+<p>What does this mean in English? It means that if two CSes are different lengths, but the last <a href="http://blog.excastle.com/2005/03/31/diff-part-4-matches/">match</a> is the same in both, the shorter CS can be thrown away.</p>
+<p>This is an appealing rule, because it immediately eliminates obvious holes. But it also works in cases without obvious holes: if, for example, we have <font face="Courier New">[0,3] [1,4] [5,5]</font> and <font face="Courier New">[2,0] [3,1] [4,2] [5,5]</font>, we have no obvious holes, but Expendable still tells us, with confidence, that we can throw the shorter one away.</p>
+<p>This has a very practical application to our algorithm: we don't need to append our new match to every one of our extant CSes. If we just use the longest CS-so-far that the new match will fit onto, we're guaranteed safe &#8212; we don't even need to try the others. When we're deciding which existing CS(es) to extend with our new match, only two things matter: the existing CSes' length, and whether we can append our new match to them. After all, once we've appended the same new match onto a bunch of different CSes, they lose their previous identity; now their last matches are all the same, and the only thing that <em>can</em> vary is their length. So scenario 5 kicks in, and all but the longest of this newly-minted batch of CSes will drop out. Why bother with anything but the longest to begin with?</p>
+<p>What if there's more than one "longest CS that our match will fit onto"? For example, let's say we already have these CSes:</p>
+<ul>
+<li><font face="Courier New">[0,3]</font></li>
+<li><font face="Courier New">[4,1]</font></li>
+<li><font face="Courier New">[4,1] [6,2]</font></li></ul>
+<p>If the next match is <font face="Courier New">[5,5]</font>, what do we do? First we look at our longest CS so far, <font face="Courier New">[4,1] [6,2]</font>. <a href="http://blog.excastle.com/2005/04/02/diff-part-6-match-strings-and-common-subsequences/">Can we append</a> <font face="Courier New">[5,5]</font> to that, and still have a valid CS? No, we can't, so we have to go for the shorter CSes. Can we append <font face="Courier New">[5,5]</font> to <font face="Courier New">[0,3]</font>? Yes. What about <font face="Courier New">[4,1]</font>? Yes. So we now have these CS<sub><small><i>new</i></small></sub>s:</p>
+<ul>
+<li><font face="Courier New">[0,3] [5,5]</font></li>
+<li><font face="Courier New">[4,1] [5,5]</font></li></ul>
+<p>Scenario 5 doesn't help here, because these are both the same length. No, this is a job for scenario #14:</p>
+<blockquote dir=ltr style="MARGIN-RIGHT: 0px">
+<table style="BORDER-COLLAPSE: collapse" cellSpacing=0 cellPadding=2 border=1>
+<tbody>
+<tr vAlign=top bgColor=#f0f0f0>
+<td><font size=2>#</font></td>
+<td><font size=2><strong>Len</strong></font></td>
+<td><font size=2><strong>AI</strong></font></td>
+<td><font size=2><strong>BI</strong></font></td>
+<td><font size=2><strong>CS<sub><small>1</small></sub></strong></font></td>
+<td><font size=2><strong>CS<sub><small>2</small></sub></strong></font></td>
+<td><font size=2><strong>Make CS<sub><small>1</small></sub> win</strong></font></td>
+<td><font size=2><strong>Make CS<sub><small>2</small></sub> win</strong></font></td>
+<td><font size=2><strong>Exp</strong></font></td></tr>
+<tr bgColor=#ffffff>
+<td><font size=2>14</font></td>
+<td align=middle><font size=2>=</font></td>
+<td align=middle><font size=2>=</font></td>
+<td align=middle><font size=2>=</font></td>
+<td><font face="Courier New" size=2>[3,3]</font></td>
+<td><font face="Courier New" size=2>[3,3]</font></td>
+<td><font size=2>None possible</font></td>
+<td><font size=2>None possible</font></td>
+<td><font size=2>Either</font></td></tr></tr></tbody></table></blockquote>
+<p>Meaning, if CS<sub><small>1</small></sub> and CS<sub><small>2</small></sub> are both the same length, and both end in the same match, then we should throw one of them away, and it really doesn't matter which.</p>
+<p>With all this in mind, we can make another change to our algorithm's outline, this time to the third loop (with a minor tweak to the fourth):</p>
+<ul>
+<li>Loop through all the CSes we have so far, going from longest to shortest. Stop on the first CS that we can construct a longer CS from by appending [i, j].</li>
+<li>Loop through all the CSes again, calling Expendable on [CS<sub><small><i>k</i></small></sub>, CS<sub><small><i>new</i></small></sub>] and discarding CSes as needed.</li></ul>
+<p>A couple of finer points to mention here:</p>
+<ul>
+<li>If we never find a CS that we can extend with [i, j], then we still generate a CS<sub><small><i>new</i></small></sub>. In this case, our CS<sub><small><i>new</i></small></sub> would be of length 1, containing only our new match. (This was true of the algorithm I sketched out on Monday, too; I should've specified this then. For example, if the only CS we have so far is <font face="Courier New">[1,4]</font>, and our new match is <font face="Courier New">[4,2]</font>, then we add <font face="Courier New">[4,2]</font> to our CSes-so-far list.)</li>
+<li>If we have multiple existing CSes that have the same length (e.g., <font face="Courier New">[0,3] [1,4]</font> and <font face="Courier New">[3,0] [4,1]</font>), it doesn't matter which of them comes first in our "longest to shortest" ordering. It's not important whether our iteration visits <font face="Courier New">[0,3] [1,4]</font> or <font face="Courier New">[3,0] [4,1]</font> first, just that we don't try either of them until we've tried everything longer, and that we try both of them before we try anything shorter.</li></ul>
+<p>This is a nice optimization. We just took two nested O(N) loops, and made them into two successive O(N) loops. This leg of the algorithm used to be O(N<sup><small>2</small></sup>), and now it's just O(N). Making progress.</p>

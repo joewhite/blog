@@ -1,0 +1,14 @@
+---
+title: "Editing and continuing  #.NET"
+sort: 2252
+---
+<p>Sometimes, the most amazing things are the ones you barely notice.</p>
+<p>I was just debugging in Visual Studio 2005. I wanted to know why, when I started in-place editing in a ListView, and then hit Enter without typing anything, it blanked out the item. So I put a breakpoint on the "node.Text = e.Label;" line in my AfterLabelEdit event. (I'm running the listview in VirtualMode, so I have to handle the edit events manually.)</p>
+<p>Turns out, when you hit Enter without typing anything, the e.Label that gets passed to your event handler is null. I hunted through the online docs to see if they said this null was expected, but found not a shred of confirmation or explanation.</p>
+<p>That's some seriously bizarre behavior, but okay, I guess. If "hit Enter without typing anything" comes through as "null", I can deal with that: I'll look for null, and when I see it, I'll just throw the change away. I don't have to understand it, I just have to code for it. So I put an "if (e.Label != null) {" at the beginning of my method, and "} else e.CancelEdit = true;" at the end.</p>
+<p>I didn't remember that I was still stopped on the breakpoint. I only noticed that after I had finished making this change. "Well," I thought, "here's a good chance to try out that newfangled Edit-and-Continue feature." So I hit F5 to continue running, expecting to see some sort of prompt asking me whether to apply my changes.</p>
+<p>No prompt. My program just started running again.</p>
+<p>I clicked on an item to go into edit mode, then hit Enter. It didn't clear out the item this time. Visual Studio had applied my change, without needing to bother me with a prompt. What's more, it had modified the method I was <em>stopped at a breakpoint in the freaking middle of.</em></p>
+<p>This is just so cool.</p>
+<p>Thinking back to what I've read about EnC, I think I remember that it won't modify any methods that you're currently in the middle of, anywhere along the call stack (which eliminates the hairy questions about what should happen if you move or delete the line you're in the middle of running). But for it to modify that method for <em>next</em> time you hit it, and to do it utterly transparently, without even a noticeable delay, is just mind-blowing.</p>
+<p>They may still have some stupid bugs in their GUI controls, but in some things, .NET 2.0 and Visual Studio 2005 seriously rock.</p>

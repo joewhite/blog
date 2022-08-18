@@ -1,0 +1,6 @@
+---
+title: "The latest on the IDisposable pattern  #.NET"
+sort: 2185
+---
+<p>The latest <a href="http://www.gotdotnet.com/Community/MessageBoard/Thread.aspx?id=326762&amp;Page=1#326817">IDisposable best practices</a>, as posted on the FxCop message boards by Nick G of Microsoft. Best explanation I've seen yet &#8212; I've already copied the code samples onto our internal development wiki for future reference.</p>
+<p>(But <em>man,</em> that's a lot of trouble for an interface with just one method!)</p>

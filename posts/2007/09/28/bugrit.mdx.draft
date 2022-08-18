@@ -1,0 +1,19 @@
+---
+title: "Bugrit!  #.NET  #Delphi  #dgrok"
+sort: 2471
+---
+<p>The end was in sight. 18 files were failing with "Expected EndKeyword but found WithKeyword", 2 with "Expected FinallyKeyword but found WithKeyword". Parsing the "with" statement looked like the only thing between me and 100% parsing of the Delphi RTL source.</p>
+
+<p>So I wrote the tests for RuleType.WithStatement, made them pass, and...</p>
+
+<blockquote>Expected CloseParenthesis but found Colon (1)</blockquote>
+
+<p>D'oh! Now that it was getting past the <code>with</code> statement, it found something else in System.pas. I forgot about <code>Str()</code>, one of those pesky compiler-magic functions. Here's the offending line of code:</p>
+
+<pre>Str(val:0, S);</pre>
+
+<p>I think <code>Str</code> is the only function in Delphi that takes that colon syntax. How much code do you suppose is hanging around in the compiler just to handle that one special case?</p>
+
+<p>Sigh. Well, I'll probably just implement the colon as another binary operator, and figure out what its precedence should be. When I release 0.4 (probably no later than this weekend), it should be able to fully parse all the Delphi RTL source files.</p>
+
+<p>Well, except for <code>{$INCLUDE}</code>. But that's a different feature...</p>

@@ -1,0 +1,39 @@
+---
+title: "CoffeeScript's for loops don't work on strings (despite appearances to the contrary)  #Programming  #browser-combatability  #browser-compatibility  #coffeescript  #internet-explorer  #javascript"
+sort: 3348
+---
+I've been playing around with <a href="http://jashkenas.github.com/coffee-script/">CoffeeScript</a>, and found myself needing to loop over the characters (and indexes) in a string. So I tried a simple CoffeeScript <code>for</code> loop:
+
+<pre>
+for char, index in line
+    # ...
+</pre>
+
+I ran it, and it worked, even in IE, so I assumed that CoffeeScript was doing whatever magical syntax was required to make it work everywhere.
+
+Later I found out I was wrong. CoffeeScript was generating the syntax that works with arrays -- <code>list[index]</code> -- and that syntax only <em>happens</em> to <em>sometimes</em> work with strings. It works consistently in Chrome, and FireFox, and Opera. It even works in IE... but only if you have an HTML5 doctype.
+
+<pre lang="html">
+&lt;!DOCTYPE html&gt;
+&lt;script&gt;
+document.write('abc'[1]);
+&lt;/script&gt;
+</pre>
+
+The above HTML page works fine in IE9, outputting <code>b</code> as expected. But if you remove the <code>&lt;!DOCTYPE html&gt;</code> line, IE outputs <code>undefined</code> instead. That's right, it loads a completely different version of JavaScript depending on what version of HTML you're using! And if you <a href="http://stackoverflow.com/questions/7942648/why-does-wpfs-frame-handle-javascript-differently-from-ie">load the above page into a WPF <code>Frame</code></a>, even the doctype won't save you -- it <em>always</em> outputs <code>undefined</code>.
+
+When I went back and looked through the <a href="http://jashkenas.github.com/coffee-script/">CoffeeScript documentation</a>, sure enough, nowhere do they actually say that <code>for</code> loops can be used to iterate through the characters in a string. The fact that it ever works is apparently an accident, so don't rely on it.
+
+If you need to loop over the characters in a string, <del datetime="2011-10-30T15:43:24+00:00">the right thing is to loop over the indexes and use <code>charAt</code>:</del> <em>See update below</em>
+
+<pre>
+for index in [0...line.length]
+    char = line.charAt index
+    # ...
+</pre>
+
+<strong>Edit:</strong> Here's a better way, suggested by the kind <a href="https://github.com/jashkenas/coffee-script/issues/1814#issuecomment-2568016">CoffeeScript folks</a>:
+
+<pre>
+for char, index in str.split ''
+</pre>

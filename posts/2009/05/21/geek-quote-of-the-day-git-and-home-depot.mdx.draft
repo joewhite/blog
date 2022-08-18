@@ -1,0 +1,19 @@
+---
+title: "Geek quote of the day: Git and Home Depot  #.NET  #Delphi  #funny  #git  #mercurial"
+sort: 2835
+---
+<a href="http://git-scm.com/">Git</a> is intimidating. It's a distributed revision-control system, so it'd work online or off, and it's got tons of cool toys (like <a href="http://www.kernel.org/pub/software/scm/git/docs/git-bisect.html">git-bisect</a> to automatically figure out which commit introduced a bug). But good luck figuring out which of the umpteen zillion commands you actually need to get something done. (I cheat -- I IM my friend <a href="http://blog.alieniloquent.com/">Sam</a> and say, "Help?")
+
+Git has everything from fine-grained commands to handle a tiny part of a single commit, up through high-level commands that mow your lawn and make Julienne fries, and I have no idea how to tell which is which. Like I said, intimidating. Git has been described as not so much a revision-control system, but rather as a toolkit you can use to build your own revision-control system that works <em>exactly</em> the way you want it to. Which is kind of like writing your own lexer, parser, keyhole optimizer, runtime library, memory allocator, JIT compiler, and IDE, and designing custom hardware while you're at it, and mining the silicon yourself, so you can write a programming language that works <em>exactly</em> the way you want it to.
+
+And it doesn't help that Git's Windows support has been very slow in coming, though apparently now it's mostly as good as on other platforms.
+
+Yesterday I was working on a toy project that might amount to something someday, but that I was more likely to lose interest in after a few days. And I wanted revision control for it (I like diffs). But it didn't feel worth creating a Subversion repository for something potentially throwaway. Git stores your repository right there in your working copy, which felt like a good fit. So I finally installed <a href="http://code.google.com/p/msysgit/">msysgit</a>, and promptly found that it's got some awesome features (I was skeptical of the index when I first heard about it, but it's actually very cool, especially through the GUI -- you can commit just <em>certain lines</em> from a file!... not sure how you run the unit tests on them, though), but that it's got some stuff that truly sucks (the people who wrote the Git GUI have never heard of window resizing, word-wrapping, or context menus -- and the terminology is deliberately confusing. If I can't figure out how to revert a file, there's a problem somewhere.)
+
+While reading around, I happened across a mention of <a href="http://www.selenic.com/mercurial/">Mercurial</a>, another distributed revision-control system, and I started sniffing around for comparisons between Mercurial and Git.
+
+I hardly ever laugh out loud, but Jennie, from another room, called, "What's so funny?"
+
+From <a href="http://texagon.blogspot.com/2008/02/use-mercurial-you-git.html">Use Mercurial, you Git!</a>:
+
+<blockquote>I ordered a version control system, not a toolkit for building one! If I'd wanted building blocks for rolling my own, I'd have gone to Home Depot and bought a 1 and a 0.</blockquote>

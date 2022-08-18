@@ -1,0 +1,53 @@
+---
+title: "ReSharper, day 17: Change All with Alt+Enter (and, Introducing the red light bulb)  #.NET  #resharper"
+sort: 2398
+---
+<p>Welcome to day 17 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>.</p>
+
+<p>The next few days will continue to cover <b>Alt+Enter</b>. Today I'll cover the use of Alt+Enter &gt; Change All.</p>
+
+<h4><a name="redlightbulb">Red light bulbs</a></h4>
+
+<p>I'll start by noting that yesterday's feature, <a href="http://blog.excastle.com/2007/02/16/resharper-day-16-importing-namespaces-with-altenter/">Alt+Enter to import namespaces</a>, is atypical, in that it works no matter where the cursor is. Namespaces are the only place Alt+Enter works like that. It's usually very positional: it only operates on the code at the current cursor position. That will be true of all of the Alt+Enter features I cover from here on in.</p>
+
+<p>When there's a problem (<a href="http://blog.excastle.com/2007/02/01/resharper-day-1-the-gray-the-red-and-the-squiggly/">red, gray, or squiggly</a>) that ReSharper knows how to fix, and you put the cursor on the problem code, ReSharper will show a red light bulb next to that line:</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/RedLightBulb.png" width="450" height="50" alt="ReSharper's red light bulb, showing a problem you can fix with Alt+Enter" border="1"></blockquote>
+
+<p>The red lightbulb indicates something that you <i>should</i> fix. There are also yellow lightbulbs, which mean something that you <i>can</i> do, but that's totally at your discretion; I'll cover some of these in future posts.</p>
+
+<p>You can either click the light bulb, or press Alt+Enter. Either way, you'll get a dropdown menu giving you options on how to fix the error.</p>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/RedLightBulbMenu.png" width="450" height="100" alt="ReSharper's Alt+Enter dropdown menu, showing options such as Change All to fix a compiler error" border="1"></blockquote>
+
+<p><b>Update:</b> The commands in this dropdown menu are referred to as "quick fixes". (I should've mentioned that when I first posted this article.)</p>
+
+<h4>About Change All</h4>
+
+<p>One of the quick fixes for a red symbol is Change All. It does what its name suggests: it changes all occurrences of the (red) symbol to reference another (already defined and non-red) symbol. This one is handy if, for example, you cut some code from one method and paste it into another, where the variable or parameter names are different.</p>
+
+<p>There are two parts to Change All: the suggestion list, and the sync editing.</p>
+
+<h4>The suggestion list: mind-reading at work</h4>
+
+<blockquote><img src="http://blog.excastle.com/images/resharper/ChangeAllSuggestionList.png" width="450" height="50" alt="The suggestion list from ReSharper's Change All command" border="1"></blockquote>
+
+<p>When you select Change All, you'll get a suggestion list. Often there's only one suggestion, and it's <i>exactly</i> the one I want. It's so good it's spooky.</p>
+
+<p>Now that I'm writing about it, and pushing the boundaries to find out exactly how it works, I'm even more impressed. It's basically <a href="http://blog.excastle.com/2007/02/15/resharper-day-15-the-ctrlspace-family/">Ctrl+Shift+Space</a> turned inside-out.</p>
+
+
+
+<p>What happens is this: it looks at all the places where the symbol appears in red (ignoring any other methods that have same-named symbols that aren't red), figures out how you're using it in each place, and suggests symbols that will fit those usages <i>without errors.</i></p>
+
+<p>So if the symbol appears as the condition in an <code>if</code> statement, ReSharper will only suggest variables of type <code>bool</code>. If the symbol appears with <code>.PixelOffsetMode =</code> after it, ReSharper will only suggest variables of type <code>Graphics</code> (unless you've defined another type that has a <code>PixelOffsetMode</code> property).</p>
+
+<p>In a lot of cases, you'll end up with just one parameter, or just one property, that satisfies the way you're using that symbol. Which makes it look like ReSharper is reading your mind. (It pretty much is!)</p>
+
+<p>Worth noting: the Change All suggestion list is targeted to variable-like things (variables, parameters, and properties). You can use Change All for method names or type names, but you won't get those suggestions in the Change All list.</p>
+
+<h4><a name="syncedit">SyncEdit comes to Visual Studio</a></h4>
+
+<p>Here's kind of a nice touch: instead of popping up a dialog box prompting for the new name, Change All lets you type the new name directly into the editor in one place, and it changes the others as you type.</p>
+
+<p>The ReSharper docs don't have a name for this rename-it-right-there-in-the-edit-window feature, but it's almost exactly like the SyncEdit feature from Delphi 2005, so that's what I call it. It's nice to have this feature available in Visual Studio.</p>

@@ -1,0 +1,79 @@
+---
+title: "Growl for angular-seed test-status notifications  #Programming  #angular  #angular-game  #growl  #growl-for-windows  #ng-rpg"
+sort: 3875
+---
+<p><em><strong>Updated 5/4/2014</strong> for Angular 1.2.16 and Karma 0.10.10.</em></p>
+
+<p>When you run <a href="https://github.com/angular/angular-seed">angular-seed</a>â€™s test runner (formerly <code>scripts\test.bat</code>, now <code>npm test</code>), it runs all the tests once, and then enters watch mode. If you make a change to any of your source files (either production code or test code), it will automatically re-run the tests. This is pretty cool, but you need some way to see the test results.</p>
+
+<p>If I were doing Angular development at work, I'd have dual monitors, and I could put my editor on one monitor and the test runner's console window on the other monitor, so I'd get instant feedback. But then I'd go to look something up in the documentation, and now the console is covered up by a Web browser, so I'd have to juggle that. And in my case, Angular is just a hobby, and I don't have dual monitors at home.</p>
+
+<p>So I went looking for a way to show the build status via toast alerts. And it turned out to be pretty easy.</p>
+
+<h3>Growl</h3>
+
+<p>The <a href="http://pivotal.github.io/jasmine/">Jasmine</a> test runner has lots of extensions available, and one of them shows build status via Growl notifications.</p>
+
+<p><img src="/wp-content/uploads/2013/10/GrowlScreenshot.png" alt="Growl for Windows in action" width="260" height="242" style="float: right; margin-left: 15px" /></p>
+
+<p><a href="http://growl.info/">Growl</a> is a toast-alert platform for the Mac, and there's also a <a href="http://www.growlforwindows.com/gfw/">Growl for Windows</a>. I've included a screenshot of a couple of alerts so you can see what it looks like. Each alert sticks around for a few seconds, so I made my test fail, saved, quickly made it pass, saved, and took a screenshot.</p>
+
+<p>So this is pretty cool. You'll still have to look at the console window to see which tests failed and why, but if you expected it to pass and it did, you can just keep storming along.</p>
+
+<h3>Configuring angular-seed and Growl</h3>
+
+<ol>
+<li><p>Download and install <a href="http://www.growlforwindows.com/gfw/">Growl for Windows</a>. The installation is pretty simple.</p></li>
+<li><p>Go to a command prompt, <code>cd</code> to your project directory (the directory with the <code>package.json</code> in it), and type:</p>
+
+<pre><code>npm install --save-dev karma-growl-reporter
+</code></pre>
+
+<p>This will install the <code>karma-growl-reporter</code> Node.js module (and all its dependencies) into your project's <code>node_modules</code> directory, where they need to be for Jasmine to find them.</p>
+
+<p>It will also (because of the <code>--save-dev</code> option) automatically modify your <code>package.json</code> file to say that you depend on the <code>karma-growl-reporter</code> package. This isn't important now, but will be when you want to check out your code on another computer -- you can rebuild your <code>node_modules</code> directory on that other computer by running <code>npm install</code> to install <em>all</em> the dependencies listed in your <code>package.json</code>.</p></li>
+<li><p>Edit your <code>config/karma.conf.js</code> and make the changes labeled "STEP 1" and "STEP 2". (The below config file also includes the changes to <a href="http://blog.excastle.com/2013/10/18/writing-coffeescript-tests-with-angular-seed/">make angular-seed run CoffeeScript tests</a>.)</p>
+
+<pre><code>module.exports = function(config){
+    config.set({
+    basePath : '../',
+
+    files : [
+      'app/lib/angular/angular.js',
+      'app/lib/angular/angular-*.js',
+      'test/lib/angular/angular-mocks.js',
+      'app/js/**/*.js',
+      'test/unit/**/*.coffee',
+      'test/unit/**/*.js'
+    ],
+
+    autoWatch : true,
+
+    frameworks: ['jasmine'],
+
+    browsers : ['Chrome'],
+
+    plugins : [
+            // STEP 1: Add 'karma-growl-reporter' to this list
+            'karma-growl-reporter',
+            'karma-coffee-preprocessor',
+            'karma-junit-reporter',
+            'karma-chrome-launcher',
+            'karma-firefox-launcher',
+            'karma-jasmine'
+            ],
+
+    // STEP 2: Add the following section ("reporters") -- or if you already have
+    // a "reporters" section, add 'growl' to the list:
+    reporters: ['progress', 'growl'],
+
+    junitReporter : {
+      outputFile: 'test_out/unit.xml',
+      suite: 'unit'
+    }
+
+})}
+</code></pre></li>
+</ol>
+
+<p>Then run <code>npm test</code>, and you should see a toast alert pop up, telling you your tests are passing.</p>

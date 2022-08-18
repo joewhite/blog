@@ -1,0 +1,63 @@
+---
+title: "What is the expected behavior of this code?  #Delphi"
+sort: 2073
+---
+Here's the code. This app writes data to a file on a network drive, sets the file to read-only, and then runs a sanity check on the file size. What would you expect the result of this program to be?
+
+The code happens to be written in Delphi, but would apply to any Win32 language. .NET, interestingly enough, appears to contain a workaround for the problem.
+
+That's hint #1, by the way: the bug is not in the code itself; it's in the Windows API. (There's an easy workaround, but you'll never find it by reading <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/fileio/base/setfileattributes.asp">the Windows API docs</a>.)
+<pre>program Project1;
+
+{$APPTYPE CONSOLE}
+{$WARN SYMBOL_PLATFORM OFF}
+
+uses
+  Windows,
+  SysUtils,
+  Classes;
+
+var
+  FileName: string;
+  Stream: TFileStream;
+  I: Integer;
+  B: Byte;
+  DesiredSize: Integer;
+
+begin
+  FileName := 'H:\Foo.dat';
+  DesiredSize := 123456;
+
+  Stream := TFileStream.Create(FileName, fmCreate or fmShareDenyWrite);
+  try
+    for I := 0 to DesiredSize - 1 do
+    begin
+      B := Byte(I);
+      Stream.Write(B, SizeOf(B));
+    end;
+    Windows.SetFileAttributes(PChar(FileName), faReadOnly);
+  finally
+    FreeAndNil(Stream);
+  end;
+
+  WriteLn('Desired size: ', DesiredSize);
+  Stream := TFileStream.Create(FileName, fmOpenRead);
+  try
+    WriteLn('Actual size: ', GetFileSize(Stream.Handle, nil));
+  finally
+    FreeAndNil(Stream);
+  end;
+
+  WriteLn('Press ENTER to continue');
+  ReadLn;
+end.</pre>
+
+
+
+Hint #2: The results depend not just on your operating system, but on which service packs you have installed.
+
+Hint #3: The results are nondeterministic.
+
+And <a href="http://support.microsoft.com/default.aspx?scid=kb;en-us;826482">here's hint #4</a>.
+
+To quote my boss: "Those guys."

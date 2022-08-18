@@ -1,0 +1,27 @@
+---
+title: "Pimp your IDE: Visual Studio Hacks  #.NET"
+sort: 2326
+---
+<a href="http://visualstudiohacks.com/buythebook"><img src="http://blog.excastle.com/images/VS_hacks125x125.gif" alt="Pimp your IDE - Visual Studio Hacks" align="right" border="0" height="125" hspace="6" width="125" /></a>My new favorite book: "<a href="http://visualstudiohacks.com/buythebook">Visual Studio Hacks</a>" by James Avery, published by O'Reilly.
+
+If you use Visual Studio, <em>you need this book.</em> You will learn things you didn't know you needed to know. Many things.
+
+My personal favorite hacks:
+<ul>
+	<li>Hack #10: <strong>Add Guidelines to the Text Editor.</strong> Delphi's 80-column-margin line comes to Visual Studio â€” just a vertical line at the 80-column (or whatever) mark, that you can follow or ignore. Very helpful when you want some consistency to your code layout, so you can actually read your code from different computers with different screen sizes and IDE settings. You can even customize the colors and set multiple guidelines.
+<ul>
+	<li><em>Bonus tip:</em> Try adding negative numbers for guideline locations. We amused the whole department for about fifteen minutes with this one.</li>
+</ul>
+</li>
+	<li>Hack #17: <strong>Find Files Quickly.</strong> This describes <a href="http://www.zero-one-zero.com/vs/">VSFileFinder</a>, a free add-in that lets you type a file's name (or some subset of its name â€” incremental substring search, how cool is that?) and immediately open that file with one click, without needing to hunt through Solution Explorer to find the right project and directory. Just the filename. From a docking window, so you don't even have to open a modal dialog. Our app has 30 different projects, so this add-in is a godsend.</li>
+	<li>Hack #34: Customize Your Project Build Process, subsection: <strong>Canceling a failed build.</strong> If you have a solution with two projects, and B depends on A, and A fails to build, Visual Studio will, by default, go ahead and compile B anyway (no, they didn't fix this in VS 2005), even though there's no possible way you could get anything but stupid error messages (remember, A didn't build, so B is missing a dependency). What's worse, it shows B's errors first in the Task List, thus making it nearly impossible for you to find the error that you actually need to fix. This hack shows you how to write a macro that will <em>actually stop your build as soon as it fails.</em> Fantastic. Visual Studio finally achieves the same level of sophistication as <a href="http://en.wikipedia.org/wiki/Make">make</a>.</li>
+	<li><a href="http://www.oreilly.com/catalog/visualstudiohks/chapter/hack44.pdf">Hack #44: Speed Up Visual Studio</a>, subsection: <strong>Turn Off Dynamic Help.</strong> 'Nuff said.</li>
+	<li>Hack #77: Master the Visual Studio Command Prompt, subsection: <strong>Add the Visual Studio Command Prompt to the Explorer.</strong> Right-click on a folder and select "Visual Studio Command Prompt Here". A must if you ever use the command-line tools from the .NET SDK.</li>
+	<li>Hack #95: <strong>View an Outline of Your Controls.</strong> Delphi's Structure Pane comes to Visual Studio.</li>
+</ul>
+
+
+
+There are others that might become my favorites once I try them, like #47 (Build a Custom Tool â€” looks like it could be cool for doing codegen) and #89 (Writing a Visual Studio Add-In), and I'm sure there are plenty that would be fabulous if I cared (like the Web Services power-user stuff). And the Reflector IDE add-in looks like it would be spectacular if the download wasn't a broken link. But all in all, this book was <em>well</em> worth the $25 my department paid for it, especially now that we're owned by a company that doesn't believe in profit-sharing so it's not even coming out of my pocket indirectly.
+
+The only problem with this book is that our department only has one copy, so we're always having to try to find it so we can make another PC stop building after a build failure.

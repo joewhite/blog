@@ -1,0 +1,22 @@
+---
+title: "DGrok 0.3 released  #.NET  #Delphi  #dgrok"
+sort: 2470
+---
+<p>Halfway there! DGrok can now parse 46 of the 91 Delphi RTL source files &mdash; a hair over half.</p>
+
+<p>Except that, of course, it's way <i>more</i> than halfway; it took a lot of work to get this far. Most of what's left is the various statements like repeat, with, try..finally, etc.</p>
+
+<p>And then, of course, there's the fact that it's probably way <i>less</i> than halfway. Include files (<code>{$I}</code> / <code>{$INCLUDE}</code>) aren't working, and I haven't figured out how they'll fit into the demo app yet. And there's the whole issue around symbol tables, which I'll need to do anything useful like refactoring.</p>
+
+<p>Still, it's a major milestone, so I figured I'd do a release. <a href="http://www.excastle.com/dgrok/DGrok-0.3.zip">DGrok 0.3</a> is now available for download. Major new stuff in this release:</p>
+
+<ul>
+<li>If you double-click a file that's failing because of a compiler directive, it will now take you to the error location rather than showing a .NET "unhandled exception" dialog.</li>
+<li>Began adding statement handling. Currently it can't handle much &mdash; mostly method calls, assignments, and if statements. This is my main area of focus right now.</li>
+<li>Parsing of method implementations, including the smarts to not expect a method body if the method is declared "forward" or "external".</li>
+<li>Parsing of unit implementation sections.</li>
+<li>Parsing of "program" and "library" files.</li>
+<li>Fixed parsing of "const" sections that come inside a class or record. (When the const section was followed by another visibility section, it was getting confused and thinking the "public" was the name of another constant; it doesn't anymore.)</li>
+<li>Many minor tweaks to the grammar (it turns out that semicolons are optional after field declarations; I didn't have threadvar in the grammar yet; initialized record-type variables; operator overloads; that sort of thing).</li>
+<li>Lots of exciting behind-the-scenes stuff that you wouldn't recognize as cool unless you'd already been working with the code: strongly-typed node properties, generic ListNode and DelimitedItemNode, and partial classes.</li>
+</ul>

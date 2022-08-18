@@ -1,0 +1,15 @@
+---
+title: "New digs  #Delphi  #Life  #blogging"
+sort: 2492
+---
+My site is now on a <a href="http://www.dreamhost.com/r.cgi?385375">new Web host</a>, and my blog is at a new URL, moving from www.excastle.com/blog to blog.excastle.com. (All the old links should still work â€” I've put in redirects â€” but you still may want to update your links.)
+
+That means that you can again post comments on my blog, and the <a href="http://blog.excastle.com/contact/">contact form</a> (broken for so long) should be working again. It also means there's an actual blog search feature now.
+
+The move was mainly prompted by comment spam. Instead of an outdated version of <a href="http://scottwater.com/blog/pages/dottext/">.Text</a> with cranky CAPTCHA and a custom <a href="http://blog.excastle.com/2005/02/13/just-spam-lite-please-my-hamsters-on-a-diet/">spam hamster</a>, I'm now running <a href="http://www.wordpress.org/">WordPress</a>, which has built-in comment moderation, as well as a plug-in for spam filtering (that I'm not using yet, but probably will be soon).
+
+It's been an interesting experience. There is no .Text-to-WordPress importer, so I had to make do with some documentation for the MovableType import format, plus a curious mishmash of Delphi code, Ruby scripts, and false starts. (Three false starts, in fact: three times, I imported all of my posts, found something wrong with my import file, and had to delete all of my posts and import again. My biggest complaint about WordPress so far is their <a href="http://trac.wordpress.org/ticket/2422">refusal to implement a "mass delete" feature</a>: I've clicked "Delete", followed by "Yes", well over 1,500 times now.)
+
+But the move itself is done, if still a bit rough around the edges. I'm still looking through all the archives to make sure everything looks okay in the new layout. If you see anything that looks off-kilter, like text falling off the right side of the page or some such, feel free to hasten the process by <a href="http://blog.excastle.com/contact/">letting me know</a>.
+
+And now that I'm not fully engaged in blog moving, maybe I can actually start blogging again.

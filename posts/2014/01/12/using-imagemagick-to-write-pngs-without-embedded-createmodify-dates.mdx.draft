@@ -1,0 +1,30 @@
+---
+title: "Using ImageMagick to write PNGs without embedded create/modify dates  #Programming  #imagemagick  #universal-lpc-spritesheet"
+sort: 3949
+---
+<p>I'm writing some Rake tasks to generate a bunch of PNGs to check into version control, and ran into a problem: every time ImageMagick generated the files, they showed up as diffs in Git, even if the pixel content was identical. The files' hashes were different each time I generated them.</p>
+
+<p>I did some hunting, and found a discussion thread "<a href="http://www.imagemagick.org/discourse-server/viewtopic.php?f=3&amp;t=12230">create/modify-date written into file</a>â€, but its fix (adding <code>+set modify-date +set create-date</code> to the command line before the output filename) didn't work for me -- if I generated the same content twice, the two files were still different.</p>
+
+<p>So I looked at the output of <code>identify</code>:</p>
+
+<pre><code>identify -verbose generated.png
+</code></pre>
+
+<p>Which spews out quite a lot of output, but in it was this:</p>
+
+<pre><code>  Properties:
+    date:create: 2014-01-12T08:01:31-06:00
+    date:modify: 2014-01-12T08:01:31-06:00
+</code></pre>
+
+<p>Maybe they just renamed the properties in a later version of ImageMagick? (The thread was from IM 6.4; I'm on 6.8.7.) So I tried adding <code>+set date:create +set date:modify</code>.</p>
+
+<p>And that did it: I could generate the same file twice, and the two files were binary equal.</p>
+
+<pre>
+file 'generated.png' => ['infile.png', 'Rakefile'] do
+  sh "convert infile.png[64x64+0+0] infile.png[64x64+128+0] +append " +
+    "<b>+set date:create +set date:modify</b> generated.png"
+end
+</pre>

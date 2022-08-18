@@ -1,0 +1,41 @@
+---
+title: "Hybrid types in Delphi (mix-ins, anyone?)  #Delphi  #dunitlite"
+sort: 2424
+---
+<p>For DUnitAssertions, I've been innovating on Delphi's type system to create hybrid types. These are polymorphic, automatically memory managed, support implicit casts and operator overloading, and even have some aspects of mixins. And you don't have to wait for a new compiler &mdash; they're usable now.</p>
+
+<p>It started with the <a href="http://blog.excastle.com/2007/04/04/dunitassertions-universal-value-type/">universal value type</a>. I needed implicit casts, so that you could have a variable (or, more often, parameter) of type TValue, and just assign any old type into it &mdash; Integer, Boolean, object, interface, enum, etc. Sounds like a record-with-methods (including <code>operator Implicit</code>) to me.</p>
+
+<p>But I also wanted polymorphism. I needed an integer type and a floating-point type and an object type and an enum type and... You can't do inheritance with Delphi's records-with-methods, and I wasn't about to write a variant record (shudder) or use old-style objects (double shudder).</p>
+
+<p>What I really wanted was an interface that supported operator overloading. But interfaces don't support operator overloading, because you need an implementation for the operator methods. Delphi interfaces, by definition, don't have their own implementations; they're pure interfaces, not mix-ins.</p>
+
+<p>So I brought together the best of both worlds: I used a record type that contains an interface reference. The record type supplies the <code>operator Implicit</code>; the interface supplies the polymorphism (and the automatic refcounting).</p>
+
+<p>This also turned out to be convenient when I was doing constraints (the <code>Tis.EqualTo(...)</code> family). You'll be able to combine constraints using <code>and</code> and <code>or</code>; and those compound constraints will divide the work of building the assertion-failure message.</p>
+
+<p>Here are some samples of what I'm planning for assertion-failure messages:</p>
+
+<blockquote><pre>Expected: 4
+but was: 2</pre></blockquote>
+
+<blockquote><pre>Expected: 4
+or 5
+or 6
+but was: 2</pre></blockquote>
+
+<blockquote><pre>Expected: not 2
+and not 3
+and not 4
+but was: 2</pre></blockquote>
+
+<blockquote><pre>Expected: from 10 to 100
+but was: 2</pre></blockquote>
+
+<p>The interface supplies the expected value &mdash; everything after "Expected:" and before "but was:". This makes it terribly easy for interfaces to decorate each other; TNotConstraint.ExpectedMessage just calls the ExpectedMessage of the constraint it's wrapping, and then prepends "<code>not&nbsp;</code>". TAndConstraint and TOrConstraint will be similarly easy to implement.</p>
+
+<p>Then the record puts that together with the actual value, and builds the complete failure message. The record is the top-level object in the composite tree; it's the only one that needs to build the complete message.</p>
+
+<p>This is much nicer than the typical Composite pattern in Delphi, where you end up with every class in the hierarchy supporting both the "get the fine-grained value that my parent might need" and "build the whole whopping failure message". Typically the "build the whole whopping failure message" logic doesn't vary from implementation to implementation &mdash; it's usually not even any different for the null objects!</p>
+
+<p>Traditionally I would've used a base class that implements the non-polymorphic methods, and made all my interface implementations descend from it. But I think providing a top-level wrapper for the whole aggregate is a nicer way to go.</p>

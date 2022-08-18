@@ -1,0 +1,36 @@
+---
+title: "ReSharper coolness of the day: TODOs and NotImplementedException  #.NET  #resharper"
+sort: 2795
+---
+<a href="http://www.jetbrains.com/resharper/">ReSharper</a> adds much fancier syntax highlighting to Visual Studio. And I recently found an unexpected coolness in how they highlight TODOs.
+
+
+
+<h3>TODO highlighting</h3>
+
+One of the things ReSharper adds is highlighting of TODO comments. By default they're bold and bright blue (as opposed to the non-bold green of regular comments), making them stand out nicely.
+
+They also have a "To-do Explorer" window that lists all the TODO items in your solution.
+
+<h3>NotImplementedException vs. NotSupportedException</h3>
+
+Okay, it's going to feel like I'm shifting gears for a minute here.
+
+The .NET framework includes two exceptions that mean very nearly the same thing: NotImplementedException and NotSupportedException. I always used to have to stop and think about the difference between them, and which one I really wanted, every time I wrote -- or read -- code that used them.
+
+Just for reference, here's what they mean:
+
+<ul>
+<li><strong>NotImplementedException:</strong> Placeholder. Often inserted by a code template. This means that the real code hasn't been written yet. It's basically a TODO with teeth.</li>
+<li><strong>NotSupportedException:</strong> Means "this space intentionally left blank". We made a conscious decision here. This class does not and will not support this method. For example, an interface method that isn't applicable for a given implementation.</li>
+</ul>
+
+<h3>Two great things that taste great together</h3>
+
+In ReSharper 4.5, the following code will, under the default settings, highlight blue and bold, just like a TODO comment:
+
+<pre><span style="color:blue;">throw new <strong>NotImplementedException</strong></span>();</pre>
+
+So with ReSharper, I don't <em>need</em> to stop and think about the difference between NotImplementedException and NotSupportedException. They make it dead simple: if it highlights like a TODO comment, then it's the one that really means TODO.
+
+As I so often say when I'm talking about ReSharper: Sweet.

@@ -1,0 +1,29 @@
+---
+title: "Using ImageMagick for palette-swapping  #Programming  #imagemagick  #universal-lpc-spritesheet"
+sort: 3964
+---
+<p>A common thing in console RPGs is <a href="http://adventurers.keenspot.com/d/0042.html">palette-swapped monsters</a>, where the same image is given a different set of colors, so an Imp becomes an Imp Captain, Dark Imp, etc. without the need for brand-new artwork. I used this technique to generate the various hair colors in my <a href="http://opengameart.org/content/ponytail-and-plain-hairstyles">Ponytail and Plain hairstyles</a> that I posted on OpenGameArt and contributed to the <a href="https://github.com/makrohn/Universal-LPC-spritesheet">Universal LPC Spritesheet</a>.</p>
+
+<p>You can do palette swaps fairly straightforwardly with the ImageMagick command line. You pass something like the following to the <code>convert</code> command line:</p>
+
+<pre><code>-fill #FFFF00 -opaque #999999
+</code></pre>
+
+<p>This replaces all light gray pixels (<span style='color: #000000; background: #999999'>#999999</span>) with eye-searing yellow (<span style='color: #000000; background: #FFFF00'>#FFFF00</span>). Note that it's target color first, then source. You can repeat this pair of commands as often as you like.</p>
+
+<p>It gets a little odd when you get to semitransparent colors. Say your source image has some pixels that are #9C59919C (that's ImageMagick's oddball RGBA syntax, with the alpha at the end). If you try to replace #9C5991 with some other color, it won't affect the semitransparent pixels -- <code>-opaque</code> does an exact match, and #9C59919C is not an exact match for #9C5991[FF]. So you need to explicitly specify the source and target alpha with each semitransparent color:</p>
+
+<pre><code>-fill #FF00FF9C -opaque #9C59919C
+</code></pre>
+
+<p><em>Note for GIMP users: If you use ImageMagick to replace semitransparent colors, and then open the output file in GIMP, GIMP may not show the semitransparency. This seems to be a GIMP-specific bug with indexed-color images (i.e., those stored with a palette). Just switch GIMP to Image > Mode > RGB and it'll display correctly.</em></p>
+
+<p>Combine this with the trick we saw last time to <a href="http://blog.excastle.com/2014/01/12/using-imagemagick-to-write-pngs-without-embedded-createmodify-dates/">remove the embedded create/modify dates</a> and you get something that looks like this (though all on one line):</p>
+
+<pre><code>convert
+    infile.png
+    -fill #FFFF00 -opaque #999999
+    -fill #FF00FF9C -opaque #9C59919C
+    +set date:create +set date:modify
+    outfile.png
+</code></pre>

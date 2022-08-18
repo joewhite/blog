@@ -1,0 +1,64 @@
+---
+title: "Using a worker AppDomain to register a COM assembly  #.NET"
+sort: 3059
+---
+I've been coding in .NET since 2002. Today I finally had a reason to use an AppDomain. I had a task that needed to run in a separate AppDomain and then return, so I'm thinking of it as a "worker AppDomain".
+
+We have a code path that needs to programmatically register one of our assemblies as a COM library (shudder). And yes, there are good reasons why it's not enough for us to do this at install time. But that's okay, because the code is pretty simple:
+
+<pre lang="csharp">
+public static class MyRegistrar
+{
+    public static void Register()
+    {
+        var assembly = LoadMyComAssembly();
+        var registrationServices = new RegistrationServices();
+        registrationServices.RegisterAssembly(assembly,
+            AssemblyRegistrationFlags.SetCodeBase);
+    }
+}
+</pre>
+
+
+
+(I also could have shelled out to <code>regasm.exe</code> with the <code>/codebase</code> option, and gotten the same result. But that would have required hard-coding the path to the .NET Framework binaries, which is even worse than COM.)
+
+The downside is that, once my process loads the COM assembly, that DLL file is now locked on disk until my process exits. This turned out to be problematic -- it's actually a Windows service that's running the above code, and I was having trouble building the COM assembly because the service had it locked!
+
+So I had to make sure the assembly got unloaded after we ran the above code. That means either a separate process, or a separate AppDomain. And if I used an AppDomain, I wouldn't have to add yet another project to our solution. So I dove right in, and after several false starts, got something that worked. Here's my code to load and regasm an assembly, without keeping the file locked thereafter:
+
+<pre lang="csharp">
+public class MyRegistrar : MarshalByRefObject
+{
+    public static void Register()
+    {
+        var domain = AppDomain.CreateDomain("Registrar", null,
+            AppDomain.CurrentDomain.BaseDirectory,
+            AppDomain.CurrentDomain.BaseDirectory, false);
+        try
+        {
+            var me = typeof(MyRegistrar);
+            var assemblyName = me.Assembly.FullName;
+            domain.Load(assemblyName);
+            var registrar = (MyRegistrar) domain.CreateInstanceAndUnwrap(
+                assemblyName, me.FullName);
+            registrar.RegisterAssembly();
+        }
+        finally
+        {
+            AppDomain.Unload(domain);
+        }
+    }
+    private void RegisterAssembly()
+    {
+        var assembly = LoadMyComAssembly();
+        var registrationServices = new RegistrationServices();
+        registrationServices.RegisterAssembly(assembly,
+            AssemblyRegistrationFlags.SetCodeBase);
+    }
+}
+</pre>
+
+To run code inside an AppDomain, I need an object that lives inside the new domain, but that I can call into from outside it (i.e., from the primary AppDomain); hence the change from static class to MarshalByRefObject descendant, and the move of the actual registration code to an instance method. Then I can just create a new AppDomain, create an instance of my class inside that domain, call the object's instance method (which then executes inside the new domain), and then unload the AppDomain so that it unloads the assembly. Most of the gyrations are there because there isn't a generic version of AppDomain.CreateInstanceAndUnwrap -- if there was, the inside of that try..finally would be all of two lines long, if that.
+
+Actually, better yet would be if RegistrationServices could take the filename of an assembly, rather than only taking a reference to an already-loaded-and-locked Assembly object. Then it would be a drop-in replacement for regasm. Still, the above code isn't too complicated, and it seems to work nicely.

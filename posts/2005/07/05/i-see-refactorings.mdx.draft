@@ -1,0 +1,27 @@
+---
+title: "I see refactorings  #.NET  #Delphi  #extreme programming"
+sort: 2189
+---
+I see refactorings.
+
+I think it has a fair bit to do with <a href="http://blog.excastle.com/2005/07/01/rons-book-extreme-programming-adventures-in-c/">reading Ron's book</a>. I understood how to do refactorings before, but the book gave me an idea of the higher-level view â€” not just the nuts and bolts, but also the overall effect on the code, the way things move around over time. I used to know <em>that</em> refactorings help the code; now I understand a little more about <em>how.</em> The best way I can think to explain it is as the difference between two still photos, and seeing time-lapse video of flower petals opening. Kind of a hokey example, but you see what I mean.
+
+And last Thursday, I was pairing with <a href="http://www.alieniloquent.com/">Sam</a>, and we found some slightly-tricky duplication that we decided to remove. It was a bit of a struggle in the barren <a href="http://blog.excastle.com/2005/05/18/ruby-coolness-1-blocks/">block</a>lessness that is Delphi, but after a few false starts, we hit on something that worked, in two of the four sites. And then we had to put in a kind of a hack to get it to work in the other two.
+
+And I looked at that hack, and I could <em>see</em> the code saying, "Just a little farther! Extract a class here!" I could see all the steps falling into place, from the hack all the way through to the elegant solution â€” and from there, who knows? The code would tell me. Maybe we'd be able to extract some more methods onto the new class, and then we'd really go to town. It was beautiful.
+
+But we'd already gone past our estimated hours on that story, and we already had something that worked. I wanted to keep refactoring, but Sam talked me out of it, rightly pointing out that it was Thursday afternoon and we had another sixteen-hour story to finish before the weekend. So I sadly let it go. (And yes, we <em>did</em> finish that last story.)
+
+Then today, it happened again. I was pairing with Brian this time, and we saw some code that was going to cause us problems. We needed to make a change, but we didn't know if it would be safe; the code was kind of brittle, and we didn't know if this change would break other things, which we might not even know about until later.
+
+And once again, I saw the refactoring. The uncertainty all came from this object having state that was only valid some of the time; some methods set up this state, others tore it down, and still others relied on that state. Big headache trying to make our change, because we'd have to figure out when that state was valid and when it wasn't.
+
+This state didn't really belong on that object, because it violated the "keep things together that change together" principle. It could have been a local variable if it was local to a single method, but it wasn't; and besides, it was six variables, not one.
+
+And I could see the refactoring-to-be, plain as day. Make a new class for that "sometimes" state. Find all the methods that depend on that state, and move them onto the new class; I could tell that we could do that, that it would work. Then, when the first object needed that state, it would just instantiate the new class, call the method or two it needed, and free the object. It would be beautiful.
+
+This time we did have time to do that refactoring, and it <em>was</em> beautiful. And when we were done, the problems we'd been worried about were just gone: now it was easy to make our change, and tell that it wouldn't break anything, because it was absolutely clear when the state was valid (we had an instance of the new class) and when it wasn't. In fact, it didn't even <em>matter,</em> because our change only had to be made on the new class, whose state was valid for as long as the instance existed. (Now if I could just figure out how to do this everywhere else we get grief from that kind of "sometimes state".)
+
+It was way cool. I was truly grokking the code, in a way I've never done before.
+
+<a href="http://www.imdb.com/character/ch0003832/quotes">"I'm still geeking out about it." â€” Syndrome</a>

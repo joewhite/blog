@@ -1,0 +1,11 @@
+---
+title: "ReSharper coolness of the day: generated constructor visibility  #.NET  #resharper"
+sort: 2734
+---
+If you use <a href="http://www.jetbrains.com/resharper/">ReSharper</a>'s <a href="http://blog.excastle.com/2007/02/22/resharper-day-22-generating-code-with-altins/">Alt+Ins</a> to generate a constructor, and you're in an abstract class, ReSharper is automatically smart enough to make the constructor protected.
+
+This only makes sense. After all, <a href="http://msdn.microsoft.com/en-us/library/ms229047.aspx">.NET design guidelines</a> recommend that abstract classes shouldn't have public constructors -- you can't instantiate the class, so while a public constructor is harmless, it's also misleading.
+
+But... no matter how much sense it makes, it's cool. It's one of those little details that make me like ReSharper so much.
+
+Addendum: when you use <a href="http://blog.excastle.com/2007/02/21/resharper-day-21-code-transformations-with-altenter/">Alt+Enter</a> to change the constructor's visibility, public isn't even on the list. Nice touch.

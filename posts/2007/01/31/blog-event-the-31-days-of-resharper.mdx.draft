@@ -1,0 +1,53 @@
+---
+title: "Blog event: The 31 Days of ReSharper  #.NET  #resharper"
+sort: 2293
+---
+<em><strong>Note:</strong> This is about <strong>ReSharper version 2.5.</strong> R# is currently up to version 6, and has loads more stuff than I talk about here. So think of this as just the briefest introduction to what ReSharper can do.</em>
+
+<a href="http://www.jetbrains.com/resharper/">ReSharper</a> is a Visual Studio add-in that adds refactorings (many more than VS 2005 ships with), code cleanup, and a bunch of other conveniences. I tried downloading it a couple of years ago, opened the project we'd been working on, and it crashed. A lot has changed since then.
+
+A few months ago, we looked at it again, and we liked what we saw. We bought a copy for everyone in the department. None of us wants to develop in Delphi anymore. (Granted, the lack of ReSharper is only one reason among many, but it's a big one. Delphi can't even pull off a rename refactoring, for crying out loud.)
+
+
+
+<a href="http://www.jetbrains.com/">JetBrains</a>, the guys who make ReSharper, have a lot of info on their Web site that shows off some of the <a href="http://www.jetbrains.com/resharper/features/index.html">ReSharper features</a>. But I think it's a lot to absorb in one sitting. And besides, it could use the point-of-view of an actual, happy customer, saying "These are my absolute favorite features" instead of the complete laundry list. So I'm setting aside February on my blog for the "31 Days of ReSharper".
+
+Yes, I know there are only 28 days in February. But ReSharper is just that cool.
+
+All our Visual Studio work is in C# (except for a tiny bit of C++, but ReSharper doesn't do much for C++). So all my examples will be based around C#. ReSharper does also have a few refactorings for VB.NET, but I don't know how extensive.
+
+Here's the list of the articles so far:
+<ul>
+	<li><a href="http://blog.excastle.com/2007/01/31/resharper-day-0-basics-and-installation/">Day 0: Basics and installation</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/01/resharper-day-1-the-gray-the-red-and-the-squiggly/">Day 1: The gray, the red, and the squiggly</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/02/resharper-day-2-the-color-bar-and-the-green-box/">Day 2: The color bar and the green box</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/02/resharper-day-3-resharper-survival-guide-or-whats-up-with-my-keybindings/">Day 3: ReSharper survival guide, or, What's up with my keybindings?</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/04/resharper-day-4-auto-closing-delimiters/">Day 4: Auto closing delimiters</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/05/resharper-day-5-integrated-unit-test-runner/">Day 5: Integrated unit-test runner</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/06/resharper-day-6-shared-options-in-the-resharper-file/">Day 6: Shared options in the .resharper file</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/07/resharper-day-7-code-formatting/">Day 7: Code formatting</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/08/resharper-day-8-find-usages/">Day 8: Find Usages</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/09/resharper-day-9-parameter-info/">Day 9: Parameter Info</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/10/resharper-day-10-go-to-type/">Day 10: Go To Type</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/11/resharper-day-11-code-navigation/">Day 11: Code navigation</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/12/resharper-day-12-type-hierarchy-view/">Day 12: Type Hierarchy view</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/13/resharper-day-13-file-structure-view/">Day 13: File Structure view</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/14/resharper-day-14-suggested-variable-names/">Day 14: Suggested variable names</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/15/resharper-day-15-the-ctrlspace-family/">Day 15: The Ctrl+Space family</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/16/resharper-day-16-importing-namespaces-with-altenter/">Day 16: Importing namespaces with Alt+Enter</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/17/resharper-day-17-change-all-with-altenter-and-introducing-the-red-light-bulb/">Day 17: Change All with Alt+Enter (and, Introducing the red light bulb)</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/18/resharper-day-18-adding-things-with-altenter/">Day 18: Adding things with Alt+Enter</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/19/resharper-day-19-implement-members-with-altenter/">Day 19: Implement Members with Alt+Enter</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/20/resharper-day-20-fix-errors-and-warnings-with-altenter/">Day 20: Fix errors and warnings with Alt+Enter</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/21/resharper-day-21-code-transformations-with-altenter/">Day 21: Code transformations with Alt+Enter</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/22/resharper-day-22-generating-code-with-altins/">Day 22: Generating code with Alt+Ins</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/23/resharper-day-23-introduce-variable-and-introducing-ctrlshiftr-to-refactor/">Day 23: Introduce Variable (and, introducing Ctrl+Shift+R to refactor)</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/25/resharper-day-24-introduce-field/">Day 24: Introduce Field</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/25/resharper-day-25-introduce-parameter/">Day 25: Introduce Parameter</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/26/resharper-day-26-change-signature/">Day 26: Change Signature</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/27/resharper-day-27-extract-method/">Day 27: Extract Method</a></li>
+	<li><a href="http://blog.excastle.com/2007/02/28/resharper-day-28-really-extract-static-method-and-extract-property/">Day 28: Really Extract Static Method and Extract Property</a></li>
+	<li><a href="http://blog.excastle.com/2007/03/01/resharper-day-29-refactoring-with-interfaces/">Day 29: Refactoring with interfaces</a></li>
+	<li><a href="http://blog.excastle.com/2007/03/02/resharper-day-30-rename-including-viral-rename/">Day 30: Rename, including Viral Rename</a></li>
+	<li><a href="http://blog.excastle.com/2007/03/04/resharper-day-31-safe-delete/">Day 31: Safe Delete</a></li>
+</ul>

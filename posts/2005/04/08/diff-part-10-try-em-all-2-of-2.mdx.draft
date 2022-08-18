@@ -1,0 +1,25 @@
+---
+title: "Diff, part 10: Try 'em all? (2 of 2)  #.NET  #Delphi  #diff"
+sort: 2144
+---
+<p>Continuing in the <a href="http://blog.excastle.com/tag/diff/">diff series</a>...</p>
+<p>So in the last few articles, I <a href="http://blog.excastle.com/2005/04/05/diff-part-7-string-em-all-together-1-of-2/">proposed</a> and <a href="http://blog.excastle.com/2005/04/06/diff-part-8-string-em-all-together-2-of-2/">refined</a> a simpleminded algorithm for finding the <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">Longest Common Subsequence</a>, only to find that the algorithm couldn't run deterministically in a single pass. It gets to points where it has to make a decision, and it doesn't have enough information to make that decision on the spot. It would have to try both options, and see which one works better.</p>
+
+
+
+<p>Then I pondered the question, "Does this mean we just have to try all the possible <a href="http://blog.excastle.com/2005/04/01/diff-part-5-match-strings/">match strings</a>, see <a href="http://blog.excastle.com/2005/04/02/diff-part-6-match-strings-and-common-subsequences/">which ones work</a>, and use the longest of those?" The answer was, "<a href="http://blog.excastle.com/2005/04/07/diff-part-9-try-em-all-1-of-2/">I hope not.</a>"</p>
+<p>But wait. Last time, I was trying every possible match string, in every possible order: I was building both <font face="Courier New">ab</font> and <font face="Courier New">ba</font> as match strings. But that's silly, because they can't both pass our <a href="http://blog.excastle.com/2005/04/02/diff-part-6-match-strings-and-common-subsequences/">rule</a>. Could we start by putting the matches in some sort of order &#8212; <font face="Courier New">[1,1]</font> before <font face="Courier New">[2,2]</font>, and like that &#8212; and then only generate match strings that have the matches in that order? After all, we already know that <font face="Courier New">[2,2] [1,1]</font> isn't even worth considering; why generate it in the first place?</p>
+<p>We could indeed do this, and it would bring the problem from the super-exponential into the merely exponential. It basically turns the list of N match strings into an N-digit binary number. We ignore the number with all bits set to 0 (because if we have any matches at all, then our LCS will always be at least one match long), so we're now dealing with 2<sup><small><i>n</i></small></sup>-1 possible match strings.</p>
+<p>That's a little better, but still not good enough for 1,000-line files:</p>
+<ul>
+<li>3 matches: 7 match strings</li>
+<li>4 matches: 15 match strings</li>
+<li>5 matches: 31 match strings</li>
+<li>6 matches: 63 match strings</li>
+<li>10 matches: 1,023 match strings</li>
+<li>20 matches: 1,048,575 match strings</li>
+<li>1,000 matches: 1.071*10<sup><small>301</small></sup> match strings</li></ul>
+<p>So now, instead of taking <em>much longer than</em> cracking a 1,000-bit symmetric encryption key, our 1,000-line diff now takes <em>merely as long</em> as cracking a 1,000-bit key. My previous comments about <a href="http://blog.excastle.com/2005/04/07/diff-part-9-try-em-all-1-of-2/">the heat death of the universe</a> still apply.</p>
+<p>That answers our "What if?" question pretty conclusively.</p>
+<p>The thing is, trying all the possible match strings is a bad idea for a much simpler reason: it tries way too many stupid options. It will try match strings with obvious holes in them &#8212; <em>every possible combination</em> of obvious holes. If you have matches <font face="Courier New">[1,1]</font>, <font face="Courier New">[2,2]</font>, <font face="Courier New">[3,3]</font>, and <font face="Courier New">[4,4]</font>, the "try 'em all" solution will be trying things like <font face="Courier New">[1,1] [2,2] [4,4]</font> and <font face="Courier New">[2,2] [3,3]</font> to see how they work. And it'll take an obscene amount of time doing it.</p>
+<p>So we have to have something less exhaustive than "try 'em all", but it has to be more comprehensive than "one pass and keep the best so far". Over the next few articles, I'll start getting into what that algorithm should look like.</p>

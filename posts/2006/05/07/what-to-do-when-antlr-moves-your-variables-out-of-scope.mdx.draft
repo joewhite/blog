@@ -1,0 +1,50 @@
+---
+title: "What to do when ANTLR moves your variables out of scope  #.NET  #Delphi  #antlr  #dgrok"
+sort: 2319
+---
+Tidbit I thought was worth passing on...
+
+I was just adding the <a href="http://www.excastle.com/dgrok/Grammar.html#SimpleType">SimpleType rule</a> to my <a href="http://www.excastle.com/dgrok/Grammar.html">grammar</a>, and got this error:
+
+<pre>Delphi.g:534: warning:nondeterminism between alts 1 and 2 of block upon
+Delphi.g:534:     k==1:OPEN_PAREN</pre>
+
+Okay, I've run into this before. The problem is between SubrangeType and EnumeratedType, because both can start with something in parentheses (SubrangeType could start with a parenthesized subexpression like <font face="Courier New">(WM_USER + 1)</font>, and EnumeratedType is something like <font face="Courier New">(alNone, alClient, alCustom)</font>). ANTLR doesn't like that kind of ambiguity; it likes to know that an open parenthesis means it can move right to this rule.
+
+No problem, says I: I'll just break out my handy-dandy <a href="http://blog.excastle.com/2006/04/28/antlr-when-a-token-is-not-a-token/">semantic predicate</a>. If lookahead shows an expression followed by '..', then it's a SubrangeType. So I made the changes, and promptly got forty-some compiler errors. Things like:
+
+<pre>error CS0103: The name 'label' does not exist in the current context</pre>
+
+What happened?! I looked at the DelphiParser.cs that ANTLR had generated, and saw things like this:
+
+<pre>if (0==inputState.guessing) {
+    string label = "";
+}
+// ...
+if (0==inputState.guessing) {
+    label = f1_AST.getText(); // &lt;-- compiler error
+}</pre>
+
+
+
+Sure 'nuff! ANTLR had moved the variable declaration inside the if block, so by the time it got time to use it, the variable wasn't in scope anymore. I beat my head against this for a few minutes before pulling out the ANTLR docs.
+
+The fix was simple: I hadn't been using quite the right ANTLR syntax. I had been declaring my variables inside the rule, along these lines:
+
+<pre>expression:
+    { string label = ""; }
+    // ...</pre>
+
+(The stuff in curly braces is a custom C# code block I provide, which gets inserted into the generated code.)
+
+This had worked fine, until I started using those rules inside a predicate. It turns out that any code blocks after the colon can be if'ed away, if ANTLR decides that it will need to be able to execute that rule in guess mode (i.e., if that rule, or one that references it, appears in the parenthesized part of a semantic predicate). And since most every rule contained several code blocks (one that declared the variable, followed by one or more that used it), and each code block got moved into its own scope, I had a problem.
+
+The right way is to put the variable declarations before the colon. Then they won't be if'ed out:
+
+<pre>expression
+{ string label = ""; } :
+    // ...</pre>
+
+Worked like a charm.
+
+I gave the ANTLR docs a brief skim before I started, and then dove right in to constructing a lexer and parser. I've learned an awful lot this way, but every now and then, it's good to go back to the docs.

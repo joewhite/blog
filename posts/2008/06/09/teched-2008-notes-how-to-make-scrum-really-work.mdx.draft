@@ -1,0 +1,160 @@
+---
+title: "TechEd 2008 notes: How to Make Scrum Really Work  #.NET  #Delphi  #teched2008"
+sort: 2548
+---
+This was a small group, in a small room with a whiteboard, so it was fairly interactive. That means lots of Q&amp;A, which means we jumped all over the place and it looks pretty haphazard in written form. Oh well.
+
+How to Make Scrum Really Work
+Joel Semeniuk
+Imaginet Resources Corp
+
+Scrum teams are 6.5 times more effective than waterfall teams. (Pity they didn't cite a source. Anyone got a reference?)
+
+How Scrum works
+<ul>
+  <li>Lots of feedback mechanisms: between team members, re quality of software, with user community</li>
+  <li>Processes that support feedback mechanisms: daily scrums, sprint</li>
+  <ul>
+    <li>Sprint = iteration. Generally 2-4 weeks. Design, code, test, deploy.</li>
+  </ul>
+  <li>Sprint review: demo to customers, get feedback.</li>
+  <li>Sprint retrospective: Not necessarily every sprint (though that's debatable, see <a href="http://blog.excastle.com/2008/06/09/teched-2008-notes-how-to-make-scrum-really-work/#comment-21702"> Juan</a>'s comments). How did it go? How was the process? Did we feel like this was a successful sprint? What made it successful? If weak, what was the problem? Be constructive. Make sure everybody knows what the team did well.</li>
+  <li>Scrum is a process framework: there are no absolutes beyond the key principles. Continuous process improvement (with the retrospect).</li>
+  <li><a href="http://www.imdb.com/title/tt0412142/">House</a>: "You don't tell your dog to stop peeing on the carpet once a year."</li>
+</ul>
+
+Roles:
+<ul>
+  <li>Scrum Master. Coach. They take stuff out of the way of the team, to make you more productive. Take away impediments.</li>
+  <li>Team members (everyone involved in building the software, so includes QA, people who set requirements, etc.)</li>
+  <li>Pigs and Chickens</li>
+  <ul>
+    <li>Chicken doesn't have deliverables.</li>
+    <li>Pig has skin in the game.</li>
+    <li>When you make ham and eggs, the chicken is involved, but the pig is committed.</li>
+    <li>In some organizations, at the daily scrum, only the pigs talk. Chickens can observe.</li>
+    <li>Pass a token; only the person with the token can talk.</li>
+  </ul>
+</ul>
+
+Is the scrum first thing in the morning? -- Do all your devs get in at the same time? (Ha.)
+
+How do you keep a daily scrum short? (Especially when remote.) -- Scrum Master is the moderator, and will say, "Rat hole."
+<ul>
+  <li>What did we do yesterday?</li>
+  <li>What are we going to do today?</li>
+  <li>What are our impediments?</li>
+</ul>
+
+Backlog
+<ul>
+  <li>Bucket of stuff that needs to get done</li>
+  <li>Can assign backlog items to sprints</li>
+  <li>Sprint planning: reconfirm what you have, do decomposition to make it more real</li>
+  <li>If you do internal development, you can plan as you go. If you do contracting or fixed-bid work, you need to spend more time on planning.</li>
+</ul>
+
+Scrum is about what's next. What about management wanting deliverable dates, when Agile tends to be about discovering stuff as we go?
+<ul>
+  <li>Ken Schwaber: Have a bigger preparation phase, lay out a vision</li>
+  <li>Convince the customer that you can allow change</li>
+  <li>Change is gonna happen</li>
+  <li>We're allowing the customer to change their mind, by re-prioritizing, changing the schedule, replacing features with others of the same size</li>
+  <li>Prioritizing of backlog is absolutely necessary</li>
+  <li>Track everything: changes in priority, changing out features. Just because we're doing agile doesn't mean we throw out best practices about change management.</li>
+  <li>Might be able to win projects even if you refuse to do a fixed bid. Can't fix all three aspects of the Iron Triangle, which makes for an adversarial customer relationship. Can say, "I understand your budget. We think it'll be this much. Let's keep features flexible, and stay aware of the business value of each one."</li>
+  <li>Sometimes Scrum isn't the right model, especially when there's a lack of trust.</li>
+  <li>Aside: Every team should have a nap room.</li>
+</ul>
+
+Suggested story pattern: "As a &lt;role&gt; I want &lt;ability&gt; so that &lt;benefit&gt;."
+
+Team System plug-ins to help manage sprints electronically:
+<ul>
+  <li>Conchango</li>
+  <li>MSF for Agile</li>
+  <li>Lightweight Scrum Process Template</li>
+  <li>eScrum template (Microsoft)</li>
+</ul>
+
+User stories
+<ul>
+  <li>Three things:</li>
+  <ul>
+    <li>What I'm trying to do</li>
+    <li>Conversation about that user story: what fields? what reports? Record that in the work item.</li>
+    <li>Acceptance test, in the terminology of the user.</li>
+  </ul>
+  <li>Suggestion: "Sprint 0" = planning sprint.</li>
+  <li>Product backlog: User Stories.</li>
+  <li>Sprint backlog: tasks that need to be done to complete those user stories.</li>
+</ul>
+
+Estimation. One possible technique:
+<ul>
+  <li>Rate each story for:</li>
+  <ul>
+    <li>Complexity (1 to 5)</li>
+    <li>Business value (1 to 5)</li>
+  </ul>
+  <li>If it's got a complexity of 5, you must decompose.</li>
+  <li>Rock/paper/scissors-style estimation. If you're off by more than one, we don't have the same understanding of the problem.</li>
+  <li>Why use a made-up scale instead of hours? -- Don't want it to turn into a budget for the developers. "Student syndrome". If it was estimated at a day, the programmer thinks they have a day to do it. Instead, the dev should do the necessary work, no less and no more.</li>
+  <li>Try to discourange single-point estimation. (I think they meant single-axis, which is why they suggest rating both complexity and value. It's been a few days, though, so I might be remembering wrong.)</li>
+  <li>Another suggestion: minimum / most probable / maximum time.</li>
+  <li>Another suggestion: estimate + certainty.</li>
+  <li>The guy who did order-of-magnitude estimation does hours during execution: how many hours spent, how many estimated hours remaining.</li>
+</ul>
+
+Impediments (obstacles)
+<ul>
+  <li>They have a flag on their work-item database called "Issue". That seems way too slow-response to me -- shouldn't you just walk over and talk to the customer?</li>
+  <li>Risk management.</li>
+  <li>Mitigate risk. How to lower impact or lower probability?</li>
+  <li>Trigger. When is it not a risk anymore, and now a Problem? What's the contingency?</li>
+  <li>Mitigations are tasks in your backlog.</li>
+  <li>Can become a rat-hole.</li>
+  <li>Bottom line: anticipate problems.</li>
+</ul>
+
+Scrum of Scrums
+<ul>
+  <li>Each team has their own scrum meeting</li>
+  <li>A few people from each team do a combined scrum, so the teams have some idea of where other teams are</li>
+</ul>
+
+What do you do when your backlog is hundreds of stories long?
+<ul>
+  <li>Consider feature-driven development. Major features, feature sets, features. Structure your backlog that way.</li>
+</ul>
+
+
+
+They don't like teams bigger than 7.
+
+Scrum scaling: "team of teams". But even so, after about 50 people, scaling on team of teams degrades quickly. FDD scales better.
+
+Amazon: Two-large-pizza rule. A team can't be bigger than can be fed by two large pizzas. (So, two people, right?)
+
+How to deal with scope creep? -- Need a big, burly scrum master. Bring the customer in, lay the cards on the table, and ask what they want to give up. As long as you haven't started the task, you can change the sprint by trading something out.
+
+Time, Resources, Features: Pick 2.
+
+Side quote: "Drive-by chickens"
+
+So you do the estimates, make the commitment, more requirements emerge, and they don't want to take more time for them? -- Maybe you can't do agile. Do requirements up front and then change-report the snot out of it.
+
+If your velocity suddenly changes and you figure it out mid-sprint, figure out why. Don't re-estimate; adjust your velocity.
+
+Some metrics:
+<ul>
+  <li>Stories per sprint</li>
+  <li>Complexity points per sprint</li>
+  <li>Burndown chart</li>
+</ul>
+
+Audience suggestion: Anyone can stop the sprint and call a meeting to resolve something.
+
+End of iteration and not done? -- Cover it in the review, move it to the next sprint. Drop from sprint release; remove from the build. That work didn't get done. Milestones: nothing is 82% done.
+
+If you really don't want wiggle room at the end of the sprint, put the end of the sprint on a Wednesday. Student syndrome -- not thinking about it until the last minute.

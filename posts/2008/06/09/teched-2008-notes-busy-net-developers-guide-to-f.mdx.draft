@@ -1,0 +1,484 @@
+---
+title: "TechEd 2008 notes: Busy .NET Developer's Guide to F#  #.NET  #fsharp  #teched2008"
+sort: 2547
+---
+I'm a bit late getting my Thursday and Friday notes posted. Thursday night was Universal Studios, so I didn't get any posting done then, and by Friday night I was just plain worn out. So here we go again, starting with Thursday morning.
+
+Busy .NET Developer's Guide to F#
+Ted Neward (talking about the slides)
+Neward &amp; Associates
+<a href="http://www.tedneward.com/">www.tedneward.com</a>
+
+Luke Hoban (doing the demos)
+F# Program Manager
+<a href="http://blogs.msdn.com/lukeh/">blogs.msdn.com/lukeh</a>
+
+F# is a functional, object-oriented, imperative and explorative programming language for .NET.
+
+<ul>
+  <li>OO you already know.</li>
+  <li>Imperative = sequential execution. C#, batch files, etc.</li>
+  <li>Explorative = REPL loop / interactive prompt. Executing code on the fly in Visual Studio.</li>
+  <li>Functional</li>
+  <ul>
+    <li>This doesn't mean "F# is functional" as opposed to "C++ is dysfunctional".</li>
+    <li>Mathematical definition of "functions".</li>
+    <li>f(x) = x + 2. So if you pass 5, you get 7, no matter how many times you do it.</li>
+    <li>Immutable; no shared state.</li>
+    <li>This means we can do some substitution. Can break down into pieces, solve for part of it, put it together and get the right answer.</li>
+    <li>Look to create functions that can be composed into higher-order functions.</li>
+    <li>Very concurrency-friendly.</li>
+  </ul>
+</ul>
+
+F#: The combination counts!
+<ul>
+  <li>Strongly typed. Makes sure you didn't do anything really, really stupid. Historically, compilers have been rather stupid about this: if I say <code>s = "Luke"</code>, why do I have to tell the compiler it's a string? It already knows, after all.</li>
+  <li>Succinct</li>
+  <li>Scalable</li>
+  <li>Libraries</li>
+  <li>Explorative</li>
+  <li>Interoperable</li>
+  <li>Efficient</li>
+</ul>
+
+What is F# for?
+<ul>
+  <li>General-purpose language</li>
+  <ul>
+    <li>Can be used for a broad range of programming tasks</li>
+  </ul>
+  <li>Some particularly important domains</li>
+  <ul>
+    <li>Financial modeling and analysis</li>
+    <li>Data mining</li>
+    <li>Scientific data analysis</li>
+    <li>Domain-specific modeling</li>
+    <li>Academic</li>
+  </ul>
+  <li>Speed and power</li>
+</ul>
+
+Install F# addon into Visual Studio
+
+"F# Interactive" window (REPL prompt). This is a dockable window in the IDE. Just type code in. E.g.
+
+<pre>1+1;;</pre>
+
+Can also highlight code in the code editor and press Alt+Enter, which runs that code in the interactive window; then you don't need <code>;;</code> to tell it you're done. (So what do you do if you use ReSharper and <a href="http://blog.excastle.com/2007/02/16/resharper-day-16-importing-namespaces-with-altenter/">Alt+Enter</a> <a href="http://blog.excastle.com/2007/02/17/resharper-day-17-change-all-with-altenter-and-introducing-the-red-light-bulb/">already</a> <a href="http://blog.excastle.com/2007/02/18/resharper-day-18-adding-things-with-altenter/">does</a> <a href="http://blog.excastle.com/2007/02/19/resharper-day-19-implement-members-with-altenter/">lots of</a> <a href="http://blog.excastle.com/2007/02/20/resharper-day-20-fix-errors-and-warnings-with-altenter/">cool</a> <a href="http://blog.excastle.com/2007/02/21/resharper-day-21-code-transformations-with-altenter/">stuff</a>? I wonder if keybindings in the editor are language-sensitive.)
+
+<pre>// Turn on the significant whitespace option
+#light
+
+System.Console.WriteLine "Hello World"
+
+System.Windows.Forms.MessageBox.Show "Hello World"
+
+printfn "Hello World"</pre>
+
+The Path to Mastering F#
+<ul>
+  <li>Covered today:</li>
+  <ul>
+    <li>Scoping and "let"</li>
+    <li>Tuples</li>
+    <li>Pattern matching</li>
+    <li>Working with functions</li>
+    <li>Sequences, lists, options</li>
+    <li>Records and unions</li>
+    <li>Basic imperative programming</li>
+    <li>Basic objects and types</li>
+    <li>Parallel and asynchronous. Comparing C# examples from MSDN to their F# equivalents.</li>
+  </ul>
+  <li>Not covered today:</li>
+  <ul>
+    <li>F# libraries</li>
+    <li>Advanced functional/imperative</li>
+    <li>Advanced functional/OO</li>
+    <li>Meta-programming</li>
+  </ul>
+  <li>They can't teach us a programming langugae in 75 minutes. They just want to make us dangerous. Get us to where we can read the examples.</li>
+</ul>
+
+<h3>"let" and scoping</h3>
+
+Let: binds values to identifiers
+
+<pre>let data = 12
+let f x =
+     let sum = x + 1
+     let g y = sum + y*y
+     g x</pre>
+
+<ul>
+  <li>No semicolons. Language can figure out where the statement ends. Also makes use of significant whitespace.</li>
+  <li>No parentheses.</li>
+  <li>Type inference. The static typing of C# with the succinctness of a scripting language. We can specify types when we want to be unambiguous. There's also some generic stuff that can happen.</li>
+  <li>No real distinction between variables and function declarations.</li>
+  <li>Nested functions. <code>sum</code> and <code>g</code> aren't visible outside the scope of <code>f</code>. So we have additional encapsulation that C# and VB don't have.</li>
+  <li>Closures.</li>
+  <li>Last value calculated becomes the return value.</li>
+  <li>Immutability (by default).</li>
+</ul>
+
+<pre>let PI = 3.141592654
+
+PI &lt;- 4.0</pre>
+That's an error: "This value is not mutable."
+
+<ul>
+  <li>Is this a property or a field? We don't care.</li>
+  <li><code>&lt;-</code> is assignment.</li>
+  <li>You <em>can</em> make something mutable. But they do the right thing, by default, with respect to concurrency.</li>
+</ul>
+
+<pre>open System
+open System.IO
+open System.Net
+
+let req = WebRequest.Create("http://www.live.com")
+let stream = req.GetResponse().GetResponseStream()
+let reader = new StreamReader(stream)
+let html = reader.ReadToEnd()
+
+html</pre>
+
+<pre>let http(url: string) =
+    let req = WebRequest.Create(url)
+    use resp = req.GetResponse()
+    use stream = resp.GetResponseStream()
+    use reader = new StreamReader(stream)
+    let html = reader.ReadToEnd()
+    html</pre>
+
+<ul>
+  <li>Actually did provide type annotation in the above example. Sometimes it can't infer the type. This is one such case, because <code>WebRequest.Create</code> is overloaded. These are fairly rare in the bulk of F# code.</li>
+  <ul>
+    <li>I'm curious what happens if you don't annotate this example; that's a detail they didn't show. Compiler error?</li>
+  </ul>
+  <li><code>use</code> is like C#'s <code>using</code> block.</li>
+  <ul>
+    <li>I'm curious how it knows how big the scope is, i.e., where in the code to insert the call to <code>Dispose</code>.</li>
+  </ul>
+</ul>
+
+<pre>let html2 = ""
+html2 &lt;- http("http://www.live.com")</pre>
+
+<ul>
+  <li>Red squiggle under the second <code>html2</code>. Background compilation. This is why you can hover over an identifier and see its type.</li>
+  <li>If you really want to make it mutable:</li>
+</ul>
+<pre>let mutable html2 = ""
+html2 &lt;- http("http://www.live.com")</pre>
+
+<h3>Lists, Options and Patterns</h3>
+<ul>
+  <li>Lists are first-class citizens</li>
+  <li>Options provide a some-or-nothing capability</li>
+  <li>Pattern matching provides particular power</li>
+</ul>
+<pre>let list1 = ["Ted"; "Luke"]
+
+let option1 = Some("Ted")
+let option2 = None
+
+match Option1 with
+| Some(x) -&gt; printfn "We got an %A" x
+| None -> printfn "Nope, got nobody"</pre>
+
+<ul>
+  <li>Semicolons as delimiters inside lists. Yes, it's silly that it's not comma. Red squigglies will help you figure out when you get it wrong.</li>
+  <li>Option type: you can either have some of a particular value, or none. (This looks pretty similar in intent to nullable types in C#.)</li>
+  <ul>
+    <li>Looks like <code>Some</code> and <code>None</code> are predefined as part of the language or the library, though they didn't explicitly go into this.</li>
+  </ul>
+  <li><code>Some</code> is a generic; it can contain any type. Generics are very lightweight, almost invisible.</li>
+  <li>Pattern matching. Note that it not only matches Some(x), it also extracts the value (<code>x</code>) for us to use.</li>
+</ul>
+
+<h3>Functions</h3>
+<ul>
+  <li>Like delegates + unified and simple</li>
+</ul>
+<pre>(fun x -&gt; x + 1)
+
+let f x = x + 1
+
+let g = f
+
+val g : int -&gt; int</pre>
+
+<ul>
+  <li>First: Anonymous function.</li>
+  <li>Second: same thing, but we're giving it a name.</li>
+  <li>Third: creating another identifier that's bound to the same value as f.</li>
+  <ul>
+    <li>We're starting to treat functions as values.</li>
+    <li>This lets us do interesting things like higher-order functions, which are very difficult to express in a language like C#.</li>
+    <li>Nobody's saying you can't do this in C#. But F# syntax is more succinct, and sometimes a little bit more powerful.</li>
+    <li>Nobody's saying you need to stop using C#. If you want to continue creating tomorrow's legacy code, nobody's going to stop you.</li>
+  </ul>
+  <li>I think the fourth one isn't actually code, but rather the thing F# displays when it's telling you the type. I didn't quite catch that bit, though, so I'm not sure.</li>
+</ul>
+
+<h3>Lists</h3>
+
+<pre>let sites = ["http://live.com"; "http://yahoo.com"]
+let sites' = "http://live.com"::"http://yahoo.com"::[]
+let sites'' = ["http://live.com"] @ ["http://yahoo.com"]
+</pre>
+
+<ul>
+  <li><code>::</code> means "prepend this element to this list"</li>
+  <li><code>@</code> appends two lists.</li>
+  <li>Names can have prime and prime-prime suffixes.</li>
+</ul>
+
+<h3>Arrays</h3>
+
+<pre>let sitesArray = [|"http://live.com"; "http://yahoo.com"|]</pre>
+
+<ul>
+  <li>Arrays can be useful. They're still immutable, but can be very performant.</li>
+  <li>They did not go into any details on how arrays are different from lists.</li>
+</ul>
+
+<h3>Tuples</h3>
+
+<pre>let nums = (1,2,3)
+let info = (1,true,"hello")</pre>
+
+<ul>
+  <li>Packages up some data. Type is reported as <code>int * int * int</code>.</li>
+</ul>
+
+<h3>Computed lists</h3>
+
+<pre>[ 0 .. 10 ]
+[ for i in 0 .. 10 -&gt; (i, i*i) ]
+[ for i in 0 .. 20 -&gt; (i, sin(float(i)/20.0*Math.PI)) ]</pre>
+
+<ul>
+  <li>First: just returns a list</li>
+  <li>Second and third: list of tuples</li>
+</ul>
+
+<h3>Example: Web crawling</h3>
+
+<pre>open System.Text.RegularExpressions
+
+let linkPath = "href=\s*\"[^\"h]*(http://[^&\"]*)\""
+
+let msft = http("http://www.microsoft.com")
+
+let msftLinks = Regex.Matches(msft, linkPat)
+
+[ for m in msftLinks -> m.Groups.[1].Value ]
+
+let getLinks (txt:string) =
+    [ for m in Regex.Matches(txt,linkPat) -&gt; m.Groups.[1].Value ]
+
+let getFirstLink html =
+    let links = getLinks html
+    match links with
+    | [] -> None
+    | firstLink :: _ -> Some firstLink</pre>
+
+<h3>Unions and pattern matching</h3>
+
+<pre>type Expression =
+    | Num of int
+    | Neg of Expression
+    | Add of Expression * Expression
+
+let expr = Add(Add(Num 1, Neg(Num 2)), Num 3)</pre>
+
+<ul>
+  <li>Unions are like an enum, but one that can carry data along with it. Very succinct and clear.</li>
+</ul>
+
+<pre>let rec evaluate expr =
+    match expr with
+    | Num(n) -> n
+    | Neg(e') -> -(evaluate e')
+    | Add(e', e'') -> (evaluate e') + (evaluate e'')
+
+evaluate expr</pre>
+
+<ul>
+  <li><code>let rec</code> means it's a recursive function. You have to make that explicit.</li>
+</ul>
+
+<h3>Functions and Composition</h3>
+
+<pre>let htmlForSites = List.map http sites</pre>
+
+<ul>
+  <li>First argument is a function; second argument is the list. Returns a new list with the function results.</li>
+  <li>If you look at the type of List.map, it's <code>val map : ('a -> 'b) -> 'a list -> 'b list</code>. The prepended <code>'</code> mean it's a generic.</li>
+</ul>
+
+<pre>sites
+|> List.map http
+|> List.map (fun x -> x.Length)
+|> List.fold_left (+) 0</pre>
+
+<ul>
+  <li>|> is the piping operator.</li>
+  <li>List.fold_left is used to sum all the lengths.</li>
+  <li>Three different kinds of functions:</li>
+  <ul>
+    <li>Defined explicitly, with a name: http</li>
+    <li>Anonymous function: (fun x...</li>
+    <li>Operator, passed around and used as data: (+)</li>
+  </ul>
+</ul>
+
+<h3>GUI and databinding</h3>
+
+<pre>open System.Drawing
+open System.Windows.Forms
+
+let form = new Form(Visible = true,
+                    Text = "A simple F# form",
+                    TopMost = true,
+                    Size = Size(500, 400))
+
+let data = new DataGridView(Dock = DockStyle.Fill)
+form.Controls.Add(data)
+
+data.DataSource <- [| ("http://www.live.com", 1) |]
+// more stuff to set column headers
+
+let limit = 50
+let collectLinks url = getlinks (try http(url) with _ -> "")</pre>
+
+<ul>
+  <li>An array of tuples can be <em>bound to a datagrid.</em> How cool is that?</li>
+  <li><code>try</code> keyword is used to say "ignore anything that throws an exception". If F# has anything like <code>try</code>..<code>finally</code> or <code>try</code>..<code>catch</code>, they didn't demo it today.</li>
+</ul>
+
+<pre>let rec crawl visited url =
+    data.DataSource &lt;- List.to_array visited
+    Application.DoEvents()
+    if (visited |> List.exists (fun (site,_) -&gt; site = url))
+      or visited.Length &gt;= limit
+    then
+        visited
+    else
+        let links = collectLinks url
+        let visited' = (url, links.Length) :: visited
+        List.fold_left crawl visited' links
+
+crawl [] "http://live.com"</pre>
+
+<h3>Object Oriented + Functional</h3>
+
+<pre>#light
+
+namespace Library
+
+type Vector2D(dx:double, dy:double) =
+  member v.DX = dx
+  member v.DY = dy
+  member v.Length = sqrt(dx*dx+dy*dy)
+  member v.Scale(k) = Vector2D(dx*k, dy*k)</pre>
+
+<ul>
+  <li>F# doesn't differentiate between properties and methods. They want you thinking about the problem, not about software engineering.</li>
+  <li>Constructor parameters are in the type declaration itself. That's the primary constructor that all others defer to, 'cause that's usually what you do. No wasted syntax initializing the fields; it's constructor signature, field declarations, and assignments all in one.</li>
+  <li>When you build types in F#, you can see them in C#. X, Y, and Length are properties; Scale is a function.</li>
+  <li>F# doesn't automatically realize that fields are immutable and it can precompute the length. F# is immutable by default, but it's hard to figure out how aggressive to be. (That doesn't make a whole lot of sense based on what I know so far -- you have to explicitly say when you want something to be mutable -- but I guess there could be more going on somewhere.) If calculating Length is expensive, you have to precompute it yourself, thusly:</li>
+</ul>
+
+<pre>type Vector2D(x : float, y : float) =
+    let norm = sqrt(x*x + y*y)
+    member this.Length = norm</pre>
+
+<ul>
+  <li>That <code>let</code> becomes constructor code.</li>
+</ul>
+
+<pre>override this.ToString() = "hello"</pre>
+
+<ul>
+  <li>Intellisense works -- type <code>override this.</code> and a completion list pops up.</li>
+</ul>
+
+<h3>Case Study</h3>
+<ul>
+  <li>The Microsoft adCenter Problem</li>
+  <li>Cash-cow of Search</li>
+  <li>Selling "web space" at www.live.com and www.msn.com.</li>
+  <li>What's the chance, if I put up a certain ad, that a user will click on it?</li>
+  <li>Internal competition for a better clickthrough-prediction algorithm</li>
+  <li>Winning team used F#</li>
+</ul>
+
+Their observations
+<ul>
+  <li>Quick coding. Less typing, more thinking.</li>
+  <li>Agile coding</li>
+  <li>Scripting. Interactive "hands-on" exploration of algorithms and data over smaller data sets.</li>
+  <li>Performance. Immediate scaling to massive data sets.</li>
+  <li>Memory-faithful</li>
+  <li>Succinct. Live in the domain, not the language. They were able to have non-programmers helping with the code.</li>
+  <li>Symbolic</li>
+  <li>.NET integration</li>
+</ul>
+
+<h3>Taming asynchronous I/O</h3>
+<ul>
+  <li>Pages of C# code</li>
+</ul>
+<pre>let ProcessImageAsync(i) =
+    async { let inStream = File.OpenRead(sprintf "source%d.jpg" i)
+    let! pixels = inStream.ReadAsync(numPixels)
+    let pixels' = TransformImage(pixels, i)
+    let outStream = File.OpenWrite(...
+    do! outStream.WriteAsync(pixels')
+    do Console.WriteLine "done!" }
+
+let ProcessImagesAsync() =
+    Async.Run (Async.Parallel
+                [ for i in 1 .. numImages -> ProcessImageAsync(i) ])</pre>
+
+<ul>
+  <li>let! means "do this asynchronously"</li>
+  <li>Async.Parallel means "do this stuff in parallel, and just make it work"</li>
+</ul>
+
+<h3>F# Roadmap</h3>
+<ul>
+  <li>May 2008: MS Research F# refresh release</li>
+  <ul>
+    <li>Language and libraries clean-up and completion</li>
+  </ul>
+  <li>Fall 2008: F# CTP release</li>
+  <ul>
+    <li>Language decisions finalized</li>
+    <li>Foundation of full integration into Visual Studio</li>
+  </ul>
+  <li>Future: releases with betas and RTM of next version of Visual Studio</li>
+  <ul>
+    <li>Either as an add-in or in-the box</li>
+  </ul>
+</ul>
+
+<h3>Resources</h3>
+<ul>
+  <li><a href="http://research.microsoft.com/fsharp/">research.microsoft.com/fsharp</a></li>
+  <li><a href="http://blogs.msdn.com/dsyme/">blogs.msdn.com/dsyme</a></li>
+  <li>Community</li>
+  <ul>
+    <li><a href="http://cs.hubfs.net/">cs.hubfs.net</a></li>
+    <li><a href="http://feeds.feedburner.com/planet_fsharp/">feeds.feedburner.com/planet_fsharp</a></li>
+  </ul>
+  <li>F# training (Pluralsight, <a href="http://www.pluralsight.com/">www.pluralsight.com</a>)</li>
+  <li>Samples in download</li>
+  <li>Books</li>
+  <ul>
+    <li>Expert F#</li>
+  </ul>
+</ul>

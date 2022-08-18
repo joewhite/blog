@@ -1,0 +1,79 @@
+---
+title: "Delphi bug of the day: FPU stack leak  #Delphi"
+sort: 2458
+---
+<p><a href="http://blog.briankohrs.com/">Brian</a> and I spent a couple hours debugging this afternoon. Our code was throwing an EInvalidOp exception: "Invalid floating-point operation". And it was doing it in code that looked kinda like this:</p>
+
+<blockquote><pre>S := S + '*';</pre><div><b><small>Figure 1</small></b></div></blockquote>
+
+<p>Yyyyep. String concatenation. Was causing a floating-point exception.</p>
+
+<p>It took us a good long while to figure out why, but we finally did. See, this EInvalidOp was a secondary exception. Before getting to the string concatenation, we had run through some code that did something like this:</p>
+
+<blockquote><pre>Result := SomeArray[Index] - SomeArray[Index - 1];</pre><div><b><small>Figure 2</small></b></div></blockquote>
+
+<p>Important details:</p>
+
+<ul>
+<li>SomeArray was an array of Double.</li>
+<li>Index happened to be the lowest index for SomeArray.</li>
+<li>Range checking was on.</li>
+</ul>
+
+<p>The code in Figure 2 was blowing up with an ERangeError, because <code>SomeArray[Index - 1]</code> was outside the bounds of the array. The code expected this, caught the exception (it was a unit test that specifically tested how the code reacted to boundary conditions), and continued on its way.</p>
+
+<p>And then it did some string concatenation and blew up.</p>
+
+<p>It took a lot of grovelling around in the CPU view and, finally, even the FPU view (which I have never before opened on purpose), to find the answer.</p>
+
+<p>See, the floating-point unit (FPU) has its own stack. A fairly small one: the FPU stack has eight slots. And Delphi code (probably most code, for that matter) appears to pretty much expect the FPU stack to be empty most of the time. As a general thing, any given Delphi statement would start and end with an empty FPU stack. (That's fairly standard for a stack-based architecture.) So a statement like the one in Figure 2 would break down something like this:</p>
+
+<ul>
+<li>Start out with an empty FPU stack.</li>
+<li>Get the value <code>SomeArray[Index]</code> and push it onto the FPU stack.</li>
+<li>Get the value <code>SomeArray[Index - 1]</code> and push it onto the FPU stack.</li>
+<li>Give the FPU a "subtract" instruction, which pops the top two items off the FPU stack, does the subtraction, and puts the result back on the stack. There's now only one item on the FPU stack.</li>
+<li>Pop the result off the FPU stack and put it into Result.</li>
+<li>End the statement with an empty FPU stack again.</li>
+</ul>
+
+<p>Now let's switch gears for a minute. When you do string concatenation in place (e.g., <code>S := S + <i>something</i></code>), the runtime tries to reuse the existing memory block. But if the new string doesn't fit in the old block, it may need to allocate a new block somewhere else on the heap, and copy the existing content into it. (See SysReallocMem, in $(BDS)\source\Win32\rtl\sys\getmem.inc, if you're <i>really</i> curious about how this works. Bring a flashlight.)</p>
+
+<p>Delphi 2006 ships with the FastMM4 memory manager. Among other things, FastMM has very highly-optimized copy routines as part of its ReallocMem code. So highly-optimized that they have different routines for different block sizes. Here's the one for a 36-byte block (copied from $(BDS)\source\Win32\rtl\sys\getmem.inc):</p>
+
+<blockquote><pre>procedure Move36(const ASource; var ADest; ACount: Integer);
+asm
+fild qword ptr [eax]
+fild qword ptr [eax + 8]
+fild qword ptr [eax + 16]
+fild qword ptr [eax + 24]
+mov ecx, [eax + 32]
+mov [edx + 32], ecx
+fistp qword ptr [edx + 24]
+fistp qword ptr [edx + 16]
+fistp qword ptr [edx + 8]
+fistp qword ptr [edx]
+end;</pre></blockquote>
+
+<p>In case you can't read that gibberish, it amounts to, "push four quad-words (8 bytes each) onto the FPU stack, then pop them into a different memory location". The remaining four bytes are done with a regular 32-bit MOV instruction.</p>
+
+<p>This takes advantage of the fact that the FPU can move around eight bytes at a time, but basically it amounts to abusing the FPU stack as scratch space. And it makes assumptions about how many FPU stack slots are available &mdash; four for Move36, the one shown above. Move44 needs five slots, Move52 needs six, Move60 needs seven, and Move68 assumes that all eight slots are available. (Beyond that, they use a different strategy.) And those assumptions should be safe, since the FPU stack is always supposed to stay empty.</p>
+
+<p>Maybe you can see where I'm going with this.</p>
+
+<p>Let's go through those steps again, this time paying particular attention to what happened in our code today.</p>
+
+<ul>
+<li>Start out with an empty FPU stack.</li>
+<li>Get the value <code>SomeArray[Index]</code> and push it onto the FPU stack.</li>
+<li>Get the value <code>SomeArray[Index - 1]</code>, and &mdash; oops. <code>Index - 1</code> is out of bounds. Raise an ERangeError.</li>
+<li>And then, of course, you end with an empty FPU stack... right?</li>
+</ul>
+
+<p>Oops.</p>
+
+<p>No, it turns out that if the second argument to a floating-point operation throws an exception, you end up with an FPU stack leak. And when there are only eight slots, leaks are Not a Good Thing.</p>
+
+<p><i>Especially</i> when your memory manager relies on the FPU stack.</p>
+
+<p>I've already logged this in QualityCentral, as <a href="http://qc.codegear.com/wc/qcmain.aspx?d=51215">QC#51215</a>. If you're curious, the QC report includes a repro case you can play around with. Happy floating-point erroring.</p>

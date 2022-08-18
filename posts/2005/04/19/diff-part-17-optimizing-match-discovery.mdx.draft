@@ -1,0 +1,64 @@
+---
+title: "Diff, part 17: Optimizing match discovery  #.NET  #Delphi  #diff"
+sort: 2158
+---
+<p>The next really interesting topic in the <a href="http://blog.excastle.com/tag/diff/">diff series</a> is going to take more time to write than I have this morning. So today, I'll talk about a fairly simple optimization to the match-finding loops.</p>
+<p>Our <a href="http://blog.excastle.com/2005/04/18/diff-part-16-a-look-back-and-a-big-o/">outer two loops</a> looked like this:</p>
+<ul dir=ltr>
+<li>
+<div>Loop through all the elements in A, and for each A<sub><small><i>i</i></small></sub>:</div></li>
+<ul>
+<li>
+<div>Loop through all the elements in B, and for each B<sub><small><i>j</i></small></sub> that <a href="http://blog.excastle.com/2005/03/31/diff-part-4-matches/">matches</a> A<sub><small><i>i</i></small></sub>:</div></li>
+<ul>
+<li>
+<div><em>(do some other stuff)</em></div></li></ul></ul></ul>
+
+
+
+<p>Now, imagine that we have input that's a typical source-code file, perhaps C# or Delphi code, and that we're ignoring leading whitespace as we compare.</p>
+<p>In a source file of any length, we're going to have repetition. There will be blank lines in both files. There will be lines containing only&nbsp;'<font face="Courier New">{</font>' (C#) or only the keyword '<font face="Courier New">begin</font>' (Delphi), which all compare the same because we're stripping off the leading whitespace before we compare. Same thing for '<font face="Courier New">}</font>' or '<font face="Courier New">end;</font>'.</p>
+<p>Every time we come across one of those duplicated lines, we do a bunch of wasted work. Let's see how:</p>
+<ul>
+<li>Get the first element from A. Let's say it's "<font face="Courier New">unit Foo;</font>".</li>
+<ul>
+<li>Loop through all the elements in B, and for each B<sub><small><i>j</i></small></sub> that matches "<font face="Courier New">unit Foo;</font>", do some stuff.</li></ul>
+<li>Get the next element from A. This one is the empty string, "".</li>
+<ul>
+<li>Loop through all the elements in B, and for each B<sub><small><i>j</i></small></sub> that matches "", do some stuff.</li></ul>
+<li>Get the next element from A: "<font face="Courier New">interface</font>".</li>
+<ul>
+<li>Loop through all the elements in B, and for each B<sub><small><i>j</i></small></sub> that matches "<font face="Courier New">interface</font>", do some stuff.</li></ul>
+<li>Get the next element from A: the empty string again.</li>
+<ul>
+<li>Loop through all the elements in B, and for each B<sub><small><i>j</i></small></sub> that matches "", do some stuff.</li></ul>
+<li>Get the next element from A: "<font face="Courier New">uses SysUtils, Classes;</font>".</li>
+<ul>
+<li>Loop through all the elements in B, and for each B<sub><small><i>j</i></small></sub> that matches "<font face="Courier New">uses SysUtils, Classes;</font>", do some stuff.</li></ul>
+<li>Get the next element from A: the empty string again.</li>
+<ul>
+<li>Loop through all the elements in B, and for each B<sub><small><i>j</i></small></sub> that matches "", do some stuff.</li></ul></ul>
+<p>Every time we get "" from A, we loop through B looking for all of its ""s. But we already did that. Couldn't we save ourselves some work if we just remembered where all the ""s are, so we can just loop over the interesting bits of B, rather than the whole boring thing?</p>
+<p>Indeed we could, and it would save us time even if there <em>isn't</em> any duplication between the two lists. We do it by replacing those two outer loops with this:</p>
+<ul>
+<li>Create a Hashtable called BHash.</li>
+<li>Loop through all the elements in B, and for each B<sub><small><i>j</i></small></sub>:</li>
+<ul>
+<li>If BHash[B<sub><small><i>j</i></small></sub>] is nil, then BHash[B<sub><small><i>j</i></small></sub>] := TList.Create;</li>
+<li>BHash[B<sub><small><i>j</i></small></sub>].Add(j);</li></ul>
+<li>
+<div>Loop through all the elements in A, and for each A<sub><small><i>i</i></small></sub>:</div></li>
+<ul>
+<li>
+<div>Loop through all the matching "j"s we've already listed at BHash[A<sub><small><i>i</i></small></sub>]:</div>
+<ul>
+<li>
+<div><em>(do some other stuff)</em></div></li></ul></li></ul></ul>
+<p>We start with a single pass through B to build a reverse-lookup table. (Ideally we would use a genuine Hashtable, so that adds and lookups are both always O(1). If we're using Delphi for Win32, which doesn't have a real Hashtable, we'll have to fake one, or implement one from scratch.)</p>
+<p>This reverse-lookup table maps each element in B to a list of indexes where that element appears:</p>
+<blockquote dir=ltr style="MARGIN-RIGHT: 0px">
+<p>BHash["<font face="Courier New">unit Foo;</font>"] = (0)<br>BHash[""] = (1, 3, 5, ...)<br>BHash["<font face="Courier New">interface</font>"] = (2)<br>BHash["<font face="Courier New">uses SysUtils, Classes;</font>"] = (4)</p></blockquote>
+<p dir=ltr>Now, when we get to an element in A, we're not looping through every element in B. That was a bit wasteful to begin with, because for typical input, most of those elements in B wouldn't match &#8212; we were looping over all N even though only a handful will actually matter. Now, with the addition of the reverse-lookup hash, we only look at the elements in B that <em>do</em> match.</p>
+<p dir=ltr>So the second loop, instead of being O(N), is now O(D) &#8212; the number of iterations is roughly proportional to the number of duplicates in list B. Actually, list A figures into that calculation too, because we'll only care about those duplicates in B if they also appear in A &#8212; after all, if they don't appear in A, we're never going to look them up in B.</p>
+<p dir=ltr>D may approach N, if the lists contain almost all duplicates (e.g., if both input files consist of nothing but blank lines); or it may approach 1, if the lists contain almost no duplicates. It may even approach 0, if the two input files have nothing in common, because every time we go to look for something in BHash, there'll be nothing to find and therefore nothing to iterate.</p>
+<p dir=ltr>So our outer two loops, instead of being O(N<sup><small>2</small></sup>), are now O(ND). Not bad for a short morning's work.</p>

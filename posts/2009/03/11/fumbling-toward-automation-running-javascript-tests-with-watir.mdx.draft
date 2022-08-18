@@ -1,0 +1,31 @@
+---
+title: "Fumbling toward automation: running JavaScript tests with Watir  #Programming  #javascript  #ruby  #tyler  #watir"
+sort: 2639
+---
+A group at work is doing some web-app development, and they're using a tool called <a href="http://watin.sourceforge.net/">WatiN</a> for end-to-end tests. I'm aware of that but didn't think much of it.
+
+Last night I went to <a href="http://www.exampler.com/">Brian Marick</a>'s talk at the <a href="http://odynug.blainebuxton.net/">odynug</a> meeting, and in passing, he mentioned Watir, which it turns out is infinitely cooler than WatiN, because Watir (a) came first, (b) is in Ruby, and (c) can automate IE, FireFox, <em>and</em> (via a separate library) Chrome.
+
+I'm working on a JavaScript-based video-game development kit, and I spend a lot of time Alt+Tabbing to a browser, Ctrl+Tabbing to the tab with the automated test runner, refreshing the page, waiting (especially in IE) for the tests to finish, and (in Chrome) deciding whether the failures are actual test failures or just Chrome failures. Then it's Alt+Tab to the next browser in the round-robin to try it again.
+
+It shouldn't be this hard to run all the tests. And with Watir, it looks like it won't be. I think I'll be able to write a Ruby script that
+
+<ul>
+<li>finds the Chrome tab that's already open to the test URL (or opens a new tab);</li>
+<li>reloads the Screw.Unit test page;</li>
+<li>waits for the tests to complete;</li>
+<li>scrapes the HTML to decide whether the tests passed or failed; and</li>
+<li>repeats with FireFox and then with IE.</li>
+</ul>
+
+It won't be trivial, because the Watir documentation really has nothing to say about finding stuff in the DOM. They're heavily oriented toward clicking links and filling in forms, so if you want to manipulate a button or a hyperlink or a text field, they've got you covered. A myriad of examples, cheat sheets, and FAQs will get you on your way using methods like <tt>text_field</tt> and <tt>button</tt>. But if you want to find an &lt;h3&gt; with a particular CSS class, I wish you a lot of luck. The documentation does not go there. You need a lot of Google searches, a lot of luck, and a lot of lucky guessing.
+
+I did scrape together something useful, and I'm noting it here. My <a href="http://tyler.excastle.com/stupidquest/specs/lib.html">tests</a> currently report their results in an &lt;h3&gt;, which happens to be the only h3 on the page. This snippet of Ruby code will display the contents of that h3 (assuming the variable <tt>ie</tt> already refers to a Watir::IE instance):
+
+<pre>ie.document.getElementsByTagName("h3")["0"].innerHTML</pre>
+
+Huh. I get it that <tt>getElementsByTagName</tt> would return an array, so I would understand -- and expect -- having to do <tt>[0]</tt> on it. But <tt>[0]</tt> gives me an error: "TypeError: can't convert Fixnum into String". <tt>["0"]</tt> works fine, though. I do not understand why, but as long as it works, I'll accept that for now.
+
+That's just a start, though, because that snippet only works for classic Watir (for IE). FireWatir (the FireFox version, which is part of the same install but apparently not a compatible Ruby API) fails with "NoMethodError: undefined method `getElementsByTagName'", and ChromeWatir (separate install) fails with "NoMethodError: undefined method `document'".
+
+Ah well. I came up with the above snippet by stealing shamelessly from the code for Watir's <a href="http://wtr.rubyforge.org/rdoc/classes/Watir/IE.src/M000271.html">show_spans</a> method. Maybe I can do the same for the FireWatir and ChromeWatir versions of show_spans (if they have it). We shall see.

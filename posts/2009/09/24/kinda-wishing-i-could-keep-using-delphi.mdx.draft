@@ -1,0 +1,43 @@
+---
+title: "Kinda wishing I could keep using Delphi  #Delphi"
+sort: 2940
+---
+I've been reading the <a href="http://www.deltics.co.nz/blog/?p=529" title="Te Waka o Delphi: New Delphi Upgrade Policy â€“ Get in QUICK!">recent</a> <a href="http://wings-of-wind.com/2009/09/17/for-whom-the-bell-tolls/" title="Wings of Wind Software: For Whom The Bell Tolls">debate</a> about a "<a href="http://www.deltics.co.nz/blog/?p=533" title="Te Waka o Delphi: Delphi: Community Edition (A Proposal)">Delphi</a> <a href="http://thedorictemple.blogspot.com/2009/09/delphi-community-edition.html" title="The Doric Temple: Delphi Community Edition">Community</a> <a href="http://www.deltics.co.nz/blog/?p=557" title="Te Waka o Delphi: The Economics of &quot;Free&quot;">Edition</a>â€. Most of it seems pretty abstract: "I think it would help the Delphi community if..."
+
+That's all well and good, but I thought I'd share something less theoretical: something that directly affects <em>me,</em> a longtime Delphi geek.
+
+I've been using Delphi since its first release in 1995. I still have one of the original brochures somewhere, with the quote saying "It's going to change our lives, you know." That quote still sticks in my head, all these years later.
+
+Delphi has been a pretty good tool to work with. Sure, the IDE freezes for half a minute at a time when you type an open paren, Ctrl+click doesn't work half the time, and the IDE still can't pull off a cross-unit rename refactoring (and, and, and...). But damn it, Delphi lets you write programs that work and work well. Good God, just try to find a decent unbound grid in .NET. Or a WinForms control -- any WinForms control -- that even <em>begins</em> to approach the quality of <a href="http://www.jrsoftware.org/tb2k.php">Toolbar2000</a> or <a href="http://www.soft-gems.net/index.php?option=com_content&task=view&id=12&Itemid=33">VirtualTree</a>.
+
+My company got acquired, and is moving to .NET. On the one hand, I honestly can't say I mind too much; .NET has some <em>sweet</em> libraries -- way fewer cool GUI controls than Delphi, but more cool everything else. I love not having to write one set of code to deal with an array and a different set of code to deal with a list. The unified type system <em>rocks</em> for unit testing (no need to write a CheckEquals overload for every enum we've ever defined). And, of course, Delphi doesn't have <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">ReSharper</a>. 'Nuff said.
+
+But I cut my Windows-programming teeth on Delphi (after banging my head against VB). Asked my comp sci department for a copy of Delphi instead of a cash scholarship, way back in '95. Used it for my senior honors project. Knew it inside and out. Took at least one Delphi aptitude test where I was correcting the questions. Somehow I became one of the <a href="http://blog.excastle.com/tag/borcon2004/">first Delphi</a> <a href="http://blog.excastle.com/tag/borcon2005/">conference bloggers</a>. And Delphi has gotten me more than one job, and it got me where I am, working with a terrific team.
+
+I'd really like to keep a copy of Delphi around, just to play around with for hobby projects. It'd be great to play with the new stuff in Delphi 2010. And to play with Prism. And, hell, just to show my appreciation for the product, by paying for a license now that my company won't need to anymore.
+
+But if it's just for me, I can't justify the price they want me to pay.
+
+If it was $200, I'd find the money; Delphi is totally worth that. I <em>might</em> even be able to stretch to $300, especially if it included both Win32 and Prism. But $400, for an upgrade that'll just need upgrading again in another year, and for just one platform?
+
+At $400, I walk away. With regret.
+
+
+
+The last version of Delphi that I own is Delphi 4 -- after that, I was always able to convince my employer to buy it for me (or they already had it). So after December, when the "upgrade from any prior version" offer expires and even the painful $400 price-point goes through the roof, I'm probably going to be out of the Delphi business permanently.
+
+And so we come to (presumably) unintended consequences. By setting their prices so high, the Delphi sales team is ensuring that, once I'm no longer <em>paid</em> to use Delphi, I'll no longer be <em>able</em> to use Delphi. And so I won't be able to stay current, and a couple years from now, I probably wouldn't be able to get another Delphi job even if I could find one.
+
+I suppose they need to run their business as they see fit. They have every right to set prices high enough to drive away their longtime customers, if that's what they feel they need to do.
+
+But I'm becoming painfully aware of what a lot of people have been saying for years: Delphi's pricing is downright hostile to the hobbyist. They're aiming strictly at the enterprise, and screw anyone else.
+
+And that's sad, because it's the Inprise attitude, and the ALM attitude, all over again. They've got this "if we raise the price tag, we'll get more money, and the money's all that matters" mentality. It apparently never occurred to them that sometimes, <a href="http://www.codinghorror.com/blog/archives/001293.html">lowering the price tag can <em>multiply</em> your income</a> (and your customer base). Would that hold for Delphi? A lot of community members have been pretty vocal in thinking it will, and I'm becoming a believer.
+
+But the sales department, so far, has stuck its fingers in its ears and pretended not to hear. And <a href="http://delphi.uservoice.com/pages/4432-general/suggestions/153813-cheaper-licenses">the dev team either can't, or won't, pressure them to change their minds.</a>
+
+I totally admire what the dev team has been doing lately. They've been making Delphi, well, <em>Delphi</em> again. They've been doing some serious moving and shaking. D2010 sounds sweet, and I'd love to play around with it.
+
+But unless they fire the Borland/Inprise sales team, and hire some CodeGear folks, my Delphi days are numbered.
+
+I've always hated change. Life will go on, of course. But still, I'll miss Delphi.

@@ -1,0 +1,21 @@
+---
+title: "If it's important enough to comment, it's important enough to test  #.NET  #Delphi  #automated testing  #comments  #extreme programming"
+sort: 2499
+---
+Several people <a href="http://blog.excastle.com/2008/02/10/making-comments-less-necessary/#comments">disagreed</a> when I said you should try to <a href="http://blog.excastle.com/2008/02/10/making-comments-less-necessary/">write code that doesn't need comments</a>. I'll be addressing some of their thoughts â€” sometimes by saying they were right, but sometimes with constructive suggestions.
+
+I'll start with a couple of people who suggested that comments should try to explain code that was put in to fix a bug, or to explain the "tricky code" that you sometimes have to write.
+
+Those are both scenarios where a comment isn't enough. You need an automated test.
+<h3>Tricky code</h3>
+The best way to deal with tricky code is by not writing it. But I'll assume you're dealing with a case where some manner of tricky code is indeed the best way to get the job done.
+
+Suppose you're writing a Delphi constructor, and for some reason you need to put some code before the call to <code>inherited Create</code>. (That certainly qualifies as tricky.) Assuming there's a reason why that's necessary (and not just sloppiness), you should have an automated test that <em>proves the resulting behavior is correct</em>... something that will pass with the tricky code, and will fail without it. A test that would break if someone else (or you, for that matter) later misunderstood the importance of that ordering, and "fixed" it by moving the code after <code>inherited Create</code>. A test that would pass if someone found a less tricky way to accomplish the same thing.
+<h3>Bug fixes</h3>
+If you're fixing a bug, you should definitely be writing an automated test, if at all possible. That way, if someone later makes a change that breaks the same thing again, you'll know. As Brian Marick said (and we had posted on our wall for a while), "No bug should be hard to find the second time."
+<h3>Then look again</h3>
+Once you've got your automated test, take another look. Is the comment still necessary?
+
+Depending on your audience, maybe it is. As someone else pointed out, if you're a library vendor, then comments have a lot of value.
+
+But I often find that, with the test in place, the comment can just go away.

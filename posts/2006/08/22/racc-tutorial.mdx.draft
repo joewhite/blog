@@ -1,0 +1,6 @@
+---
+title: "Racc Tutorial  #Programming  #ruby"
+sort: 2359
+---
+<p>I've done a bit of looking at <a href="http://i.loveruby.net/en/projects/racc/">Racc</a>, a compiler-compiler for Ruby. (It's vaguely like <a href="http://dinosaur.compilertools.net/#yacc">Yacc</a>, although the syntax is different.)</p>
+<p>Unfortunately, Racc has no documentation to speak of. But someone named <a href="http://cmills.freeshell.org/">CMills</a>&nbsp;has put together a PowerPoint <a href="http://cmills.freeshell.org/racc_present.tar.gz">introduction to writing parsers in Ruby and Racc</a>&nbsp;(38k download, .tar.gz format). Sketchy but good. I didn't understand all the slides, but it's the best Racc documentation I've found so far.</p>

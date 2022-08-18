@@ -1,0 +1,262 @@
+---
+title: "TechEd 2008 notes: Managed Add-In Framework  #.NET  #teched2008"
+sort: 2546
+---
+This looks like a lot of work, but that's because they're solving a hard problem (both upward and downward compatibility). Don't be scared off by the amount of code, though -- lower down I have info about a tool they wrote that autogenerates some of the boilerplate code.
+
+Still, it's a lot of work, and it would take time to wrap your head around it. If all you want to do is delay-load parts of your application, the add-in framework is probably far, far more than you need. It's for real add-in frameworks, where other people will write add-ins, and the add-ins will be on a different release schedule than your app is (so you need forward and/or backward compatibility).
+
+Migrating Extensibility to the Managed Add-In Framework: Using System.AddIn to Find and Activate Add-Ins in 3 Lines of Code
+Jesse Kaplan
+Program Manager
+Microsoft
+
+Side note: the add-in framework is .NET 3.5 only. So we can't use it until we drop support for Windows 2000.
+
+Session Objectives & Agenda
+<ul>
+  <li>Intro to extensibility and System.AddIn</li>
+  <li>Hosting in 3 Lines</li>
+  <li>Keeping new host compatible with older add-ins</li>
+  <li>Migrating to System.AddIn</li>
+</ul>
+
+Why Extensibility
+<ul>
+  <li>Let users or third parties add features to your app</li>
+  <li>Turn your app into its own platform. Makes users tied to your app.</li>
+  <li>Unexpected benefit: Componentize your app. Disconnected update cycles.</li>
+</ul>
+
+Types of Extensibility
+<ul>
+  <li>Add-Ins can provide a service to a host</li>
+  <ul>
+    <li>Browser content add-ins (Flash, Silverlight, PDF)</li>
+    <li>File-type handlers</li>
+    <li>Media Player: standalone app, often hosted in other apps</li>
+  </ul>
+  <li>Host can provide services to add-ins</li>
+  <ul>
+    <li>Large application that plug-ins can hook into</li>
+    <li>Classic automation add-ins</li>
+    <li>Office style extensibility</li>
+  </ul>
+</ul>
+
+"Version 1" problems
+<ul>
+  <li>Discovery. How do you find the add-ins?</li>
+  <li>Activation</li>
+  <li>Isolation. How do you put it in an AppDomain or a different process, and still communicate with it?</li>
+  <li>Lifetime management</li>
+  <li>Sandboxing</li>
+  <li>Unloading</li>
+</ul>
+
+"Version 2" problems: Problems you don't know you have until V2. These are really the reason Microsoft developed the add-in framework.
+<ul>
+  <li>Backward compatibility. How do you keep old add-ins working as you change your host?</li>
+  <li>Forward compatibility. How do you let newer add-ins work in older apps?</li>
+  <li>Adding new isolation levels. What if it used to be AppDomain isolation, and you decide to move it to process isolation?</li>
+</ul>
+
+What is System.AddIn?
+<ul>
+  <li>New set of assemblies in .NetFX 3.5</li>
+  <ul>
+    <li>System.AddIn</li>
+    <li>System.AddIn.Contract</li>
+  </ul>
+  <li>Solves "V1" problems</li>
+  <li>Architecture that makes building the next version as painless as possible</li>
+</ul>
+
+Guiding principles
+<ul>
+  <li>"My" types are never loaded into "your" domain</li>
+  <li>Hosts and add-ins can version independently</li>
+  <li>Make it easy and natural to build your V1 without closing the doors on V2</li>
+</ul>
+
+Three Developers
+<ul>
+  <li>Host developer</li>
+  <li>Add-In developer</li>
+  <li>Object Model (OM) developer: the one who designs the object model that host and add-in communicate through. Often the same person as the Host developer.</li>
+</ul>
+
+Host Developer Experience
+<ul>
+  <li>Hosting add-ins with three lines of code</li>
+  <li>Communicate with add-in as if it were a local object</li>
+  <li>Install: <code>AddInStore.Update(path)</code></li>
+  <li>Find: <code>IList&lt;AddInToken&gt; tokens = AddInStore.FindAddIns(typeof(IMyAddIn), path)</code></li>
+  <ul>
+    <li>It doesn't load add-ins or execute any code to return this list.</li>
+  </ul>
+  <li>Activate: <code>IMyAddIn addIn = token.Activate(AddInSecurityLevel.Internet);</code></li>
+</ul>
+
+Add-In Developer Experience
+<ul>
+  <li>Like the boundary wasn't even there</li>
+  <li>Implement the interface: <code>MyAddIn: IMyAddIn {}</code></li>
+  <li>Name your Add-In by adding an attribute to the class: <code>[AddIn("My First Add-In")]</code></li>
+</ul>
+
+Host code:
+<pre>using System.AddIn.Hosting;
+...
+AddInStore.Update(PipelineStoreLocation.ApplicationBase);
+IList&lt;AddInToken&gt; tokens = AddInStore.FindAddIns(typeof(ICalcAddIn),
+  PipelineStoreLocation.ApplicationBase);
+ICalcAddIn calc = tokens[0].Activate&lt;ICalcAddIn&gt;(AddInSecurityLevel.Internet);
+RunCalculator(calc);</pre>
+
+Add-in code:
+<pre>[AddIn("MyAddIn")]
+public class MyAddIn: ICalcAddIn
+{
+  ...
+}</pre>
+
+To run it in a separate process:
+<pre>ICalcAddIn calc = tokens[0].Activate&lt;ICalcAddIn&gt;(new AddInProcess(),
+  AddInSecurityLevel.Internet);</pre>
+
+
+
+Automatically unloads AppDomains and tears down processes as needed. (Can override this for processes, if you want to reuse it.)
+
+No special issues with multithreading.
+
+How many add-in processes are there? A: One per AddInProcess instance you create. Can also use AddInController to query which AddInProcess was used for a given AddIn, so wouldn't necessarily even need to keep your own reference.
+
+You can choose to activate in the current AppDomain (use the overload that takes an AppDomain), though there are reasons not to do that.
+
+If you use processes, and the host has threads, how does that work? A: Uses standard remoting, which starts a thread for each request. This means you can't be an STA thread.
+
+The Architecture
+<ul>
+  <li>Letting you build the right abstraction layers right from the start</li>
+  <li>Change object model without breaking add-ins</li>
+</ul>
+
+First cut at the architecture
+<ul>
+  <li>"View" (object-model assembly)</li>
+  <li>Host and AddIn assemblies both consume that same assembly</li>
+  <li>Problem: If you change your interface, you have to rename it. Maybe you can upcast and downcast. Maybe you need to add assemblies.</li>
+  <li>Lots of upcasting and downcasting, type checks, etc.</li>
+  <li>Once you cross an isolation boundary, both host and add-in have to deal with MarshalByRefObject lifetime management.</li>
+</ul>
+
+The Butterfly Architecture: Separate the views and fill in the pipeline
+<ul>
+  <li>Host has host's view (static dependency)</li>
+  <li>AddIn has addin's view</li>
+  <li>Contract assembly has another definition of all assemblies, but it's the only one whose types cross the isolation boundary</li>
+  <li>Adapters on both sides that adapt from the contract to/from the host and addin views</li>
+  <li>Contract is a contract between the adapters, not between the host and add-in</li>
+  <li>You can replace the center, or pieces of the center, without the host or the add-in even being aware of it</li>
+</ul>
+
+Side note: After initiation, there's not much difference between host and add-in.
+
+Host and add-in can do events back and forth.
+
+<ul>
+  <li>Host's view has an interface with some methods. Just a local interface definition.</li>
+  <li>Add-in's view looks the same, but has an <code>[AddInBase]</code> attribute. Not necessary for host view, because it's passed to the add-in mangaer directly, so we know what it is.</li>
+</ul>
+Contracts
+<ul>
+  <li>[AddInContract]</li>
+  <li>Implements IContract</li>
+  <li>Then the same methods again</li>
+</ul>
+
+View-to-contract adapter
+<ul>
+  <li>[AddInAdapter]</li>
+  <li>Constructor takes an IFoo parameter</li>
+  <li>Descends from ContractBase</li>
+  <li>Implements IFooContract</li>
+  <li>Delegates methods to the add-in that was passed to its constructor</li>
+</ul>
+
+Contract-to-view adapter
+<ul>
+  <li>[HostAdapter]</li>
+  <li>Constructor takes IFooContract, and creates a new ContractHandle on that contract.</li>
+  <ul>
+    <li>The ContractHandle is the lifetime management. You don't use it for anything; you just hang onto it.</li>
+  </ul>
+  <li>Implements IFoo</li>
+</ul>
+
+Host V2
+<ul>
+  <li>Old addin is based on addin view V1.</li>
+  <li>Reuse host V2, host view V2, and host side adapter V2.</li>
+  <li>Write an add-in side adapter that converts add-in view V1 to contract V2.</li>
+  <li>When you want to stop supporting those old add-ins, just stop building the cross-version adapter assembly.</li>
+</ul>
+
+Typical use: in v1, you dictate which services your add-in will provide. In v2, you open it up so the add-in can provide other sorts of services as well.
+
+Side note: when they're reading metadata, they read the assemblies as byte arrays and parse the metadata directly. So there's no chance of executing any code during that discovery process.
+
+Good news: For many cases, they can autogenerate some code to build all this adapter stuff for you.
+
+Migrating to System.AddIn
+<ul>
+  <li>Break compatibility. Old add-ins won't work.</li>
+  <li>Dual-mode extensibility. App can talk to old add-ins through its old APIs, and new ones through System.AddIn.</li>
+  <li>Turn old interface into a view.</li>
+</ul>
+
+Can your legacy object model (OM) be a System.AddIn OM?
+<ul>
+  <li>System.AddIn restrictions are really just isolatable OM restrictions</li>
+  <ul>
+    <li>If you already isolate, should be smooth</li>
+    <li>Interop assemblies already conform to these rules</li>
+    <li>Their blog has details</li>
+  </ul>
+</ul>
+
+Three mechanics for backwards compatibility (if you are able to migrate)
+<ul>
+  <li>Retain your existing discovery system</li>
+  <li>Use FindAddIn (as opposed to FindAddIns) to bridge the gap. Instead of a directory name, it takes an assembly filename and some type info. So they don't need the AddIn attribute.</li>
+  <li>Add the [AddInBase] attribute to your legacy object model. Otherwise leave the assembly the same, including assembly version. (File version can change.)</li>
+  <li>Build your adapter.</li>
+</ul>
+
+Other Add-In Features
+<ul>
+  <li>Displaying UI across isolation boundaries</li>
+  <ul>
+    <li>Your clicks actually go straight into the add-in AppDomain</li>
+    <li>Relies on WPF to do the magic (working to see if it can be done all WinForms in the future)</li>
+  </ul>
+  <li>Automatic pipeline generation</li>
+  <ul>
+    <li>Meant for v1. Doesn't know how to do V1-V2 adapters.</li>
+    <li>Generates adapter source code for you, and adds projects as needed</li>
+    <li>This isn't part of a release; it's a project on CodePlex</li>
+    <li>Library exposed both as VS add-in and as command-line tool</li>
+  </ul>
+</ul>
+
+Resources
+<ul>
+  <li><a href="http://blogs.msdn.com/clraddins/">Add-In Team Blog</a></li>
+  <li><a href="http://www.codeplex.com/clraddins">Add-In Team Codeplex Site</a></li>
+</ul>
+
+Custom exception types: Possible to do, but more difficult. Recommend that you stick with system exception types and pass data to them. If you need to do your own exceptions, it's best for your adapter to catch and adapt the exception, so you're never loading their types into your appdomain.
+
+After the session, I asked whether the DLR and duck typing, e.g. with IronRuby, would make some of this easier, because then (assuming your duck typing was forward and backward compatible) you could get rid of a lot of the intermediate translation layers. He said there were some people currently working to figure out how to do cross-AppDomain DLR calls. So no, at this point, that wouldn't make it any easier. Too bad.

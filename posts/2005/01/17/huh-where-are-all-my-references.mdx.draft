@@ -1,0 +1,12 @@
+---
+title: "Huh? Where are all my references?  #Delphi"
+sort: 2102
+---
+<p>Hmm. Not good.</p>
+<p>At BorCon, <a href="http://blogs.borland.com/abauer/">Allen</a> <a href="http://blog.excastle.com/2004/09/13/allen-bauers-whats-new-in-diamondback-session/">told us</a> that Delphi 2005's refactoring metadata was based on the actual uses list, not just on what's in the .dpr. But it's looking like that's not the case. If a unit isn't shown in Project Manager (i.e., if it was removed with Project &gt; Remove from Project, or was created while that project wasn't open and then never added with Project &gt; Add to Project), then it's invisible to Find References, even if it's still compiled into the EXE (by being included indirectly, via someone else's uses clause). You can't find references that occur inside that not-in-project unit, and you'll have problems if you try to find references to something that's declared in that unit.</p>
+<p>This is bad news. We don't add all of our units to our project files; it'd be a source-control nightmare if everyone had to check out the project every time they added a new unit. Even worse, we've got one codebase that's used by several different projects &#8212; so every new unit would have to be added to every project (but only the ones that need it).</p>
+<p>So Delphi 2005, and those refactoring tools I was so pumped about, are basically useless to us.</p>
+<p>(Well, we can use Sync Edit, I suppose, and we can probably refactor unit-private stuff. But that's about it.)</p>
+<p>Oddly enough, the refactoring engine does have some awareness of units that aren't in the project. If I declare a procedure in unit X (not in the project), and call it from units A and B that are in the project, it knows that both of those calls are to the same procedure. I can't do a Find References from inside unit X (the menu item is grayed out), but I can do a Find References from the call site in unit A, and it'll show the call from A and also the call from B. So it <em>had</em> to have built a parse tree for unit X. But it won't use it. It won't show me calls to that procedure that come from units X or Y (also not in the project).</p>
+<p>It knows those methods are there, it just won't show them to me.</p>
+<p><a href="http://blogs.borland.com/abauer/">Allen</a>? <a href="http://blogs.borland.com/corbindunn/">Corbin</a>? What's the reason for Find References only working on files that are in the project? Is there some secret Registry flag I can set that will make it work for all units?</p>

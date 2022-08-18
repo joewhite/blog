@@ -1,0 +1,8 @@
+---
+title: "Grokking Delphi Source  #.NET  #Delphi  #dgrok"
+sort: 2071
+---
+<p>Okay, it was getting too awkward to keep referring to "<a href="http://blog.excastle.com/2004/10/09/searching-through-delphi-code/">my tool that searches through Delphi source</a>", so I've given it a name. Announcing... DGrok.</p>
+<p>(So called because it <a href="http://catb.org/~esr/jargon/html/G/grok.html">grok</a>s your Delphi source code. Well, okay, it doesn't actually become one with your code, but it does way more grokking than your typical garden-variety grep.)</p>
+<p>I just registered <a href="http://www.dgrok.com">www.dgrok.com</a>. It probably won't be live for a day or two, but it will eventually point to the new <a href="http://blog.excastle.com/tag/dgrok/">DGrok category</a> here on my blog.</p>
+<p>Of course, DGrok is still in development, and I don't have even a tentative release date for the first alpha. But at least the thing has a name now.</p>

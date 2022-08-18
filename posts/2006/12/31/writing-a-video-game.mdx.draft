@@ -1,0 +1,43 @@
+---
+title: "Writing a video game  #.NET  #extreme programming"
+sort: 2391
+---
+<p>I'm spending my spare time writing a video game. Not for the first time, although more successfully this time than in the past, because I'm writing features instead of frameworks.</p>
+
+<p>The features I've worked on so far are all features that I can see at work. Things like:</p>
+
+<ul>
+<li>Make a little guy in the middle of the screen.</li>
+<li>Make a room for him to stand in.</li>
+<li>Make him walk around, a square at a time (no smooth animation).</li>
+<li>Add more rooms, and portals for moving between them.</li>
+<li>Make the hero move smoothly from one square to the next.</li>
+<li>Make him move his feet as he walks.</li>
+<li>Add a wandering NPC to one of the rooms.</li>
+</ul>
+
+<p>But some of the features I've written, while visible, don't contribute to gameplay. I have an NPC wandering around one of the rooms, but I don't know why he's there. He doesn't contribute anything to the game yet. So I've shifted my focus. My current list of features (several pages long) is basically divided into two categories: plot-driven and geek-driven.</p>
+
+<p>The plot-driven features are those that are doable in a reasonable amount of time, and that add visible value to the project, i.e., end-users could see the program doing something it didn't used to do. I.e., user stories:</p>
+
+<ul>
+<li>Make a throne room with a king.</li>
+<li>Make a world map with a castle and a cave.</li>
+<li>Make a cave with a bad guy and a princess.</li>
+<li>Have the king ask you to rescue his daughter.</li>
+<li>Show a fight screen when you reach the bad guy.</li>
+</ul>
+
+<p>The geek-driven features are the shiny toys. They're the intriguing challenges for me as a coder. But I have no idea when, or whether, some of them would actually become visible in the app, which means they're sucky user stories:</p>
+
+<ul>
+<li>Support bridges you can either walk across, or walk under (i.e., different walkable "levels" within the map).</li>
+<li>Make rooms that you can't see into until you walk into them (as seen in Final Fantasy I).</li>
+<li>Load and save maps to/from XML.</li>
+<li>Make a map viewer/editor app.</li>
+<li>Implement coroutines for the hero, NPCs, and cutscenes.</li>
+</ul>
+
+<p>What I haven't figured out is how to balance my time between the plot-driven and the geek-driven features. The plot-driven features are essential; if I don't keep making visible progress, I'm going to lose interest. But the geek-driven features are... well, shiny. If I don't spend at least some time working on <i>them,</i> I'm going to lose interest!</p>
+
+<p>My tentative plan is to spend about half my time on plot, and half my time on geek. We'll see how it goes.</p>

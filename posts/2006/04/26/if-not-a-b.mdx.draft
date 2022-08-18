@@ -1,0 +1,20 @@
+---
+title: "if not (A  B)  #.NET  #Delphi  #dgrok"
+sort: 2311
+---
+Not only is <font face="Courier New">A * -B</font> <a href="http://blog.excastle.com/2006/04/23/parsing-negation/">not valid Delphi syntax</a>...
+
+<pre>Expression -&gt; SimpleExpression [RelOp SimpleExpression]...
+
+RelOp -&gt; '&gt;'
+      -&gt; '&lt;'
+      -&gt; '&lt;='
+      -&gt; '&gt;='
+      -&gt; '&lt;&gt;'
+      -&gt; IN
+      -&gt; IS
+      -&gt; AS</pre>
+
+
+
+I guess I'll have to stop writing <font face="Courier New">if A = B</font> now, since the equality operator apparently doesn't exist in Delphi.

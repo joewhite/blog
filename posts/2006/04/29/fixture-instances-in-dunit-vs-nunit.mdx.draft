@@ -1,0 +1,30 @@
+---
+title: "Fixture instances in DUnit vs. NUnit  #.NET  #Delphi"
+sort: 2316
+---
+Just found this out: when you define a test fixture in NUnit, only one instance of that fixture gets created at runtime. This is different from DUnit, which creates a separate fixture instance for each test.
+
+So this code:
+
+<pre>procedure TFooTestCase.TestOne;
+begin
+  FBar := 1;
+  // do something that assumes FBar is set to 1
+end;
+
+procedure TFooTestCase.TestTwo;
+begin
+  // do something that assumes FBar is uninitialized and is still 0
+end;</pre>
+
+
+
+is perfectly valid in DUnit, because there are two instances of TFooTestCase: one for TestOne, the other for TestTwo. In NUnit, on the other hand, TestTwo had better initialize FBar to zero if that's the behavior it wants.
+
+So DUnit took the "keep tests insulated from each other" side of the tradeoff, whereas NUnit took the "use less memory" path. Neither one is better than the other, but it's good to know which one you're using.
+
+More details for the real geeks (like me) who want to dig into the innards of the test frameworks:
+
+In DUnit, when you call <font face="Courier New">TestFramework.RegisterTest(TFooTestCase.Suite)</font>, you get one instance of TTestSuite, which contains two instances of TFooTestCase. One TFooTestCase instance has its TestName set to "TestOne", the other has its TestName set to "TestTwo".
+
+In NUnit, one instance of TestSuite is automatically created. This TestSuite contains two instances of TestMethod. One TestMethod has its private method field (type MethodInfo) pointing to TestOne; the other TestMethod points to TestTwo. Additionally, there's a single instance of FooTestCase; the reference to this is held by the TestSuite's Fixture property.

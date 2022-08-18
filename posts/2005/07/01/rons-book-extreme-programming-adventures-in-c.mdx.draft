@@ -1,0 +1,33 @@
+---
+title: "Ron's book: Extreme Programming Adventures in C#  #.NET  #Delphi  #extreme programming"
+sort: 2187
+---
+<a href="http://www.alieniloquent.com/">Sam</a> loaned me his copy of <a href="http://www.xprogramming.com/">Ron Jeffries</a>' latest book, "<a href="http://www.amazon.com/exec/obidos/tg/detail/-/0735619492/qid=1120282307/sr=1-1/ref=sr_1_1/103-8704984-1473443?v=glance&amp;s=books">Extreme Programming Adventures in C#</a>". I'm nearly done reading it, and will probably re-read it over the holiday weekend.
+
+My parents tell me I've been programming computers since I was four years old, and let's face it, if you spend 26 years learning a subject, you learn a lot. It's not that often anymore that I'll learn something seriously new and big from a computer book. It's rare for me to look up from a computer book and say, "Ohhhh... <em>now</em> I get it!" or "Man, we have <em>got</em> to start doing that!" or "So <em>that's</em> why!" I'm not saying I never learn anything from computer books, but they rarely give me that kind of "aha!" anymore.
+
+But... well, damn. True, I've only been doing XP for five months or so, for however many grains of salt that's worth, but I <em>learned</em> stuff from this book. Hell, Sam learned stuff from it, and he's quite a bit better at XP than I am.
+
+Of course, I could tell it was going to be a good book when I read this bit in the introduction:
+
+
+
+<blockquote>In this book, Ron pair programs with <strong>you.</strong> As you read it, you will feel that <strong>you</strong> are sitting next to him, watching him â€” even helping him â€” to write C# code. You'll read his thoughts, his fears, his complaints, and his rejoicings. You'll laugh with him, and you'll get mad at him.</blockquote>
+I read that last sentence, looked up from the book, and thought to myself, "Yeah, that sounds about like pairing with Ron." :-P
+
+Okay, so here's my recommendation: If you code, read this book; you will most likely learn something worth learning. Even if you don't do XP. Even if you don't do C# (or, for that matter, even if you do do C#), but keep in mind that the book isn't a C# tutorial by any means.
+
+Here are a handful of things I picked up from this book:
+<ul>
+	<li>Before: I knew that XP says to start simple, and improve your design as you go. But I only knew how to do that at a small scale: individual tests, individual methods. I had no concept of how it actually worked at a larger scale, nor how it worked over time.</li>
+	<li>After: Ron writes an application throughout the course of the book. I got to see the design unfold. He removes duplication, sprouts new methods and new objects, trips over awkward code and then improves it, and I'm along for the ride. I learned, man. I saw how to improve your design as you go, while still keeping it as simple as possible (but, as Ron, like Einstein before him, points out, no simpler). I saw <em>how to do it.</em> I <em>get</em> it now â€” at least, a lot better than I did before.</li>
+	<li>Before: I knew (because <a href="http://www.xprogramming.com/">Ron</a> and <a href="http://st-www.cs.uiuc.edu/users/droberts/">Don</a> and <a href="http://www.testing.com/">Brian</a> had all told us) that we needed customer tests. I didn't have a grasp of what that really meant. I envisioned the customer telling us what the program should do, and us transcribing that to Delphi code, DUnit tests. Brian Marick had shown us a demo of <a href="http://fit.c2.com/">Fit</a>, but I only grasped the technical side (how the programmers write code to make it work), not the customer side (how the customer actually writes tests and changes them and extends them).</li>
+	<li>After: Ron's customer tests were text files in a directory, written in a trivial homebrew scripting language. Just enough to get the job done (growing the language as needed along the way). And they're something the customer could actually write directly. And I thought, "We could do that." I'm starting to see places we could use that sort of testing, even with an app as monolithic as ours is. It all came from seeing how to do it.</li>
+	<li>Before: I didn't know how to write an end-to-end test. It hadn't occurred to me even to realize that I didn't know.</li>
+	<li>After: Ron's customer tests <em>are</em> end-to-end, and as he states (and illustrates quite clearly a time or two), "End-to-end is farther than you think" â€” which doesn't mean much until you've seen how to do it, and what happens when you don't quite achieve it, both of which happen in the book.</li>
+	<li>Before: Especially when I was coding test-first, I would tend to code bottom-up: find the objects that do the most-detailed work, and get those tested and written; then work on the objects that use those tested-and-written objects; then work on the next layer up, and so on. That's probably why, when I was technical lead on a project last year, the high-level tests used <em>all</em> the classes below them, with all their required inputs and idiosyncracies. It's probably why our tests had to create some really monolithic test-data objects just to run.</li>
+	<li>After: Ron's a big proponent of top-down design. Write the top-level flow of the code, and where you don't have the lower-level objects yet, "fake it till you make it". And in the book, there are a fair number of examples of why, especially in the "Long, Dark Teatime of the Soul" chapter. I put this together with a recent example from my own experience, and I get it: if you code from the bottom up, you're guessing at how the objects will really be used, so you're guessing at their design: a sure recipe for brittle design, rampant YAGNI, or both. If you code from the top down, the code will tell you how it wants to be used, and you'll get to the right design faster. I got to see this happening in the book.</li>
+	<li>I learned some interesting testing techniques â€” and reflected on the ways I would have implemented them instead. One or two of my ideas probably would've been better than what he wrote, but there were a lot of cases where I thought, "No, it'd be better to do it <em>this</em> way," only to see his code do exactly what it was supposed to do.</li>
+	<li>And, of course, the book is pretty amusing. I learned, among other things, that <a href="http://c2.com/cgi/wiki?ItsChetsFault">it's always Chet's fault</a>. (From the appendix of XP sound bites.)</li>
+</ul>
+Definitely a book worth the read. I'll have to talk to my boss about ordering a few copies to keep around the department (if not a copy for each developer).

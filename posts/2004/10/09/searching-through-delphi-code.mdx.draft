@@ -1,0 +1,40 @@
+---
+title: "Searching through Delphi code  #.NET  #Delphi  #dgrok"
+sort: 2058
+---
+I'm writing a tool that does a sort of "find in files" on Delphi source files. Yes, I know, there are zillions of such tools out there, but this one has a few extra features:
+<ul>
+	<li>Ability to restrict your search only to comments, to compiler directives, to string literals, or to code. As far as I know, there are no other tools out there that have this feature.</li>
+	<li>Drag and drop from the search results into the Delphi editor, to open the files for editing</li>
+	<li>Full support for PCRE (Perl-compatible regular expressions), including positive and negative lookahead and lookbehind</li>
+	<li>Compound searches, e.g., "Find all files that do contain this string, but do not contain this string"</li>
+	<li>Lets you search within multiline comments and multiline strings (see examples below)</li>
+	<li>Option to search recursively but exclude certain directories</li>
+	<li>If you have the same filename multiple places in your source tree, will allow you to tell it that they're really the same file (think VSS's shared files), and only read the one with the most recent timestamp and/or shortest pathname</li>
+	<li>Will eventually have some degree of integration with VSS (check in, check out, undo checkout; icons change to show which files are/aren't checked out), maybe plugin-style to allow for other SCMs</li>
+	<li>Will eventually let you add external tools (e.g., apps to reformat your source code), and run "check out, run the tool, check back in with an appropriate comment" as a single operation</li>
+	<li>Caches file contents in memory to speed future searches (but checks timestamps and reloads as needed)</li>
+</ul>
+An example: Suppose I have source code that looks like this.
+
+<pre>raise EMyException.Create('This action is only available to system ' +
+  'administrators and power users.');</pre>
+
+I'll be able to search on the text "system administrators" and get a match. Can't do that with Find in Files, or GExperts grep, or ordinary grep. (Very useful for searching through DFMs, where you have no control over line breaks.)
+
+Another example:
+
+<pre>// This function will only work on Windows 9x. Windows NT
+// 4.0 is not supported.</pre>
+
+
+
+Searching on "NT 4" will get a match (if you enable the "loose whitespace" option, since it actually sees a newline between "NT" and " 4.0").
+
+Another example: Suppose you have hundreds or thousands of units in your codebase, and there's a class (TMyClass) in a commonly-used unit (call it unit MyGlobals). You want to move it into a different commonly-used unit (MyOtherGlobals). This will break any units that use TMyClass but don't already have MyOtherGlobals in their uses clause. No problem: search for all files that <em>do</em> contain TMyClass, but do <em>not</em> contain MyOtherGlobals. Click "Check Out" to check the files out of VSS; drag them into the IDE; add MyOtherGlobals to their uses clauses; save; and click "Check In". (Much simpler than the alternative, of just moving the class, compiling to see what breaks, and checking out and fixing one unit at a time.)
+
+I'm writing the code in .NET, mainly because of its fabulous regex library. (Ironically enough, I'm writing this tool, whose biggest selling point is a Delphi parser, in C#. Eh, big deal; the Delphi compiler is written in C.)
+
+I already have proof-of-concepts working for all of these features. All that's left is to tie them all together, which is what I'm working on now. I'm writing this utility because I need it at work (where I've already written, and am using, some of the proof-of-concepts). I'm writing the full tool on my own time so that I own the code.
+
+Does anyone else need a tool like this? If so, I may polish it up and release it at some point. (Also let me know if there are any features you'd like added, or if you have a killer name for the app.)

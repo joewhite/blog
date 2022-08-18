@@ -1,0 +1,11 @@
+---
+title: "Popup \"menus" with custom controls (WinForms)  #.NET"
+sort: 2172
+---
+Just ran across an article on CodeProject titled "<a href="http://www.codeproject.com/vb/net/popup.asp">Display any UserControl as a popup menu</a>" (for WinForms in .NET). Looks pretty decent; the screenshot is impressive.
+
+The basic idea: you have a button (or something) which, when clicked, should show a dropdown containing some arbitrary controls. Maybe you need to drop down a two-column menu, or a set of checkboxes. Maybe you've got a "Preview <span style="font-family: webdings;">6</span>" button, and when the user clicks it, they should see a dropdown thumbnail of an image they selected earlier. Etc.
+
+This library takes care of the details. You give it the UserControl to put in the "dropdown", and you also pass it the button that kicked off the dropdown. It will automatically position the control below the button, beside it, etc., whatever will fit on the screen. It also does drop shadows (Windows XP only, natch) and slide-in animation. And the programming interface is about as simple as you could ask for.
+
+Note: I haven't actually used this control, just read about it. So if you've used this code, feel free to leave comments, either here, or on the article itself on CodeProject.

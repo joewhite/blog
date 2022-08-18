@@ -1,0 +1,47 @@
+---
+title: "Ruby coolness #1: Blocks  #.NET  #Delphi  #Life  #ruby"
+sort: 2177
+---
+My co-worker <a href="http://www.alieniloquent.com/">Sam</a> (yes, his blog is broken at the moment) is a big fan of the <a href="http://www.ruby-lang.org/">Ruby</a> programming language, and lately I've been trying it out.
+
+Ruby is an interesting language, and you can do some cool stuff with it. There are a few things I don't like about it, but there are quite a few things that make me think, "<em>Man,</em> I wish Delphi and C# had that."
+
+The #1 thing I like about Ruby: blocks. (They may have stolen this idea from Smalltalk, but I don't know enough about Smalltalk syntax to say for sure.)
+
+When you call a Ruby method, you can pass parameters just like usual, and you can also, if you choose, pass a code block. Here's an example that you might write in a unit test:
+<pre>expect_exception(DatabaseError) do
+  something_that_raises_a_database_error
+end</pre>
+This <font face="Courier New">expect_exception</font> method actually takes two parameters: one normal parameter, and one extra-special sorta-parameter with magic syntax. The normal parameters are delimited by parentheses, just like in Delphi, C#, and countless other languages. (Actually, you can omit the parens, if you like.)
+
+
+
+The extra-special parameter, instead of parentheses, is delimited by the "do" and the "end" (or you can use C-style curly braces), and it's actually a block of code (aka lambda, aka closure) that's passed to the method. It's passed sort of like a method pointer, so it's up to the method to decide when and whether to invoke that block. The method might call that block once, twice, hundreds of times, or not at all. In the case of <font face="Courier New">expect_exception</font>, we would call the block once, catch any exceptions thrown by the block, and fail the unit test if the block doesn't raise a DatabaseError.
+
+If we wanted to do the same thing in Delphi â€” pass a block of code to a method â€” we would have to put the "block" in a separate method, and then pass a method pointer. Same thing in .NET 1.x. It's doable, but it separates the code; the outer logic is in one method, and the inner logic is in a different method. Often you'd rather keep all the logic together. C# 2.0 will have some compiler magic for closures, but the syntax isn't as elegant as Ruby's â€” you need extra keywords, and the code block has to be inside the parentheses, which seems really clumsy after you get used to Ruby's syntax. Ruby lets us just write what we mean, and without gunky syntax. It's easy and natural. Expect an exception when you do this.
+
+Blocks are so ingrained, they're actually the standard way that Ruby handles iteration. Delphi has conventions for indexed properties. .NET has conventions for objects that implement one interface, which instantiates and returns an instance of another object implementing another interface, which then lets you step through the objects in the collection. Ruby cuts through the crap: you call the collection's <font face="Courier New">each</font> method and pass it a block, and that block gets invoked once for each element in the collection.
+<pre>some_list.each do |item|
+  puts item
+end</pre>
+The vertical bars after "do" are where we declare the block's parameter list; we're declaring a block that takes one parameter, called item. And it's that simple. No creating a separate enumerator object and maintaining complicated state (not even behind the scenes). No relying on naming conventions. No off-by-one errors. Nothing to free. And somehow they still make <font face="Courier New">break</font> and <font face="Courier New">continue</font> work (though <font face="Courier New">continue</font> is called <font face="Courier New">next</font> in Ruby, probably because that's what Perl calls it).
+
+Inside the <font face="Courier New">each</font> method, you just use the <font face="Courier New">yield</font> keyword every time you want to call the block you were given. (That handles the simple cases; you can get a little fancier if you want.) So if you wanted to write a Ruby method that does an in-order traversal of a binary tree, you could just write:
+<pre>def traverse
+  left.traverse {|node| yield node }
+  yield self
+  right.traverse {|node| yield node }
+end</pre>
+Totally recursive traversal in five lines of code, and the caller doesn't even need to know it's recursive â€” the caller just treats it like any other loop. Do <em>that</em> with Delphi's indexed properties, or with .NET's IEnumerable and IEnumerator.
+
+Ruby's blocks are just wicked cool, and utterly pervasive throughout the class library. Another of my favorites is File.open:
+<pre>File.open("foo.txt") do |file|
+  # do stuff with file
+end</pre>
+This will open the file, run the block, and then close the file. You don't need a try..finally Close. All you need to do is put your file-handling code in the block. The try..finally has already been written for you â€” it's inside File.open.
+
+Man, I wish Delphi and C# had that. The easy syntax, the integration into the library, the expressiveness it gives you for writing iterators and fancy unit-test assertions... cool stuff. I can just imagine the Delphi code...
+<pre>CheckThrows(EInvalidOperation) do
+  DoSomething;
+end;</pre>
+Wouldn't that be something? Whee...

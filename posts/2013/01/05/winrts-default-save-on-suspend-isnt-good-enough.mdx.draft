@@ -1,0 +1,21 @@
+---
+title: "WinRT's default \"save on suspend" isn't good enough  #.NET  #winrt  #winrt-xaml"
+sort: 3648
+---
+<p>If you create a new WinRT app, using the templates that ship with Visual Studio (e.g. the Grid App template), the default code will save your app's state when the app gets suspended.</p>
+
+<p>"Save on suspend" seems like a reasonable model. The trouble is, your app can get killed without ever getting its suspend notification.</p>
+
+<p>If you close a WinRT app (either by pressing Alt+F4, or dragging from the top of the screen to the bottom), Windows switches away from the app immediately, but it actually waits about ten seconds before firing the app's OnSuspending method. (That "about ten seconds" comes from my own observations of how long it takes until the timestamp changes on the autosave file. That's on a physical machine, not a VM, so it should be about best-case.)</p>
+
+<p>If, during that ~10-second window after the app gets closed, the user decides to start the app again, then Windows kills the previous instance, flat-out, and starts a new instance. In this case, the previous instance <em>never gets a chance to save.</em></p>
+
+<p>I suspect (though it'd be tricky to try to confirm) that your app could even get terminated while it's in the middle of an async save operation -- at which point your save file is only partially written, and therefore corrupt, and the user loses <em>all</em> their data.</p>
+
+<p>So if the only time you save your state is in your app's OnSuspending method, you're asking for trouble. If a user closes your app, and then re-launches it again less than ten seconds later, they will lose all the data they entered during their previous session, and maybe everything.</p>
+
+<p>Now, why would somebody do that -- close the app and then re-launch it right away? Beats me. Maybe they close it and then think of something else they wanted to do. Maybe your app doesn't have a Home button and they're frustrated with trying to find their way back. Maybe the app doesn't correctly refresh the date when you resume it the next day (Microsoft's XBox games, with their date-sensitive daily challenges, are really bad at this).</p>
+
+<p>But you know what? It doesn't matter why they do it. Closing and reopening is a totally innocuous action. It should <em>not</em> screw the user out of their data.</p>
+
+<p>Right now, I don't have a great alternative to recommend; I just ran into the problem, I haven't solved it yet. I'll probably keep the "save on suspend", so I have a chance to save the latest and greatest state; but I'll probably also add some background saves as well. But of course all those saves will be async operations, so I have to come up with a way to make sure they don't step on each other. Good times.</p>

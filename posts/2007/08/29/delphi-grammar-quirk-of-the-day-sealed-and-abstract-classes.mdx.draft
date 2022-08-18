@@ -1,0 +1,36 @@
+---
+title: "Delphi grammar quirk of the day: sealed and abstract classes  #.NET  #Delphi  #dgrok"
+sort: 2460
+---
+<p>Delphi's syntax for sealed and abstract classes is a bit bizarre. The following all compile:</p>
+
+<blockquote><pre>type
+TFoo = class sealed sealed sealed sealed
+end;
+
+TBar = class abstract abstract abstract abstract
+end;</pre></blockquote>
+
+<p>If you put the <code>sealed</code> keyword more than once, does that make the class somehow <i>extra</i>-sealed?</p>
+
+<p>Interestingly, <code>sealed</code> and <code>abstract</code> are both what I'm calling "semikeywords" &mdash; they only have a special meaning in a particular context. Outside that particular context, they can be used as plain old identifiers. So you could actually have a field in the class called <code>sealed</code> or <code>abstract</code>... as long as it's not the first thing after the <code>class</code> keyword. Add another field first, or a visibility specifier, and you're fine:</p>
+
+<blockquote><pre>type
+TFoo = class sealed
+Index: Integer;
+Abstract: Boolean;
+end;
+
+TBar = class abstract
+strict private
+Sealed: string;
+end;</pre></blockquote>
+
+<p>But there is a bit of sense amidst all this oddity. They at least don't let you mix and match <code>sealed</code> (cannot descend from this class) with <code>abstract</code> (must descend from this class):</p>
+
+<blockquote><pre>type
+TBaz = class abstract sealed
+end;</pre>
+<p>[Pascal Error] Project3.dpr(17): E2383 ABSTRACT and SEALED cannot be used together</p></blockquote>
+
+<p>Now, if they would just make it so that <code>class abstract</code> actually <i>did</i> something... (see <a href="http://qc.codegear.com/wc/qcmain.aspx?d=24662">QC#24662</a>)</p>

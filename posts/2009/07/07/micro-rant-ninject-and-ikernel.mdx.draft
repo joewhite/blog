@@ -1,0 +1,17 @@
+---
+title: "Micro-rant: Ninject and IKernel  #.NET  #autofac  #dependency-injection  #naming  #ninject"
+sort: 2866
+---
+<a href="http://ninject.org/">Ninject</a> looks cool. So does <a href="http://code.google.com/p/autofac/">Autofac</a>, but Ninject has <a href="http://dojo.ninject.org/Dependency%20Injection%20With%20Ninject.ashx">automatic self-binding</a>.
+
+But I hate how Ninject calls its container "IKernel".
+
+This is the one part of Ninject that you are guaranteed to use. (Well, I guess you need modules too -- not that that name is much better.) IKernel is the single most visible part of the Ninject API. And its name is absolutely wretched.
+
+
+
+It's named for its implementation, with no regard to its usage. In real life, it <em>isn't</em> a kernel; it <em>belongs</em> to the kernel module in Ninject's modular implementation. Don't get me wrong, I appreciate that it's modular. But don't make me, as a dev who just wants to use a <acronym title="Dependency Injection">DI</acronym> framework, suffer through that implementation detail.
+
+Nobody should have to care what a "kernel" is unless they're writing their own. "Kernel" means nothing to someone <em>using</em> the container (which is almost everybody). The name is not just distracting, it's outright misleading -- it actively suggests "this is not a container", when in fact it's <em>exactly</em> a container, keeper of the <code>Get&lt;T&gt;</code> method.
+
+I really want to give Ninject an honest try, but this seriously bugs me. Why not "IContainer"? Or <em>something</em> that isn't a lie? (Yeah, I know they're ninjas and all, but shouldn't the subterfuge be reserved for the enemy?)

@@ -1,0 +1,15 @@
+---
+title: "Indecision and pluggability  #Delphi  #tyler"
+sort: 2505
+---
+There are several DirectX libraries for Delphi: <a href="http://www.micrel.cz/Dx/">(un)DelphiX</a>, <a href="http://www.afterwarp.net/">Asphyre</a>, <a href="http://www.pyrogine.com/">Pyrogine</a>. I don't know their relative strengths and weaknesses well enough to pick one.
+
+So I decided not to decide. Instead, I wrote a pluggable display engine, so you can switch between different libraries at runtime.
+
+I think it's going to be an interesting strategy. Each time I want to add a new feature, I need to figure out how to implement it for every library. This has the obvious disadvantage of being more work. But on the other hand, I'll learn all of the libraries really well -- and that's what sold me on the idea. I won't just be playing with their demo apps, or making toy programs to poke at in isolation; I'll be implementing <i>real</i> features, features I care about, in each of these libraries, and seeing how they stack up.
+
+Down the road, I may drop some of these libraries, or add more. What's really cool is that each time I look at the libraries and decide "yeah, I'll still keep this one" and "I'll quit supporting that one", it'll be an informed choice, from actually learning and using the library, and knowing its strengths and weaknesses for what I'm trying to do.
+
+That said, I'm not very far down that road yet. The only drawing operation I have so far is "filled rectangle". No fullscreen mode, and no Pyrogine support yet. But I do have smooth animation and frames-per-second display, a trivial demo, a couple of running apps, and a base to start from.
+
+(As well as a few <a href="http://tyler.excastle.com/query?status=new&status=assigned&status=reopened&type=defect&order=priority"> bugs</a>...)

@@ -1,0 +1,82 @@
+---
+title: "MVVM and DialogResult with no code-behind  #.NET  #dialogresult  #mvvm  #wpf"
+sort: 3219
+---
+I like the <a href="http://msdn.microsoft.com/en-us/magazine/dd419663.aspx">Model-View-ViewModel pattern</a> in WPF, and the way it helps get code out of the UI and into a place you can test it. But every now and then you run into a weird limitation -- something you can't do out of the box. One such example is closing a dialog box.
+
+WPF's <a href="http://msdn.microsoft.com/en-us/library/system.windows.controls.button.aspx">Button</a> doesn't have a DialogResult property like buttons did in Delphi and WinForms. Instead, the codebehind for your OK button has to manually set the Window's DialogResult property to true. This makes sense in principle -- it lets you validate the user input before you close -- but it makes it hard to use "pure" MVVM with no code-behind. I don't actually give a hoot about blendability (I still write all my own XAML), but since I'm still learning WPF and MVVM, I take it as a challenge to find pure-MVVM solutions to problems, just as a learning exercise.
+
+<h3>The obvious (wrong) solution</h3>
+
+The obvious solution would be to just do this:
+
+<pre lang="xml">
+<Window ...
+        DialogResult="{Binding DialogResult}">
+</pre>
+
+Then make your ViewModel implement INotifyPropertyChanged in the usual way, and DialogResult gets pushed up to the view the same way as everything else. Right?
+
+Unfortunately, DialogResult isn't a dependency property (good grief, why not?), so the above code gives you a runtime error when you try to create the window:
+
+<blockquote>A 'Binding' cannot be set on the 'DialogResult' property of type 'TestWindow'. A 'Binding' can only be set on a DependencyProperty of a DependencyObject.</blockquote>
+
+Back to the drawing board.
+
+<h3>Others' solutions</h3>
+
+Some Googling found a StackOverflow post, "<a href="http://stackoverflow.com/questions/501886/wpf-mvvm-newbie-how-should-the-viewmodel-close-the-form">how should the ViewModel close the form?</a>â€, with an <a href="http://stackoverflow.com/questions/501886/wpf-mvvm-newbie-how-should-the-viewmodel-close-the-form/507448#507448">accepted answer</a> (with 5 downvotes) of "give up; you can't use MVVM for dialog boxes". But I'm not quite ready to throw in the towel, so I keep reading.
+
+<a href="http://stackoverflow.com/questions/501886/wpf-mvvm-newbie-how-should-the-viewmodel-close-the-form/1153602#1153602">Another answer on the same question</a> -- which had 0 upvotes at the time I read it, despite perfectly answering the question -- pointed to a blog post by Adam Mills: "<a href="http://adammills.wordpress.com/2009/07/01/window-close-from-xaml/">Window.Close() from XAML</a>â€. Adam's solution uses an attached behavior. I'm learning to appreciate the attached-behavior pattern; you create an attached property, but then give it side-effects. It's a good way to get code out of the codebehind, and it forces you to make it reusable at the same time.
+
+But I'm not crazy about the details of Adam's solution, because it requires you to create a style, hook up triggers, ...a lot of mess. His post doesn't actually have a complete code sample, so I'm not even sure how you hook the style into your window, though I'm sure I could puzzle it out eventually. And even his incomplete example is five lines of XAML. It'd probably be up to 7 or 9 by the time you actually got it fully wired up, and that's 7 or 9 lines that you have to repeat for every dialog box you write.
+
+Shouldn't it be simpler? Shouldn't it be almost as simple as the databinding syntax would have been, if the WPF team had gotten it right and made DialogResult a dependency property?
+
+<h3>The one-line* attached behavior</h3>
+
+<em>* Okay, yes, it's two lines if you count the XML namespace.</em>
+
+So I rolled my own attached behavior that <em>does</em> make it almost that simple. Here's how you use it:
+
+<pre lang="xml">
+<Window ...
+        xmlns:xc="clr-namespace:ExCastle.Wpf"
+        xc:DialogCloser.DialogResult="{Binding DialogResult}">
+</pre>
+
+Your ViewModel should expose a property of type <tt>bool?</tt> (<tt>Nullable&lt;bool&gt;</tt>), and should implement <a href="http://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanged.aspx">INotifyPropertyChanged</a> so it can tell the view when its value has changed.
+
+Here's the code for DialogCloser:
+
+<pre lang="csharp">
+using System.Windows;
+
+namespace ExCastle.Wpf
+{
+    public static class DialogCloser
+    {
+        public static readonly DependencyProperty DialogResultProperty =
+            DependencyProperty.RegisterAttached(
+                "DialogResult",
+                typeof(bool?),
+                typeof(DialogCloser),
+                new PropertyMetadata(DialogResultChanged));
+
+        private static void DialogResultChanged(
+            DependencyObject d,
+            DependencyPropertyChangedEventArgs e)
+        {
+            var window = d as Window;
+            if (window != null)
+                window.DialogResult = e.NewValue as bool?;
+        }
+        public static void SetDialogResult(Window target, bool? value)
+        {
+            target.SetValue(DialogResultProperty, value);
+        }
+    }
+}
+</pre>
+
+I've <a href="http://stackoverflow.com/questions/501886/wpf-mvvm-newbie-how-should-the-viewmodel-close-the-form/3329467#3329467">posted this as an answer on the StackOverflow question</a>, so if you think it's a good solution, feel free to vote it up so that others can find it more easily.

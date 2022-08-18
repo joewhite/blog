@@ -1,0 +1,33 @@
+---
+title: "ReSharper beta license: it's Diamondback all over again  #.NET  #Delphi  #beta  #resharper"
+sort: 2535
+---
+What is <em>up</em> with people making public betas and then insisting that they be kept top-secret?
+
+I decided to download the <a href="http://resharper.blogspot.com/2008/05/resharper-4-beta.html">ReSharper 4.0 beta</a>, so I could finally get some ReSharpery goodness in Visual Studio 2008. Then I read their license agreement, and it's almost as bad as the <a href="http://blog.excastle.com/2004/09/15/disavowal/">public embarrassment that was the Delphi 2005 beta license</a>. You'd think someone posting a public beta would <em>want</em> advance publicity and grassroots buzz, but I guess not.
+
+Some excerpts (which I will later have to deny ever posting, or indeed reading):
+
+<blockquote>Any and all test results, error data, reports or other information, feedback or materials made or provided by Licensee relating to Software (collectively, "Feedback") are the exclusive property of JetBrains...</blockquote>
+
+Read that a few times. It says that anything I could possibly have to say about the beta (â€œreports <em>or other information</em>â€), whether I send it to JetBrains or not (<em>"made or</em> provided"), is not mine. Which means I would be in violation of copyright (by illegally copying JetBrains' intellectual property) if I posted anything on my blog about the beta.
+
+
+
+(They note elsewhere that I should treat my feedback as confidential information. My reports or other information, on the other hand, are not confidential; they're just not mine.)
+
+<blockquote>["Confidential Information" means] ... (iii) the terms, conditions, and existence of this Agreement.</blockquote>
+
+Even though it's an open beta, and anyone can download it and look at the license agreement, I will hereafter have to disavow any knowledge of said license agreement. I'll tell you I don't even know there <em>is</em> a license agreement for the beta. (At least I can admit the existence of the beta itself, if not the beta license. That's a pleasant change from Delphi betas. Oops -- what Delphi betas?)
+
+<blockquote>Licensee's obligations regarding Confidential Information will expire no less than five (5) years from the date of receipt of the Confidential Information</blockquote>
+
+The first time I read this, I thought it meant I couldn't talk about ReSharper <em>at all</em> for <em>five years.</em> Fortunately, it wasn't quite that bad:
+
+<blockquote>Â«SoftwareÂ» means the ReSharper pre-release software</blockquote>
+
+They were, in fact, smart enough to only make me promise to keep the <em>beta</em> top-secret (along with any other pre-release software they may make public over the next five years). I can still talk about <em>released</em> versions. Whew!
+
+They're also nice enough to say that I don't have to disavow knowledge that was already publicly available. Again, a step up from Delphi. But still a disappointment.
+
+Anyway, don't expect me to help hype their public beta. I wish I could; it looks like it'll have loads of cool stuff in it. But they don't want my hype; they want their public beta kept secret... so I will be contractually obligated to disavow this blog post, starting about two minutes from now.

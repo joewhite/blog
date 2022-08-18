@@ -1,0 +1,17 @@
+---
+title: "DUnitLite 0.5 released  #Delphi  #dunitlite  #interfaces"
+sort: 2522
+---
+Version 0.5 of <a href="http://code.google.com/p/dunitlite/">DUnitLite</a> is now available. This is a minor enhancement release.
+
+Download it here: <a href="http://dunitlite.googlecode.com/files/DUnitLite-0.5.zip">DUnitLite 0.5</a>
+
+<h3>What's new in 0.5</h3>
+
+<ul>
+<li><code>Should.ReferTo</code> now works with interfaces, and can mix and match between objects and interfaces. It also correctly works around the <a href="http://blog.excastle.com/2008/05/10/interfaces-and-reference-equality-beware/">interface reference-equality problem</a>.</li>
+<li>Added <code>Given</code> as an alias for <code>Specify</code>. So if you want to document your assumptions at the beginning of your test, you can use <code>Given.That(...)</code> to improve readability.</li>
+<li>Added <code>Should.</code>[<code>Not.</code>]<code>Be.False</code> and <code>Should.</code>[<code>Not.</code>]<code>Be.True</code>.</li>
+<li>Added <code>Should.</code>[<code>Not.</code>]<code>Be.Null</code> and <code>Should.</code>[<code>Not.</code>]<code>Be.Assigned</code>. Both work with either objects or interfaces.</li>
+<li>Added <code>Should.</code>[<code>Not.</code>]<code>Be.GreaterThanOrEqualTo</code> and <code>Should.</code>[<code>Not.</code>]<code>Be.LessThanOrEqualTo</code>, as aliases for <code>AtLeast</code> and <code>AtMost</code>.</li>
+</ul>

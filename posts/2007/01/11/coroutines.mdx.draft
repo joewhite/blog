@@ -1,0 +1,67 @@
+---
+title: "Coroutines  #.NET"
+sort: 2289
+---
+I've written a coroutine library for C#, which I intend to use in my video game. (I plan to open-source it in the future, after I've filed the necessary paperwork with my employer.)
+
+<strong>So what's a coroutine?</strong>
+
+I've seen several conflicting definitions. In my implementation at least, a coroutine is a method that can yield.
+
+Sounds a lot like C# 2.0's iterators, doesn't it? The difference is that C# iterators are restricted to being a single method; the "yield return"(s) must occur inside that method. You can't do an Extract Method on a chunk of code that includes a "yield return". (And because of the way they're implemented â€” with a codegenned state machine â€” this limitation is probably permanent. The stack issues are too messy to deal with this way.)
+
+With coroutines, the yield <em>can</em> be extracted into another method. You can even use recursion. Each coroutine has its own call stack, so you can do pretty much whatever you want. When you call the Yield() method, you're instantly zapped all the way back to whoever originally called into the coroutine. The next time someone calls into the coroutine, you're zapped back to wherever you were when you yielded, call stack and all.
+
+<strong>What are they good for?</strong>
+
+In my game, I'm going to have something like this:
+<pre>Actor bob = new Actor("bob.png");
+Coroutines.Add(new Coroutine(delegate {
+    bob.WalkNorth();
+    bob.WalkWest();
+    bob.WalkSouth();
+    bob.WalkEast();
+}));</pre>
+This will put a guy on the screen who walks in circles. (Okay, squares.) The various Walk() methods will be implemented something like this (pseudocode):
+<pre>loop
+    move the sprite on the screen
+    yield
+until we've moved the requisite distance</pre>
+The program's main work happens in the Paint event of the main user control. Once I implement coroutines, Paint will loop through all the registered coroutines, executing each one until it yields, then moving on to the next coroutine in the list. It's really just cooperative multitasking. All the animation â€” wandering NPCs, flickering torches, etc. â€” will be, if all goes well, handled by coroutines. Which means, it'll be a piece of cake to add a new piece of animation.
+
+I'll even be able to use coroutines to implement the main user-input loop, something like this:
+<pre>Coroutines.Add(new Coroutine(delegate {
+    if (IsKeyPressed(Keys.Up))
+        Hero.WalkNorth();
+    else if (IsKeyPressed(Keys.Down))
+        Hero.WalkSouth();
+    else if (IsKeyPressed(Keys.Left))
+        Hero.WalkWest();
+    else if (IsKeyPressed(Keys.Right))
+        Hero.WalkEast();
+}));</pre>
+If I can swing it, I'll even do cutscenes as coroutines. When it comes time to do a pre-scripted scene, I'll plug in a "cutscene" coroutine, at which point the Paint event will run only the cutscene, ignoring all the other coroutines until the cutscene is done. So all the action freezes in its tracks, except what's specified in the cutscene script:
+<pre>PlayCutscene(new Coroutine(delegate {
+    Hero.WalkNorth();
+    Hero.Say("You'll never get away with this, Bad Guy!");
+    BadGuy.TurnAroundSlowly();
+    BadGuy.WalkSouth();
+    BadGuy.LaughEvilly();
+    BadGuy.Say("You fools think you can stop me? Taste my magic!");
+    BadGuy.CastLightningBolt();
+    Hero.SlumpToTheFloor();
+    BadGuy.LaughEvilly();
+    BadGuy.TeleportAway();
+}));</pre>
+<strong>How are they implemented?</strong>
+
+
+I originally, a couple of years ago, was thinking about using fibers to implement coroutines. (A fiber is much like a thread, with its own call stack and everything. The difference is in scheduling. Threads are preemptively scheduled by the OS, and all appear to be running at the same time. Fibers are manually scheduled by your app, so you decide exactly when they run and when they stop. See Raymond Chen's posts, "Using fibers to simplify enumerators [<a href="http://blogs.msdn.com/oldnewthing/archive/2004/12/29/343664.aspx">Part 1</a>] [<a href="http://blogs.msdn.com/oldnewthing/archive/2004/12/30/344281.aspx">Part 2</a>] [<a href="http://blogs.msdn.com/oldnewthing/archive/2004/12/31/344799.aspx">Part 3</a>]".)
+
+Fibers are ideal for coroutines. When you want to call the coroutine, you just swap in a different fiber (with its own call stack, thus putting you right back where you were when you yielded), and when you want to yield, you swap in the original fiber (and its call stack, thus putting you right back at the caller).
+
+The downside is that your runtime library (the C runtime, or the .NET runtime, or whatever) needs to be fully fiber-aware. Most aren't. There's a lot of potential problems lurking here (see Raymond Chen's <a href="http://blogs.msdn.com/oldnewthing/archive/2004/12/31/344799.aspx">dire warnings about fibers</a>). The .NET runtime was not fiber-aware, at least a couple of years ago when I e-mailed some of the developers. (It might be more so now â€” I think MS SQL Server uses fibers internally, and it can host the CLR â€” but I wouldn't want to count on it working in a normal .NET app, without MSSQL's specially-tuned CLR host.)
+
+So I cheat. I use threads, but I only let one of them run at a time. When I create a coroutine, I create a thread, and then do some handshaking that ends with a call to Monitor.Wait(), which blocks the coroutine thread â€” it won't run anymore until it's unblocked. When it's time to call into the coroutine, I do a handoff that ends with the calling thread blocked, and the coroutine thread runnable. Same kind of handoff on the way back.
+
+Those handoffs are kind of expensive, compared with other implementations. If you need speed, you'll want to write your own state machine, and avoid all this context switching. (Or you'll want to use a fiber-aware runtime â€” switching fibers is pretty cheap.) But if you want expressive code, I think coroutines hold some promise.
