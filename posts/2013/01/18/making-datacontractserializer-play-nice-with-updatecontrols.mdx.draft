@@ -64,7 +64,7 @@ public class FooModel {
 
 <p>If you're using <a href="http://www.jetbrains.com/resharper/">ReSharper</a>, then you'll also want to add the <code>JetBrains.Annotations</code> NuGet package, and mark the <code>OnDeserializing</code> method as <code>[UsedImplicitly]</code> so ReSharper doesn't warn you about the unused parameter.</p>
 
-<p>Et voilÃ  -- you now have an UpdateControls-based model that you can serialize and deserialize successfully with DataContractSerializer! Here's what it looks like:</p>
+<p>Et voil&agrave; -- you now have an UpdateControls-based model that you can serialize and deserialize successfully with DataContractSerializer! Here's what it looks like:</p>
 
 <pre><code>[DataContract]
 public class FooModel {
