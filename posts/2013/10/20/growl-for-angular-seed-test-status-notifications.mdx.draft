@@ -4,7 +4,7 @@ sort: 3875
 ---
 <p><em><strong>Updated 5/4/2014</strong> for Angular 1.2.16 and Karma 0.10.10.</em></p>
 
-<p>When you run <a href="https://github.com/angular/angular-seed">angular-seed</a>â€™s test runner (formerly <code>scripts\test.bat</code>, now <code>npm test</code>), it runs all the tests once, and then enters watch mode. If you make a change to any of your source files (either production code or test code), it will automatically re-run the tests. This is pretty cool, but you need some way to see the test results.</p>
+<p>When you run <a href="https://github.com/angular/angular-seed">angular-seed</a>'s test runner (formerly <code>scripts\test.bat</code>, now <code>npm test</code>), it runs all the tests once, and then enters watch mode. If you make a change to any of your source files (either production code or test code), it will automatically re-run the tests. This is pretty cool, but you need some way to see the test results.</p>
 
 <p>If I were doing Angular development at work, I'd have dual monitors, and I could put my editor on one monitor and the test runner's console window on the other monitor, so I'd get instant feedback. But then I'd go to look something up in the documentation, and now the console is covered up by a Web browser, so I'd have to juggle that. And in my case, Angular is just a hobby, and I don't have dual monitors at home.</p>
 

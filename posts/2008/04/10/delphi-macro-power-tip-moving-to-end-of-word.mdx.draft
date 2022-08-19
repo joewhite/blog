@@ -2,7 +2,7 @@
 title: "Delphi macro power tip: Moving to end-of-word  #Delphi  #macros"
 sort: 2514
 ---
-Todayâ€™s <a href="http://blog.excastle.com/2008/03/31/delphi-macros-on-recipes-and-power-tips/">Delphi-macro power tip</a>: <b>moving the cursor to the end of the current word.</b>
+Today's <a href="http://blog.excastle.com/2008/03/31/delphi-macros-on-recipes-and-power-tips/">Delphi-macro power tip</a>: <b>moving the cursor to the end of the current word.</b>
 
 This isn't an everyday need, but it comes up from time to time, and there's not an immediately obvious way to do it. But it's easy if you know the trick.
 

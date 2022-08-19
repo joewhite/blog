@@ -2,7 +2,7 @@
 title: "AutoHotKey for quick Git access  #Programming  #autohotkey  #git"
 sort: 3370
 ---
-I really like <a href="http://git-scm.com/">Git</a>â€™s GUI tools: Git Gui for reviewing diffs and committing, and Gitk for dealing with branches. They're powerful tools -- powerful enough that I'm skeptical of any IDE that claims to include all that functionality in a little tool window.
+I really like <a href="http://git-scm.com/">Git</a>'s GUI tools: Git Gui for reviewing diffs and committing, and Gitk for dealing with branches. They're powerful tools -- powerful enough that I'm skeptical of any IDE that claims to include all that functionality in a little tool window.
 
 So that means I do a lot of task switching between my IDE, Git Gui, and Gitk. And since I hate repetitive Alt+Tabbing, I've written an <a href="http://www.autohotkey.com/">AutoHotKey</a> script to make it easier.
 

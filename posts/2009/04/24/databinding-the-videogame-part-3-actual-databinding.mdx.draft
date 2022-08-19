@@ -4,7 +4,7 @@ sort: 2736
 ---
 Last time, I <a href="http://blog.excastle.com/2009/04/22/databinding-the-videogame-part-2-mapping-terrain-types-to-gui/">mapped terrain objects to pretty pictures</a> -- but only one terrain square at a time. And despite the title, it wasn't really databinding as such.
 
-This time, I fix one of those two problems... the databinding one. â€™Cause it turns out it's not hard -- I just needed to figure out the right way to do it. And of course, I figured it out after I had already posted part 2.
+This time, I fix one of those two problems... the databinding one. 'Cause it turns out it's not hard -- I just needed to figure out the right way to do it. And of course, I figured it out after I had already posted part 2.
 
 
 

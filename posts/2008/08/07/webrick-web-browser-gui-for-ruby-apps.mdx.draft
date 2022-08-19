@@ -2,7 +2,7 @@
 title: "WEBrick: Web-browser GUI for Ruby apps  #Programming  #ruby  #webrick"
 sort: 2560
 ---
-I do a fair bit of <a href="http://www.ruby-lang.org/">Ruby</a> hacking. Usually I'm either writing a one-off app, or automating some process I do all the time, and in both cases, I don't need any fancier GUI than STDOUT (via <a href="http://www.scintilla.org/SciTE.html">SciTE</a>â€™s output pane, of course). But occasionally, I'll want a script I'll use more than once -- say, to sift through another app's output, and slice and dice the results different ways. And for those sorts of things, sometimes I'd rather have a nice GUI.
+I do a fair bit of <a href="http://www.ruby-lang.org/">Ruby</a> hacking. Usually I'm either writing a one-off app, or automating some process I do all the time, and in both cases, I don't need any fancier GUI than STDOUT (via <a href="http://www.scintilla.org/SciTE.html">SciTE</a>'s output pane, of course). But occasionally, I'll want a script I'll use more than once -- say, to sift through another app's output, and slice and dice the results different ways. And for those sorts of things, sometimes I'd rather have a nice GUI.
 
 Rather than learn any of the GUI libraries for Ruby, any of which would probably be a lot of work if I wanted to do anything fancy, I decided to try my luck with <a href="http://www.webrick.org/">WEBrick</a>, a lightweight Web server that ships with Ruby. I can still write my little one-off apps, but now they can show their output in HTML.
 

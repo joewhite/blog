@@ -130,7 +130,7 @@ And there you go: a two-dimensional map. If you make these changes and run, then
 
 <h3>Today's test project</h3>
 
-You can <a href="http://svn.excastle.com/databinding_the_videogame/tags/part5/">browse todayâ€™s code online</a>, or check it out from my Subversion repository:
+You can <a href="http://svn.excastle.com/databinding_the_videogame/tags/part5/">browse today's code online</a>, or check it out from my Subversion repository:
 
 <pre>svn co http://svn.excastle.com/databinding_the_videogame/tags/part5</pre>
 
