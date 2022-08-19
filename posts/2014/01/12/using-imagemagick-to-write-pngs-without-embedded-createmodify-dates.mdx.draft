@@ -4,7 +4,7 @@ sort: 3949
 ---
 <p>I'm writing some Rake tasks to generate a bunch of PNGs to check into version control, and ran into a problem: every time ImageMagick generated the files, they showed up as diffs in Git, even if the pixel content was identical. The files' hashes were different each time I generated them.</p>
 
-<p>I did some hunting, and found a discussion thread "<a href="http://www.imagemagick.org/discourse-server/viewtopic.php?f=3&amp;t=12230">create/modify-date written into file</a>â€, but its fix (adding <code>+set modify-date +set create-date</code> to the command line before the output filename) didn't work for me -- if I generated the same content twice, the two files were still different.</p>
+<p>I did some hunting, and found a discussion thread "<a href="http://www.imagemagick.org/discourse-server/viewtopic.php?f=3&amp;t=12230">create/modify-date written into file</a>&quot;, but its fix (adding <code>+set modify-date +set create-date</code> to the command line before the output filename) didn't work for me -- if I generated the same content twice, the two files were still different.</p>
 
 <p>So I looked at the output of <code>identify</code>:</p>
 

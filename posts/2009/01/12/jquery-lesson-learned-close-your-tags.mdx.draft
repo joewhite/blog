@@ -18,7 +18,7 @@ I did some digging and some troubleshooting, and found that this jQuery syntax:
 
 doesn't work in IE. Dynamically-created nodes (the <code>$('&lt;h2&gt;')</code>) weren't being added to the page -- the <code>append</code> was doing nothing.
 
-So I posted a question yesterday night on the jQuery list (â€œ<a href="http://groups.google.com/group/jquery-en/browse_thread/thread/0e4517face6306ae">append() not working on dynamically-created nodes in IE</a>â€), and by this morning, I already had an answer: close the tag.
+So I posted a question yesterday night on the jQuery list (&quot;<a href="http://groups.google.com/group/jquery-en/browse_thread/thread/0e4517face6306ae">append() not working on dynamically-created nodes in IE</a>&quot;), and by this morning, I already had an answer: close the tag.
 
 <pre>$('#myDiv').append($('&lt;h2&gt;<strong>&lt;/h2&gt;</strong>'));</pre>
 

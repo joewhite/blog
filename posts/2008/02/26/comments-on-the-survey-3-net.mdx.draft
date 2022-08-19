@@ -36,7 +36,7 @@ That means that VCL.NET is only a viable choice when you're a group of Delphi pr
 
 I've already talked about the <a href="http://blog.excastle.com/2008/02/22/comments-on-the-survey-2-refactorings/">lack of refactoring tools for Delphi</a>. Visual Studio, on the other hand, has two big things going for it here. #1, it has a handful of built-in refactorings that actually work; and #2, it has <a href="http://www.jetbrains.com/resharper/">ReSharper</a>.
 
-I've already talked at length about how much ReSharper rocks (see my series, "The <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>â€). I filled 31 days just talking about version 2.5; I haven't even had a chance to look at all the new stuff in 3.0 or 4.0 yet. Delphi doesn't have anything that comes close.
+I've already talked at length about how much ReSharper rocks (see my series, "The <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>&quot;). I filled 31 days just talking about version 2.5; I haven't even had a chance to look at all the new stuff in 3.0 or 4.0 yet. Delphi doesn't have anything that comes close.
 
 (It may sound like I'm contradicting myself here. On the one hand, I'm complaining about VCL.NET locking us in to a single vendor; on the other, I'm singing the praises of ReSharper, an add-in that only works with Visual Studio. There's one big difference, though: I can still compile my code without ReSharper.)
 
