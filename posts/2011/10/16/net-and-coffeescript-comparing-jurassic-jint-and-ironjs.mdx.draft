@@ -2,7 +2,7 @@
 title: ".NET and CoffeeScript: comparing Jurassic, Jint, and IronJS  #.NET  #coffeescript  #dlr  #ironjs  #javascript  #jint  #jurassic"
 sort: 3328
 ---
-Recently I went looking for ways to write a .NET desktop app that could compile CoffeeScript to JavaScript. There are already several NuGet packages for exactly this, but most of them look like they're tightly bound to ASP.NET. So I struck out on my own, following the general steps in &quot;<a href="http://otac0n.com/blog/CommentView,guid,e07b25fa-c17a-4090-93cd-25fefa62b160.aspx">CoffeeDemo â€“ A Simple Demo of IronJS, using CoffeeScript</a>&quot;. The main CoffeeScript compiler is written in CoffeeScript, but they also provide one written in JavaScript, so my basic outline was:
+Recently I went looking for ways to write a .NET desktop app that could compile CoffeeScript to JavaScript. There are already several NuGet packages for exactly this, but most of them look like they're tightly bound to ASP.NET. So I struck out on my own, following the general steps in &quot;<a href="http://otac0n.com/blog/CommentView,guid,e07b25fa-c17a-4090-93cd-25fefa62b160.aspx">CoffeeDemo &ndash; A Simple Demo of IronJS, using CoffeeScript</a>&quot;. The main CoffeeScript compiler is written in CoffeeScript, but they also provide one written in JavaScript, so my basic outline was:
 
 <ol>
 <li>Instantiate a JavaScript engine.</li>

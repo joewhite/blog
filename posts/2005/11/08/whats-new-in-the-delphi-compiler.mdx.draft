@@ -76,7 +76,7 @@ Here's <a href="http://blogs.borland.com/dcc/">Danny</a>'s session, "What's New 
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Implicitly overloaded, so you don't have to use the "overload;" directive.</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Can't define new operators, but you can override all of the standard ones (except assignment and pointer dereferencing).</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">If you want to support all the different integer types, you have to do it yourself.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Commutativity is not assumed. So if you want both TQuark + Byte and Byte + TQuark, you have to define it. (Not a big deal â€“ have one call the other, and get it inlined.)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Commutativity is not assumed. So if you want both TQuark + Byte and Byte + TQuark, you have to define it. (Not a big deal &ndash; have one call the other, and get it inlined.)</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Operator Explicit is the only place you're allowed to overload on result type.</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">If TFoo defines Add(TFoo, TBar), and TBar defines Add(TFoo, TBar), the compiler will pick one. Don't do this.</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Implicit conversion happens when:
@@ -134,7 +134,7 @@ end;</pre>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Cannot initialize these in Win32, yet. (No class constructors in Win32.) But you could initialize it from a unit initialization section.</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Accessible from class functions</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Same default initialization rules as globals: initialized to zero.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">"class var" starts a new section. So do "var" and "type". ("Var" and "class var" are there because of nested types in Delphi 2005 â€“ "type" introduces a section, so you need "var" to get back out of that mode.)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">"class var" starts a new section. So do "var" and "type". ("Var" and "class var" are there because of nested types in Delphi 2005 &ndash; "type" introduces a section, so you need "var" to get back out of that mode.)</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Can have class constants as well (but not typed class constants).</li>
 </ul>
 <p class="MsoNormal" style="margin: 0in 0in 0pt">Roadmap</p>

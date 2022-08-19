@@ -33,12 +33,12 @@ We're at the first break, so here's a brain-dump of all the notes I've taken so 
 
 <ul style="margin-top: 0in" type="disc">
 <li class="MsoNormal" style="margin: 0in 0in 0pt">The later in the dev cycle that a requirement changes, the bigger the impact</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">50-200 times as costly to change late in the cycle as it is early in the cycle â€“ ripple effects</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">50-200 times as costly to change late in the cycle as it is early in the cycle &ndash; ripple effects</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">How can you make coding changes with confidence?
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Agile makes this rule not true anymore â€“ cost becomes mostly linear</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">This idea came from mid-70s â€“ not true anymore (except with waterfall)</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">In a waterfall shop, try asking "We're still doing development the same way we did in the mid-70s â€“ why don't we try doing accounting with mechanical calculators and ledger sheets? It was good enough then!"</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Agile makes this rule not true anymore &ndash; cost becomes mostly linear</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">This idea came from mid-70s &ndash; not true anymore (except with waterfall)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">In a waterfall shop, try asking "We're still doing development the same way we did in the mid-70s &ndash; why don't we try doing accounting with mechanical calculators and ledger sheets? It was good enough then!"</li>
 </ul>
 </li>
 </ul>
@@ -52,7 +52,7 @@ We're at the first break, so here's a brain-dump of all the notes I've taken so 
 <li class="MsoNormal" style="margin: 0in 0in 0pt">The same is not true of software</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">More flexible â€“ you can test those tolerances in ways you just can't do in the real world
+<li class="MsoNormal" style="margin: 0in 0in 0pt">More flexible &ndash; you can test those tolerances in ways you just can't do in the real world
 <ul style="margin-top: 0in" type="circle">
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Can mathematically prove the strength of a bridge, but you can't really do that with software</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Can't do test-first with a bridge, because you lose a lot of trucks</li>
@@ -81,7 +81,7 @@ We're at the first break, so here's a brain-dump of all the notes I've taken so 
 <ul style="margin-top: 0in" type="disc">
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Our highest priority is to satisfy the customer through early and continuous delivery of valuable software.
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Delivery of working software â€“ not design documents</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Delivery of working software &ndash; not design documents</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Quick wins, high visibility, customer sees it sooner</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Customer sees it sooner, so you know whether you're still on the right track</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Emphasis is on delivering most important (not hardest, not easiest) parts first, as defined by the customer</li>
@@ -100,7 +100,7 @@ We're at the first break, so here's a brain-dump of all the notes I've taken so 
 </li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Working software is the primary measure of progress.
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Does not discard the need for design documentation â€“ but you diagram to understand, then move to code, and let the diagram wither and die</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Does not discard the need for design documentation &ndash; but you diagram to understand, then move to code, and let the diagram wither and die</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Whiteboards</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">"Do Not Erase" must have a date</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Draw on a whiteboard, then take a digital photo</li>
@@ -134,7 +134,7 @@ We're at the first break, so here's a brain-dump of all the notes I've taken so 
 <li class="MsoNormal" style="margin: 0in 0in 0pt">If you get broken out of flow, it takes ~15 minutes to get back in</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">The more interruptions, the harder it is to get back into the flow</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">If you have a lot of interruptions (meetings, support calls, etc.), try instituting Quiet Time for the programmers. Turn off the phone and e-mail, no meetings, etc.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">If a question comes up, go ask the business analyst â€“ that's OK, it's still on-topic and won't interrupt flow like a random phone call will.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">If a question comes up, go ask the business analyst &ndash; that's OK, it's still on-topic and won't interrupt flow like a random phone call will.</li>
 </ul>
 </li>
 </ul>
@@ -151,10 +151,10 @@ We're at the first break, so here's a brain-dump of all the notes I've taken so 
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Two people at a whiteboard are both rich and interactive</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">"Knowledge radiators" â€“ inadvertent communication
+<li class="MsoNormal" style="margin: 0in 0in 0pt">"Knowledge radiators" &ndash; inadvertent communication
 <ul style="margin-top: 0in" type="circle">
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Move stories up as they're completed</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Put user stories near a hallway or a coffee machine â€“ people accidentally find out the status of the whole project</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Put user stories near a hallway or a coffee machine &ndash; people accidentally find out the status of the whole project</li>
 </ul>
 </li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">The best architectures, requirements, and designs emerge from self-organizing teams.
@@ -190,9 +190,9 @@ We're at the first break, so here's a brain-dump of all the notes I've taken so 
 </li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Simplicity â€“ the art of maximizing the amount of work not done â€“ is essential.
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Simplicity &ndash; the art of maximizing the amount of work not done &ndash; is essential.
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">"This letter is longer than I wish, for I had not the time to make it shorter." â€“ Blaise Pascal</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">"This letter is longer than I wish, for I had not the time to make it shorter." &ndash; Blaise Pascal</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Sometimes more difficult to make things simpler</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">DRY (Don't Repeat Yourself)</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">"Design for simplicity; add complexity only where you must." Art of Unix Programming, Raymond 2003</li>

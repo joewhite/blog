@@ -15,13 +15,13 @@ Someone didn't plan very well. There were people standing in the aisles, because
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Live templates</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Editor enhancements (gutter, change bars, line numbers, etc.)</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">New debugging functionality</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Together design-only projects (no code behind them) â€“ you can just create diagrams to visualize stuff</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Together design-only projects (no code behind them) &ndash; you can just create diagrams to visualize stuff</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">New refactorings</li>
 </ul>
 <p class="MsoNormal" style="margin: 0in 0in 0pt">RTL</p>
 
 <ul style="margin-top: 0in" type="disc">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Memory manager (both Delphi and C++, thread-aware, minimizes contention, helps with fragmentation, significant performance boost â€“ replacing memory manager in IDE reduced startup time, at the time, from 20 seconds to 12 seconds)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Memory manager (both Delphi and C++, thread-aware, minimizes contention, helps with fragmentation, significant performance boost &ndash; replacing memory manager in IDE reduced startup time, at the time, from 20 seconds to 12 seconds)</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">RTL functions from FastCode project</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Inlined RTL functions, like Length(string) -- "incredible" increase in performance</li>
 </ul>
@@ -32,13 +32,13 @@ Someone didn't plan very well. There were people standing in the aisles, because
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Margins &amp; Padding</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Align with margins</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Intellimouse / Mouse wheel (click-and-scroll for pretty much anything with a scrollbar, just by including one unit)</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Tray Icon component (in the VCL, not just a sample â€“ and they fixed it)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Tray Icon component (in the VCL, not just a sample &ndash; and they fixed it)</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Gradient support in TToolBar and TControlBar</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Mouse Enter/Exit events (that are reliable ;-)</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">New PopupMode property on TApplication, to deal with TForm.PopupMode issues from Delphi 2005. Default is Delphi-7-and-before behavior, so you have to be explicit when you want to fix stacking stuff.</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Fixes and more fixesâ€¦ (QC)</li>
 </ul>
-<p class="MsoNormal" style="margin: 0in 0in 0pt">IDE â€“ <st1:place>Delphi</st1:place> support for C++Builder</p>
+<p class="MsoNormal" style="margin: 0in 0in 0pt">IDE &ndash; <st1:place>Delphi</st1:place> support for C++Builder</p>
 
 <ul style="margin-top: 0in" type="disc">
 <li class="MsoNormal" style="margin: 0in 0in 0pt">C++ devs used to have to do various magical incantations to generate all the support files (HPP, LIB, BPI) they need from a component package. Now one compiler option (-jl) that generates all that stuff.</li>
@@ -47,7 +47,7 @@ Someone didn't plan very well. There were people standing in the aisles, because
 <ul style="margin-top: 0in" type="circle">
 <li class="MsoNormal" style="margin: 0in 0in 0pt">New Padding and Margins properties control the distances</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Top, bottom, &amp; baseline alignment</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Extensible â€“ component devs can define their own guidelines (e.g., if you have multiple text baselines, or other alignment points)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Extensible &ndash; component devs can define their own guidelines (e.g., if you have multiple text baselines, or other alignment points)</li>
 </ul>
 </li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">HTML designer
@@ -61,11 +61,11 @@ Someone didn't plan very well. There were people standing in the aisles, because
 <li class="MsoNormal" style="margin: 0in 0in 0pt">type "TMyClass = class" and hit Enter. It adds the "end;" for you. (Also for record. Presumably for interface as well?)</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">type "var" inside a method body, hit some magic keystroke (Tab?); a variable declaration appears right there on that line. Fill in the name and type, do something else magic, and that declaration jumps up into the "var" section of the current method.</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">"Surrounds" template: wrap selection in a region. Template is itself a LiveTemplate, so you can tab to the different fields.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Templates pane in IDE â€“ select code, double-click "(*" in the list.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Templates pane in IDE &ndash; select code, double-click "(*" in the list.</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Space for autocompletion, Tab for manually handled; some have to be manually invoked (like Surrounds).</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Templates are also part of Code Completion. Hit Ctrl+Space, and you'll see "(*" in the list.</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">File &gt; New &gt; Other &gt; Code Template. Give it a name and description, author, specify the language ("<st1:place>Delphi</st1:place>"), put the code in the CDATA, save it to the right magic location, and it should just work. Define jump points (how?). Open existing templates and see how they work.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Templates know where you are in your code â€“ context-aware.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Templates know where you are in your code &ndash; context-aware.</li>
 </ul>
 </li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Editor enhancements
@@ -101,7 +101,7 @@ Someone didn't plan very well. There were people standing in the aisles, because
 </li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">C#Builder refactorings gets all the same refactorings</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">C++Builder just gets Rename refactoring in this release; more to come later</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">RTL â€“ what's new?
+<li class="MsoNormal" style="margin: 0in 0in 0pt">RTL &ndash; what's new?
 <ul style="margin-top: 0in" type="circle">
 <li class="MsoNormal" style="margin: 0in 0in 0pt">High-performance, thread-safe/aware Memory Manager</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Win32 only</li>
@@ -132,7 +132,7 @@ Someone didn't plan very well. There were people standing in the aisles, because
 </ul>
 </li>
 </ul>
-<p class="MsoNormal" style="margin: 0in 0in 0pt">VCL â€“ new properties</p>
+<p class="MsoNormal" style="margin: 0in 0in 0pt">VCL &ndash; new properties</p>
 
 <ul style="margin-top: 0in" type="disc">
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Margins
@@ -144,7 +144,7 @@ Someone didn't plan very well. There were people standing in the aisles, because
 </li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">AlignWithMargins
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">As the name implies â€“ uses Margins for alignment (alTop, etc.)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">As the name implies &ndash; uses Margins for alignment (alTop, etc.)</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Margins never violate other margin space</li>
 </ul>
 </li>
@@ -156,7 +156,7 @@ Someone didn't plan very well. There were people standing in the aisles, because
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Guides see that it's 0 and fake it up to 5 when you're dragging in design mode.</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Guidelines do go outside the parent â€“ can drag-align buttons on two different panels.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Guidelines do go outside the parent &ndash; can drag-align buttons on two different panels.</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">You can install a design-time package and redefine how you want guidelines to work. So if you want to use the larger of two margins, instead of adding them, then you can write a package to do it.</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">GridPanel
 <ul style="margin-top: 0in" type="circle">
