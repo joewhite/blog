@@ -10,7 +10,7 @@ Here's my notes from <a href="http://blogs.borland.com/dcc/">Danny</a>'s session
 
 <ul style="margin-top: 0in" type="disc">
 <li class="MsoNormal" style="margin: 0in 0in 0pt">The point where it fails is often a while after the point where it goes wrong.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Find a reproducible test case. If you can't repro it, you'll just be grabbing at straws. And often it's operator errorâ€¦
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Find a reproducible test case. If you can't repro it, you'll just be grabbing at straws. And often it's operator error...
 <ul style="margin-top: 0in" type="circle">
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Access Violations are good, because they're really easy to identify. Something like "This one report prints upside-down, and we have no idea why" is a lot harder to track down.</li>
 </ul>
@@ -130,7 +130,7 @@ Here's my notes from <a href="http://blogs.borland.com/dcc/">Danny</a>'s session
 </li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Mouse drag
 <ul style="margin-top: 0in" type="square">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Putting a breakpoint in the middle of mouse-drag code isâ€¦ problematic.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Putting a breakpoint in the middle of mouse-drag code is... problematic.</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Here, a remote debugger could help. But you'd need two people (or be extremely dexterous, to handle both mice).</li>
 </ul>
 </li>
@@ -197,9 +197,9 @@ Tactic: <st1:place><st1:placename>Use</st1:placename> <st1:placetype>Pass</st1:p
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Lower-right pane is the stack.
 <ul style="margin-top: 0in" type="square">
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Right-click &gt; Follow &gt; Near Code (neat!)</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">If you see something starting with "0040â€¦", that's probably code (or a VMT, which also gets crammed into the code segment).</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">"7Câ€¦" is probably in a Windows DLL.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">"0012â€¦" is probably a stack address.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">If you see something starting with "0040...", that's probably code (or a VMT, which also gets crammed into the code segment).</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">"7C..." is probably in a Windows DLL.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">"0012..." is probably a stack address.</li>
 </ul>
 </li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Ctrl+Left and Ctrl+Right tells the CPU View to slide the disassembly start address one byte left or right.</li>
@@ -275,9 +275,9 @@ Tactic: <st1:place><st1:placename>Use</st1:placename> <st1:placetype>Pass</st1:p
 <li class="MsoNormal" style="margin: 0in 0in 0pt">If you're following a stack address and it looks like a string, look at the 8 bytes preceding the string data. If it's got a refcount and a length, it's a <st1:place>Delphi</st1:place> string (not a C string).</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">When you're looking at the stack, be careful of big uninitialized local variables (structures, buffers, etc.) &ndash; they may be leftovers from an earlier call stack, and look like a real stack trace even though they're really bogus.</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">If something is odd (low bit set), it's not a pointer.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Really dirty trick: Right-click in the data pane, "Goto address", and type "EIP". Now you can directly hack the code bytes, and e.g. change the immediate argument of a MOV (change a MOV EAX, 15 to a MOV EAX, 42 without recompiling). See, we've already got Edit and Continue, if you don't mind directly hacking machine codeâ€¦</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Really dirty trick: Right-click in the data pane, "Goto address", and type "EIP". Now you can directly hack the code bytes, and e.g. change the immediate argument of a MOV (change a MOV EAX, 15 to a MOV EAX, 42 without recompiling). See, we've already got Edit and Continue, if you don't mind directly hacking machine code...</li>
 </ul>
-<p class="MsoNormal" style="margin: 0in 0in 0pt">How toâ€¦</p>
+<p class="MsoNormal" style="margin: 0in 0in 0pt">How to...</p>
 
 <ul style="margin-top: 0in" type="disc">
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Recognize a freed memory block</li>
@@ -294,7 +294,7 @@ Tactic: <st1:place><st1:placename>Use</st1:placename> <st1:placetype>Pass</st1:p
 <p class="MsoNormal" style="margin: 0in 0in 0pt">And Sometimes the Bear Gets You</p>
 
 <ul style="margin-top: 0in" type="disc">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Modifying CPU registersâ€¦ pay attention! If you change something like EIP, there's no Undo.</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Modifying CPU registers... pay attention! If you change something like EIP, there's no Undo.</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Goto Address is relative to focused pane. Right-clicking on the pane does not focus it.</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Unfortunate module names (winspool.exe) &ndash; another thing that was on the slide but he didn't have a chance to explain, and that I didn't write down to ask him about after the session</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Calling destructive functions in the evaluator (calling Destroy in the evaluator?)</li>

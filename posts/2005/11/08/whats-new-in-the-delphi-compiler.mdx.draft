@@ -42,7 +42,7 @@ Here's <a href="http://blogs.borland.com/dcc/">Danny</a>'s session, "What's New 
   private
     Data: Integer;
   public
-    property Color: Integer â€¦
+    property Color: Integer ...
   end;</pre>
 
 <ul style="margin-top: 0in" type="disc">

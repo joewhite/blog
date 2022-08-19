@@ -36,7 +36,7 @@ Someone didn't plan very well. There were people standing in the aisles, because
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Gradient support in TToolBar and TControlBar</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">Mouse Enter/Exit events (that are reliable ;-)</li>
 <li class="MsoNormal" style="margin: 0in 0in 0pt">New PopupMode property on TApplication, to deal with TForm.PopupMode issues from Delphi 2005. Default is Delphi-7-and-before behavior, so you have to be explicit when you want to fix stacking stuff.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Fixes and more fixesâ€¦ (QC)</li>
+<li class="MsoNormal" style="margin: 0in 0in 0pt">Fixes and more fixes... (QC)</li>
 </ul>
 <p class="MsoNormal" style="margin: 0in 0in 0pt">IDE &ndash; <st1:place>Delphi</st1:place> support for C++Builder</p>
 
