@@ -1,0 +1,13 @@
+.brokenLink,
+.brokenLink:visited {
+  color: red;
+  text-decoration: #ff000040 underline;
+}
+
+.brokenLink:hover {
+  text-decoration: #ff0000 underline;
+}
+
+.brokenLink sup {
+  font-style: italic;
+}

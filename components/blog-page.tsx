@@ -6,6 +6,7 @@ import {useMDXComponent} from 'next-contentlayer/hooks';
 import {OlderNewerNav} from './older-newer-nav';
 import {unicode} from './unicode';
 import {NavTree} from './nav-tree';
+import {BrokenLink} from './mdx/broken-link';
 
 interface PostContentParams {
   post: Post;
@@ -13,7 +14,9 @@ interface PostContentParams {
 
 function PostContent({post}: PostContentParams) {
   const MDXContent = useMDXComponent(post.body.code);
-  const components = {};
+  const components = {
+    BrokenLink,
+  };
   return <article>
     <h1>{post.title}</h1>
     <MDXContent components={components}/>
