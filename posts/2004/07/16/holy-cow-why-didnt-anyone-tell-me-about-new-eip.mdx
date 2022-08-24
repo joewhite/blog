@@ -3,10 +3,6 @@ title: "Holy cow, why didn't anyone tell me about New EIP?  #.NET  #Delphi"
 sort: 1983
 ---
 <p>Holy cow. I found a blog post about a way-cool Visual Studio debugger feature... that's also available in Delphi's debugger... even for Win32! Sweeeet.</p>
-<p>It's a way to move the current execution pointer. How many times have you stepped over a function, realized it didn't do what you wanted,
-
-
-
-and wish you could step back? Well, as long as the function didn't have any significant side effects (and, in Win32, as long as it didn't smash any important registers), you can. Gotten into an infinite loop, and had to terminate the app and start over? Not necessary &#8212; you can just move the instruction pointer outside the loop and keep debugging.</p>
+<p>It's a way to move the current execution pointer. How many times have you stepped over a function, realized it didn't do what you wanted, and wish you could step back? Well, as long as the function didn't have any significant side effects (and, in Win32, as long as it didn't smash any important registers), you can. Gotten into an infinite loop, and had to terminate the app and start over? Not necessary &#8212; you can just move the instruction pointer outside the loop and keep debugging.</p>
 <p>In Visual Studio .NET, the feature is called "<a href="http://blogs.msdn.com/matt_pietrek/archive/2004/07/14/183084.aspx">Set Next Statement</a>" and is available right there in the code window's context menu; just right-click on the line you want to move to. In Delphi for Win32, you have to open the CPU window, and then you can right-click on an instruction in there and use the ever-so-intuitively-named "<a href="http://blogs.teamb.com/DeepakShenoy/archive/2004/07/16/845.aspx">New EIP</a>" menu item. No wonder I never knew Delphi had this feature.</p>
 <p>I'll be curious to see how well this works, and how sensitive it really is to things like register usage (temporary variables?). But, man, oh, man. This is gonna be awesome...</p>

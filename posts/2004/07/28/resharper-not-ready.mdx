@@ -7,9 +7,10 @@ sort: 1991
 <p>ReSharper has some nice features. I liked the treeview that shows all the places a particular method is called from; much nicer than adding an ObsoleteAttribute and recompiling. It was also pretty cool how it noticed namespace imports that you're not using, and colored them in gray. When I wrote code to call a method I hadn't defined yet, it highlighted the method name in red. They show a little "green light / orange light" (orange?) to show whether there are any warnings in the current source file (things like unused imports), and you can usually click that to jump straight to the first warning. Nice stuff. Haven't tried their smart templates or refactoring tools yet.</p>
 <p><strong>Minor gripes:</strong></p>
 <ul>
-<li>Too many colors. Stuff that used to be black, plain black, easy to read, easy to differentiate from keywords, now appears in a myriad of different colors. They need a way to customize those colors (i.e., change most of them back to black) so I can reduce the noise.
-<li>Not multi-monitor friendly. I run VS.NET on my second monitor, to the right of the primary. Their "Tip of the Day" window always opens on the wrong monitor. Some of their dropdowns also open on the wrong monitor (at the far right; looks like they're trying to clamp coordinates to the primary monitor bounds).
-<li>What the heck is up with their parameter tooltip? Come on, guys, Visual Studio already has one of those! Yours sits right on top of it! And shows less information than theirs does!</li></ul>
+  <li>Too many colors. Stuff that used to be black, plain black, easy to read, easy to differentiate from keywords, now appears in a myriad of different colors. They need a way to customize those colors (i.e., change most of them back to black) so I can reduce the noise.</li>
+  <li>Not multi-monitor friendly. I run VS.NET on my second monitor, to the right of the primary. Their "Tip of the Day" window always opens on the wrong monitor. Some of their dropdowns also open on the wrong monitor (at the far right; looks like they're trying to clamp coordinates to the primary monitor bounds).</li>
+  <li>What the heck is up with their parameter tooltip? Come on, guys, Visual Studio already has one of those! Yours sits right on top of it! And shows less information than theirs does!</li>
+</ul>
 <p><strong>Major gripe:</strong></p>
 <p>In the real world, <em>it blows up.</em> Badly. I opened a real-life solution, nothing fancy, and ReSharper threw 37 exceptions, right in a row, just trying to load and parse. I know there are 37 exceptions, because I reported them all to their bug tracking system.</p>
 <p>I had to register for an account before I could report bugs. How nice.</p>
