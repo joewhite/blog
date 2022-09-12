@@ -7,6 +7,7 @@ import {OlderNewerNav} from './older-newer-nav';
 import {unicode} from './unicode';
 import {NavTree} from './nav-tree';
 import {BrokenLink} from './mdx/broken-link';
+import {Tab, Tabs} from './mdx/tabs';
 
 interface PostContentParams {
   post: Post;
@@ -16,6 +17,8 @@ function PostContent({post}: PostContentParams) {
   const MDXContent = useMDXComponent(post.body.code);
   const components = {
     BrokenLink,
+    Tab,
+    Tabs,
   };
   return <article>
     <h1>{post.title}</h1>
