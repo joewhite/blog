@@ -14,11 +14,11 @@ Microsoft's <a href="http://msdn.microsoft.com/vstudio/teamsystem/">Team System<
 
 Also on our radar is <a href="http://www.sourcegear.com/vault/">SourceGear Vault</a>, which is much more reasonably priced (around $200 per developer, instead of "it's too expensive for us to print the price on our Web site" for the top-end version of StarTeam). Vault has some of our "nice to have" features, like atomic check-in. It doesn't have the "must be code reviewed before it can be part of the build" dream feature (not surprising given its price range). But one thing it does have is a positively dreamy diff tool. Here are a couple of screenshots:
 
-<img src="http://blog.excastle.com/images/Vault2.png" height="252" width="783" />
+<img src="/images/Vault2.png" height="252" width="783" />
 
 It can do diffs <em>within a line.</em> This is a feature I've wished for in VSS for I don't know how long. (Let's see, how long have I been using VSS...?) Any time I rename a variable, all VSS cares to tell me is that more than half the lines in my method have changed. Vault's diff will actually tell me that it's just the variable name that's changed. Sweet!
 
-<img src="http://blog.excastle.com/images/Vault1.png" height="293" width="719" />
+<img src="/images/Vault1.png" height="293" width="719" />
 
 This one really got me. Vault can diff <em>across line breaks.</em> Is that cool, or what? (This is especially nice since we changed our coding standards, oh, about three years ago, to say that the "begin" of a Delphi begin..end block should now be on its own line, not the end of the line with the 'for' or 'if' or 'while'. And of course, not all of the code has been brought up to standard yet. VSS would just show us gray lines whenever we fixed one of these, and if the condition changed too, we might miss it. Vault can show us that the only thing that changed was a line break.)
 

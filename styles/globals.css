@@ -12,6 +12,11 @@ body {
   word-break: break-word;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 a {
   color: #3656c6;
   text-decoration: #3656c640 underline;
