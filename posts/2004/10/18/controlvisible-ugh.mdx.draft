@@ -11,7 +11,7 @@ sort: 2069
 <p>At least WinForms gives me a VisibleChanged event that I can hook. So I hook it, and put in a breakpoint. Lo and behold, it does indeed fire when the panels' Visible is mysteriously changing to false. (Oddly enough, it does not fire again when their Visible is mysteriously changing back to true.) I check the stack trace, and among the code on the stack is Control.WmShowWindow.</p>
 <p>That's when it clicks in my head: Aha, that's right. The value you set into Visible is not necessarily the value you get back out.</p>
 <p>The MSDN docs have this to say:</p>
-<blockquote style="MARGIN-RIGHT: 0px">
+<blockquote>
 <p>Gets or sets a value indicating whether the control is displayed.</p></blockquote>
 <p>Wow, that's helpful. I can tell you from looking in Reflector, however, that what happens when you read Visible is this: it returns this.Visible && Parent.Visible && Parent.Parent.Visible && Parent.Parent.Parent.Visible && ...</p>
 <p>That's not quite how they implement it, but it makes Visible nearly useless for nearly everything. It certainly makes it useless for what I was using it for, because there are times when it returns random values (i.e., when the window is in the process of being shown, and events are getting fired, but Form.Visible is not yet true so all of its children lie).</p>

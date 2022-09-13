@@ -7,14 +7,14 @@ Continuing the <a href="http://blog.excastle.com/tag/diff/">Diff for the Complet
 The core problem of diff is the building of the <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">longest common subsequence</a>, which we accomplish by finding all the <a href="http://blog.excastle.com/2005/03/31/diff-part-4-matches/">matches</a> in the two lists, then assembling <a href="http://blog.excastle.com/2005/04/01/diff-part-5-match-strings/">match strings</a> that match our <a href="http://blog.excastle.com/2005/04/02/diff-part-6-match-strings-and-common-subsequences/">rule</a> (which filters out the match strings that are not <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">common subsequences</a>).
 
 Does it have to be that complicated? Let's just try it. Say we have these two lists:
-<blockquote dir="ltr" style="margin-right: 0px"><font face="Courier New">A is (1 2 3 4)
+<blockquote><font face="Courier New">A is (1 2 3 4)
 B is (1 3 4)
 </font>Matches: <font face="Courier New">[0,0]</font>, <font face="Courier New">[2,1]</font>, and <font face="Courier New">[3,2]</font>.</blockquote>
 
 <p dir="ltr">Do we really need to go through all the rigamarole? You can build a match string out of all three matches in their original order, and it'll be a common subsequence &mdash; and at length 3, it'll be the longest common subsequence. So our LCS has to be <font face="Courier New">[0,0] [2,1] [3,2]</font>.</p>
 <p dir="ltr">Well, that was easy. Grab all the matches, put them together, and there's the LCS. It can't be that easy, can it? Well... no, actually, it can't:</p>
 
-<blockquote dir="ltr" style="margin-right: 0px">
+<blockquote>
 <p dir="ltr"><font face="Courier New">A is (1 2 3)
 B is (1 3 2)
 </font>Matches: <font face="Courier New">[0,0]</font>, <font face="Courier New">[1,2]</font>, and <font face="Courier New">[2,1]</font>.</blockquote>
@@ -30,7 +30,7 @@ B is (1 3 2)
 	<li>Next match: <font face="Courier New">[2,1]</font>. Add that to our best CS so far. Result: <font face="Courier New">[0,0] [1,2] [2,1]</font>. This is not a valid CS; throw it out. Our best CS so far is still <font face="Courier New">[0,0] [1,2]</font>.</li>
 </ul>
 That looks promising, doesn't it? Let's try it with a slightly different input:
-<blockquote dir="ltr" style="margin-right: 0px">
+<blockquote>
 <p dir="ltr"><font face="Courier New">A is (1 2 3 4)
 B is (1 3 2 4)
 </font>Matches: <font face="Courier New">[0,0]</font>, <font face="Courier New">[1,2]</font>, <font face="Courier New">[2,1]</font><font face="Times New Roman">, and <font face="Courier New">[3,3]</font>.</font></blockquote>
@@ -40,7 +40,7 @@ B is (1 3 2 4)
 	<li>Next match: <font face="Courier New">[3,3]</font>. Add that to our best CS so far. Result: <font face="Courier New">[0,0] [1,2] [3,3]</font>. This is a valid CS; keep it.</li>
 </ul>
 Again, we get the right LCS. Looking good! One more example:
-<blockquote dir="ltr" style="margin-right: 0px">
+<blockquote>
 <p dir="ltr"><font face="Courier New">A is (1 2 3 4 5)
 B is (5 2 3 4 1)
 </font>Matches: <font face="Courier New">[0,4]</font>, <font face="Courier New">[1,1]</font>, <font face="Courier New">[2,2]<font face="Times New Roman">, </font><font face="Courier New">[3,3]</font></font>, and <font face="Times New Roman"><font face="Courier New">[4,0]</font>.</font></blockquote>

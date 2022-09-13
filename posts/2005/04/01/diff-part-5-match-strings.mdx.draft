@@ -13,15 +13,15 @@ But it isn't always so. To help make the distinction, I'm going to make up some 
 Why the distinction? Because something can be a match string, and not be a <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">common subsequence</a>. (And if it isn't a common subsequence, it certainly can't be the longest common subsequence.)
 
 Let's illustrate this with a second example. (I'm using a made-up notation which I explain <a href="http://blog.excastle.com/2005/03/31/diff-part-4-matches/">here</a>.)
-<blockquote dir="ltr" style="margin-right: 0px"><font face="Courier New">A is (1 2)
+<blockquote><font face="Courier New">A is (1 2)
 B is (2 1)</font></blockquote>
 Here, again, we have two matches: the element <font face="Courier New">1</font> at <font face="Courier New">[0,1]</font>, and the element <font face="Courier New">2</font> at <font face="Courier New">[1,0]</font>. This gives us four possible match strings:
-<blockquote dir="ltr" style="margin-right: 0px"><font face="Courier New">[0,1]
+<blockquote><font face="Courier New">[0,1]
 [1,0]
 [0,1] [1,0]
 [1,0] [0,1]</font></blockquote>
 So we just pick the longest match string, and that's our LCS, right? Well, no. First, we have to figure out which of these match strings actually qualify as common subsequences. Then we take the longest of those.
-<blockquote dir="ltr" style="margin-right: 0px"><font face="Courier New">[0,1]
+<blockquote><font face="Courier New">[0,1]
 </font>is a valid CS: <font face="Courier New">(1)</font> is a subsequence of both A and B.
 
 <font face="Courier New">[1,0]

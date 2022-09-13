@@ -7,7 +7,7 @@ A recent <a href="http://qc.borland.com/">QualityCentral</a> report (QC# <a href
 
 
 This is wrong, though it's a common mistake. Per the comment I posted to said QC item:
-<blockquote dir="ltr" style="margin-right: 0px">The "..." is called an ellipsis, not an ellipse. And the ellipsis is not intended for every command that brings up a modal dialog (though it's a common mistake to think so).
+<blockquote>The "..." is called an ellipsis, not an ellipse. And the ellipsis is not intended for every command that brings up a modal dialog (though it's a common mistake to think so).
 
 Per Microsoft's UI guidelines:
 

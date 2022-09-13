@@ -8,10 +8,10 @@ sort: 2143
 
 <p>The problem with that algorithm was the linear approach it took. It looked at one <a href="http://blog.excastle.com/2005/03/31/diff-part-4-matches/">match</a> at a time, and after each match, it expected to know the one-and-only longest-yet common subsequence, and be able to ignore everything else.</p>
 <p>And it doesn't work that way. Let's go back to the <a href="http://blog.excastle.com/2005/04/06/diff-part-8-string-em-all-together-2-of-2/">example</a> at the end of the last article:</p>
-<blockquote style="MARGIN-RIGHT: 0px">
+<blockquote>
 <p><font face="Courier New">A is (1 2 3 4 5 6 7)<br/>B is (6 7 3 4 5 1 2)<br/></font>Matches are <font face="Courier New">[0,5]</font>, <font face="Courier New">[1,6]</font>, <font face="Courier New">[2,2]</font>, <font face="Courier New">[3,3]</font>, <font face="Courier New">[4,4]</font>, <font face="Courier New">[5,0]</font>, and <font face="Courier New">[6,1]</font>.</p></blockquote>
 <p>With the above inputs, we want our algorithm to come up with an LCS of <font face="Courier New">[2,2] [3,3] [4,4]</font>. So after it got to the <font face="Courier New">[2,2]</font>, we wanted it somehow to know that it should keep that <font face="Courier New">[2,2]</font> instead of the <font face="Courier New">[0,5] [1,6]</font> it had come up with so far. But what if it had this input instead?</p>
-<blockquote style="MARGIN-RIGHT: 0px">
+<blockquote>
 <p><font face="Courier New">A is (1 2 3)<br/>B is (4 5 3 6 7 1 2)<br/></font>Matches are <font face="Courier New">[0,5]</font>, <font face="Courier New">[1,6]</font>, and <font face="Courier New">[2,2]</font>.</p></blockquote>
 <p>The first three matches are the same, but this time, after it processes the <font face="Courier New">[2,2]</font>, we expect it to somehow know that it should throw the <font face="Courier New">[2,2]</font> away and keep the <font face="Courier New">[0,5] [1,6]</font>, because the latter is our LCS. So with the same inputs, we expect different results. The algorithm, as described so far, doesn't have enough information to make the right decision.</p>
 <p>What it comes down to is, when the algorithm has <font face="Courier New">[0,5] [1,6]</font> in its register, and it sees the <font face="Courier New">[2,2]</font>, there is no reasonable way to decide which one is better. We need an algorithm that will try them both, and see which one yields the longest common subsequence.</p>

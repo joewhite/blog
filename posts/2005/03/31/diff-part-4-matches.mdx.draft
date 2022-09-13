@@ -6,7 +6,7 @@ sort: 2133
 <p>Last time, I talked about <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">Longest Common Subsequence (LCS)</a>, basically a "what's the same between these two lists". So, how do you go about finding the LCS?</p>
 <p>Well, you look for matches. (Note: "match" is my own word for this, and may not correspond with anyone else's terminology.) A match is an element that exists somewhere in list A, and is also somewhere in list B. The LCS is just a bunch of matches strung together.</p>
 <p>So to continue our <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">earlier example</a>, if we have these two lists:</p>
-<blockquote style="MARGIN-RIGHT: 0px">
+<blockquote>
 <p><font face="Courier New">A is (1 2 3)<br/>B is (1 4 5 3)</font></p></blockquote>
 
 
