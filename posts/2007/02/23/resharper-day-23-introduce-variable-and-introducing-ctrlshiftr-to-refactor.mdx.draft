@@ -12,7 +12,7 @@ sort: 2404
 
 <p>Here's an example of what it looks like:</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/RefactorThis.png" width="228" height="259" alt="ReSharper's Refactor This context menu, showing refactorings that are available in the current context" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/RefactorThis.png" width="228" height="259" alt="ReSharper's Refactor This context menu, showing refactorings that are available in the current context" border="1"/></blockquote>
 
 <p>This menu contains other refactoring commands, and some of them have their own keystrokes defined. (They're full-fledged Visual Studio commands, so you can add or change the keymappings.) You may learn some of those other keystrokes, if there are refactorings that you use often. But I really like the low cost of entry. All you need to remember is Ctrl+Shift+R.</p>
 
@@ -20,7 +20,7 @@ sort: 2404
 
 <p>Introduce Variable creates a new local variable, and initializes it to the selected expression. Then it replaces the selected expression with a reference to the new variable.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/IntroduceVariable.png" width="422" height="225" alt="ReSharper's Introduce Variable refactoring dialog, accessed through Ctrl+Shift+R" border="0"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/IntroduceVariable.png" width="422" height="225" alt="ReSharper's Introduce Variable refactoring dialog, accessed through Ctrl+Shift+R" border="0"/></blockquote>
 
 <p>Here's a rundown of the options:</p>
 
@@ -35,7 +35,7 @@ sort: 2404
 
 <p>When you bring up this dialog, if the expression shows up more than once in your method, ReSharper will highlight all the usages in blue. It will also show blue tick marks in the <a href="http://blog.excastle.com/2007/02/02/resharper-day-2-the-color-bar-and-the-green-box/">color bar</a>.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/LeftoverBlue.png" width="328" height="46" alt="A ReSharper 'feature' leaves expressions highlighted in blue even after you cancel out of the Introduce Variable dialog" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/LeftoverBlue.png" width="328" height="46" alt="A ReSharper 'feature' leaves expressions highlighted in blue even after you cancel out of the Introduce Variable dialog" border="1"/></blockquote>
 
 <p>If you Cancel out of the Introduce Variable dialog, the blue highlight doesn't go away, and neither do the blue stripes in the color bar. I reported this as a bug, and they said <a href="http://ubersoft.net/?p=460">nope, not a bug</a>: this is on purpose, so you can look at all the places that expression occurred. This is the first time I've ever heard of using a Cancel button to find usages. (Guys, maybe there should be another button <i>besides</i> OK and Cancel? Maybe a "Show Usages" button?)</p>
 

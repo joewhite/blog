@@ -20,7 +20,7 @@ sort: 2402
 
 <p>Where to put the cursor: At either the open or the close curly brace (either right before it, or right after).</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/OptionalQuickFixes01.png" width="227" height="89" alt="ReSharper's discretionary quick fix for removing unneeded braces in an 'if' statement" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/OptionalQuickFixes01.png" width="227" height="89" alt="ReSharper's discretionary quick fix for removing unneeded braces in an 'if' statement" border="1"/></blockquote>
 
 <h4>Changing visibility</h4>
 
@@ -28,7 +28,7 @@ sort: 2402
 
 <p>Where to put the cursor: Anywhere within the visibility keyword.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/OptionalQuickFixes02.png" width="235" height="100" alt="ReSharper's discretionary quick fixes for changing a member's visibility" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/OptionalQuickFixes02.png" width="235" height="100" alt="ReSharper's discretionary quick fixes for changing a member's visibility" border="1"/></blockquote>
 
 <h4>Split Variable and Assignment</h4>
 
@@ -36,7 +36,7 @@ sort: 2402
 
 <p>Where to put the cursor: over either the variable name, or the '=' sign.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/OptionalQuickFixes03.png" width="262" height="54" alt="ReSharper's discretionary quick fix for splitting a variable declaration from its assignment" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/OptionalQuickFixes03.png" width="262" height="54" alt="ReSharper's discretionary quick fix for splitting a variable declaration from its assignment" border="1"/></blockquote>
 
 <h4>Join Variable and Assignment</h4>
 
@@ -44,11 +44,11 @@ sort: 2402
 
 <p>Where to put the cursor: on the line where the variable is first assigned, over either the variable name or the '=' sign.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/OptionalQuickFixes04.png" width="262" height="75" alt="ReSharper's discretionary quick fix for joining a variable declaration and its first assignment" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/OptionalQuickFixes04.png" width="262" height="75" alt="ReSharper's discretionary quick fix for joining a variable declaration and its first assignment" border="1"/></blockquote>
 
 <p>Here's what it looks like after the transformation. Note that it moved the declaration down to the assignment, rather than moving the assignment up to the declaration, so it's not going to break any ordering dependencies in your code.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/OptionalQuickFixes05.png" width="262" height="29" alt="After using ReSharper's discretionary quick fix to join the variable declaration and its first assignment" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/OptionalQuickFixes05.png" width="262" height="29" alt="After using ReSharper's discretionary quick fix to join the variable declaration and its first assignment" border="1"/></blockquote>
 
 <h4>Invert If</h4>
 
@@ -58,10 +58,10 @@ sort: 2402
 
 <p>Sounds pretty predictable, and I won't give a boring example. But it is a little bit smarter than just inverting the condition and the blocks. Here's an example of why it's my favorite:</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/OptionalQuickFixes06.png" width="306" height="141" alt="An 'if' statement that spans an entire method: code that ReSharper can improve" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/OptionalQuickFixes06.png" width="306" height="141" alt="An 'if' statement that spans an entire method: code that ReSharper can improve" border="1"/></blockquote>
 
 <p>This happens from time to time: an <code>if</code> statement that spans the entire method. Here's what happens after Invert If:</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/OptionalQuickFixes07.png" width="306" height="127" alt="After using ReSharper to invert the full-method 'if'" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/OptionalQuickFixes07.png" width="306" height="127" alt="After using ReSharper to invert the full-method 'if'" border="1"/></blockquote>
 
 <p>It realizes that the <code>if</code> statement is the last thing in the method, so it generates a <code>return</code> to bail out of the method early if there's nothing to do. One less level of indentation on a large block of code, and one less line of code in the method. Cool!</p>

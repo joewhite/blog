@@ -110,19 +110,19 @@ sort: 2477
 
 <p>Start by logging into your <a href="http://www.vzwpix.com/">vzwpix.com</a> account. Once you're logged in, you'll see the "Picture &amp; Video Messaging" page.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/vzwpix1.png" width="350" height="277" alt="Screenshot of the Picture & Video Messaging page you see after logging into vzwpix.com"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/vzwpix1.png" width="350" height="277" alt="Screenshot of the Picture & Video Messaging page you see after logging into vzwpix.com"/></blockquote>
 
 <p>In the bottom center of the page, you'll see a red "Upload Media" button. Click it once. You may have to wait a long time for anything to happen, but if you click it more than once, the site gets confused, so don't do that.</p>
 
 <p>Eventually you'll see this:</p>
 
-<blockquote><img src="http://blog.excastle.com/images/vzwpix2.png" width="350" height="276" alt="Screenshot of the Upload Media box you see after clicking the Upload Media button"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/vzwpix2.png" width="350" height="276" alt="Screenshot of the Upload Media box you see after clicking the Upload Media button"/></blockquote>
 
 <p>Click the top Browse link. Browse to your WAV file and click OK. Then click the red "Upload" button, and wait a bit more.</p>
 
 <p>After the "Upload Media" box closes, you'll see your sound file in the "Uploads" box on the left. In this screenshot, I've uploaded two sound files. Notice that Verizon assigned them nonsense names, which I haven't found a way to change (though I haven't looked too hard).</p>
 
-<blockquote><img src="http://blog.excastle.com/images/vzwpix3.png" width="350" height="276" alt="Screenshot of the Picture & Video Messaging page after uploading sound files"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/vzwpix3.png" width="350" height="276" alt="Screenshot of the Picture & Video Messaging page after uploading sound files"/></blockquote>
 
 <p>Now, on the right side, notice the tall red box with stuff in it. A little over halfway down, there's some white-on-red text that says "Drag audio here".</p>
 
@@ -130,7 +130,7 @@ sort: 2477
 
 <p>If you did it right, you'll now see two tall red boxes. Ignore the second one.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/vzwpix4.png" width="350" height="276" alt="Screenshot of the Picture & Video Messaging page after dragging the sound file to the right side"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/vzwpix4.png" width="350" height="276" alt="Screenshot of the Picture & Video Messaging page after dragging the sound file to the right side"/></blockquote>
 
 <p>The first tall red box will now have a Play button (which for some reason is red, rather than the traditional green) in place of "Drag audio here". You can use this to make sure you got the right audio file (since you can't tell which one you're dragging because of the nonsense names they assigned). If you got the wrong sound file, click the "X" (delete) button just above the tall red boxes, and try again.</p>
 
@@ -138,7 +138,7 @@ sort: 2477
 
 <p>Okay, so you've got two tall red boxes, and the first one has the right sound file in it. You're almost done. Click the red "Preview &amp; Send" button in the lower right.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/vzwpix5.png" width="350" height="276" alt="Screenshot of the Preview and Send screen"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/vzwpix5.png" width="350" height="276" alt="Screenshot of the Preview and Send screen"/></blockquote>
 
 <p>When the "Preview and Send" box opens, a 5-second clip of your sound file will play in your browser. Don't panic! They didn't lose the rest of the file. They <i>have</i> the whole file, it's just that this screen only plays a 5-second clip.</p>
 

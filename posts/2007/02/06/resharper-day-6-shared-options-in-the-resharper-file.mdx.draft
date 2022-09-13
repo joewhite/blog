@@ -12,7 +12,7 @@ sort: 2302
 
 <h4>Shared code-formatting options</h4>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/SharedCodeStyleSettings.png" width="420" height="174" border="1" alt="ReSharper options screen, showing option to store code-style settings in revision control"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/SharedCodeStyleSettings.png" width="420" height="174" border="1" alt="ReSharper options screen, showing option to store code-style settings in revision control"/></blockquote>
 
 <p>As shown in the screenshot above (of ReSharper &gt; Options &gt; Code Style), ReSharper offers three different options for sharing code-formatting options:</p>
 
@@ -34,8 +34,8 @@ sort: 2302
 
 <p>Making your own templates is easy, if a bit quirky. I'll note that it's important to click the "Available everywhere" hyperlink, and tell it that no, it's only available for C# (if you don't do this, it forgets to add a filename extension, and won't format the file properly). Also, if you want special placeholders like <code>$NAMESPACE$</code>, be aware that it doesn't recognize them by name; you have to click "Choose macro" in the "Template variables" grid, and select a macro from the list.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/FileTemplateAvailableEverywhere.png" width="200" height="75" alt="ReSharper's Available Everywhere hyperlink from the Edit Template dialog" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/FileTemplateAvailableEverywhere.png" width="200" height="75" alt="ReSharper's Available Everywhere hyperlink from the Edit Template dialog" border="1"/></blockquote>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/FileTemplateVariables.png" width="400" height="47" alt="ReSharper's Template Variables grid from the Edit Template dialog" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/FileTemplateVariables.png" width="400" height="47" alt="ReSharper's Template Variables grid from the Edit Template dialog" border="1"/></blockquote>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/FileTemplateMacroList.png" width="241" height="253" alt="ReSharper's list of available macros for use in templates" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/FileTemplateMacroList.png" width="241" height="253" alt="ReSharper's list of available macros for use in templates" border="1"/></blockquote>

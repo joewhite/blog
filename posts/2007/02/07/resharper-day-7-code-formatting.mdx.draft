@@ -16,13 +16,13 @@ sort: 2303
 <table cellspacing="8" cellpadding="0" border="0">
 <tr valign="top">
 <td>Starting out with an empty statement.</td>
-<td><img src="http://blog.excastle.com/images/resharper/BraceFormatting1.png" width="100" height="17"></td>
+<td><img src="http://blog.excastle.com/images/resharper/BraceFormatting1.png" width="100" height="17"/></td>
 </tr><tr valign="top">
 <td>Type an open curly brace...</td>
-<td><img src="http://blog.excastle.com/images/resharper/BraceFormatting2.png" width="100" height="17"></td>
+<td><img src="http://blog.excastle.com/images/resharper/BraceFormatting2.png" width="100" height="17"/></td>
 </tr><tr valign="top">
 <td>and press ENTER.</td>
-<td><img src="http://blog.excastle.com/images/resharper/BraceFormatting3.png" width="100" height="45"></td>
+<td><img src="http://blog.excastle.com/images/resharper/BraceFormatting3.png" width="100" height="45"/></td>
 </tr>
 </table>
 </blockquote>
@@ -31,7 +31,7 @@ sort: 2303
 
 <p>ReSharper also has a command to reformat the entire source file you're working on. If you press <b>Ctrl+Alt+F</b>, you'll get the "Reformat Code" dialog box:</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/ReformatCode.png" width="476" height="197" alt="ReSharper's Reformat Code dialog box" border="0"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/ReformatCode.png" width="476" height="197" alt="ReSharper's Reformat Code dialog box" border="0"/></blockquote>
 
 <p>Notice that it can do more than just tweak your whitespace. You can also tell it to fix some of those <a href="http://blog.excastle.com/2007/02/01/resharper-day-1-the-gray-the-red-and-the-squiggly/">grays</a> in your code. <b>Optimize "using" directives"</b> and <b>Remove redundant 'this.' qualifier</b> are pretty self-explanatory. <b>Shorten references</b> will change <code>System.Drawing.Graphics</code> to simply <code>Graphics</code> (adding the necessary <code>using</code> if needed).</p>
 

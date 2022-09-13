@@ -12,13 +12,13 @@ sort: 2398
 
 <p>When there's a problem (<a href="http://blog.excastle.com/2007/02/01/resharper-day-1-the-gray-the-red-and-the-squiggly/">red, gray, or squiggly</a>) that ReSharper knows how to fix, and you put the cursor on the problem code, ReSharper will show a red light bulb next to that line:</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/RedLightBulb.png" width="450" height="50" alt="ReSharper's red light bulb, showing a problem you can fix with Alt+Enter" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/RedLightBulb.png" width="450" height="50" alt="ReSharper's red light bulb, showing a problem you can fix with Alt+Enter" border="1"/></blockquote>
 
 <p>The red lightbulb indicates something that you <i>should</i> fix. There are also yellow lightbulbs, which mean something that you <i>can</i> do, but that's totally at your discretion; I'll cover some of these in future posts.</p>
 
 <p>You can either click the light bulb, or press Alt+Enter. Either way, you'll get a dropdown menu giving you options on how to fix the error.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/RedLightBulbMenu.png" width="450" height="100" alt="ReSharper's Alt+Enter dropdown menu, showing options such as Change All to fix a compiler error" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/RedLightBulbMenu.png" width="450" height="100" alt="ReSharper's Alt+Enter dropdown menu, showing options such as Change All to fix a compiler error" border="1"/></blockquote>
 
 <p><b>Update:</b> The commands in this dropdown menu are referred to as "quick fixes". (I should've mentioned that when I first posted this article.)</p>
 
@@ -30,7 +30,7 @@ sort: 2398
 
 <h4>The suggestion list: mind-reading at work</h4>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/ChangeAllSuggestionList.png" width="450" height="50" alt="The suggestion list from ReSharper's Change All command" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/ChangeAllSuggestionList.png" width="450" height="50" alt="The suggestion list from ReSharper's Change All command" border="1"/></blockquote>
 
 <p>When you select Change All, you'll get a suggestion list. Often there's only one suggestion, and it's <i>exactly</i> the one I want. It's so good it's spooky.</p>
 

@@ -20,7 +20,7 @@ sort: 2401
 
 <p>Suppose you're upgrading code from VS 2003 to VS 2005, and are starting to use generics. So you refactor a utility method to return <code>IList&lt;Foo&gt</code>; instead of <code>IList</code>. But now all the places that called it are broken.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/QuickFixes01.png" width="276" height="100" alt="ReSharper's Quick Fixes for an unmatched return type" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/QuickFixes01.png" width="276" height="100" alt="ReSharper's Quick Fixes for an unmatched return type" border="1"/></blockquote>
 
 <p>Here's one of the call sites that's assigning the method result into an <code>IList</code>. In this example, you would want to select <b>Change type of 'errors' to 'IList&lt;Exception&gt;'</b>. And you can do the same thing at each other call site. Beats re-typing the same return type over and over.</p>
 
@@ -28,7 +28,7 @@ sort: 2401
 
 <p>If you're in the middle of introducing a template method, you might end up with abstract methods in a class, but you haven't marked the class itself as <code>abstract</code> yet.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/QuickFixes02.png" width="276" height="77" alt="ReSharper's Quick Fixes for an abstract method in a non-abstract class" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/QuickFixes02.png" width="276" height="77" alt="ReSharper's Quick Fixes for an abstract method in a non-abstract class" border="1"/></blockquote>
 
 <p>In this example, you just cursor to the <code>abstract</code> keyword, press Alt+Enter, and select <b>Make '<i>ClassName</i>' abstract</b>. Sure, it's not that much typing to just scroll to the class declaration and type <code>abstract</code> there; but the nice thing about this one is that the squiggly shows up right there in the code you're working with, so you don't need to scroll to the top of the file.</p>
 
@@ -36,7 +36,7 @@ sort: 2401
 
 <p>ReSharper can fix variables that are declared but never used, but that's not very interesting. Variables that are one-way &mdash; read but never written, or vice versa &mdash; are a little more interesting. So here's a variable that's assigned in its declaration, but then never gets read:</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/QuickFixes03.png" width="402" height="53" alt="ReSharper's Quick Fixes for a variable that is written, but never read" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/QuickFixes03.png" width="402" height="53" alt="ReSharper's Quick Fixes for a variable that is written, but never read" border="1"/></blockquote>
 
 <p>When it says "assignment(s)", it means it. It will remove any assignment that happens at the declaration, and it will remove <i>any other assignments</i> that happen anywhere else. This is particularly striking when you have a <i>field</i> that's never read; ReSharper will remove every assignment in every method. This can be very handy when you're ripping out code you don't need anymore.</p>
 
@@ -44,7 +44,7 @@ sort: 2401
 
 <h4>Fixing warning: Field is read but never written</h4>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/QuickFixes04.png" width="192" height="54" alt="ReSharper's Quick Fix for a field that is read, but never assigned" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/QuickFixes04.png" width="192" height="54" alt="ReSharper's Quick Fix for a field that is read, but never assigned" border="1"/></blockquote>
 
 <p>This one is cool. You just select <b>Initialize field in constructor(s)</b>, and then you're done. ReSharper automatically adds a new parameter to your constructor and generates the code to assign it.</p>
 
@@ -52,7 +52,7 @@ sort: 2401
 
 <h4><a name="unusedparameter">Fixing warning: Unused parameter</a></h4>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/QuickFixes05.png" width="353" height="54" alt="ReSharper's Quick Fix for an unused parameter" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/QuickFixes05.png" width="353" height="54" alt="ReSharper's Quick Fix for an unused parameter" border="1"/></blockquote>
 
 <p>Yep. When you use ReSharper to remove an unused parameter, it automatically fixes all the call sites to keep the code compilable.</p>
 

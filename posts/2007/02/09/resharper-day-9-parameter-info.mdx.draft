@@ -9,9 +9,9 @@ sort: 2305
 <p>ReSharper's parameter info, accessible via <b>Ctrl+P</b>, shows all the overloads at once, instead of just one like Visual Studio's:</p>
 
 <blockquote>
-<p><img src="http://blog.excastle.com/images/resharper/VisualStudioParameterInfo.png" width="353" height="52" alt="Visual Studio parameter info" border="1"><br>Visual Studio's parameter info</p>
+<p><img src="http://blog.excastle.com/images/resharper/VisualStudioParameterInfo.png" width="353" height="52" alt="Visual Studio parameter info" border="1"/><br/>Visual Studio's parameter info</p>
 
-<p><a href="http://blog.excastle.com/images/resharper/ReSharperParameterInfo.png"><img src="http://blog.excastle.com/images/resharper/ReSharperParameterInfoSmall.png" width="450" height="97" alt="ReSharper parameter info" border="1"><br>ReSharper's parameter info (click to enlarge)</a></p>
+<p><a href="http://blog.excastle.com/images/resharper/ReSharperParameterInfo.png"><img src="http://blog.excastle.com/images/resharper/ReSharperParameterInfoSmall.png" width="450" height="97" alt="ReSharper parameter info" border="1"/><br/>ReSharper's parameter info (click to enlarge)</a></p>
 </blockquote>
 
 <p>If the method you're calling doesn't have any overloads, ReSharper's parameter info is pretty similar to Visual Studio's. But if you ever call overloaded methods (i.e., if you ever use anything in a Microsoft-provided assembly), the new parameter info has several decided advantages:</p>

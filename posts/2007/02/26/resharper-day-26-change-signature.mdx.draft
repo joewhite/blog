@@ -6,7 +6,7 @@ sort: 2407
 
 <p>Ever had three functions that all take the same parameters, but each one in a different order? If so, Change Signature is the feature for you.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/ChangeSignature.png" width="541" height="579" alt="ReSharper's Change Signature dialog box" border="0"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/ChangeSignature.png" width="541" height="579" alt="ReSharper's Change Signature dialog box" border="0"/></blockquote>
 
 <p>ReSharper's <b>Change Signature</b> dialog lets you change anything and everything about a method signature. There are other ReSharper features for changing a method signature in specific ways, such as <a href="http://blog.excastle.com/2007/02/25/resharper-day-25-introduce-parameter/">Introduce Parameter</a>. But this is where you go for stuff there isn't a shortcut for. Here, you can:</p>
 

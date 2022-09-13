@@ -16,37 +16,37 @@ sort: 2300
 <table cellspacing="8" cellpadding="0" border="0">
 <tr valign="top">
 <td>Starting out with an empty statement.</td>
-<td><img src="http://blog.excastle.com/images/resharper/Delimiters1.png" width="210" height="16"></td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters1.png" width="210" height="16"/></td>
 </tr><tr valign="top">
 <td>You type a method name...</td>
-<td><img src="http://blog.excastle.com/images/resharper/Delimiters2.png" width="210" height="16"></td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters2.png" width="210" height="16"/></td>
 </tr><tr valign="top">
 <td>and type "(".</td>
-<td><img src="http://blog.excastle.com/images/resharper/Delimiters3.png" width="210" height="16"></td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters3.png" width="210" height="16"/></td>
 </tr><tr valign="top">
 <td>You type a subexpression...</td>
-<td><img src="http://blog.excastle.com/images/resharper/Delimiters4.png" width="210" height="16"></td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters4.png" width="210" height="16"/></td>
 </tr><tr valign="top">
 <td>and type "(".</td>
-<td><img src="http://blog.excastle.com/images/resharper/Delimiters5.png" width="210" height="16"></td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters5.png" width="210" height="16"/></td>
 </tr><tr valign="top">
 <td>Oops. You meant "[", not "(". Backspace...</td>
-<td><img src="http://blog.excastle.com/images/resharper/Delimiters4.png" width="210" height="16"></td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters4.png" width="210" height="16"/></td>
 </tr><tr valign="top">
 <td>and type "[".</td>
-<td><img src="http://blog.excastle.com/images/resharper/Delimiters6.png" width="210" height="16"></td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters6.png" width="210" height="16"/></td>
 </tr><tr valign="top">
 <td>Once you've typed the parameter...</td>
-<td><img src="http://blog.excastle.com/images/resharper/Delimiters7.png" width="210" height="16"></td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters7.png" width="210" height="16"/></td>
 </tr><tr valign="top">
 <td>you type "]"...</td>
-<td><img src="http://blog.excastle.com/images/resharper/Delimiters8.png" width="210" height="16"></td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters8.png" width="210" height="16"/></td>
 </tr><tr valign="top">
 <td>then you type ")"...</td>
-<td><img src="http://blog.excastle.com/images/resharper/Delimiters9.png" width="210" height="16"></td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters9.png" width="210" height="16"/></td>
 </tr><tr valign="top">
 <td>and then you type ";".</td>
-<td><img src="http://blog.excastle.com/images/resharper/Delimiters10.png" width="210" height="16"></td>
+<td><img src="http://blog.excastle.com/images/resharper/Delimiters10.png" width="210" height="16"/></td>
 </tr>
 </table>
 </blockquote>

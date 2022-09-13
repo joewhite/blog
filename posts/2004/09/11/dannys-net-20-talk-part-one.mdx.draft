@@ -34,7 +34,7 @@ sort: 2024
 <li>Anticipates pushing the envelope
 <li>Better constraint syntax (as opposed to C#'s "where" that looks like SQL)
 <li>.NET lets you, and Delphi will let you, define both TList and TList<t> in the same scope
-<li>C# has a syntax ambiguity that Delphi will not:<br><font face="Courier New">class Boo<t> { ... }<br>void Foo(System.Type x) { ... }<br>void Goo(bool x) { ... }<br>Foo(Boo<int>);<br>Goo(a < b);<br></font>C# has a devil of a time figuring out the difference between the last two lines, because when it's parsing the input, it doesn't know what the tokens mean. Delphi won't have that problem, because it knows that Boo is a class name and a is a local variable: there is no ambiguity.</li></ul>
+<li>C# has a syntax ambiguity that Delphi will not:<br/><font face="Courier New">class Boo<t> { ... }<br/>void Foo(System.Type x) { ... }<br/>void Goo(bool x) { ... }<br/>Foo(Boo<int>);<br/>Goo(a < b);<br/></font>C# has a devil of a time figuring out the difference between the last two lines, because when it's parsing the input, it doesn't know what the tokens mean. Delphi won't have that problem, because it knows that Boo is a class name and a is a local variable: there is no ambiguity.</li></ul>
 <li>Anonymous methods: Evaluating; don't know if Delphi will have
 <li>Same for iterators
 <li>Partial classes:

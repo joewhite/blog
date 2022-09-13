@@ -6,7 +6,7 @@ sort: 2131
 <p>It turns out that it's hard to find out what's different between two lists, but much easier to find out what's the same. So, we start by finding the Longest Common Subsequence (LCS), a much easier problem than diff. Once we've got the LCS, the diffs are easy. So we can throw away our <a href="http://blog.excastle.com/2005/03/29/diff-part-1-a-definition-and-a-stupid-implementation/">stupid diff implementation</a>, and use LCS instead... once we figure out how to do an LCS, anyway.</p>
 <p>But first, <em>what</em> is a Longest Common Subsequence? I'll illustrate with these two lists, A and B:</p>
 <blockquote style="MARGIN-RIGHT: 0px">
-<p><font face="Courier New">A is (1 2 3)<br>B is (1 4 5 3)</font></p></blockquote>
+<p><font face="Courier New">A is (1 2 3)<br/>B is (1 4 5 3)</font></p></blockquote>
 
 
 

@@ -10,7 +10,7 @@ sort: 2489
 
 <table cellspacing="0" cellpadding="6" style="border: 1px solid #999999; background-color: #FFFFFF;">
 <tr>
-<td><img src="http://www.excastle.com/tyler/tyler.gif" width="184" height="136"></td>
+<td><img src="http://www.excastle.com/tyler/tyler.gif" width="184" height="136"/></td>
 <td style="font-size: 80%;">
 <p>This post is the first in my "Tyler" series, which aims to make a tile-based game-development engine in Delphi.</p>
 <ul>
@@ -48,7 +48,7 @@ sort: 2489
 
 <p>Actually, I started on another, similar (but .NET-based) "Tyler" project back in 2003, so I'm really just recycling the name. And I also get to recycle the spiffy logo I made:</p>
 
-<p style="text-align: center"><img src="http://www.excastle.com/tyler/tyler.gif" width="184" height="136"></p>
+<p style="text-align: center"><img src="http://www.excastle.com/tyler/tyler.gif" width="184" height="136"/></p>
 
 <h4>Tune in next time...</h4>
 

@@ -41,7 +41,7 @@ end;</pre></blockquote>
 
 <p>I was curious; I added those methods. Since you can't add fields (e.g. FRefCount) to a class helper, I made _AddRef and _Release both return -1, to indicate that the class wasn't refcounted. Then I wrote some code that called that virtual method, and ran my app.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/CallVirtualClassHelperMethod.png" width="575" height="139" alt='The instruction at "0x004112f5" referenced memory at "0x00000000". The memory could not be "read".'></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/CallVirtualClassHelperMethod.png" width="575" height="139" alt='The instruction at "0x004112f5" referenced memory at "0x00000000". The memory could not be "read".'/></blockquote>
 
 <p>Interesting.</p>
 

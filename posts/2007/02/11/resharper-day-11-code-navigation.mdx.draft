@@ -14,13 +14,13 @@ sort: 2307
 
 <p>Here's an example of the "Navigate from Here" context menu, which you can access with <b>Ctrl+Shift+G</b>:</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/NavigateFromHere.png" width="219" height="157" alt="ReSharper's Navigate From Here targeted context menu" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/NavigateFromHere.png" width="219" height="157" alt="ReSharper's Navigate From Here targeted context menu" border="1"/></blockquote>
 
 <p>Being a context menu, it only shows you the commands that make sense based on the current cursor position. So if you're on a class name, it will show you different options than it would if you were on a method name or a namespace name.</p>
 
 <p>I haven't used all of these options, but my current favorite is <b>Inheritor</b>. When you're in code that's calling a method on an interface, this will show you a list of all the classes that implement that interface method:</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/NavigateToImplementers.png" width="264" height="119" alt="ReSharper's Navigate From Here - Inheritor, when applied to an interface method, shows all the methods that implement that interface method" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/NavigateToImplementers.png" width="264" height="119" alt="ReSharper's Navigate From Here - Inheritor, when applied to an interface method, shows all the methods that implement that interface method" border="1"/></blockquote>
 
 <p>It's even cool enough that if those interface implementations are virtual, it'll include the descendant classes that override that method. First-level overrides (classes that implement the interface) are shown in bold. Second- and later-level overrides (descendants that further override the method) are non-bold.</p>
 
@@ -30,7 +30,7 @@ sort: 2307
 
 <p>ReSharper shows gutter icons next to method declarations that have something to do with the base class (or an implemented interface). So if method Foo overrides a method in the base class, there'll be one sort of icon. If it shadows, there'll be a different icon. If it implements an interface, there's an icon for that too.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/GutterIcons.png" width="264" height="44" alt="ReSharper's gutter icons, showing an interface implementation, an override, and a shadowed method" border="1"><br>
+<blockquote><img src="http://blog.excastle.com/images/resharper/GutterIcons.png" width="264" height="44" alt="ReSharper's gutter icons, showing an interface implementation, an override, and a shadowed method" border="1"/><br/>
 ReSharper's gutter icons. Shown are an interface implementation, an override, and a shadowed method.</blockquote>
 
 
@@ -49,13 +49,13 @@ ReSharper's gutter icons. Shown are an interface implementation, an override, an
 
 <p>ReSharper shows you the old Class Browser, which is klunky and a real pain to use:</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/ClassBrowser.png" width="480" height="164" alt="ReSharper shows you the Class Browser" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/ClassBrowser.png" width="480" height="164" alt="ReSharper shows you the Class Browser" border="1"/></blockquote>
 
 <p>It actually does this for all its code-navigation features, not just Ctrl+click. For example, clicking a gutter icon can also land you in the Class Browser.</p>
 
 <p>Visual Studio 2005, on the other hand, has a nifty new feature to show the class's metadata as code (the "[from metadata]" feature), which replaces the Object Browser in all cases <i>except</i> those relating to ReSharper:</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/FromMetadata.png" width="513" height="237" alt="Visual Studio shows you the metadata as code, in a '[from metadata]' window" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/FromMetadata.png" width="513" height="237" alt="Visual Studio shows you the metadata as code, in a '[from metadata]' window" border="1"/></blockquote>
 
 <p>I think Visual Studio's code view is far superior, for two reasons:</p>
 

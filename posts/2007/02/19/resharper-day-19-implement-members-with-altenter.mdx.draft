@@ -8,7 +8,7 @@ sort: 2400
 
 <p>When you create a new class, and add <code>: IFoo</code> to its declaration, you'll get a red squiggly, because you now have code that won't compile (because there are no methods on your class to satisfy that interface). When you put the cursor on the squiggly code, you'll get a red light bulb, and when you press Alt+Enter, you'll see the <b>Implement members</b> quick-fix.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/ImplementMembersQuickFix.png" width="244" height="54" alt="ReSharper's quick fix for Implement Members" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/ImplementMembersQuickFix.png" width="244" height="54" alt="ReSharper's quick fix for Implement Members" border="1"/></blockquote>
 
 <p>The same thing happens if you have a non-abstract class, but its parent class has abstract methods. But in this case, there's a second quick-fix: <b>Make <i>ClassName</i> abstract</b>, which I'll ignore since it's pretty self-explanatory.</p>
 
@@ -16,7 +16,7 @@ sort: 2400
 
 <h4>The Implement/Override Members wizard</h4>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/ImplementMembersWizard01.png" width="452" height="365" alt="The first page of ReSharper's Implement/Override Members wizard, which lets you select which of the missing members to override" border="0"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/ImplementMembersWizard01.png" width="452" height="365" alt="The first page of ReSharper's Implement/Override Members wizard, which lets you select which of the missing members to override" border="0"/></blockquote>
 
 <p>The first page of the wizard lets you select which members you want to implement. Everything is selected by default. It would be silly to uncheck anything in the list, because then you'd be left with still-unimplemented interface members or abstract members, so your code still wouldn't compile.</p>
 
@@ -24,7 +24,7 @@ sort: 2400
 
 <p>There are three options down below: <b>Copy documentation comments</b>, <b>Explicit interface implementations</b>, and <b>Wrap interface implementations in regions</b>. They're fairly self-explanatory, and I have yet to use any of them, so I won't cover them further. On to the second page.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/ImplementMembersWizard02.png" width="452" height="365" alt="The second page of ReSharper's Implement/Override Members wizard, which lets you select which properties you want to generate backing fields for" border="0"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/ImplementMembersWizard02.png" width="452" height="365" alt="The second page of ReSharper's Implement/Override Members wizard, which lets you select which properties you want to generate backing fields for" border="0"/></blockquote>
 
 <p>The second page is where ReSharper's version becomes much cooler than Visual Studio's, because you can automatically create backing fields for any or all of your properties. It will add the fields (following the naming conventions you've set up in ReSharper Options), and will read and write them from the property getters and setters. Methods, as well as any properties you don't check in this list, will get placeholder code that throws a NotImplementedException.</p>
 

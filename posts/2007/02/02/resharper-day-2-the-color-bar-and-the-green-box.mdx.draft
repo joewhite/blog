@@ -6,9 +6,9 @@ sort: 2297
 
 <p>So I talked about the grays in <a href="http://blog.excastle.com/2007/02/01/resharper-day-1-the-gray-the-red-and-the-squiggly/">day 1</a>. The next thing you'll notice, after you install ReSharper, is the color bar.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/ColorBarGreen.png" width="42" height="100" alt="ReSharper: green box" border="1" hspace="12">
-<img src="http://blog.excastle.com/images/resharper/ColorBarYellow.png" width="42" height="100" alt="ReSharper: green box" border="1" hspace="12">
-<img src="http://blog.excastle.com/images/resharper/ColorBarRed.png" width="42" height="100" alt="ReSharper: green box" border="1" hspace="12"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/ColorBarGreen.png" width="42" height="100" alt="ReSharper: green box" border="1" hspace="12"/>
+<img src="http://blog.excastle.com/images/resharper/ColorBarYellow.png" width="42" height="100" alt="ReSharper: green box" border="1" hspace="12"/>
+<img src="http://blog.excastle.com/images/resharper/ColorBarRed.png" width="42" height="100" alt="ReSharper: green box" border="1" hspace="12"/></blockquote>
 
 <p>Whenever you're editing a source file, a color bar will appear next to the vertical scroll bar. There's a little box at the top, which can be green, yellow, or red. The ReSharper docs refer to this whole assemblage as the "marker bar".</p>
 
@@ -16,7 +16,7 @@ sort: 2297
 
 <p>The little box at the top is there to quickly show you the status of the entire file. If there are any compiler errors (red ticks in the color bar) in this source file, the box is red. If there are no errors, but there are ReSharper warnings (yellow ticks in the color bar), the box is yellow. The object of the game is to make the box green.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/ColorBarHint.png" width="367" height="49" alt="ReSharper: green box" border="1" hspace="12"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/ColorBarHint.png" width="367" height="49" alt="ReSharper: green box" border="1" hspace="12"/></blockquote>
 
 <p>Of course, it doesn't stop at pretty colors. ReSharper is there to help you code, and so it does. You can hover over one of the tick marks to see a hint, describing the problem. You can also click on a tick mark, which will position the cursor on the line of code in question.</p>
 

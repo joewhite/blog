@@ -4,7 +4,7 @@ sort: 2301
 ---
 <p>Welcome to day 5 of my <a href="http://blog.excastle.com/2007/01/31/blog-event-the-31-days-of-resharper/">31 Days of ReSharper</a>, where I introduce you to ReSharper's unit-test runner.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/UnitTestRunner.png" width="458" height="233" alt="ReSharper unit test runner" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/UnitTestRunner.png" width="458" height="233" alt="ReSharper unit test runner" border="1"/></blockquote>
 
 <p>(The <a href="http://www.jetbrains.com/unitrun/">ReSharper test runner</a> is also available for <b>free</b> as a separate download, if you don't want to buy the full-fledged ReSharper.)</p>
 
@@ -35,17 +35,17 @@ sort: 2301
 <li><p><b>Key-bindable.</b> As I noted above, it's terribly easy to bind a single keystroke to mean "build everything, then run all the tests, and show me the results with a red or green bar". So easy.</p></li>
 <li><p><b>Pays attention.</b> When you make code changes and rebuild, all the icons in the tree turn into little question marks, so you can see that you haven't run the tests yet. But they keep their colors, so you can still see which ones passed and failed last time around. Here are screenshots of the "freshly run" (check marks) and "after rebuild" (question marks):</p>
 
-<p><img src="http://blog.excastle.com/images/resharper/UnitTestRunnerCheckMarks.png" width="170" height="50" alt="ReSharper unit test runner, showing check marks and error icons for each test" border="1" hspace="12" vspace="2"><img src="http://blog.excastle.com/images/resharper/UnitTestRunnerQuestionMarks.png" width="170" height="50" alt="ReSharper unit test runner, showing question marks after building and before re-running tests" border="1" hspace="12" vspace="2"></p>
+<p><img src="http://blog.excastle.com/images/resharper/UnitTestRunnerCheckMarks.png" width="170" height="50" alt="ReSharper unit test runner, showing check marks and error icons for each test" border="1" hspace="12" vspace="2"/><img src="http://blog.excastle.com/images/resharper/UnitTestRunnerQuestionMarks.png" width="170" height="50" alt="ReSharper unit test runner, showing question marks after building and before re-running tests" border="1" hspace="12" vspace="2"/></p>
 
 <p>It's even smart enough that, if you build your solution, but you haven't actually modified any code, it won't switch to the question marks. (I love this, because I'm always getting distracted by a conversation or something, and then can't remember whether I just ran the tests or not.)</li>
 
 <li><p><b>Jump to the code.</b> Two nice features here. First, if you double-click on a test in the test tree, the editor shows the code for that test. Secondly, if tests fail, the test results pane puts hyperlinks into the call stack, and clicking one of those hyperlinks will jump to that location in the editor.</p>
 
-<p><img src="http://blog.excastle.com/images/resharper/UnitTestRunnerHyperlinks.png" width="590" height="207" alt="ReSharper unit test runner, showing a test failure message and hyperlinked call stack" border="1" hspace="12"></p></li>
+<p><img src="http://blog.excastle.com/images/resharper/UnitTestRunnerHyperlinks.png" width="590" height="207" alt="ReSharper unit test runner, showing a test failure message and hyperlinked call stack" border="1" hspace="12"/></p></li>
 
 <li><p><b>Gutter icons to run or debug a test.</b> Wherever ReSharper notices a test method, it will show a little green-and-yellow circle in the gutter next to the code. If you click on that circle, you'll get a dropdown menu with, among other things, an option to run that one test under the debugger. So if you want to put a breakpoint in a test and debug just that test, it's easy.</p>
 
-<p><img src="http://blog.excastle.com/images/resharper/UnitTestGutter.png" width="282" height="152" alt="ReSharper gutter icons for running unit tests" border="1" hspace="12"></p></li>
+<p><img src="http://blog.excastle.com/images/resharper/UnitTestGutter.png" width="282" height="152" alt="ReSharper gutter icons for running unit tests" border="1" hspace="12"/></p></li>
 </ul>
 
 <p>Nothing in the ReSharper unit test runner is really groundbreaking, although the "jump to the code" features are pretty nice. It's just that the features are all there, and they're done well. If you do unit testing, give their test runner a try.</p>

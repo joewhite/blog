@@ -6,7 +6,7 @@ sort: 2408
 
 <p>Today's topic is <b>Extract Method</b>, arguably the second most useful refactoring of all time. (Rename, of course, is the first. I'll cover it in a couple of days.)</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/ExtractMethod.png" width="541" height="439" alt="ReSharper's Extract Method dialog box" border="0"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/ExtractMethod.png" width="541" height="439" alt="ReSharper's Extract Method dialog box" border="0"/></blockquote>
 
 <ul>
 <li><p><b>Method name</b> is pretty obvious.</p></li>

@@ -6,7 +6,7 @@ In Delphi, Ctrl+Tab moves forward to the next editor tab. In Visual Studio, Ctrl
 
 It looks like Delphi actually supports something similar to the Visual Studio behavior -- just with a different keystroke. If you press <b>Ctrl+B</b>, Delphi pops up the list of files currently open in the editor, sorted by "most recently focused first" -- and when the dialog opens, the second item in the list is selected.
 
-<img src="http://blog.excastle.com/wp-content/uploads/2008/04/delphibufferlist.png" alt="Delphi's &quot;Buffer List&quot; window" title="Delphi's &quot;Buffer List&quot; window" width="415" height="251">
+<img src="http://blog.excastle.com/wp-content/uploads/2008/04/delphibufferlist.png" alt="Delphi's &quot;Buffer List&quot; window" title="Delphi's &quot;Buffer List&quot; window" width="415" height="251"/>
 
 In the screenshot, my current editor tab is SpriteSpecs.pas. Before that, I was working in Screens.pas, and before that, I had done a Project > View Source to edit Tyler.dpr. That's not the order the tabs are listed above the editor -- Ctrl+B shows them in the order I used them last, just like the Alt+Tab window list or Visual Studio's Ctrl+Tab list. And notice that, when the dialog opens, the second item is selected by default.
 

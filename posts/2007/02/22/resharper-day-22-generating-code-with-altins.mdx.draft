@@ -14,7 +14,7 @@ sort: 2403
 
 <p>Alt+Ins generates code within a class, so if you press Alt+Ins when the cursor isn't inside a class, everything will be grayed out.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/AltInsMenu.png" width="185" height="213" alt="ReSharper's Generate menu, invoked by Alt+Ins" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/AltInsMenu.png" width="185" height="213" alt="ReSharper's Generate menu, invoked by Alt+Ins" border="1"/></blockquote>
 
 <h4>Common features of the Alt+Ins wizards</h4>
 
@@ -22,11 +22,11 @@ sort: 2403
 
 <p>There are two types of lists in these wizard pages: there's the checked list, and the regular list.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/AltInsWizardCheckList.png" width="424" height="45" alt="A checked list from one of ReSharper's Alt+Ins Generate wizards" border="0"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/AltInsWizardCheckList.png" width="424" height="45" alt="A checked list from one of ReSharper's Alt+Ins Generate wizards" border="0"/></blockquote>
 
 <p>The checked list, as seen above, has checkboxes next to each item. It seems to be used when you can select zero or more items (i.e., when "no selection" makes sense).</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/AltInsWizardList.png" width="424" height="45" alt="A (non-checked) list from one of ReSharper's Alt+Ins Generate wizards" border="0"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/AltInsWizardList.png" width="424" height="45" alt="A (non-checked) list from one of ReSharper's Alt+Ins Generate wizards" border="0"/></blockquote>
 
 <p>The regular list has no checkboxes; you make your selection by selecting one or more items in the list. It's a standard multiselect listview, so you can Shift+click and Ctrl+click to select multiple items.</p>
 

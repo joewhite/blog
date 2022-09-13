@@ -6,7 +6,7 @@ sort: 2306
 
 <p>Today's topic is <b>Ctrl+N</b>: Go to Type.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/CtrlN.png" width="436" height="100" alt="ReSharper's Go To Type pop-up" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/CtrlN.png" width="436" height="100" alt="ReSharper's Go To Type pop-up" border="1"/></blockquote>
 
 <p>You press Ctrl+N, and a little window pops up. You type in part or all of a type name, and it shows you a list of matches. Then you select one and press Enter, and it opens that file.</p>
 

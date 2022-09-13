@@ -12,7 +12,7 @@ sort: 2397
 
 <p>As I previously mentioned, <a href="http://blog.excastle.com/2007/02/01/resharper-day-1-the-gray-the-red-and-the-squiggly/">ReSharper shows unrecognized symbols in red</a>. But if a symbol is known to exist in some other namespace that you're not yet <code>using</code>, ReSharper will show something else, too: a hint prompting you to fix the error.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/AltEnterPrompt.png" alt="ReSharper prompting you to press Alt+Enter to import a namespace" width="478" height="32" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/AltEnterPrompt.png" alt="ReSharper prompting you to press Alt+Enter to import a namespace" width="478" height="32" border="1"/></blockquote>
 
 <p>So if you just type <code>PixelOffsetMode</code> into your source file (and you're not already <code>using System.Drawing.Drawing2D</code>), ReSharper will scan all the namespaces, find a class with that name, and ask you if it's got the right one. If you confirm by pressing Alt+Enter, it will add <code>using System.Drawing.Drawing2D</code> to your source file.</p>
 
@@ -23,8 +23,8 @@ sort: 2397
 <li><p><b>Less position-dependent.</b> I'll be talking about other things you can do with Alt+Enter, and usually, they're specific to the code under the cursor. But this particular usage &mdash; adding namespace <code>using</code>s &mdash; doesn't have that requirement: it will work even if the cursor isn't over the red symbol. (If there are multiple red symbols in the file, the one that Alt+Enter will target is whichever one is closest to the cursor position.)</p></li>
 <li><p><b>Not (quite) instant.</b> As with the color-coding, you may sometimes have to wait a second or two after you stop typing, before you can see the hint and hit Alt+Enter. ReSharper has to look at your code and realize that (a) it doesn't recognize this type and (b) the type <i>does</i> exist in another namespace. It only shows the Alt+Enter hint after it's figured this out, and until it does, Alt+Enter won't do a thing. It doesn't take long, but occasionally you'll have to pause to let it do its thing.</p></li>
 <li><p><b>Disambiguation.</b> If the symbol is found in more than one namespace, ReSharper will ask you which one you mean. The hint will say "(multiple choices)", and when you hit Alt+Enter, you'll get to pick the one you want from a list.</p>
-<blockquote><img src="http://blog.excastle.com/images/resharper/AltEnterPromptMultiple.png" width="302" height="32" alt="ReSharper prompting you to press Alt+Enter to import one of multiple interfaces" border="1" hspace="12" vspace="2"><br>
-<img src="http://blog.excastle.com/images/resharper/AltEnterPromptMultipleChoice.png" width="302" height="87" alt="ReSharper's selection menu after pressing Alt+Enter" hspace="12" vspace="2" border="1"></blockquote></li>
+<blockquote><img src="http://blog.excastle.com/images/resharper/AltEnterPromptMultiple.png" width="302" height="32" alt="ReSharper prompting you to press Alt+Enter to import one of multiple interfaces" border="1" hspace="12" vspace="2"/><br/>
+<img src="http://blog.excastle.com/images/resharper/AltEnterPromptMultipleChoice.png" width="302" height="87" alt="ReSharper's selection menu after pressing Alt+Enter" hspace="12" vspace="2" border="1"/></blockquote></li>
 <li><p><b>Depends on references.</b> This shouldn't be a surprise. If you create a new assembly and add a <code>[TestFixture]</code> attribute to a class, ReSharper will show it in red, but won't be able to help you fix it until you right-click on your assembly and Add Reference to NUnit.Framework.dll.</p></li>
 </ul>
 

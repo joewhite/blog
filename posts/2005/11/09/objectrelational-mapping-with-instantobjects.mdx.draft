@@ -92,6 +92,6 @@ sort: 2229
 <li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Getting work done on new features</li></ul></li></ul>
 <p class=MsoNormal style="MARGIN: 0in 0in 0pt">Q&amp;A</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Q: How do you handle inheritance? Base class and descendant classes?<br>A: Single table can host multiple datatypes &#8211; class name is stored in each row.
+<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Q: How do you handle inheritance? Base class and descendant classes?<br/>A: Single table can host multiple datatypes &#8211; class name is stored in each row.
 <li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">If you're coming from a relational background, read Fowler's "Analysis Patterns". (Read it several times &#8211; it'll be pretty scary the first time or two.)</li></ul>
 <p class=MsoNormal style="MARGIN: 0in 0in 0pt"><a href="http://www.instantobjects.org">www.instantobjects.org</a></p>

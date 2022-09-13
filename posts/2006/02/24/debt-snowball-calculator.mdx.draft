@@ -3,7 +3,7 @@ title: "Debt Snowball calculator  #Life  #Programming  #money  #ruby"
 sort: 2267
 ---
 <p>We're finally about to get started on our <a href="http://www.mdmproofing.com/iym/ramsey_debt_snowball.shtml">Debt Snowball</a> for real, and I decided to write a program to help me calculate how long it will take. I'm making it <a href="http://www.excastle.com/misc/debt_snowball.zip">available for free download</a> for anyone who's interested (GPL-licensed). This is still some pretty ugly code; it's just the result of a few hours' hacking. But it works nicely.</p>
-<p><img height=399 hspace=8 src="http://blog.excastle.com/images/DebtSnowballScreenshot.png" width=386 align=right>The screenshot at right shows what the output looks like, using the sample input included with the app. The program allows a decent amount of configuration (everything I needed to project our own debt snowball):</p>
+<p><img height="399" hspace="8" src="http://blog.excastle.com/images/DebtSnowballScreenshot.png" width="386" align="right"/>The screenshot at right shows what the output looks like, using the sample input included with the app. The program allows a decent amount of configuration (everything I needed to project our own debt snowball):</p>
 <ul>
 <li>You give it a list of everyone you owe money to, your balance, your monthly payment, and your interest rate.</li>
 <li>You can tell it you want to spend an extra X dollars every month above your minimum payments.</li>

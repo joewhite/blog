@@ -6,7 +6,7 @@ sort: 2491
 
 <table cellspacing="0" cellpadding="6" style="border: 1px solid #999999; background-color: #FFFFFF;">
 <tr>
-<td><img src="http://www.excastle.com/tyler/tyler.gif" width="184" height="136"></td>
+<td><img src="http://www.excastle.com/tyler/tyler.gif" width="184" height="136"/></td>
 <td style="font-size: 80%;">
 <p>This post is part of my "Tyler" series, which aims to make a tile-based game-development engine in Delphi.</p>
 <ul>

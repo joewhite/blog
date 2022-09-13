@@ -10,7 +10,7 @@ sort: 2304
 
 <p>Ever had a property that's read all over the place, but only set a few places, and you wanted to Find References to just the property setter? Here ya go.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/FindUsagesOfProperty.png" width="511" height="169" alt="ReSharper's Find Results window, showing the filter menu and its options to show only read or write usages" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/FindUsagesOfProperty.png" width="511" height="169" alt="ReSharper's Find Results window, showing the filter menu and its options to show only read or write usages" border="1"/></blockquote>
 
 <p>This also applies to fields: you can find only places where a field is read, or only places where it's written. (Man, if <a href="http://www.aisto.com/roeder/dotnet/">Reflector</a> only had this feature!)</p>
 
@@ -28,11 +28,11 @@ sort: 2304
 
 <p>In Visual Studio, everything was just shown in a list:</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/VisualStudioFindSymbolResults.png" width="532" height="186" alt="Visual Studio's Find Symbol Results window" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/VisualStudioFindSymbolResults.png" width="532" height="186" alt="Visual Studio's Find Symbol Results window" border="1"/></blockquote>
 
 <p>Every entry shows the filename and line number (and column number, as if you cared), so you at least know which class each reference is in. In ReSharper, on the other hand, everything's in a tree:</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/ReSharperFindUsagesCollapsed.png" width="223" height="136" alt="ReSharper's Find Results window, showing search results that are initially collapsed" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/ReSharperFindUsagesCollapsed.png" width="223" height="136" alt="ReSharper's Find Results window, showing search results that are initially collapsed" border="1"/></blockquote>
 
 <p>The tree starts out collapsed <i>every time,</i> so you're always at least one click (Expand All) away from even seeing your results. And if you change the "Group by" setting to "None", in an attempt to get rid of those layers of tree and see your results right away, then you don't get <i>anything</i> telling you which file a result came from: each line will show just the text of the matching line of code, but no filename or line number information.</p>
 

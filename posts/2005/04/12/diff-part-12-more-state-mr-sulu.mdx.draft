@@ -5,7 +5,7 @@ sort: 2146
 <p>The <a href="http://blog.excastle.com/tag/diff/">grand diff saga</a> continues...</p>
 <p>Last time, I showed an <a href="http://blog.excastle.com/2005/04/11/diff-part-11-once-more-with-state/">improved one-pass LCS algorithm</a>. But I mentioned that, once again, this is an algorithm that won't work for all inputs. Here's an example:</p>
 <blockquote style="MARGIN-RIGHT: 0px">
-<p><font face="Courier New">A is (1 2 3 4)<br>B is (1 3 4 2)<br></font>Matches are <font face="Courier New">[0,0]</font>, <font face="Courier New">[1,3]</font>, <font face="Courier New">[2,1]</font>, and <font face="Courier New">[3,2]</font>.</p></blockquote>
+<p><font face="Courier New">A is (1 2 3 4)<br/>B is (1 3 4 2)<br/></font>Matches are <font face="Courier New">[0,0]</font>, <font face="Courier New">[1,3]</font>, <font face="Courier New">[2,1]</font>, and <font face="Courier New">[3,2]</font>.</p></blockquote>
 <p>Let's try our algorithm and see what we get.</p>
 
 

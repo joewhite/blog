@@ -14,7 +14,7 @@ sort: 2299
   <td style="font-size: 0.75em;">Ctrl+/ (Global)</td>
   <td style="font-size: 0.75em;"><span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span></td>
   <td style="font-size: 0.75em;"><b style="color: #7E255B;" title="ReSharper keybinding">Ctrl+D (Global)</b></td>
-  <td style="font-size: 0.75em;">(Global) <span title="Tools.GoToCommandLine">Tools - Go To Command Line</span><br>(Text Editor) <span title="ReSharperAddIn25.LineComment">Line Comment</span></td>
+  <td style="font-size: 0.75em;">(Global) <span title="Tools.GoToCommandLine">Tools - Go To Command Line</span><br/>(Text Editor) <span title="ReSharperAddIn25.LineComment">Line Comment</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+Alt+B (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Breakpoints">Debug - Breakpoints</span></td>
@@ -84,152 +84,152 @@ sort: 2299
   <td style="font-size: 0.75em;">Ctrl+D, A (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Autos">Debug - Autos</span></td>
   <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+V, A (Global)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, Ctrl+A (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Autos">Debug - Autos</span></td>
   <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+V, A (Global)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, B (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Breakpoints">Debug - Breakpoints</span></td>
   <td style="font-size: 0.75em;"><span style="color: #C0C0C0;">(none)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, Ctrl+B (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Breakpoints">Debug - Breakpoints</span></td>
   <td style="font-size: 0.75em;"><span style="color: #C0C0C0;">(none)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, C (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.CallStack">Debug - Call Stack</span></td>
   <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+C (Global)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, Ctrl+C (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.CallStack">Debug - Call Stack</span></td>
   <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+C (Global)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, Ctrl+D (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.ToggleDisassembly">Debug - Toggle Disassembly</span></td>
   <td style="font-size: 0.75em;"><span style="color: #C0C0C0;">(none)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, D (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.ToggleDisassembly">Debug - Toggle Disassembly</span></td>
   <td style="font-size: 0.75em;"><span style="color: #C0C0C0;">(none)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, Ctrl+E (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Exceptions">Debug - Exceptions</span></td>
   <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+E (Global)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, E (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Exceptions">Debug - Exceptions</span></td>
   <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+E (Global)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, Ctrl+I (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Immediate">Debug - Immediate</span></td>
   <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+I (Global)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, I (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Immediate">Debug - Immediate</span></td>
   <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+I (Global)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, Ctrl+L (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Locals">Debug - Locals</span></td>
   <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+V, L (Global)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, L (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Locals">Debug - Locals</span></td>
   <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+V, L (Global)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, Ctrl+M (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Modules">Debug - Modules</span></td>
   <td style="font-size: 0.75em;"><span style="color: #C0C0C0;">(none)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, M (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Modules">Debug - Modules</span></td>
   <td style="font-size: 0.75em;"><span style="color: #C0C0C0;">(none)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, Ctrl+N (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.BreakatFunction">Debug - Breakat Function</span></td>
   <td style="font-size: 0.75em;"><span style="color: #C0C0C0;">(none)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, N (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.BreakatFunction">Debug - Breakat Function</span></td>
   <td style="font-size: 0.75em;"><span style="color: #C0C0C0;">(none)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, Ctrl+P (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Processes">Debug - Processes</span></td>
   <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+Z (Global)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, P (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Processes">Debug - Processes</span></td>
   <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+Z (Global)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, Ctrl+Q (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.QuickWatch">Debug - Quick Watch</span></td>
-  <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+Q (Global)</span><br><span style="color: green;" title="Default Visual Studio keybinding">Shift+F9 (Global)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+Q (Global)</span><br/><span style="color: green;" title="Default Visual Studio keybinding">Shift+F9 (Global)</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, Q (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.QuickWatch">Debug - Quick Watch</span></td>
-  <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+Q (Global)</span><br><span style="color: green;" title="Default Visual Studio keybinding">Shift+F9 (Global)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+Q (Global)</span><br/><span style="color: green;" title="Default Visual Studio keybinding">Shift+F9 (Global)</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, Ctrl+R (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Registers">Debug - Registers</span></td>
   <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+G (Global)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, R (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Registers">Debug - Registers</span></td>
   <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+G (Global)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, Ctrl+T (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Threads">Debug - Threads</span></td>
   <td style="font-size: 0.75em;"><span style="color: #C0C0C0;">(none)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, T (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Threads">Debug - Threads</span></td>
   <td style="font-size: 0.75em;"><span style="color: #C0C0C0;">(none)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, Ctrl+W (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Watch">Debug - Watch</span></td>
   <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+W, 1 (Global)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, W (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Watch">Debug - Watch</span></td>
   <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+W, 1 (Global)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, Ctrl+Y (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Memory1">Debug - Memory1</span></td>
   <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+M, 1 (Global)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+D, Y (Global)</td>
   <td style="font-size: 0.75em;"><span title="Debug.Memory1">Debug - Memory1</span></td>
   <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+Alt+M, 1 (Global)</span></td>
-  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
+  <td style="font-size: 0.75em;">(as Ctrl+D) (Global) <span title="Edit.GoToFindCombo">Edit - Go To Find Combo</span><br/>(as Ctrl+D) (Text Editor) <span title="ReSharperAddIn25.DuplicateText">Duplicate Text</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+Alt+Down Arrow (Global)</td>
   <td style="font-size: 0.75em;"><span title="Window.ShowEzMDIFileList">Window - Show Ez MDIFile List</span></td>
@@ -454,7 +454,7 @@ sort: 2299
   <td style="font-size: 0.75em;">Shift+F6 (Global)</td>
   <td style="font-size: 0.75em;"><span title="Build.BuildSelection">Build - Build Selection</span></td>
   <td style="font-size: 0.75em;"><span style="color: #C0C0C0;">(none)</span></td>
-  <td style="font-size: 0.75em;">(Global) <span title="Window.PreviousSplitPane">Window - Previous Split Pane</span><br>(Text Editor) <span title="ReSharperAddIn25.Rename">Rename</span></td>
+  <td style="font-size: 0.75em;">(Global) <span title="Window.PreviousSplitPane">Window - Previous Split Pane</span><br/>(Text Editor) <span title="ReSharperAddIn25.Rename">Rename</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Alt+F7 (Global)</td>
   <td style="font-size: 0.75em;"><span title="Window.NextToolWindowNav">Window - Next Tool Window Nav</span></td>
@@ -674,7 +674,7 @@ sort: 2299
   <td style="font-size: 0.75em;">Ctrl+Shift+W (Global)</td>
   <td style="font-size: 0.75em;"><span title="Edit.SelectCurrentWord">Edit - Select Current Word</span></td>
   <td style="font-size: 0.75em;"><b style="color: #7E255B;" title="ReSharper keybinding">Ctrl+W (Text Editor)</b></td>
-  <td style="font-size: 0.75em;">(Global) <span title="File.ViewinBrowser">File - Viewin Browser</span><br>(Text Editor) <span title="ReSharperAddIn25.ShrinkSelection">Shrink Selection</span></td>
+  <td style="font-size: 0.75em;">(Global) <span title="File.ViewinBrowser">File - Viewin Browser</span><br/>(Text Editor) <span title="ReSharperAddIn25.ShrinkSelection">Shrink Selection</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+W, A (Global)</td>
   <td style="font-size: 0.75em;"><span title="View.CommandWindow">View - Command Window</span></td>
@@ -708,22 +708,22 @@ sort: 2299
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+W, Ctrl+D (Global)</td>
   <td style="font-size: 0.75em;"><span title="View.CodeDefinitionWindow">View - Code Definition Window</span></td>
-  <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, Ctrl+D (Global)</span><br><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, D (Global)</span></td>
+  <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, Ctrl+D (Global)</span><br/><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, D (Global)</span></td>
   <td style="font-size: 0.75em;">(as Ctrl+W) <span title="ReSharperAddIn25.ExtendSelection">Extend Selection</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+W, D (Global)</td>
   <td style="font-size: 0.75em;"><span title="View.CodeDefinitionWindow">View - Code Definition Window</span></td>
-  <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, Ctrl+D (Global)</span><br><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, D (Global)</span></td>
+  <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, Ctrl+D (Global)</span><br/><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, D (Global)</span></td>
   <td style="font-size: 0.75em;">(as Ctrl+W) <span title="ReSharperAddIn25.ExtendSelection">Extend Selection</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+W, Ctrl+E (Global)</td>
   <td style="font-size: 0.75em;"><span title="View.ErrorList">View - Error List</span></td>
-  <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, Ctrl+E (Global)</span><br><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, E (Global)</span></td>
+  <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, Ctrl+E (Global)</span><br/><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, E (Global)</span></td>
   <td style="font-size: 0.75em;">(as Ctrl+W) <span title="ReSharperAddIn25.ExtendSelection">Extend Selection</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+W, E (Global)</td>
   <td style="font-size: 0.75em;"><span title="View.ErrorList">View - Error List</span></td>
-  <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, Ctrl+E (Global)</span><br><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, E (Global)</span></td>
+  <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, Ctrl+E (Global)</span><br/><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, E (Global)</span></td>
   <td style="font-size: 0.75em;">(as Ctrl+W) <span title="ReSharperAddIn25.ExtendSelection">Extend Selection</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+W, Ctrl+G (Global)</td>
@@ -808,12 +808,12 @@ sort: 2299
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+W, Ctrl+T (Global)</td>
   <td style="font-size: 0.75em;"><span title="View.TaskList">View - Task List</span></td>
-  <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, Ctrl+T (Global)</span><br><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, T (Global)</span></td>
+  <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, Ctrl+T (Global)</span><br/><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, T (Global)</span></td>
   <td style="font-size: 0.75em;">(as Ctrl+W) <span title="ReSharperAddIn25.ExtendSelection">Extend Selection</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+W, T (Global)</td>
   <td style="font-size: 0.75em;"><span title="View.TaskList">View - Task List</span></td>
-  <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, Ctrl+T (Global)</span><br><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, T (Global)</span></td>
+  <td style="font-size: 0.75em;"><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, Ctrl+T (Global)</span><br/><span style="color: green;" title="Default Visual Studio keybinding">Ctrl+\, T (Global)</span></td>
   <td style="font-size: 0.75em;">(as Ctrl+W) <span title="ReSharperAddIn25.ExtendSelection">Extend Selection</span></td>
 </tr><tr valign="top">
   <td style="font-size: 0.75em;">Ctrl+W, Ctrl+U (Global)</td>

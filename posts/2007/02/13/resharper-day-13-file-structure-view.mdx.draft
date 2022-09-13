@@ -6,7 +6,7 @@ sort: 2393
 
 <p>For several versions, Delphi has had a Structure view, which shows your fields and methods and properties in a treeview. ReSharper takes this several steps further with their File Structure view, which is accessible with <b>Ctrl+F11</b>. Not a great shortcut, but then, you'll probably only show the window once and then keep it docked.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/FileStructure.png" width="343" height="221" alt="ReSharper's File Structure view" hspace="12" border="0"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/FileStructure.png" width="343" height="221" alt="ReSharper's File Structure view" hspace="12" border="0"/></blockquote>
 
 <h4>Sorting methods</h4>
 
@@ -14,7 +14,7 @@ sort: 2393
 
 <p>What I <i>do</i> use the File Structure view for is re-ordering. We find life is a lot easier if we keep all our methods alphabetical; but ReSharper doesn't have an option for that, so it's always putting extracted methods in the wrong place. But you can drag and drop in the File Structure window...</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/FileStructureReordering.png" width="343" height="221" alt="ReSharper's File Structure view" hspace="12" border="0"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/FileStructureReordering.png" width="343" height="221" alt="ReSharper's File Structure view" hspace="12" border="0"/></blockquote>
 
 <p>and when you drop the method in the new place, ReSharper will move the method in the Code Editor.</p>
 
@@ -24,7 +24,7 @@ sort: 2393
 
 <p>For those who actually use regions and like them, ReSharper's File Structure view makes them all pretty and collapsible.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/FileStructureRegionExpanded.png" width="295" height="221" alt="ReSharper's File Structure view, showing an expanded region" hspace="12" border="0"><img src="http://blog.excastle.com/images/resharper/FileStructureRegionCollapsed.png" width="295" height="221" alt="ReSharper's File Structure view, showing a collapsed region" hspace="12" border="0"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/FileStructureRegionExpanded.png" width="295" height="221" alt="ReSharper's File Structure view, showing an expanded region" hspace="12" border="0"/><img src="http://blog.excastle.com/images/resharper/FileStructureRegionCollapsed.png" width="295" height="221" alt="ReSharper's File Structure view, showing a collapsed region" hspace="12" border="0"/></blockquote>
 
 
 

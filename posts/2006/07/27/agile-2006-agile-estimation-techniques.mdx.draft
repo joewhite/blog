@@ -2,7 +2,7 @@
 title: "Agile 2006: Agile Estimation Techniques  #Programming  #agile2006  #extreme programming"
 sort: 2352
 ---
-<p>Agile Estimation Techniques<br>Owen Rogers<br>Wednesday morning, first half</p>
+<p>Agile Estimation Techniques<br/>Owen Rogers<br/>Wednesday morning, first half</p>
 <p>Distilling experiences of estimation on agile projects. Specifically estimating stories.</p>
 <ul>
 <li>Mike's session was "fabulous" yesterday.</li>
@@ -12,7 +12,7 @@ sort: 2352
 <li>This session contains statistical jargon, charts with curvy lines, and gross generalizations.</li>
 <li>Worked for me. YMMV.</li>
 <li>If this stuff contradicts what you've heard from other people at ThoughtWorks, don't hold it against them.</li></ul>
-<p>Accuracy: How close to target<br>Precision: How big the target is<br>Decrease precision = increase accuracy. Inverse.<br>So, one way to increase accuracy is to go less graunlar.</p>
+<p>Accuracy: How close to target<br/>Precision: How big the target is<br/>Decrease precision = increase accuracy. Inverse.<br/>So, one way to increase accuracy is to go less graunlar.</p>
 <p>Anatomy of an estimate</p>
 <ul>
 <li>What you know</li>

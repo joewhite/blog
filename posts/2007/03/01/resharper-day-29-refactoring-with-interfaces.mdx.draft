@@ -10,7 +10,7 @@ sort: 2410
 
 <p>Today I'll cover another ReSharper feature that's handy when you're working with interfaces: the "base method" prompt.</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/BaseMethodPrompt.png" width="488" height="119" alt="ReSharper prompt: Method 'Engine.RoomScreen.Update(int)' implements method from interface 'IScreen'. Do you want to rename the base method?" border="0"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/BaseMethodPrompt.png" width="488" height="119" alt="ReSharper prompt: Method 'Engine.RoomScreen.Update(int)' implements method from interface 'IScreen'. Do you want to rename the base method?" border="0"/></blockquote>
 
 <p>If you apply a refactoring &mdash; for example, a rename &mdash; to a method, and that method is there to satisfy an interface, ReSharper will ask if you want to apply that refactoring to the interface instead.</p>
 

@@ -2,7 +2,7 @@
 title: "Agile 2006: Refactoring Databases: Evolutionary Database Design  #Programming  #agile2006  #extreme programming"
 sort: 2355
 ---
-<p>Refactoring Databases: Evolutionary Database Design<br>Scott W. Ambler, IBM<br>Pramod Sadalage, ThoughtWorks</p>
+<p>Refactoring Databases: Evolutionary Database Design<br/>Scott W. Ambler, IBM<br/>Pramod Sadalage, ThoughtWorks</p>
 <p>I was interested to note that our shop already has most of the infrastructure for this. But it had never occurred to me to think of it in terms of ordinary refactoring, i.e., rename = add a new thing that delegates to the old, then migrate stuff, and finally remove the old. Makes it a lot less scary (but does require things like triggers to keep the two fields in sync).</p>
 <p>Okay, enough retrospective introduction. On to the actual notes:</p>
 <p>This stuff works in practice. It is not theory.</p>

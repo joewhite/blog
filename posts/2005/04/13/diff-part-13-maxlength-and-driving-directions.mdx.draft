@@ -5,7 +5,7 @@ sort: 2148
 <p><a href="http://blog.excastle.com/2005/04/12/diff-part-12-more-state-mr-sulu/">Last time</a> in the <a href="http://blog.excastle.com/tag/diff/">diff saga</a>, I showed a <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">Longest Common Subsequence</a> (LCS) algorithm with real promise, but a big weakness: it's O(2<sup><small><i>n</i></small></sup>). Heat death of the universe, etc. We can improve on that.</p>
 <p>Remember that we build longer <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">CS</a>es by starting with shorter ones, and adding stuff onto the end. Suppose we write a new function MaxLength(CS<sub><small>A</small></sub>), which returns the length of the longest CS that starts with CS<sub><small>A</small></sub>. Let's go back to our last example:</p>
 <blockquote style="MARGIN-RIGHT: 0px">
-<p><font face="Courier New">A is (1 2 3 4)<br>B is (1 3 4 2)<br></font>Matches are <font face="Courier New">[0,0]</font>, <font face="Courier New">[1,3]</font>, <font face="Courier New">[2,1]</font>, and <font face="Courier New">[3,2]</font>.</p></blockquote>
+<p><font face="Courier New">A is (1 2 3 4)<br/>B is (1 3 4 2)<br/></font>Matches are <font face="Courier New">[0,0]</font>, <font face="Courier New">[1,3]</font>, <font face="Courier New">[2,1]</font>, and <font face="Courier New">[3,2]</font>.</p></blockquote>
 
 
 

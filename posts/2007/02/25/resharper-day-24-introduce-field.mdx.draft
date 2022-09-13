@@ -8,7 +8,7 @@ sort: 2405
 
 <p>Adding a field is a lot like adding a variable, but there are extra options:</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/IntroduceField.png" width="421" height="396" alt="ReSharper's Introduce Field refactoring dialog, accessed through Ctrl+Shift+R" border="0"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/IntroduceField.png" width="421" height="396" alt="ReSharper's Introduce Field refactoring dialog, accessed through Ctrl+Shift+R" border="0"/></blockquote>
 
 <p>It does the usual <a href="http://blog.excastle.com/2007/02/14/resharper-day-14-suggested-variable-names/">variable name suggestions</a> (which follow the naming conventions you specify in ReSharper Options).</p>
 

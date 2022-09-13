@@ -8,7 +8,7 @@ sort: 2395
 
 <p>If you type a variable declaration, and hit Ctrl+Space...</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/VariableNameSuggestion.png" width="166" height="56" alt="ReSharper suggesting variable names" hspace="12" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/VariableNameSuggestion.png" width="166" height="56" alt="ReSharper suggesting variable names" hspace="12" border="1"/></blockquote>
 
 <p>ReSharper shows an AutoComplete dropdown with suggested names, based on the type name. The dropdown list behaves like any other AutoComplete dropdown, so you can cursor to an item and hit Enter, or you can just type <code>;</code> and it will accept the current selection and type a semicolon.</p>
 
@@ -18,7 +18,7 @@ sort: 2395
 
 <p>You can also type in a prefix before you press Ctrl+Space:</p>
 
-<blockquote><img src="http://blog.excastle.com/images/resharper/VariableNameSuggestionWithPrefix.png" width="202" height="56" alt="ReSharper suggesting variable names after you specify a name prefix" hspace="12" border="1"></blockquote>
+<blockquote><img src="http://blog.excastle.com/images/resharper/VariableNameSuggestionWithPrefix.png" width="202" height="56" alt="ReSharper suggesting variable names after you specify a name prefix" hspace="12" border="1"/></blockquote>
 
 <p>Unfortunately, this has a bug in ReSharper 2.5.1. Notice that the suggestions have turned my prefix into all-lower-case, instead of keeping the camelCase that I had originally typed. (They've <a href="http://www.jetbrains.net/jira/browse/RSRP-35566">created a ticket</a> for the bug.)</p>
 
