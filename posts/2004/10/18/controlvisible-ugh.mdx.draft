@@ -11,11 +11,11 @@ sort: 2069
 <p>At least WinForms gives me a VisibleChanged event that I can hook. So I hook it, and put in a breakpoint. Lo and behold, it does indeed fire when the panels' Visible is mysteriously changing to false. (Oddly enough, it does not fire again when their Visible is mysteriously changing back to true.) I check the stack trace, and among the code on the stack is Control.WmShowWindow.</p>
 <p>That's when it clicks in my head: Aha, that's right. The value you set into Visible is not necessarily the value you get back out.</p>
 <p>The MSDN docs have this to say:</p>
-<blockquote dir=ltr style="MARGIN-RIGHT: 0px">
+<blockquote style="MARGIN-RIGHT: 0px">
 <p>Gets or sets a value indicating whether the control is displayed.</p></blockquote>
-<p dir=ltr>Wow, that's helpful. I can tell you from looking in Reflector, however, that what happens when you read Visible is this: it returns this.Visible && Parent.Visible && Parent.Parent.Visible && Parent.Parent.Parent.Visible && ...</p>
-<p dir=ltr>That's not quite how they implement it, but it makes Visible nearly useless for nearly everything. It certainly makes it useless for what I was using it for, because there are times when it returns random values (i.e., when the window is in the process of being shown, and events are getting fired, but Form.Visible is not yet true so all of its children lie).</p>
-<p dir=ltr>This is not how properties are supposed to work. I want a property to return the value I set into it. Bad WinForms! No biscuit!</p>
-<p dir=ltr>Once again, this is an area where Delphi got it right. You can set TControl.Visible to True, and it will return True, even if it's on a form that's not visible yet. They have a separate property, called Showing, that has the other "is it actually visible all the way up the chain?" behavior, for those rare occasions when that's what you want. This seems much more in keeping with common sense.</p>
-<p dir=ltr>Sigh. Not a big deal, once I identified the problem; I just added a couple more properties to my model object (ExpandDirectoryOptions and ExpandSearchOptions), and used them instead of reading the Visible property. Voila; problem solved.</p>
-<p dir=ltr>Lesson learned: Consider the WinForms Control.Visible property to be write-only.</p>
+<p>Wow, that's helpful. I can tell you from looking in Reflector, however, that what happens when you read Visible is this: it returns this.Visible && Parent.Visible && Parent.Parent.Visible && Parent.Parent.Parent.Visible && ...</p>
+<p>That's not quite how they implement it, but it makes Visible nearly useless for nearly everything. It certainly makes it useless for what I was using it for, because there are times when it returns random values (i.e., when the window is in the process of being shown, and events are getting fired, but Form.Visible is not yet true so all of its children lie).</p>
+<p>This is not how properties are supposed to work. I want a property to return the value I set into it. Bad WinForms! No biscuit!</p>
+<p>Once again, this is an area where Delphi got it right. You can set TControl.Visible to True, and it will return True, even if it's on a form that's not visible yet. They have a separate property, called Showing, that has the other "is it actually visible all the way up the chain?" behavior, for those rare occasions when that's what you want. This seems much more in keeping with common sense.</p>
+<p>Sigh. Not a big deal, once I identified the problem; I just added a couple more properties to my model object (ExpandDirectoryOptions and ExpandSearchOptions), and used them instead of reading the Visible property. Voila; problem solved.</p>
+<p>Lesson learned: Consider the WinForms Control.Visible property to be write-only.</p>

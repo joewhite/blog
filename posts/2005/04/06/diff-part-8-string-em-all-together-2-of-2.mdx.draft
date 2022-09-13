@@ -5,15 +5,15 @@ sort: 2142
 <p>The <a href="http://blog.excastle.com/tag/diff/">diff saga</a> continues...</p>
 <p><a href="http://blog.excastle.com/2005/04/05/diff-part-7-string-em-all-together-1-of-2/">Last time</a>, we took the plunge and tried to write a <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">Longest Common Subsequence (LCS)</a> algorithm without going to the bother of generating all the possible <a href="http://blog.excastle.com/2005/04/01/diff-part-5-match-strings/">match strings</a> first. But we hit a snag when our prototype algorithm failed to get the correct LCS for a particular set of inputs.</p>
 <p>This time, we'll add a refinement that makes that algorithm a little more sophisticated. Let's start by revisiting the input lists:</p>
-<blockquote dir=ltr style="MARGIN-RIGHT: 0px">
+<blockquote style="MARGIN-RIGHT: 0px">
 <p><font face="Courier New">A is (1 2 3 4 5)<br>B is (5 2 3 4 1)<br></font>Matches are <font face="Courier New">[0,4]</font>, <font face="Courier New">[1,1]</font>, <font face="Courier New">[2,2]</font>, <font face="Courier New">[3,3]</font>, and <font face="Courier New">[4,0]</font>.</p></blockquote>
 
 
 
-<p dir=ltr>Now recall that we started with the first match &#8212; <font face="Courier New">[0,4]</font> &#8212; and stuffed it into our "best <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">Common Subsequence (CS)</a> so far" register. Then we came to the second match, and tried to tack it onto the end of our best-yet CS, yielding <font face="Courier New">[0,4] [1,1]</font>. This match string fails our <a href="http://blog.excastle.com/2005/04/02/diff-part-6-match-strings-and-common-subsequences/">rule</a>; it is not a valid CS.</p>
-<p dir=ltr>Last time, we simply threw away the <font face="Courier New">[1,1]</font> and went on to look at the next match, and thus failed to find the real LCS (since the real LCS starts with <font face="Courier New">[1,1]</font>). So this time, let's look a little more closely. Suppose that instead of throwing the <font face="Courier New">[1,1]</font> away, we instead threw the <font face="Courier New">[0,4]</font> away, and put the <font face="Courier New">[1,1]</font> into our best-yet register instead. What would happen? If we were clever enough about it, we'd end up with <font face="Courier New">[1,1] [2,2] [3,3]</font> as our final LCS &#8212; we'd get the right answer.</p>
-<p dir=ltr>Okay, so how do we teach a computer how to make that decision? Let's try this: follow the same reasoning as last time, but this time, if the new match doesn't fit, then instead of throwing the new match away, let's throw away the old match string instead. So:</p>
-<ul dir=ltr>
+<p>Now recall that we started with the first match &#8212; <font face="Courier New">[0,4]</font> &#8212; and stuffed it into our "best <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">Common Subsequence (CS)</a> so far" register. Then we came to the second match, and tried to tack it onto the end of our best-yet CS, yielding <font face="Courier New">[0,4] [1,1]</font>. This match string fails our <a href="http://blog.excastle.com/2005/04/02/diff-part-6-match-strings-and-common-subsequences/">rule</a>; it is not a valid CS.</p>
+<p>Last time, we simply threw away the <font face="Courier New">[1,1]</font> and went on to look at the next match, and thus failed to find the real LCS (since the real LCS starts with <font face="Courier New">[1,1]</font>). So this time, let's look a little more closely. Suppose that instead of throwing the <font face="Courier New">[1,1]</font> away, we instead threw the <font face="Courier New">[0,4]</font> away, and put the <font face="Courier New">[1,1]</font> into our best-yet register instead. What would happen? If we were clever enough about it, we'd end up with <font face="Courier New">[1,1] [2,2] [3,3]</font> as our final LCS &#8212; we'd get the right answer.</p>
+<p>Okay, so how do we teach a computer how to make that decision? Let's try this: follow the same reasoning as last time, but this time, if the new match doesn't fit, then instead of throwing the new match away, let's throw away the old match string instead. So:</p>
+<ul>
 <li>
 <div>First match: <font face="Courier New">[0,4]</font>. This is our best CS so far (since it's our only CS so far).</div></li>
 <li>
@@ -27,20 +27,20 @@ sort: 2142
 <p>What if we change our algorithm to say that longer CSes always take precedence, and that we only use our "throw it away" tactic when it won't result in a shorter CS? That is, what if we do our "toss the old best-yet CS, and put our new match in the 'best-yet' register as a length-1 CS" <em>only</em> if the old CS was also length 1?</p>
 <p>That's kind of a smelly rule &#8212; too highly special-cased for my taste. But it works for this input. Let's run through those steps again, with this tweak in force:</p>
 <ul>
-<li dir=ltr>
+<li>
 <div>First match: <font face="Courier New">[0,4]</font>. This is our best CS so far (since it's our only CS so far).</div></li>
-<li dir=ltr>
+<li>
 <div>Next match: <font face="Courier New">[1,1]</font>. Add that to our best CS so far. Result: <font face="Courier New">[0,4] [1,1]</font>. This isn't a valid CS. Can we replace our old best-yet CS with <font face="Courier New">[1,1]</font> without losing length? Yes, we can, so our new best-yet CS is <font face="Courier New">[1,1]</font>.</div></li>
-<li dir=ltr>
+<li>
 <div>Next match: <font face="Courier New">[2,2]</font>. Add that to our best CS so far. Result: <font face="Courier New">[1,1] [2,2]</font>. This is a valid CS; keep it.</div></li>
-<li dir=ltr>
+<li>
 <div>
 <div>Next match: <font face="Courier New">[3,3]</font>. Add that to our best CS so far. Result: <font face="Courier New">[1,1] [2,2] [3,3]</font>. This is a valid CS; keep it.</div></div></li>
-<li dir=ltr>
+<li>
 <div>
 <div>Next match: <font face="Courier New">[4,0]</font>. Add that to our best CS so far. Result: <font face="Courier New">[1,1] [2,2] [3,3] [4,0]</font>. This isn't a valid CS. Can we replace our old best-yet CS with <font face="Courier New">[4,0]</font> without losing length? No, we can't, so our best-yet CS is still <font face="Courier New">[1,1] [2,2] [3,3]</font>.</div></div></li></ul>
 <p>Victory! But just to make sure, let's take one more example. (My regular readers will, of course, understand this to mean "no, this algorithm doesn't really work in the general case, and I'll tell you why.")</p>
-<blockquote dir=ltr style="MARGIN-RIGHT: 0px">
+<blockquote style="MARGIN-RIGHT: 0px">
 <p><font face="Courier New">A is (1 2 3 4 5 6 7)<br>B is (6 7 3 4 5 1 2)<br></font>Matches are <font face="Courier New">[0,5]</font>, <font face="Courier New">[1,6]</font>, <font face="Courier New">[2,2]</font>, <font face="Courier New">[3,3]</font>, <font face="Courier New">[4,4]</font>, <font face="Courier New">[5,0]</font>, and <font face="Courier New">[6,1]</font>.</p></blockquote>
 <p>Apply the algorithm, and away we go:</p>
 <ul>

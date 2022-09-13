@@ -4,19 +4,19 @@ sort: 2064
 ---
 <p>I've been wondering for a long time what the difference is between these two exceptions. They both seem to mean the exact same thing.</p>
 <p>The docs for NotImplementedException say:</p>
-<blockquote dir=ltr style="MARGIN-RIGHT: 0px">
+<blockquote style="MARGIN-RIGHT: 0px">
 <p>The exception that is thrown when a requested method or operation is not implemented.</p></blockquote>
 <p>Whereas the docs for NotSupportedException say:</p>
-<blockquote dir=ltr style="MARGIN-RIGHT: 0px">
+<blockquote style="MARGIN-RIGHT: 0px">
 <p>The exception that is thrown when an invoked method is not supported, or when there is an attempt to read, seek, or write to a stream that does not support the invoked functionality.</p></blockquote>
 <p>Um, don't "not implemented" and "not supported" kinda go together? Are they saying that there are things that aren't supported, but that they went ahead and implemented anyway? And things that aren't implemented, but are supported? Hey, you missed a couple of cases. Where's the NeitherSupportedNorImplementedException? And obviously we need an exception we can throw if something <em>is</em> both supported and implemented. Gotta cover all the possible combinations. (Permutations? I always get those confused.)</p>
 <p>So when I come upon a situation where I need to throw one of these, I've pretty much always just picked one at random, because I have no clue which one is "right". I mean, it's not like the docs explain it or anything. The notes about Stream are interesting, but there's still nothing much to differentiate the two exceptions &#8212; going just from the descriptions, there's no reason the streams couldn't be throwing NotImplementedException instead.</p>
 <p>Well, I recently talked my boss into ordering a copy of the <a href="http://www.amazon.com/exec/obidos/tg/detail/-/0321154894/qid=1097863277/sr=8-1/ref=sr_8_xs_ap_i1_xgl14/104-1891995-1757549?v=glance&amp;s=books&amp;n=507846">.NET Framework Standard Library Annotated Reference, volume 1</a>, by <a href="http://blogs.msdn.com/brada/">Brad Abrams</a>. The book just arrived today, and I happened to think of this age-old question. So I looked up those two classes.</p>
 <p>Here's the description for NotImplementedException:</p>
-<blockquote dir=ltr style="MARGIN-RIGHT: 0px">
+<blockquote style="MARGIN-RIGHT: 0px">
 <p>A number of the types and constructs, specified elsewhere in this Standard, are not required of CLI implementations that conform only to the Kernel Profile. For example, the floating-point feature set consists of the floating-point data types <font face="Courier New">System.Single</font> and <font face="Courier New">System.Double</font>. If support for these is omitted from an implementation, any attempt to reference a signature that includes the floating-point data types results in an exception of type <font face="Courier New">System.NotImplementedException</font>.</p></blockquote>
 <p>And for NotSupportedException:</p>
-<blockquote dir=ltr style="MARGIN-RIGHT: 0px">
+<blockquote style="MARGIN-RIGHT: 0px">
 <p><font face="Courier New">System.NotSupportedException</font> is thrown when it is never possible for the object to perform the requested operation. A typical scenario is when a base class declares a method that derived classes are required to implement, and the method is invoked on the base class. When a method throws <font face="Courier New">System.NotSupportedException</font> this usually indicates that the derived classes must provide an implementation of the method, and callers must invoke the method on the derived class. For scenarios where it is sometimes possible for the object to perform the requested operation, and the object state determines whether the operation can be performed, see <font face="Courier New">System.InvalidOperationException</font>.</p></blockquote>
 <p>Whoa. <strong>Way</strong> better descriptions. And they point out that there <em>is</em> a difference. NotImplementedException means that the base runtime doesn't implement something (i.e., you wouldn't expect to see it from Microsoft's CLR, unless they do an embedded, more-stripped-down-than-the-Compact-Framework version). It's thrown by the base runtime &#8212; not me. NotSupportedException is the one that means "this class doesn't do that". When I need one of these exceptions (e.g., if I'm writing a class descendant that doesn't support a particular method), NotSupportedException is clearly the one I want.</p>
 <p>I think this book is going to see a lot of use around here!</p>
