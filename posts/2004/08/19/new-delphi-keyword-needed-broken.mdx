@@ -12,7 +12,8 @@ Untyped var parameters (and untyped const parameters) are, unfortunately, just t
 
 So in Delphi 6, you would write code like this:
 
-<pre>procedure DoSomething(AStream: TStream);
+```
+procedure DoSomething(AStream: TStream);
 type
   TArrayOfByte = array of Byte;   // dynamic array, heap-allocated
 var
@@ -24,7 +25,8 @@ begin
   AStream.Read(I, SizeOf(I));     // reads one integer into I
   SetLength(A, 256);
   AStream.Read(A[0], Length(A));  // reads an array of 256 bytes into A
-end;</pre>
+end;
+```
 
 Note the syntax of the third call to <code>Read</code>. Yes, you pass the first element of the array (the place you want to start reading to), not the array itself. If you pass the array itself, Bad Things&trade; happen, because your 256 bytes will overwrite the <code>A</code> variable (which is actually a pointer to the heap-allocated array), thus smashing the reference, and then go on to tromp on the rest of your stack. It doesn't take long before you learn to pass the first element instead. (Now, if the function had taken pointers in the first place...)
 
@@ -44,6 +46,8 @@ But this <em>completely breaks</em> the third Read in the sample code above. You
 
 Which brings me back to my proposal. Instead of marking the two-parameter overloads as <code>platform;</code>, I suggest a new <code>broken;</code> keyword, with a new compiler warning: "Dude, this method is broken. Don't use it."
 
-<pre>procedure Read(var Value: Byte; Length: Integer); overload; broken;</pre>
+```
+procedure Read(var Value: Byte; Length: Integer); overload; broken;
+```
 
 The scary thing is, there are a few places I'd use that directive in my own code.
