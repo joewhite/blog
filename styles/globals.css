@@ -53,6 +53,14 @@ a:visited:hover {
 
 table {
   border-collapse: collapse;
+  background: #b9baa333;
+}
+
+th,
+td {
+  vertical-align: top;
+  border: 0.5px solid #999;
+  padding: 0 0.25rem;
 }
 
 #layout {
