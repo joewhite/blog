@@ -116,6 +116,7 @@ footer a {
 nav.full {
   background: #b9baa3;
   grid-area: nav;
+  overflow: hidden;
   margin-left: var(--container-padding-x);
   margin-right: 1rem;
   margin-bottom: 1rem;
