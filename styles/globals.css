@@ -17,6 +17,18 @@ img {
   height: auto;
 }
 
+del {
+  font-style: italic;
+  color: #ff5555;
+  text-decoration: #ff555580 line-through;
+}
+
+ins {
+  font-weight: bold;
+  color: #00bb00;
+  text-decoration: underline;
+}
+
 a {
   color: #3656c6;
   text-decoration: #3656c640 underline;
@@ -37,6 +49,10 @@ a:visited:hover {
 
 * {
   box-sizing: border-box;
+}
+
+table {
+  border-collapse: collapse;
 }
 
 #layout {

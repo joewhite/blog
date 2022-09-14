@@ -1,0 +1,48 @@
+---
+title: "NDataStore  #Delphi  #borcon2004"
+sort: 2030
+---
+I had a lot of questions, and they answered most of them right away:
+
+* Transactions? Yes, full transaction support including rollback and disaster recovery
+* Client/server? Yes (but also supports local in-process)
+* SQL? Yes (SQL-92)
+
+Here's the rest of my notes:
+
+* Short answer: Yes, this is a real database.
+* ADO.NET and BDP drivers
+* SQL-92 entry-level compliance
+* When running locally, can run in-process (remote is TCP/IP)
+* Transaction support
+  * Log-based, crash recovery, rollback
+  * Row-level locking (plus table locking if you want it)
+  * Support for read-only transactions
+  * High-availability support (automatic and manual failover, incremental backup)
+  * Disaster recovery
+* Stored procs, user-defined functions, triggers are coded in .NET
+  * Direct access to transactional context (you're running in-process on the server)
+* Managed code protects the database kernel
+* Single DB kernel for multiple editions
+  * A lot of vendors prefer to have a "server kernel" and a "micro-kernel" that aren't quite compatible in one way or another
+  * NDataStore doesn't; local, server, and high-reliability server all have the same disk structure, identical protocol, same transactiton management, same SQL, etc.
+* All this in a single, 1.1 MB DLL
+  * That's for ADO.NET. If you want BDP, there are additional DLLs.
+* If you want to do client/server, there's a client assembly available that's even smaller.
+* Performance: Managed code doesn't make it slower.
+  * 64-bit support
+* Licensing: Same as JDataStore ($60/seat for desktop version; $500/server for normal server; $1000/server for high-reliability server)
+* Faster than mySQL in most benchmarks
+  * Note that mySQL does not support disaster recovery (doesn't force writes to flush to disk immediately, so a commit isn't really a commit), and NDataStore is still faster in several benchmarks
+  * Obviously, these are vendor benchmarks, so salt grains are required
+* Single-file data store
+* Zero-admin database: keeps transaction logs only as long as needed (no need to truncate or anything messy like that)
+* Next steps:
+  * Apply for NDataStore field test (drop off a business card, or e-mail ggoldfield at borland dot com)
+  * Will need to sign an NDA, so you may not see me blogging about it :-(
+* Interesting note: They actually maintain a single Java codebase, and run a tool to translate into C# with every build!
+  * 95% of code is shared
+  * Other 5% is .NET platform support (like ADO.NET), and written in C#
+* No Delphi/Win32 client yet, but they've broken ground on this and are evaluating it
+
+Sigh. If only they'd had this on the market a month ago. The folks back home (especially John and Jeff) will know what I mean.
