@@ -7,7 +7,9 @@ Here's the code. This app writes data to a file on a network drive, sets the fil
 The code happens to be written in Delphi, but would apply to any Win32 language. .NET, interestingly enough, appears to contain a workaround for the problem.
 
 That's hint #1, by the way: the bug is not in the code itself; it's in the Windows API. (There's an easy workaround, but you'll never find it by reading <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/fileio/base/setfileattributes.asp">the Windows API docs</a>.)
-<pre>program Project1;
+
+```
+program Project1;
 
 {$APPTYPE CONSOLE}
 {$WARN SYMBOL_PLATFORM OFF}
@@ -50,14 +52,13 @@ begin
 
   WriteLn('Press ENTER to continue');
   ReadLn;
-end.</pre>
-
-
+end.
+```
 
 Hint #2: The results depend not just on your operating system, but on which service packs you have installed.
 
 Hint #3: The results are nondeterministic.
 
-And <a href="http://support.microsoft.com/default.aspx?scid=kb;en-us;826482">here's hint #4</a>.
+And <a href="https://web.archive.org/web/20040806034800/http://support.microsoft.com/default.aspx?scid=kb;en-us;826482">here's hint #4</a>.
 
 To quote my boss: "Those guys."

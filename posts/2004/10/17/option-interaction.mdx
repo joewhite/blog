@@ -9,10 +9,12 @@ sort: 2068
 <ul>
 <li>Whole words</li>
 <ul>
-<li>Strict <em>(only enabled when "Whole words" is checked)</em></li></ul>
+<li>Strict <em>(only enabled when "Whole words" is checked)</em></li>
+</ul>
 <li>Regular expressions</li>
 <li>Loose whitespace</li>
-<li>Ignore case</li></ul>
+<li>Ignore case</li>
+</ul>
 <p>I've got an object that takes the search string you type in, plus these search options, and munges them together to create a Regex object. All the actual searching will be done via this regex. That makes life easier for things like "whole words".</p>
 <p>The transformation is interesting, though not terribly difficult, for the most part. "Ignore case" gets passed to the Regex constructor via the RegexOptions enum. "Loose whitespace" involves transforming any whitespace in the search string into <font face="Courier New">\s+</font>. "Regular expressions" passes the string through <font face="Courier New">Regex.Escape()</font>, and "Whole words" sticks a <font face="Courier New">\b</font> at the beginning of the string, and another <font face="Courier New">\b</font> at the end.</p>
 <p>Actually, my "whole words" is a little smarter than that. <font face="Courier New">\b</font> matches the boundary between a word character (traditionally meaning "alphanumeric or underscore", but extended in Unicode; see Char.IsLetterOrDigit) and a non-word character. That means that if I'm searching for "<font face="Courier New">TFoo =</font>", and the search changes that to "<font face="Courier New">\bTFoo =\b</font>", the regex will only find cases where there's a non-word character (or the beginning of a line), followed by <font face="Courier New">TFoo</font>, a space, an equal sign, and then a word character (to establish the second word boundary). But our coding standards require another space after that equal sign, not a word character, so that regex will never match. (This is a constant source of frustration when I'm using GExperts grep; I periodically get zero search results because I forgot that "whole words" won't work for a particular search.)</p>
