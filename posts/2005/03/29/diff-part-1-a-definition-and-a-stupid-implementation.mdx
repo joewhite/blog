@@ -8,7 +8,7 @@ sort: 2129
 
 <p>If you don't understand anything I babble about here, please, post a comment. Don't be shy. This stuff starts simple, but gets hairy before long. If you're interested in this stuff, then I don't want to lose you in the details. If anything isn't clear, or if you have a question, or a better example, speak up. I don't bite. (Not strangers, anyway.)</p>
 <p>
-<hr id=null>
+<hr/>
 </p>
 <p>Most of what I know about the diff algorithm comes from reverse-engineering the Perl <a href="http://search.cpan.org/~tyemq/Algorithm-Diff-1.1901/lib/Algorithm/Diff.pm">Algorithm::Diff</a> module from <a href="http://www.cpan.org/">CPAN</a>. It's a very Perlesque implementation with a lot of optimizations, but by reading the code, running the unit tests, finding out that the tests didn't exercise major portions of the code, and eventually adding a whole lot of print statements, I eventually managed to puzzle out how the silly thing worked.</p>
 <p>So, let's start at the beginning. What is diff? Well, it's an algorithm that takes two lists (often representing the lines in a text file), and tells you how those lists are different. To be more specific, it results in a list of instructions on how to convert list A into list B. These instructions take the form of "insert" and "delete" instructions. Delete line 42, insert the line "if not Enabled then" at line 87, etc.</p>
