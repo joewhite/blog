@@ -12,7 +12,8 @@ If you've read about C# 2.0 iterators, you've got the basic idea. But coroutines
 
 Which means, for example, that coroutines can use recursion to their heart's content. If I had something like this:
 
-<pre>public class TreeWalker : Coroutine {
+```
+public class TreeWalker : Coroutine {
     private TreeNode _tree;
     public TreeWalker(TreeNode tree) { _tree = tree; }
     protected override Execute() {
@@ -25,11 +26,14 @@ Which means, for example, that coroutines can use recursion to their heart's con
             Walk(tree.Right);
         }
     }
-}</pre>
+}
+```
 
 Here I'm doing a recursive in-order traversal of my binary tree... but the call site doesn't need to deal with the recursion &mdash; or even care that there's recursion going on. The call site would just look something like this:
 
-<pre>foreach (TreeNode node in new TreeWalker(tree)) { ... }</pre>
+```
+foreach (TreeNode node in new TreeWalker(tree)) { ... }
+```
 
 If you've read <a href="http://weblogs.asp.net/oldnewthing/">Raymond Chen</a>'s series of articles on <a href="http://weblogs.asp.net/oldnewthing/archive/2004/12/31/344799.aspx">using fibers to simplify enumerations</a>, this should all sound very familiar; he was basically using fibers to implement coroutines. I did the same thing, but avoiding fibers (more on this later, but read the <a href="http://weblogs.asp.net/oldnewthing/archive/2004/12/31/344799.aspx">dire warnings</a> at the end of Raymond's third article).
 

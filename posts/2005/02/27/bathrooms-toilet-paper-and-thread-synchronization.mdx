@@ -8,5 +8,6 @@ sort: 2118
 <ul>
 <li>If you want to go to the bathroom, and you find out someone already has the bathroom pass, then you stand in the <strong>Hallway</strong> and wait.</li>
 <li>If you get the bathroom pass and go into the bathroom, and discover there's no toilet paper, then you return the pass and go wait in the <strong>Lounge</strong>.</li>
-<li>When the maintenance guy replaces the toilet paper, he dials the P.A. system in the lounge, and announces that he's refilled the toilet paper. Hearing this, everyone leaves the Lounge and returns to the Hallway. (Then the usual precedence takes over: everyone waits for the maintenance guy to leave the bathroom; then one person grabs the pass and goes into the bathroom; everyone else waits for them to leave; etc.)</li></ul>
+<li>When the maintenance guy replaces the toilet paper, he dials the P.A. system in the lounge, and announces that he's refilled the toilet paper. Hearing this, everyone leaves the Lounge and returns to the Hallway. (Then the usual precedence takes over: everyone waits for the maintenance guy to leave the bathroom; then one person grabs the pass and goes into the bathroom; everyone else waits for them to leave; etc.)</li>
+</ul>
 <p>In any case, though, Mike's post does quite well at explaining Thread.Pulse, Thread.PulseAll, and Thread.Wait (a helluva lot better than the example in the documentation, which is such a pitiful attempt at producer/consumer that it has to rely on a thread timeout (!) to tell that the other side is done producing).</p>
