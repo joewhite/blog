@@ -1,0 +1,35 @@
+---
+title: "Diff, part 6: Match strings and common subsequences  #.NET  #Delphi  #diff"
+sort: 2137
+---
+Our sponsor (we have a sponsor?) is proud to bring you the next episode of <a href="http://blog.excastle.com/tag/diff/">Diff for the Complete Goober</a>.
+
+A brief aside before I start: I'm going to start using a couple of funky Unicode characters. If these don't show up properly in your browser of choice, please let me know:
+
+> <NotLT/> should look like &lt; with a slash through it (not less than)\
+> <NotGT/> should look like &gt; with a slash through it (not greater than)
+
+<hr/>
+
+So I've talked about the <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">longest common subsequence (LCS)</a>&nbsp;and its place in the diff algorithm. As I mentioned last time, we build the LCS by stringing <a href="http://blog.excastle.com/2005/03/31/diff-part-4-matches/">matches</a> together. But not every possible <a href="http://blog.excastle.com/2005/04/01/diff-part-5-match-strings/">match string</a> is, in fact, a <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">common subsequence (CS)</a> at all, much less the <em>longest</em> common subsequence.
+
+So the next order of business is making sure we have a rule to separate the commons from the uncommons. Fortunately, this is easy, especially since we're <a href="http://blog.excastle.com/2005/03/31/diff-part-4-matches/">keeping track of the indexes instead of the elements</a>. The rule is just that the A-indexes must be increasing (that is, each match's A-index must be greater than the A-index of the previous match in the string), and so must the B-indexes.
+
+This derives from the definition of a <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">subsequence</a>: its elements must be in the same order as the elements in the original list. If the first match's A-index was, say, 3, and the second match's A-index was 1, then the elements are not in the same order as the original list A (since you've got A[3] first, followed by A[1]); therefore, the match string is not a subsequence of A, at which point it certainly can't be a common subsequence of both A and B.
+
+The explanation is a bit painful, but the rule really is pretty simple. Here are a few examples:
+
+> `[0,0] [1,1] [2,2] [3,3]`\
+> Valid CS: 0 &lt; 1 &lt; 2 &lt; 3.
+
+> `[0,10] [1,11] [2,12] [3,13]`\
+> `[10,0] [11,1] [12,2] [13,3]`\
+> Valid CSes. (Remember that you're only comparing A-indexes to A-indexes and B-indexes to B-indexes. 0 &lt; 1 &lt; 2 &lt; 3 and 10 &lt; 11 &lt; 12 &lt; 13, so we're OK.)
+
+> `[0,0] [10,10] [5,5]`\
+> Not a valid CS: 0 &lt; 10 <NotLT/> 5.
+
+> `[0,0] [1,0]`\
+> Not a valid CS: the A-indexes are OK (0 &lt; 1), but the B-indexes are not (0 <NotLT/> 0).
+
+Pay particular attention to that last one. We'll come back to it later.

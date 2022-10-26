@@ -13,25 +13,27 @@ But it isn't always so. To help make the distinction, I'm going to make up some 
 Why the distinction? Because something can be a match string, and not be a <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">common subsequence</a>. (And if it isn't a common subsequence, it certainly can't be the longest common subsequence.)
 
 Let's illustrate this with a second example. (I'm using a made-up notation which I explain <a href="http://blog.excastle.com/2005/03/31/diff-part-4-matches/">here</a>.)
-<blockquote><font face="Courier New">A is (1 2)
-B is (2 1)</font></blockquote>
-Here, again, we have two matches: the element <font face="Courier New">1</font> at <font face="Courier New">[0,1]</font>, and the element <font face="Courier New">2</font> at <font face="Courier New">[1,0]</font>. This gives us four possible match strings:
-<blockquote><font face="Courier New">[0,1]
-[1,0]
-[0,1] [1,0]
-[1,0] [0,1]</font></blockquote>
+
+> `A is (1 2)`\
+> `B is (2 1)`
+
+Here, again, we have two matches: the element `1` at `[0,1]`, and the element `2` at `[1,0]`. This gives us four possible match strings:
+
+> `[0,1]`\
+> `[1,0]`\
+> `[0,1] [1,0]`\
+> `[1,0] [0,1]`
+
 So we just pick the longest match string, and that's our LCS, right? Well, no. First, we have to figure out which of these match strings actually qualify as common subsequences. Then we take the longest of those.
-<blockquote><font face="Courier New">[0,1]
-</font>is a valid CS: <font face="Courier New">(1)</font> is a subsequence of both A and B.
 
-<font face="Courier New">[1,0]
-</font>is a valid CS: <font face="Courier New">(2)</font> is a subsequence of both A and B.
+> `[0,1]` is a valid CS: `(1)` is a subsequence of both A and B.
 
-<font face="Courier New">[0,1] [1,0]
-</font>is NOT a valid CS: <font face="Courier New">(1 2)</font> is a subsequence of A, but is not a subsequence of B. (Remember that, to be a subsequence, the elements have to occur in the same order they did in the original. <font face="Courier New">1</font> and <font face="Courier New">2</font> do occur in B, but not in that order.)
+> `[1,0]` is a valid CS: `(2)` is a subsequence of both A and B.
 
-<font face="Courier New">[1,0] [0,1]
-</font>is NOT a valid CS: <font face="Courier New">(2 1)</font> is a subsequence of B, but is not a subsequence of A.</blockquote>
-So we only have two valid common subsequences, both of equal length (1). The longest common subsequence, then, is either <font face="Courier New">[0,1]</font> or <font face="Courier New">[1,0]</font>. It doesn't really matter which you pick; they both qualify as "longest". So we end up with a length-1 LCS, which gives us the shortest possible diff: one insertion and one deletion. (This makes sense, actually; if the LCS were length 2, then that would mean both lists are the same, and there are no diffs.)
+> `[0,1] [1,0]` is NOT a valid CS: `(1 2)` is a subsequence of A, but is not a subsequence of B. (Remember that, to be a subsequence, the elements have to occur in the same order they did in the original. `1` and `2` do occur in B, but not in that order.)
+
+> `[1,0] [0,1]` is NOT a valid CS: `(2 1)` is a subsequence of B, but is not a subsequence of A.
+
+So we only have two valid common subsequences, both of equal length (1). The longest common subsequence, then, is either `[0,1]` or `[1,0]`. It doesn't really matter which you pick; they both qualify as "longest". So we end up with a length-1 LCS, which gives us the shortest possible diff: one insertion and one deletion. (This makes sense, actually; if the LCS were length 2, then that would mean both lists are the same, and there are no diffs.)
 
 Next time, I'll outline an algorithm for deciding whether a given match string is a valid common subsequence.

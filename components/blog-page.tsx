@@ -10,6 +10,7 @@ import {BrokenLink} from './mdx/broken-link';
 import {Tab, Tabs} from './mdx/tabs';
 import {ContentCheckBox, ContentRadioButton, If} from './mdx/conditional-content';
 import {Info} from './mdx/alerts';
+import {NotGT, NotLT} from './mdx/chars';
 
 interface PostContentParams {
   post: Post;
@@ -23,6 +24,8 @@ function PostContent({post}: PostContentParams) {
     ContentRadioButton,
     If,
     Info,
+    NotGT,
+    NotLT,
     Tab,
     Tabs,
   };
