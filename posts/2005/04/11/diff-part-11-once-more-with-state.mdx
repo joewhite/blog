@@ -1,0 +1,33 @@
+---
+title: "Diff, part 11: Once more, with state  #.NET  #Delphi  #diff"
+sort: 2145
+---
+
+Continuing in the <a href="http://blog.excastle.com/tag/diff/">diff series</a>:
+
+It's been a long time since Friday, so let's start by reviewing some of the problems with the "<a href="http://blog.excastle.com/2005/04/08/diff-part-10-try-em-all-2-of-2/">try 'em all</a>" approach to <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">LCS</a> that we looked at last time. Here's our sample input again:
+
+> `A is (1 2 3 4 5 6 7)`\
+> `B is (6 7 3 4 5 1 2)`\
+> Matches are `[0,5]`, `[1,6]`, `[2,2]`, `[3,3]`, `[4,4]`, `[5,0]`, and `[6,1]`.
+
+Trying every possible match string will take a ridiculous amount of time, because it wastes its time a couple of different ways:
+
+* Obvious gaps: It tries <a href="http://blog.excastle.com/2005/04/01/diff-part-5-match-strings/">match strings</a> like <font face="Courier New">[2,2] [4,4]</font> and <font face="Courier New">[3,3]</font>. That's bad &mdash; we want something that can recognize patterns a little better, and just try <font face="Courier New">[2,2] [3,3] [4,4]</font> without trying variants with gaps (since there are a <em>lot</em> of variants with gaps).
+* Invalid: It tries match strings like <font face="Courier New">[0,4] [2,2]</font> that aren't going to pass our <a href="http://blog.excastle.com/2005/04/02/diff-part-6-match-strings-and-common-subsequences/">rule</a>. That's not so bad, but it would also try <font face="Courier New">[0,4] [2,2] [3,3]</font>, <font face="Courier New">[0,4] [2,2] [3,3] [4,4]</font>, etc., instead of cutting its losses as soon as it notices that no valid common subsequence will ever contain <font face="Courier New">[0,4] [2,2]</font>.
+
+There are really only three match strings &mdash; out of a possible <a href="http://blog.excastle.com/2005/04/07/diff-part-9-try-em-all-1-of-2/">325</a> (<a href="http://blog.excastle.com/2005/04/08/diff-part-10-try-em-all-2-of-2/">31</a> if we can impose ordering on our matches, though we haven't actually worked out a way to do that yet) &mdash; that make any sense: <font face="Courier New">[0,4] [1,5]</font>; <font face="Courier New">[2,2] [3,3] [4,4]</font>; and <font face="Courier New">[5,0] [6,1]</font>. We want to ignore the other 322 (28) possibilities, and go straight to the good stuff. How do we do that?
+
+Actually, we've gotten pretty close to that already, in our "<a href="http://blog.excastle.com/2005/04/05/diff-part-7-string-em-all-together-1-of-2/">string 'em all together</a>" algorithm. I made a big deal out of how it <a href="http://blog.excastle.com/2005/04/06/diff-part-8-string-em-all-together-2-of-2/">didn't work</a>, but most of that came down to the fact that we only gave it one register; it could only keep track of one "best-yet common subsequence" at a time. If it had a list instead, it would be a pretty decent fit. Let's run through the way it would work.
+
+* We start with the first match, `[0,5]`. That's the only match we've looked at so far, so we have one common subsequence (CS) at this point: `[0,5]`.
+* The next match is `[1,6]`. Can we tack that onto `[0,5]` and still have a valid CS? We would end up with `[0,5] [1,6]`, which passes our <a href="http://blog.excastle.com/2005/04/02/diff-part-6-match-strings-and-common-subsequences/">rule</a>, so yes, we can append it. Our CS is now `[0,5] [1,6]`.
+* Next: `[2,2]`. Can we tack that onto `[0,5] [1,6]` and still have a valid CS? We would end up with `[0,5] [1,6] [2,2]`, which fails our <a href="http://blog.excastle.com/2005/04/02/diff-part-6-match-strings-and-common-subsequences/">rule</a>, so no, we can't append it to our existing CS. But we don't want to throw the `[2,2]` away, so let's add it to our list. Now we have two CSes going: `[0,5] [1,6]` and `[2,2]`.
+* Next: `[3,3]`. Can we tack that onto `[0,5] [1,6]`? No. What about `[2,2]`? Yes. Our CSes are now `[0,5] [1,6]` and `[2,2] [3,3]`.
+* Next: `[4,4]`. Can we tack that onto `[0,5] [1,6]`? No. What about `[2,2] [3,3]`? Yes. Our CSes are now `[0,5] [1,6]` and `[2,2] [3,3] [4,4]`.
+* Next: `[5,0]`. Can we tack that onto `[0,5] [1,6]`? No. What about `[2,2] [3,3] [4,4]`? No, so we'll have to start another CS. Our CSes are now `[0,5] [1,6]`, `[2,2] [3,3] [4,4]`, and `[5,0]`.
+* Next: `[6,1]`. Can we tack that onto `[0,5] [1,6]`? No. What about `[2,2] [3,3] [4,4]`? No. `[5,0]`? Yes. Our CSes are now `[0,5] [1,6]`, `[2,2] [3,3] [4,4]`, and `[5,0] [6,1]`.
+
+Three sensible CSes, and one is longer than the others. So that's our LCS. And it does, in fact, match what we expected.
+
+This still won't quite work for all inputs. I'll refine it a bit more next time.

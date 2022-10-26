@@ -1,0 +1,59 @@
+---
+title: "Diff, part 7: String 'em all together? (1 of 2)  #.NET  #Delphi  #diff"
+sort: 2140
+---
+Continuing the <a href="/tag/diff/">Diff for the Complete Goober</a> series (after a brief hiatus on account of <a href="/2005/04/04/sleep-losing-time/">Deleted Sleep Time</a>):
+
+The core problem of diff is the building of the <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">longest common subsequence</a>, which we accomplish by finding all the <a href="http://blog.excastle.com/2005/03/31/diff-part-4-matches/">matches</a> in the two lists, then assembling <a href="http://blog.excastle.com/2005/04/01/diff-part-5-match-strings/">match strings</a> that match our <a href="http://blog.excastle.com/2005/04/02/diff-part-6-match-strings-and-common-subsequences/">rule</a> (which filters out the match strings that are not <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">common subsequences</a>).
+
+Does it have to be that complicated? Let's just try it. Say we have these two lists:
+
+> `A is (1 2 3 4)`\
+> `B is (1 3 4)`\
+> Matches: `[0,0]`, `[2,1]`, and `[3,2]`.
+
+Do we really need to go through all the rigamarole? You can build a match string out of all three matches in their original order, and it'll be a common subsequence &mdash; and at length 3, it'll be the longest common subsequence. So our LCS has to be `[0,0] [2,1] [3,2]`.
+
+Well, that was easy. Grab all the matches, put them together, and there's the LCS. It can't be that easy, can it? Well... no, actually, it can't:
+
+> `A is (1 2 3)`\
+> `B is (1 3 2)`\
+> Matches: `[0,0]`, `[1,2]`, and `[2,1]`.
+
+If we try stringing these all together, we get `[0,0] [1,2] [2,1]`, which isn't a valid common subsequence. In this case, the real LCS is going to be length 2: either `[0,0] [1,2]` or `[0,0] [2,1]`; take your pick.
+
+Can we adapt our simple "string 'em all together" strategy to work with these inputs? Well, we could start with `[0,0]`, and keep adding matches on, as long as the result is still a valid CS; and just throw away any matches that we can't append to our longest-running-common-subsequence. Let's try that.
+
+* First match: `[0,0]`. This gives us a length-1 match string that is a valid CS. (Actually, any length-1 match string will always be a valid CS.)
+* Next match: `[1,2]`. Add that to our best CS so far. Result: `[0,0] [1,2]`. This is a valid CS; keep it.
+* Next match: `[2,1]`. Add that to our best CS so far. Result: `[0,0] [1,2] [2,1]`. This is not a valid CS; throw it out. Our best CS so far is still `[0,0] [1,2]`.
+
+That looks promising, doesn't it? Let's try it with a slightly different input:
+
+> `A is (1 2 3 4)`\
+> `B is (1 3 2 4)`\
+> Matches: `[0,0]`, `[1,2]`, `[2,1]`, and `[3,3]`.
+
+The lists are the same as above, but with one more match. So we do the same thing as above, but with one more step at the end:
+
+* Next match: `[3,3]`. Add that to our best CS so far. Result: `[0,0] [1,2] [3,3]`. This is a valid CS; keep it.
+
+Again, we get the right LCS. Looking good! One more example:
+
+> `A is (1 2 3 4 5)`\
+> `B is (5 2 3 4 1)`\
+> Matches: `[0,4]`, `[1,1]`, `[2,2]`, `[3,3]`, and `[4,0]`.
+
+Steps:
+
+* First match: `[0,4]`. This gives us a length-1 match string that is a valid CS.
+* Next match: `[1,1]`. Add that to our best CS so far. Result: `[0,4] [1,1]`. This is not a valid CS; throw it out. Our best CS so far is still `[0,4]`.
+* Next match: `[2,2]`. Add that to our best CS so far. Result: `[0,4] [2,2]`. This is not a valid CS; throw it out. Our best CS so far is still `[0,4]`.
+* Next match: `[3,3]`. Add that to our best CS so far. Result: `[0,4] [3,3]`. This is not a valid CS; throw it out. Our best CS so far is still `[0,4]`.
+* Next match: `[4,0]`. Add that to our best CS so far. Result: `[0,4] [4,0]`. This is not a valid CS; throw it out. Our best CS so far is still `[0,4]`.
+
+So our modified "string 'em all together" algorithm gives us an LCS of [0,4]. But wait &mdash; that's not right. There are three matches right in a row, in the middle of the inputs. The LCS should be [1,1] [2,2] [3,3]. What does that mean?
+
+Well, it means that our algorithm isn't right yet. Next time, I'll add a refinement that would make it work for all these inputs.
+
+(Notice, though, that I said <em>these</em> inputs. I've still got several more articles to go.)

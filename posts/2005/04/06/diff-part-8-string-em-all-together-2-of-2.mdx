@@ -1,0 +1,58 @@
+---
+title: "Diff, part 8: String 'em all together? (2 of 2)  #.NET  #Delphi  #diff"
+sort: 2142
+---
+
+The <a href="/tag/diff/">diff saga</a> continues...
+
+<a href="/2005/04/05/diff-part-7-string-em-all-together-1-of-2/">Last time</a>, we took the plunge and tried to write a <a href="/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">Longest Common Subsequence (LCS)</a> algorithm without going to the bother of generating all the possible <a href="/2005/04/01/diff-part-5-match-strings/">match strings</a> first. But we hit a snag when our prototype algorithm failed to get the correct LCS for a particular set of inputs.
+
+This time, we'll add a refinement that makes that algorithm a little more sophisticated. Let's start by revisiting the input lists:
+
+> `A is (1 2 3 4 5)`\
+> `B is (5 2 3 4 1)`\
+> Matches are `[0,4]`, `[1,1]`, `[2,2]`, `[3,3]`, and `[4,0]`.
+
+Now recall that we started with the first match &#8212; `[0,4]` &#8212; and stuffed it into our "best <a href="/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">Common Subsequence (CS)</a> so far" register. Then we came to the second match, and tried to tack it onto the end of our best-yet CS, yielding `[0,4] [1,1]`. This match string fails our <a href="/2005/04/02/diff-part-6-match-strings-and-common-subsequences/">rule</a>; it is not a valid CS.
+
+Last time, we simply threw away the `[1,1]` and went on to look at the next match, and thus failed to find the real LCS (since the real LCS starts with `[1,1]`). So this time, let's look a little more closely. Suppose that instead of throwing the `[1,1]` away, we instead threw the `[0,4]` away, and put the `[1,1]` into our best-yet register instead. What would happen? If we were clever enough about it, we'd end up with `[1,1] [2,2] [3,3]` as our final LCS &#8212; we'd get the right answer.
+
+Okay, so how do we teach a computer how to make that decision? Let's try this: follow the same reasoning as last time, but this time, if the new match doesn't fit, then instead of throwing the new match away, let's throw away the old match string instead. So:
+
+* First match: `[0,4]`. This is our best CS so far (since it's our only CS so far).
+* Next match: `[1,1]`. Add that to our best CS so far. Result: `[0,4] [1,1]`. This isn't a valid CS, so we throw away our old best-yet CS and replace it with `[1,1]`.
+
+So far, so good. We can tell, just by visual inspection, that the LCS is `[1,1] [2,2] [3,3]`. This latest algorithm, so far, has us on the right track to get there. Let's continue:
+
+* Next match: `[2,2]`. Add that to our best CS so far. Result: `[1,1] [2,2]`. This is a valid CS; keep it.
+* Next match: `[3,3]`. Add that to our best CS so far. Result: `[1,1] [2,2] [3,3]`. This is a valid CS; keep it. Looking good!
+* Next match: `[4,0]`. Add that to our best CS so far. Result: `[1,1] [2,2] [3,3] [4,0]`. This isn't a valid CS, so we... uh-oh... throw away our old best-yet CS and replace it with `[4,0]`.
+
+Okay, that's not it either. We had it &#8212; we had the right LCS &#8212; and then our algorithm threw away a length-3 in favor of a length-1. That's not right! We shouldn't be throwing away longer CSes and starting over at 1, not when the whole point is to get the longest CS possible. But the rule that made it possible for us to keep the `[1,1]` also forced us to throw away the `[1,1] [2,2] [3,3]`.
+
+What if we change our algorithm to say that longer CSes always take precedence, and that we only use our "throw it away" tactic when it won't result in a shorter CS? That is, what if we do our "toss the old best-yet CS, and put our new match in the 'best-yet' register as a length-1 CS" <em>only</em> if the old CS was also length 1?
+
+That's kind of a smelly rule &#8212; too highly special-cased for my taste. But it works for this input. Let's run through those steps again, with this tweak in force:
+
+* First match: `[0,4]`. This is our best CS so far (since it's our only CS so far).
+* Next match: `[1,1]`. Add that to our best CS so far. Result: `[0,4] [1,1]`. This isn't a valid CS. Can we replace our old best-yet CS with `[1,1]` without losing length? Yes, we can, so our new best-yet CS is `[1,1]`.
+* Next match: `[2,2]`. Add that to our best CS so far. Result: `[1,1] [2,2]`. This is a valid CS; keep it.
+* Next match: `[3,3]`. Add that to our best CS so far. Result: `[1,1] [2,2] [3,3]`. This is a valid CS; keep it.
+* Next match: `[4,0]`. Add that to our best CS so far. Result: `[1,1] [2,2] [3,3] [4,0]`. This isn't a valid CS. Can we replace our old best-yet CS with `[4,0]` without losing length? No, we can't, so our best-yet CS is still `[1,1] [2,2] [3,3]`.
+
+Victory! But just to make sure, let's take one more example. (My regular readers will, of course, understand this to mean "no, this algorithm doesn't really work in the general case, and I'll tell you why.")
+
+> `A is (1 2 3 4 5 6 7)`\
+> `B is (6 7 3 4 5 1 2)`\
+> Matches are `[0,5]`, `[1,6]`, `[2,2]`, `[3,3]`, `[4,4]`, `[5,0]`, and `[6,1]`.
+
+Apply the algorithm, and away we go:
+
+* Start with `[0,5]`.
+* Can we append `[1,6]` and still have a valid CS? Yep. We now have `[0,5] [1,6]`.
+* Can we append `[2,2]` and still have a valid CS? No. Can we make `[2,2]` our "best yet" without losing length? No. We still have `[0,5] [1,6]`.
+* `[3,3]`, `[4,4]`, `[5,0]`, and `[6,1]`: Same as `[2,2]`. We still end up with `[0,5] [1,6]`.
+
+Close, but no <a href="http://catb.org/~esr/jargon/html/O/one-banana-problem.html">banana</a>: we end up with a length-2 CS when the real LCS should have been `[2,2] [3,3] [4,4]`. We went down the wrong path, and were unable to correct later.
+
+Is there a way to tweak this algorithm still more, to make it work all the time? The answer is, not without changing some of the basic structure of the algorithm. The "string 'em all together" approach is fundamentally too limited to deal with the LCS problem, and I'll go into that in more depth next time. However, we did try some interesting things, like throwing away one CS in favor of another of the same length, that will be useful later on.

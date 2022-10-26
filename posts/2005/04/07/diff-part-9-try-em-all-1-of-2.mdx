@@ -1,0 +1,45 @@
+---
+title: "Diff, part 9: Try 'em all? (1 of 2)  #.NET  #Delphi  #diff"
+sort: 2143
+---
+
+So in the <a href="http://blog.excastle.com/2005/04/05/diff-part-7-string-em-all-together-1-of-2/">last</a> <a href="http://blog.excastle.com/2005/04/06/diff-part-8-string-em-all-together-2-of-2/">couple</a> of <a href="http://blog.excastle.com/tag/diff/">diff articles</a>, I've made a wild stab at a <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">Longest Common Subsequence</a> (LCS) algorithm. Unfortunately, it didn't work all the time, which makes it pretty silly as an algorithm.
+
+The problem with that algorithm was the linear approach it took. It looked at one <a href="http://blog.excastle.com/2005/03/31/diff-part-4-matches/">match</a> at a time, and after each match, it expected to know the one-and-only longest-yet common subsequence, and be able to ignore everything else.
+
+And it doesn't work that way. Let's go back to the <a href="http://blog.excastle.com/2005/04/06/diff-part-8-string-em-all-together-2-of-2/">example</a> at the end of the last article:
+
+> `A is (1 2 3 4 5 6 7)`\
+> `B is (6 7 3 4 5 1 2)`\
+> Matches are `[0,5]`, `[1,6]`, `[2,2]`, `[3,3]`, `[4,4]`, `[5,0]`, and `[6,1]`.
+
+With the above inputs, we want our algorithm to come up with an LCS of `[2,2] [3,3] [4,4]`. So after it got to the `[2,2]`, we wanted it somehow to know that it should keep that `[2,2]` instead of the `[0,5] [1,6]` it had come up with so far. But what if it had this input instead?
+
+> `A is (1 2 3)`\
+> `B is (4 5 3 6 7 1 2)`\
+> Matches are `[0,5]`, `[1,6]`, and `[2,2]`.
+
+The first three matches are the same, but this time, after it processes the `[2,2]`, we expect it to somehow know that it should throw the `[2,2]` away and keep the `[0,5] [1,6]`, because the latter is our LCS. So with the same inputs, we expect different results. The algorithm, as described so far, doesn't have enough information to make the right decision.
+
+What it comes down to is, when the algorithm has `[0,5] [1,6]` in its register, and it sees the `[2,2]`, there is no reasonable way to decide which one is better. We need an algorithm that will try them both, and see which one yields the longest common subsequence.
+
+Well, does that mean we're back to generating <a href="http://blog.excastle.com/2005/04/01/diff-part-5-match-strings/">all possible match strings</a>? Here I'll take a page from Raymond Chen's book, and ask, "<a href="http://blogs.msdn.com/oldnewthing/archive/2005/02/15/372995.aspx">What would the world be like</a> if we <em>did</em> try all the possible match strings?"
+
+If we try all the possible combinations (permutations? someday I'm going to have to figure out the difference) of 3 matches &#8212; let's call them match `a`, match `b`, and match `c` &#8212; we'll end up with 15 match strings:
+
+* 3 match strings of length 1: `a`, `b`, `c`.
+* 6 match strings of length 2: `ab`, `ac`, `ba`, `bc`, `ca`, `cb`.
+* 6 match strings of length 3: `abc`, `acb`, `bac`, `bca`, `cab`, `cba`.
+
+I won't spend a lot of time on the math, but this is 3 + 3\*2 + 3\*2\*1 total match strings. With 4 matches, we would have 4 + 4\*3 + 4\*3\*2 + 4\*3\*2\*1 total match strings. With N matches, we would have N + (N)(N-1) + (N)(N-1)(N-2) + ... + (N)(N-1)(N-2)...(2)(1). Here are the actual numbers:
+
+* 3 matches: 15 match strings
+* 4 matches: 64 match strings
+* 5 matches: 325 match strings
+* 6 matches: 1,956 match strings
+* 10 matches: 9,864,100 match strings
+* 20 matches: way too damn many match strings
+
+We're looking at a super-exponential progression. That's right: worse than 2<sup><small><i>n</i></small></sup>. So if we had to start by building all the possible match strings, then a diff of two 1000-line files would take longer &#8212; <em>much</em> longer &#8212; than cracking a 1000-bit symmetric encryption key by brute force. (As far as I know, 128-bit keys are still considered uncrackable, and <em>each</em> additional bit <em>doubles</em> the cracking time.) And when it finished, sometime after the heat death of the universe, you really wouldn't still care about the diff results anyway.
+
+I'd say there's a strong possibility that there's a more efficient way to do it.
