@@ -2,241 +2,241 @@
 title: "MSF for Agile Software Development  #Delphi  #borcon2005  #extreme programming"
 sort: 2233
 ---
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">MSF for Agile Software Development</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Granville Miller (aka <a href="http://blogs.msdn.com/randymiller">Randy Miller</a>)</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><o:p>&nbsp;</o:p></p>
+<p>MSF for Agile Software Development</p>
+<p>Granville Miller (aka <a href="http://blogs.msdn.com/randymiller">Randy Miller</a>)</p>
+<p><?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><o:p>&nbsp;</o:p></p>
 
 
 
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">MSF is an agile software process that reflects some of the practices used within Microsoft.</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>&nbsp;</o:p></p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Agenda</p>
+<p>MSF is an agile software process that reflects some of the practices used within Microsoft.</p>
+<p><o:p>&nbsp;</o:p></p>
+<p>Agenda</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Agile Software Development
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Team Model
+<li>Agile Software Development
+<li>Team Model
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Team model is the most critical piece of the agile software development process. If you know it, you can answer 90% of the questions.</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Personas/Scenarios
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">The "Agile" Pattern
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Shadow Applications
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Incremental Threat Modeling
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Context-Driven Testing
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Risk</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Randy usually gives people about a day's worth of presentation on this stuff, and we're trying to cover it in an hour, so this will be much abbreviated. There's much more info available on Microsoft's Web site (see link, below).</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>&nbsp;</o:p></p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Project Success is Rare</p>
+<li>Team model is the most critical piece of the agile software development process. If you know it, you can answer 90% of the questions.</li></ul>
+<li>Personas/Scenarios
+<li>The "Agile" Pattern
+<li>Shadow Applications
+<li>Incremental Threat Modeling
+<li>Context-Driven Testing
+<li>Risk</li></ul>
+<p>Randy usually gives people about a day's worth of presentation on this stuff, and we're trying to cover it in an hour, so this will be much abbreviated. There's much more info available on Microsoft's Web site (see link, below).</p>
+<p><o:p>&nbsp;</o:p></p>
+<p>Project Success is Rare</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">2004: 15% failed, 51% challenged, 34% succeeded
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">2000: 23% failed, 49% challenged, 28% succeeded
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">1995: 40% failed, 33% challenged, 27% succeeded
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">1994: 31% failed, 53% challenged, 16% succeeded
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">The good news: State is Improving
+<li>2004: 15% failed, 51% challenged, 34% succeeded
+<li>2000: 23% failed, 49% challenged, 28% succeeded
+<li>1995: 40% failed, 33% challenged, 27% succeeded
+<li>1994: 31% failed, 53% challenged, 16% succeeded
+<li>The good news: State is Improving
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Small Releases
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Increased Customer Involvement
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">You'd think success would depend on some new server technology or something, but customer involvement seems more important</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Agile Manifesto
+<li>Small Releases
+<li>Increased Customer Involvement
+<li>You'd think success would depend on some new server technology or something, but customer involvement seems more important</li></ul>
+<li>Agile Manifesto
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Working software over comprehensive documentation
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Customer collaboration over contract negotiation</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">An agile method is
+<li>Working software over comprehensive documentation
+<li>Customer collaboration over contract negotiation</li></ul>
+<li>An agile method is
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Iterative
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Incremental
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Self-organizing and
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Emergent.
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">It must include the attributes; otherwise it is a "lightened defined process".</li></ul></li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Activities in MSF</p>
+<li>Iterative
+<li>Incremental
+<li>Self-organizing and
+<li>Emergent.
+<li>It must include the attributes; otherwise it is a "lightened defined process".</li></ul></li></ul>
+<p>Activities in MSF</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">There are more roles than just customer and developer. There are architects, testers, etc., who add value.
+<li>There are more roles than just customer and developer. There are architects, testers, etc., who add value.
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">More roles -&gt; communication complexity increases.</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Composed of 14 basic work streams
+<li>More roles -&gt; communication complexity increases.</li></ul>
+<li>Composed of 14 basic work streams
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Basic activity building blocks of MSF
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">A work stream is an activity that is composed of other activities
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Activities are described using the ETVX format (whatever that is)
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Contains 70 activities (not including work streams)
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Most work streams are performed by a single role</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Roles &lt;-&gt; Constituencies
+<li>Basic activity building blocks of MSF
+<li>A work stream is an activity that is composed of other activities
+<li>Activities are described using the ETVX format (whatever that is)
+<li>Contains 70 activities (not including work streams)
+<li>Most work streams are performed by a single role</li></ul>
+<li>Roles &lt;-&gt; Constituencies
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Team of Peers
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Business analyst: Product management
+<li>Team of Peers
+<li>Business analyst: Product management
 <ul style="MARGIN-TOP: 0in" type=square>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">is responsible for two constituency groups: one is the sponsor, the other is the users.
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">is responsible for tracking time.</li></ul></li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Release manager: in charge of understanding deployment, handing it off. Product manager: responsible for tracking budget and such. They can be combined.
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Roles
+<li>is responsible for two constituency groups: one is the sponsor, the other is the users.
+<li>is responsible for tracking time.</li></ul></li></ul>
+<li>Release manager: in charge of understanding deployment, handing it off. Product manager: responsible for tracking budget and such. They can be combined.
+<li>Roles
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Developer
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Project Manager
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Business Analyst (handles interaction with customer)
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Architect
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Tester
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Release Manager</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Work Streams / Goals
+<li>Developer
+<li>Project Manager
+<li>Business Analyst (handles interaction with customer)
+<li>Architect
+<li>Tester
+<li>Release Manager</li></ul>
+<li>Work Streams / Goals
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Capture Product Vision (business analyst)
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Create a Scenario
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Create a Quality of Service Requirement
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Plan an Iteration (project manager)
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Create Solution Architecture (architect)
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Implement a Development Task (developer)
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Build a Product
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Test a Scenario
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Test a Quality of Service Requirement
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Fix a Bug
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Close a Bug (tester)
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Release a Product
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Guide Project (project manager)
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Guide Iteration (project manager)</li></ul></li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><?xml:namespace prefix = st1 ns = "urn:schemas-microsoft-com:office:smarttags" /><st1:place><st1:PlaceName>Safe</st1:PlaceName> <st1:PlaceType>Harbor</st1:PlaceType></st1:place> Statement</p>
+<li>Capture Product Vision (business analyst)
+<li>Create a Scenario
+<li>Create a Quality of Service Requirement
+<li>Plan an Iteration (project manager)
+<li>Create Solution Architecture (architect)
+<li>Implement a Development Task (developer)
+<li>Build a Product
+<li>Test a Scenario
+<li>Test a Quality of Service Requirement
+<li>Fix a Bug
+<li>Close a Bug (tester)
+<li>Release a Product
+<li>Guide Project (project manager)
+<li>Guide Iteration (project manager)</li></ul></li></ul>
+<p><?xml:namespace prefix = st1 ns = "urn:schemas-microsoft-com:office:smarttags" /><st1:place><st1:PlaceName>Safe</st1:PlaceName> <st1:PlaceType>Harbor</st1:PlaceType></st1:place> Statement</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Choose the MSF for Agile Software Development process for projects with results-oriented teams who can work without lots of intermediate documentation
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">"Stretch to Fit" instead of "Shrink to Fit"
+<li>Choose the MSF for Agile Software Development process for projects with results-oriented teams who can work without lots of intermediate documentation
+<li>"Stretch to Fit" instead of "Shrink to Fit"
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Minimalist approach
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Agile methodologies promote adaptation</li></ul></li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Scaling to All Project Sizes</p>
+<li>Minimalist approach
+<li>Agile methodologies promote adaptation</li></ul></li></ul>
+<p>Scaling to All Project Sizes</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">There's a matrix for whether it's a good fit to combine particular roles
+<li>There's a matrix for whether it's a good fit to combine particular roles
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">(P)ossible, (U)nlikely, (N)ot recommended</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">"If you have the skills to play a role, you may play that role"
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Smallest project size is 3 people (with one or two people, you probably don't need much process)</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Mindsets:</p>
+<li>(P)ossible, (U)nlikely, (N)ot recommended</li></ul>
+<li>"If you have the skills to play a role, you may play that role"
+<li>Smallest project size is 3 people (with one or two people, you probably don't need much process)</li></ul>
+<p>Mindsets:</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">More than a set of activities &#8211; a collection of values
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Quality is Defined by Customer
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Pride of Workmanship
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Team of Peers
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Frequent Delivery
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Willingness to Learn
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Get Specific Early
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Qualities of Service
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Citizenship
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Different roles. Some care only about time. Some don't care so much about time, and fight for quality. Who breaks deadlocks?</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Adaptation</p>
+<li>More than a set of activities &#8211; a collection of values
+<li>Quality is Defined by Customer
+<li>Pride of Workmanship
+<li>Team of Peers
+<li>Frequent Delivery
+<li>Willingness to Learn
+<li>Get Specific Early
+<li>Qualities of Service
+<li>Citizenship
+<li>Different roles. Some care only about time. Some don't care so much about time, and fight for quality. Who breaks deadlocks?</li></ul>
+<p>Adaptation</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">There are many events that may befall a project that are not covered by our process
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Use best judgment and adapt based on mindsets and principles</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Personas</p>
+<li>There are many events that may befall a project that are not covered by our process
+<li>Use best judgment and adapt based on mindsets and principles</li></ul>
+<p>Personas</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Descriptions of a group of typical users
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Persona represents a "proxy" for the user group, and provides a means to talk and reason about the group through the characteristics of one fictional individual
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">On-site customer is the best you could hope for.
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Actors in use cases: the other extreme. A developer is a developer.
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Persona: fictional representations of people.
+<li>Descriptions of a group of typical users
+<li>Persona represents a "proxy" for the user group, and provides a means to talk and reason about the group through the characteristics of one fictional individual
+<li>On-site customer is the best you could hope for.
+<li>Actors in use cases: the other extreme. A developer is a developer.
+<li>Persona: fictional representations of people.
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Be respectful.
+<li>Be respectful.
 <ul style="MARGIN-TOP: 0in" type=square>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">Best Buy did a set of personae for their customers. One was the "Devil Customer". This was fine until it landed in the Wall Street Journal.</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Can represent the novice and the advanced developer.
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Scenarios associated with each persona.
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Knowledge, skill, usage pattern</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Can still meet actual customers (and refine our personae).
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Different people come up with different personae, write them on sticky notes, put them on the board. When you take yours up, you decide whether it should be combined with one of the others, or should be separate.
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Q: Where do you get pictures to use for your personae? A: Got any artists in your group? Can you buy a CD of stock photography?
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Baseball cards of personae (including organizations)
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">When you're trying to make a decision, at least you have a clue.</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Jack</p>
+<li>Best Buy did a set of personae for their customers. One was the "Devil Customer". This was fine until it landed in the Wall Street Journal.</li></ul>
+<li>Can represent the novice and the advanced developer.
+<li>Scenarios associated with each persona.
+<li>Knowledge, skill, usage pattern</li></ul>
+<li>Can still meet actual customers (and refine our personae).
+<li>Different people come up with different personae, write them on sticky notes, put them on the board. When you take yours up, you decide whether it should be combined with one of the others, or should be separate.
+<li>Q: Where do you get pictures to use for your personae? A: Got any artists in your group? Can you buy a CD of stock photography?
+<li>Baseball cards of personae (including organizations)
+<li>When you're trying to make a decision, at least you have a clue.</li></ul>
+<p>Jack</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Role: Online shopper
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Motivation: Get it quick
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Usage pattern: Hates shopping but wants to get it quick. &#8230;</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Incremental approach &#8211; Why scenarios over use cases?</p>
+<li>Role: Online shopper
+<li>Motivation: Get it quick
+<li>Usage pattern: Hates shopping but wants to get it quick. &#8230;</li></ul>
+<p>Incremental approach &#8211; Why scenarios over use cases?</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Risk reduction
+<li>Risk reduction
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Changes
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Delivery
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Progress</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Activities need to be able to handle small increments up to a single change
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">A scenario is basically a single path through a use case. Easy to break into smaller increments if needed.</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">The Agile Pattern</p>
+<li>Changes
+<li>Delivery
+<li>Progress</li></ul>
+<li>Activities need to be able to handle small increments up to a single change
+<li>A scenario is basically a single path through a use case. Easy to break into smaller increments if needed.</li></ul>
+<p>The Agile Pattern</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Scenario list (aka backlog) -&gt; iteration plan
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Peel off pieces, add them to a particular iteration
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">The things in the list aren't actually scenarios &#8211; they're reminders. The business analyst writes them up for the iteration.</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Date or Feature Driven</p>
+<li>Scenario list (aka backlog) -&gt; iteration plan
+<li>Peel off pieces, add them to a particular iteration
+<li>The things in the list aren't actually scenarios &#8211; they're reminders. The business analyst writes them up for the iteration.</li></ul>
+<p>Date or Feature Driven</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Which?
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Parkinson's Law: If you give developers more time, they will find ways to fill that time. So you have to be aggressive on the date, right?
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">But not everything is really date-driven
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">"We're going to deliver in March, even if it's March 51st"</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Minimum Acceptance Level</p>
+<li>Which?
+<li>Parkinson's Law: If you give developers more time, they will find ways to fill that time. So you have to be aggressive on the date, right?
+<li>But not everything is really date-driven
+<li>"We're going to deliver in March, even if it's March 51st"</li></ul>
+<p>Minimum Acceptance Level</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">If you ask customers what they want, they'll list off the Exciters &amp; Delighters. (What do you want in your TV? Remote control, stereo, closed captioning, etc.)
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">But they usually won't tell you about the Dissatisfiers (must-have requirements) (ability to turn the TV on without the remote, good picture quality, etc.)
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">First few iterations: you work mostly on the dissatisfiers, and a little on the exciters. But you can't deliver until you make enough progress on the dissatisfiers.
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">So even if time ran out on iteration 3, you still couldn't ship.
+<li>If you ask customers what they want, they'll list off the Exciters &amp; Delighters. (What do you want in your TV? Remote control, stereo, closed captioning, etc.)
+<li>But they usually won't tell you about the Dissatisfiers (must-have requirements) (ability to turn the TV on without the remote, good picture quality, etc.)
+<li>First few iterations: you work mostly on the dissatisfiers, and a little on the exciters. But you can't deliver until you make enough progress on the dissatisfiers.
+<li>So even if time ran out on iteration 3, you still couldn't ship.
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Of course, this is all pragmatic. Depends on market. If you really want to be first-to-market, you might ship anyway.</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Even if you're date-driven, you might not really be date-driven, because you might not be able to ship without X features.</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Feature graphs:</p>
+<li>Of course, this is all pragmatic. Depends on market. If you really want to be first-to-market, you might ship anyway.</li></ul>
+<li>Even if you're date-driven, you might not really be date-driven, because you might not be able to ship without X features.</li></ul>
+<p>Feature graphs:</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Active (until the developer finishes it &#8211; doesn't distinguish ones that haven't yet been given to the developers to work on)
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Resolved (goes to test: implemented fully)
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Closed (tester can run it totally through)
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Do a stacked area graph over time. Active=red, resolved=yellow, closed=green.
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">If you've still got too much red as of the ship date, the project manager and the business analyst have a problem, and need to start talking to each other.
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">If the yellow keeps growing over time, it could mean you don't have enough testers, or that scheduling is poor (finishing too many items at once), or the test cases are failing (coders are submitting bad code and marking it as resolved, and the testers have to kick it back), or management is putting too much pressure on and the team stops caring about actual quality and becomes totally dysfunctional.</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><st1:place><st1:PlaceName>Context-Driven</st1:PlaceName> <st1:PlaceType>School</st1:PlaceType></st1:place></p>
+<li>Active (until the developer finishes it &#8211; doesn't distinguish ones that haven't yet been given to the developers to work on)
+<li>Resolved (goes to test: implemented fully)
+<li>Closed (tester can run it totally through)
+<li>Do a stacked area graph over time. Active=red, resolved=yellow, closed=green.
+<li>If you've still got too much red as of the ship date, the project manager and the business analyst have a problem, and need to start talking to each other.
+<li>If the yellow keeps growing over time, it could mean you don't have enough testers, or that scheduling is poor (finishing too many items at once), or the test cases are failing (coders are submitting bad code and marking it as resolved, and the testers have to kick it back), or management is putting too much pressure on and the team stops caring about actual quality and becomes totally dysfunctional.</li></ul>
+<p><st1:place><st1:PlaceName>Context-Driven</st1:PlaceName> <st1:PlaceType>School</st1:PlaceType></st1:place></p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Value of any practice depends on its context
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">If you absolutely *must* ship by a certain date or the company runs out of money, you might be incented to ship something that's not ready. Is that the right thing to do? It depends on how the market reacts.
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">There are good practices in context, but there are no best practices
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">People, working together, are the most important part of any project's context.</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Context Driven Approach</p>
+<li>Value of any practice depends on its context
+<li>If you absolutely *must* ship by a certain date or the company runs out of money, you might be incented to ship something that's not ready. Is that the right thing to do? It depends on how the market reacts.
+<li>There are good practices in context, but there are no best practices
+<li>People, working together, are the most important part of any project's context.</li></ul>
+<p>Context Driven Approach</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Testing that is acceptable on opne project may be criminal on another
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Define shipping criteria based on what's important to us
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Release criteria
+<li>Testing that is acceptable on opne project may be criminal on another
+<li>Define shipping criteria based on what's important to us
+<li>Release criteria
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">No Severity 1s and 2s in the shipping product</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Testing thresholds
+<li>No Severity 1s and 2s in the shipping product</li></ul>
+<li>Testing thresholds
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Code Coverage for Unit Test
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Getting 60% code coverage is really normal
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">To get 80%, you start using things like mock objects, and it gets harder
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">To get 95%-100%, you start building scaffolding and bizarre stuff
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">What's right? Answer: it depends entirely on the project.</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Focusing on statement and branch coverage is not sufficient.
+<li>Code Coverage for Unit Test
+<li>Getting 60% code coverage is really normal
+<li>To get 80%, you start using things like mock objects, and it gets harder
+<li>To get 95%-100%, you start building scaffolding and bizarre stuff
+<li>What's right? Answer: it depends entirely on the project.</li></ul>
+<li>Focusing on statement and branch coverage is not sufficient.
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Missing code
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Incorrect handling of boundary conditions
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Timing problems
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Memory leaks</li></ul></li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Bug debt</p>
+<li>Missing code
+<li>Incorrect handling of boundary conditions
+<li>Timing problems
+<li>Memory leaks</li></ul></li></ul>
+<p>Bug debt</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">If the developer has more than 30 bugs, it's time to schedule a bugfix iteration, where you fix bugs (and fix bugs only)
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Worth doing even though you take a hit on velocity, because you'll take a hit on velocity anyway (because you either fix them as you go, or they slow down your coding or testing)</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Conduct Exploratory Testing (One Heuristic)</p>
+<li>If the developer has more than 30 bugs, it's time to schedule a bugfix iteration, where you fix bugs (and fix bugs only)
+<li>Worth doing even though you take a hit on velocity, because you'll take a hit on velocity anyway (because you either fix them as you go, or they slow down your coding or testing)</li></ul>
+<p>Conduct Exploratory Testing (One Heuristic)</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Assume a persona
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Time-box
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Traverse the system looking for new goals, roadblocks, or improvements, keeping the needs of the persona in mind
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Add any new bugs, scenarios, or quality of service requirements discovered using this process</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Risk and Agile Processes</p>
+<li>Assume a persona
+<li>Time-box
+<li>Traverse the system looking for new goals, roadblocks, or improvements, keeping the needs of the persona in mind
+<li>Add any new bugs, scenarios, or quality of service requirements discovered using this process</li></ul>
+<p>Risk and Agile Processes</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Agile processes drive out risk through short release cycles and customer feedback.
+<li>Agile processes drive out risk through short release cycles and customer feedback.
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Requirements risk
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Implementation risk
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Quality risk</li></ul></li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Governance</p>
+<li>Requirements risk
+<li>Implementation risk
+<li>Quality risk</li></ul></li></ul>
+<p>Governance</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Objectives Reviewed
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Progress Assessed
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Test Thresholds Evaluated
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Risks Identified and Mitigated
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Deployment Ready</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Methods of Adoption</p>
+<li>Objectives Reviewed
+<li>Progress Assessed
+<li>Test Thresholds Evaluated
+<li>Risks Identified and Mitigated
+<li>Deployment Ready</li></ul>
+<p>Methods of Adoption</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Organization / Team
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Grassroots &#8211; individuals find the practices useful and the process spreads by providing value
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">MSF provides friction-free usage that doesn't get in the way</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">More info</p>
+<li>Organization / Team
+<li>Grassroots &#8211; individuals find the practices useful and the process spreads by providing value
+<li>MSF provides friction-free usage that doesn't get in the way</li></ul>
+<p>More info</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in"><a href="http://www.microsoft.com/msf">http://www.microsoft.com/msf</a> &#8211; download "MSF for Agile Software Development (Process Guidance Only)"; has much more info than this presentation
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Will be released in book form &#8211; MS wants to ship it with Team Foundation 1Q next year</li></ul>
+<li><a href="http://www.microsoft.com/msf">http://www.microsoft.com/msf</a> &#8211; download "MSF for Agile Software Development (Process Guidance Only)"; has much more info than this presentation
+<li>Will be released in book form &#8211; MS wants to ship it with Team Foundation 1Q next year</li></ul>

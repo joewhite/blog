@@ -2,121 +2,121 @@
 title: "Delphi Design Patterns  #Delphi  #borcon2005"
 sort: 2237
 ---
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><?xml:namespace prefix = st1 ns = "urn:schemas-microsoft-com:office:smarttags" /><st1:place>Delphi</st1:place> Design Patterns</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Marco Cant&#249;</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><o:p>&nbsp;</o:p></p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">We have some interesting IDE builds floating around&#8230; Marco's title bar says "Borland Developer Studio 2010". At one point when he was having some problems with the IDE, he said, "Well, it's an early beta."</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>&nbsp;</o:p></p>
+<p><?xml:namespace prefix = st1 ns = "urn:schemas-microsoft-com:office:smarttags" /><st1:place>Delphi</st1:place> Design Patterns</p>
+<p>Marco Cant&#249;</p>
+<p><?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><o:p>&nbsp;</o:p></p>
+<p>We have some interesting IDE builds floating around&#8230; Marco's title bar says "Borland Developer Studio 2010". At one point when he was having some problems with the IDE, he said, "Well, it's an early beta."</p>
+<p><o:p>&nbsp;</o:p></p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">What is a pattern?</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Sample GoF patterns</li>
+<li>What is a pattern?</li>
+<li>Sample GoF patterns</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Implemented with some creativity</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Applied to "everyday visual" code</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Delphi 2006 and patterns</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Goals of this talk</p>
+<li>Implemented with some creativity</li>
+<li>Applied to "everyday visual" code</li></ul>
+<li>Delphi 2006 and patterns</li></ul>
+<p>Goals of this talk</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Overview of patterns in OOP</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Explore a number of classic patterns from the GoF book</li>
+<li>Overview of patterns in OOP</li>
+<li>Explore a number of classic patterns from the GoF book</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">from the <st1:place>Delphi</st1:place> language perspective (which matters &#8211; some of the creational patterns, for example, aren't necessary in <st1:place>Delphi</st1:place>)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">providing some implementation samples</li></ul></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">What are patterns?</p>
+<li>from the <st1:place>Delphi</st1:place> language perspective (which matters &#8211; some of the creational patterns, for example, aren't necessary in <st1:place>Delphi</st1:place>)</li>
+<li>providing some implementation samples</li></ul></ul>
+<p>What are patterns?</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Capture similarities in repeated building blocks: design solutions, not actual code</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in"><a href="http://www.amazon.com/exec/obidos/tg/detail/-/0201633612/qid=1131649578/sr=8-1/ref=pd_bbs_1/002-1251870-1619217?v=glance&amp;s=books&amp;n=507846">GoF book</a></li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Pattern layout: name, problem, solution, consequences</li>
+<li>Capture similarities in repeated building blocks: design solutions, not actual code</li>
+<li><a href="http://www.amazon.com/exec/obidos/tg/detail/-/0201633612/qid=1131649578/sr=8-1/ref=pd_bbs_1/002-1251870-1619217?v=glance&amp;s=books&amp;n=507846">GoF book</a></li>
+<li>Pattern layout: name, problem, solution, consequences</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">The code is there as a hint, not very important. These are design patterns, not code patterns.</li></ul></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Goals of Patterns</p>
+<li>The code is there as a hint, not very important. These are design patterns, not code patterns.</li></ul></ul>
+<p>Goals of Patterns</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Better OOP</li>
+<li>Better OOP</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Many patterns promote loose coupling -&gt; more flexibility</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">"Think before you code" approach</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Better communication</li>
+<li>Many patterns promote loose coupling -&gt; more flexibility</li>
+<li>"Think before you code" approach</li></ul>
+<li>Better communication</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Pattern names are very relevant</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">RAD shines but&#8230;</li>
+<li>Pattern names are very relevant</li></ul>
+<li>RAD shines but&#8230;</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">As apps grow, you need a better infrastructure, not just the plain VCL</li></ul></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Prototype pattern</p>
+<li>As apps grow, you need a better infrastructure, not just the plain VCL</li></ul></ul>
+<p>Prototype pattern</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Create a new object of the same kind of another object you have at hand</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">In <st1:place>Delphi</st1:place> you can implement a Prototype using:</li>
+<li>Create a new object of the same kind of another object you have at hand</li>
+<li>In <st1:place>Delphi</st1:place> you can implement a Prototype using:</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Class references</li>
+<li>Class references</li>
 <ul style="MARGIN-TOP: 0in" type=square>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">If you don't need to copy the data, you can just do Object.ClassType.Create</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">If you want to call the right virtual constructor, you need to cast: TComponentClass(C.ClassType).Create(C.Owner)</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Streaming</li>
+<li>If you don't need to copy the data, you can just do Object.ClassType.Create</li>
+<li>If you want to call the right virtual constructor, you need to cast: TComponentClass(C.ClassType).Create(C.Owner)</li></ul>
+<li>Streaming</li>
 <ul style="MARGIN-TOP: 0in" type=square>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">AStream.WriteComponentRes(C.Name, C);</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">Create a new instance, then AStream.ReadComponentRes(C); (but if both have the same owner, watch out for Name collisions)</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">RTTI</li>
+<li>AStream.WriteComponentRes(C.Name, C);</li>
+<li>Create a new instance, then AStream.ReadComponentRes(C); (but if both have the same owner, watch out for Name collisions)</li></ul>
+<li>RTTI</li>
 <ul style="MARGIN-TOP: 0in" type=square>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">RegisterClass[es] the classes you're going to use</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">Then you can write a Clone method</li></ul></ul></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Singleton pattern</p>
+<li>RegisterClass[es] the classes you're going to use</li>
+<li>Then you can write a Clone method</li></ul></ul></ul>
+<p>Singleton pattern</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Only one instance of a class</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Very simple pattern, but very tricky to implement</li>
+<li>Only one instance of a class</li>
+<li>Very simple pattern, but very tricky to implement</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Needs a specific setup mechanism</li>
+<li>Needs a specific setup mechanism</li>
 <ul style="MARGIN-TOP: 0in" type=square>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">Or can you use a constructor as well?</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Consider subclasses</li>
+<li>Or can you use a constructor as well?</li></ul>
+<li>Consider subclasses</li>
 <ul style="MARGIN-TOP: 0in" type=square>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">Data in unit causes some trouble</li></ul></ul></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Adapter pattern</p>
+<li>Data in unit causes some trouble</li></ul></ul></ul>
+<p>Adapter pattern</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Convert the interface of a class into another expected by the user of the class</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Better than "if X is&#8230;"</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Can be nicely implemented using interfaces</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Examples:</li>
+<li>Convert the interface of a class into another expected by the user of the class</li>
+<li>Better than "if X is&#8230;"</li>
+<li>Can be nicely implemented using interfaces</li>
+<li>Examples:</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Descend from visual controls, so you can add e.g. "Text" and "Value" properties to<span style="mso-spacerun: yes">&nbsp; </span>multiple different controls.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Interposer class: descendant class that has the same name as the base class. Interesting way to force the runtime to create *your* TButton instead of the standard TButton. Yikes. (Seems like that would be really brittle! The compiler wouldn't even tell you if you got it wrong.) (It would also be problematic in .NET, if both are in the same namespace.)</li></ul></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Fa&#231;ade pattern</p>
+<li>Descend from visual controls, so you can add e.g. "Text" and "Value" properties to<span style="mso-spacerun: yes">&nbsp; </span>multiple different controls.</li>
+<li>Interposer class: descendant class that has the same name as the base class. Interesting way to force the runtime to create *your* TButton instead of the standard TButton. Yikes. (Seems like that would be really brittle! The compiler wouldn't even tell you if you got it wrong.) (It would also be problematic in .NET, if both are in the same namespace.)</li></ul></ul>
+<p>Fa&#231;ade pattern</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Provide a simpler, higher-level interface to a set of interfaces in a subsystem, making it simpler to use and promoting weak coupling</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">In <st1:place>Delphi</st1:place>: a single interface for a collection of components hosted by a container (e.g., providing access to the field values of a dataset on a data module)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Shield you from the other guy's implementation details (at least a little)</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Flyweight</p>
+<li>Provide a simpler, higher-level interface to a set of interfaces in a subsystem, making it simpler to use and promoting weak coupling</li>
+<li>In <st1:place>Delphi</st1:place>: a single interface for a collection of components hosted by a container (e.g., providing access to the field values of a dataset on a data module)</li>
+<li>Shield you from the other guy's implementation details (at least a little)</li></ul>
+<p>Flyweight</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Replace a series of many objects with a single stateless one, with status information provided on method invocation: pretend you've created 10,000 of something</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">The DbCtrlGrid is the perfect example. It looks like it's got many editors, but in reality it's only got two</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Proxy pattern (Marco writes it as "proxi")</p>
+<li>Replace a series of many objects with a single stateless one, with status information provided on method invocation: pretend you've created 10,000 of something</li>
+<li>The DbCtrlGrid is the perfect example. It looks like it's got many editors, but in reality it's only got two</li></ul>
+<p>Proxy pattern (Marco writes it as "proxi")</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Provide a surrogate (placeholder) for an object (delaying creation cost, if any)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in"><st1:place>Delphi</st1:place> uses something like this for form handles, different reason (that reason being Windows 9x)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">At design time, a proxy is created for the form you're editing</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Proxy components as "light" representations of components (e.g., a database table). Increases total memory usage if you do need to create everything, but decreases time and memory if you don't.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Proxies in OPF frameworks</li>
+<li>Provide a surrogate (placeholder) for an object (delaying creation cost, if any)</li>
+<li><st1:place>Delphi</st1:place> uses something like this for form handles, different reason (that reason being Windows 9x)</li>
+<li>At design time, a proxy is created for the form you're editing</li>
+<li>Proxy components as "light" representations of components (e.g., a database table). Increases total memory usage if you do need to create everything, but decreases time and memory if you don't.</li>
+<li>Proxies in OPF frameworks</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Lightweight objects with few DB columns</li></ul></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Iterator pattern</p>
+<li>Lightweight objects with few DB columns</li></ul></ul>
+<p>Iterator pattern</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Provide a way to access the elements of an aggregate object sequentially, without exposing its underlying representation</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Often used with container classes</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Are iterators better than for loops on VCL lists?</li>
+<li>Provide a way to access the elements of an aggregate object sequentially, without exposing its underlying representation</li>
+<li>Often used with container classes</li>
+<li>Are iterators better than for loops on VCL lists?</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Probably</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">The new "for..in" loop is an out-of-the-box implementation of the Iterator pattern</li></ul></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Observer pattern</p>
+<li>Probably</li>
+<li>The new "for..in" loop is an out-of-the-box implementation of the Iterator pattern</li></ul></ul>
+<p>Observer pattern</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Define a one-to-many dependency between objects, so that when one object changes state, all its dependents are notified of this</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">One of Marco's favorites, found in the VCL</li>
+<li>Define a one-to-many dependency between objects, so that when one object changes state, all its dependents are notified of this</li>
+<li>One of Marco's favorites, found in the VCL</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Notification and notification subscription</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">DataSource (a broker that sits between the two ends, and manages the notifications)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Actions (I don't think these are really Observer, since they're "pull" rather than "push")</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Example: a MultiCast event handler</li>
+<li>Notification and notification subscription</li>
+<li>DataSource (a broker that sits between the two ends, and manages the notifications)</li>
+<li>Actions (I don't think these are really Observer, since they're "pull" rather than "push")</li></ul>
+<li>Example: a MultiCast event handler</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Eww, his "MultiClick" is a write-only property. Worse, setting it doesn't replace the old value of the property &#8211; it accumulates. And magically ignores duplicates. None of which is intention-revealing. Very smelly code.</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">A "Real" Observer: demo</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Delphi 2006 and Patterns</p>
+<li>Eww, his "MultiClick" is a write-only property. Worse, setting it doesn't replace the old value of the property &#8211; it accumulates. And magically ignores duplicates. None of which is intention-revealing. Very smelly code.</li></ul>
+<li>A "Real" Observer: demo</li></ul>
+<p>Delphi 2006 and Patterns</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Available with Together support</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">GoF patterns implementations</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Extensible with your own patterns</li></ul>
+<li>Available with Together support</li>
+<li>GoF patterns implementations</li>
+<li>Extensible with your own patterns</li></ul>

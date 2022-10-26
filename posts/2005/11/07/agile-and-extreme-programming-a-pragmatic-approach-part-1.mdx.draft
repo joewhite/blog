@@ -5,208 +5,208 @@ sort: 2214
 The first of the preconference tutorials I'm going to this year. Presented by <a href="http://www.nealford.com/">Neal Ford</a>, Application Architect, <a href="http://www.thoughtworks.com/index.html">ThoughtWorks</a>.
 
 We're at the first break, so here's a brain-dump of all the notes I've taken so far. I haven't had a chance to simplify these yet (grin). This part is mostly a background of where agile came from, and some of the principles behind it, so if you're already on XP you can probably skim this one.
-<p class="MsoNormal" style="margin: 0in 0in 0pt">Overview:</p>
+<p>Overview:</p>
 
 <ul style="margin-top: 0in" type="disc">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Agile in general, XP in particular</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">ThoughtWorks uses XP on a daily basis</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">What makes XP a discipline, not just a random set of activities</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">How to gently introduce agile in general, and XP in particular, into your organization</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">It's called "Agile" for a reason. Be suspicious of anything that claims to be the "<st1:street><st1:address>One True Way</st1:address></st1:street>". It won't happen. You will have to adapt the process.</li>
+<li>Agile in general, XP in particular</li>
+<li>ThoughtWorks uses XP on a daily basis</li>
+<li>What makes XP a discipline, not just a random set of activities</li>
+<li>How to gently introduce agile in general, and XP in particular, into your organization</li>
+<li>It's called "Agile" for a reason. Be suspicious of anything that claims to be the "<st1:street><st1:address>One True Way</st1:address></st1:street>". It won't happen. You will have to adapt the process.</li>
 </ul>
-<p class="MsoNormal" style="margin: 0in 0in 0pt">&nbsp;</p>
+<p>&nbsp;</p>
 
 <ul style="margin-top: 0in" type="disc">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Waterfall, or BDUF (Big Design Up Front), works well for engineering physical objects</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Assumes that requirements don't change
+<li>Waterfall, or BDUF (Big Design Up Front), works well for engineering physical objects</li>
+<li>Assumes that requirements don't change
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Does anyone (besides NASA) have software requirements like this?</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Not today, in the age of Internet time!</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">By the time you create software this way, the need for it will have disappeared</li>
+<li>Does anyone (besides NASA) have software requirements like this?</li>
+<li>Not today, in the age of Internet time!</li>
+<li>By the time you create software this way, the need for it will have disappeared</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">"Let me write the whole thing, and then I'll tell you exactly how long it's going to take"</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Requirements change a lot, and those changes have to be implemented quickly</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">"Waterfall" has gotten negative connotations; euphemisms have sprung up, like SDLC (Software Development Life Cycle)</li>
+<li>"Let me write the whole thing, and then I'll tell you exactly how long it's going to take"</li>
+<li>Requirements change a lot, and those changes have to be implemented quickly</li>
+<li>"Waterfall" has gotten negative connotations; euphemisms have sprung up, like SDLC (Software Development Life Cycle)</li>
 </ul>
-<p class="MsoNormal" style="margin: 0in 0in 0pt">Cost of change?</p>
+<p>Cost of change?</p>
 
 <ul style="margin-top: 0in" type="disc">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">The later in the dev cycle that a requirement changes, the bigger the impact</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">50-200 times as costly to change late in the cycle as it is early in the cycle &ndash; ripple effects</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">How can you make coding changes with confidence?
+<li>The later in the dev cycle that a requirement changes, the bigger the impact</li>
+<li>50-200 times as costly to change late in the cycle as it is early in the cycle &ndash; ripple effects</li>
+<li>How can you make coding changes with confidence?
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Agile makes this rule not true anymore &ndash; cost becomes mostly linear</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">This idea came from mid-70s &ndash; not true anymore (except with waterfall)</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">In a waterfall shop, try asking "We're still doing development the same way we did in the mid-70s &ndash; why don't we try doing accounting with mechanical calculators and ledger sheets? It was good enough then!"</li>
+<li>Agile makes this rule not true anymore &ndash; cost becomes mostly linear</li>
+<li>This idea came from mid-70s &ndash; not true anymore (except with waterfall)</li>
+<li>In a waterfall shop, try asking "We're still doing development the same way we did in the mid-70s &ndash; why don't we try doing accounting with mechanical calculators and ledger sheets? It was good enough then!"</li>
 </ul>
 </li>
 </ul>
-<p class="MsoNormal" style="margin: 0in 0in 0pt"><o:p> </o:p></p>
+<p><o:p> </o:p></p>
 
 <ul style="margin-top: 0in" type="disc">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Software isn't like engineering</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Tolerances are much tighter
+<li>Software isn't like engineering</li>
+<li>Tolerances are much tighter
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">If you get a light-switch cover wrong in a building, the building won't fall down</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">The same is not true of software</li>
+<li>If you get a light-switch cover wrong in a building, the building won't fall down</li>
+<li>The same is not true of software</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">More flexible &ndash; you can test those tolerances in ways you just can't do in the real world
+<li>More flexible &ndash; you can test those tolerances in ways you just can't do in the real world
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Can mathematically prove the strength of a bridge, but you can't really do that with software</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Can't do test-first with a bridge, because you lose a lot of trucks</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">You can throw as many trucks as you want at a piece of software</li>
+<li>Can mathematically prove the strength of a bridge, but you can't really do that with software</li>
+<li>Can't do test-first with a bridge, because you lose a lot of trucks</li>
+<li>You can throw as many trucks as you want at a piece of software</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Instead of telling the developers how to write software, why don't we find out how they work best?
+<li>Instead of telling the developers how to write software, why don't we find out how they work best?
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Tight time constraints</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Business risk of building software is too high</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Observe successful and unsuccessful projects, and figure out what they did right/wrong</li>
+<li>Tight time constraints</li>
+<li>Business risk of building software is too high</li>
+<li>Observe successful and unsuccessful projects, and figure out what they did right/wrong</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">17 Really Smart Guys met in Snowbird, <st1:state><st1:place>Utah</st1:place></st1:state> in February 2001
+<li>17 Really Smart Guys met in Snowbird, <st1:state><st1:place>Utah</st1:place></st1:state> in February 2001
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">XP, Scrum, etc. were all around</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Expected to spend the whole time arguing</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Actually wound up writing the Agile Manifesto</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt"><a href="http://agilemanifesto.org/">http://agilemanifesto.org/</a></li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">You cannot create a prescriptive process that says "This is how you write software. Go do this."</li>
+<li>XP, Scrum, etc. were all around</li>
+<li>Expected to spend the whole time arguing</li>
+<li>Actually wound up writing the Agile Manifesto</li>
+<li><a href="http://agilemanifesto.org/">http://agilemanifesto.org/</a></li>
+<li>You cannot create a prescriptive process that says "This is how you write software. Go do this."</li>
 </ul>
 </li>
 </ul>
-<p class="MsoNormal" style="margin: 0in 0in 0pt">Principles</p>
+<p>Principles</p>
 
 <ul style="margin-top: 0in" type="disc">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Our highest priority is to satisfy the customer through early and continuous delivery of valuable software.
+<li>Our highest priority is to satisfy the customer through early and continuous delivery of valuable software.
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Delivery of working software &ndash; not design documents</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Quick wins, high visibility, customer sees it sooner</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Customer sees it sooner, so you know whether you're still on the right track</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Emphasis is on delivering most important (not hardest, not easiest) parts first, as defined by the customer</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">"Most important" will change throughout the course of the project. This is okay.</li>
+<li>Delivery of working software &ndash; not design documents</li>
+<li>Quick wins, high visibility, customer sees it sooner</li>
+<li>Customer sees it sooner, so you know whether you're still on the right track</li>
+<li>Emphasis is on delivering most important (not hardest, not easiest) parts first, as defined by the customer</li>
+<li>"Most important" will change throughout the course of the project. This is okay.</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Deliver working software frequently, from a couple of weeks to a couple of months, with a preference to the shorter timescale.
+<li>Deliver working software frequently, from a couple of weeks to a couple of months, with a preference to the shorter timescale.
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Most projects run 1-3 month cycles, with shorter iterations within that</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Anything longer than that, you fall back into the bad zone</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">The iteration is complete at the end of the iteration, at the expense of moving requirements</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">IT thinks management doesn't want to hear bad news, so we sugarcoat the news. "I'll be done in a week."</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">They don't mind bad news as long as there's a good reason. But they hate feeling like they're being lied to. But you're not always lying, because you don't always know how much it's going to take to be finished.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Actual users review actual software during the process</li>
+<li>Most projects run 1-3 month cycles, with shorter iterations within that</li>
+<li>Anything longer than that, you fall back into the bad zone</li>
+<li>The iteration is complete at the end of the iteration, at the expense of moving requirements</li>
+<li>IT thinks management doesn't want to hear bad news, so we sugarcoat the news. "I'll be done in a week."</li>
+<li>They don't mind bad news as long as there's a good reason. But they hate feeling like they're being lied to. But you're not always lying, because you don't always know how much it's going to take to be finished.</li>
+<li>Actual users review actual software during the process</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Working software is the primary measure of progress.
+<li>Working software is the primary measure of progress.
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Does not discard the need for design documentation &ndash; but you diagram to understand, then move to code, and let the diagram wither and die</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Whiteboards</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">"Do Not Erase" must have a date</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Draw on a whiteboard, then take a digital photo</li>
+<li>Does not discard the need for design documentation &ndash; but you diagram to understand, then move to code, and let the diagram wither and die</li>
+<li>Whiteboards</li>
+<li>"Do Not Erase" must have a date</li>
+<li>Draw on a whiteboard, then take a digital photo</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Welcome changing requirements, even late in development. Agile processes harness change for the customer's competitive advantage.
+<li>Welcome changing requirements, even late in development. Agile processes harness change for the customer's competitive advantage.
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">If you can gracefully accommodate changing requirements and your competition can't, you win.</li>
+<li>If you can gracefully accommodate changing requirements and your competition can't, you win.</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Business people and developers must work together daily throughout the project.
+<li>Business people and developers must work together daily throughout the project.
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">There is a strong correlation between links to users and project success. [Frakes 1995]</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">When you get to the point of actually writing the code, design questions come up that you couldn't have anticipated. If the customer isn't available, you have to guess, and you probably won't come up with what they want.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">The longer it takes to get information to and from the developers, the more damage will occur in the project. The farther you are from the information, the worse the information is.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">XP insists that business stakeholders are part of the development team. Full-time.
+<li>There is a strong correlation between links to users and project success. [Frakes 1995]</li>
+<li>When you get to the point of actually writing the code, design questions come up that you couldn't have anticipated. If the customer isn't available, you have to guess, and you probably won't come up with what they want.</li>
+<li>The longer it takes to get information to and from the developers, the more damage will occur in the project. The farther you are from the information, the worse the information is.</li>
+<li>XP insists that business stakeholders are part of the development team. Full-time.
 <ul style="margin-top: 0in" type="square">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">This doesn't really fly, because the customer has other work to do</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Business analysts can be an effective go-between</li>
+<li>This doesn't really fly, because the customer has other work to do</li>
+<li>Business analysts can be an effective go-between</li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Build projects around motivated individuals. Give them the environment and support they need, and trust them to get the job done.
+<li>Build projects around motivated individuals. Give them the environment and support they need, and trust them to get the job done.
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">"It is better to have motivated, skilled people communicating well and using no process at all than a well-defined process used by unmotivated individuals." [Cockburn 2002]</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Avoid interruptions
+<li>"It is better to have motivated, skilled people communicating well and using no process at all than a well-defined process used by unmotivated individuals." [Cockburn 2002]</li>
+<li>Avoid interruptions
 <ul style="margin-top: 0in" type="square">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Development is both creative and technical</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Works best when you get into "flow" mode</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">If you get broken out of flow, it takes ~15 minutes to get back in</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">The more interruptions, the harder it is to get back into the flow</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">If you have a lot of interruptions (meetings, support calls, etc.), try instituting Quiet Time for the programmers. Turn off the phone and e-mail, no meetings, etc.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">If a question comes up, go ask the business analyst &ndash; that's OK, it's still on-topic and won't interrupt flow like a random phone call will.</li>
+<li>Development is both creative and technical</li>
+<li>Works best when you get into "flow" mode</li>
+<li>If you get broken out of flow, it takes ~15 minutes to get back in</li>
+<li>The more interruptions, the harder it is to get back into the flow</li>
+<li>If you have a lot of interruptions (meetings, support calls, etc.), try instituting Quiet Time for the programmers. Turn off the phone and e-mail, no meetings, etc.</li>
+<li>If a question comes up, go ask the business analyst &ndash; that's OK, it's still on-topic and won't interrupt flow like a random phone call will.</li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Developers are the Key
+<li>Developers are the Key
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Hire the smartest people you can find</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">If you read the wikipedia description of Asperger's Syndrome, you'll swear it's every programmer you've ever met</li>
+<li>Hire the smartest people you can find</li>
+<li>If you read the wikipedia description of Asperger's Syndrome, you'll swear it's every programmer you've ever met</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">The most efficient and effective method of conveying information to and within a development team is face-to-face conversation.
+<li>The most efficient and effective method of conveying information to and within a development team is face-to-face conversation.
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Written requirements are not rich and not interactive</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Two people at a whiteboard are both rich and interactive</li>
+<li>Written requirements are not rich and not interactive</li>
+<li>Two people at a whiteboard are both rich and interactive</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">"Knowledge radiators" &ndash; inadvertent communication
+<li>"Knowledge radiators" &ndash; inadvertent communication
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Move stories up as they're completed</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Put user stories near a hallway or a coffee machine &ndash; people accidentally find out the status of the whole project</li>
+<li>Move stories up as they're completed</li>
+<li>Put user stories near a hallway or a coffee machine &ndash; people accidentally find out the status of the whole project</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">The best architectures, requirements, and designs emerge from self-organizing teams.
+<li>The best architectures, requirements, and designs emerge from self-organizing teams.
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">In small steps over time</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">All 3 must be allowed to grow and change</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">No ivory-tower architects that hand something down from on high</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">"Architecture": Stuff that's hard to change later. Have as little as possible.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Favor chaos over order?</li>
+<li>In small steps over time</li>
+<li>All 3 must be allowed to grow and change</li>
+<li>No ivory-tower architects that hand something down from on high</li>
+<li>"Architecture": Stuff that's hard to change later. Have as little as possible.</li>
+<li>Favor chaos over order?</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Continuous attention to technical excellence and good design enhances agility.
+<li>Continuous attention to technical excellence and good design enhances agility.
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Create good designs initially, then review and improve regularly</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Design cleanup as compared to debt [Cunningham 2001]</li>
+<li>Create good designs initially, then review and improve regularly</li>
+<li>Design cleanup as compared to debt [Cunningham 2001]</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Agile promotes sustainable development. The sponsors, developers, and users should be able to maintain a constant pace indefinitely.
+<li>Agile promotes sustainable development. The sponsors, developers, and users should be able to maintain a constant pace indefinitely.
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Social aspect
+<li>Social aspect
 <ul style="margin-top: 0in" type="square">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Alert, engaged staff is more effective than a tired, plodding staff</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Long hours are a symptom that something has gone wrong</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Only work 8 hours a day</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Never put in overtime 2 weeks in a row</li>
+<li>Alert, engaged staff is more effective than a tired, plodding staff</li>
+<li>Long hours are a symptom that something has gone wrong</li>
+<li>Only work 8 hours a day</li>
+<li>Never put in overtime 2 weeks in a row</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Technical aspect
+<li>Technical aspect
 <ul style="margin-top: 0in" type="square">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Development can be viewed as a long strategic game</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Each move sets up the next move</li>
+<li>Development can be viewed as a long strategic game</li>
+<li>Each move sets up the next move</li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Simplicity &ndash; the art of maximizing the amount of work not done &ndash; is essential.
+<li>Simplicity &ndash; the art of maximizing the amount of work not done &ndash; is essential.
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">"This letter is longer than I wish, for I had not the time to make it shorter." &ndash; Blaise Pascal</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Sometimes more difficult to make things simpler</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">DRY (Don't Repeat Yourself)</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">"Design for simplicity; add complexity only where you must." Art of Unix Programming, Raymond 2003</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">"Code smell"</li>
+<li>"This letter is longer than I wish, for I had not the time to make it shorter." &ndash; Blaise Pascal</li>
+<li>Sometimes more difficult to make things simpler</li>
+<li>DRY (Don't Repeat Yourself)</li>
+<li>"Design for simplicity; add complexity only where you must." Art of Unix Programming, Raymond 2003</li>
+<li>"Code smell"</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">At regular intervals, the team reflects on how to become more effective, then tunes and adjusts its behavior accordingly.
+<li>At regular intervals, the team reflects on how to become more effective, then tunes and adjusts its behavior accordingly.
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Be constantly aware</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Never get lazy</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">XP encourages this: one step is to fix XP when it breaks</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">How light is too light?</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">How simple is too simple?</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Can we make this simpler?</li>
+<li>Be constantly aware</li>
+<li>Never get lazy</li>
+<li>XP encourages this: one step is to fix XP when it breaks</li>
+<li>How light is too light?</li>
+<li>How simple is too simple?</li>
+<li>Can we make this simpler?</li>
 </ul>
 </li>
 </ul>

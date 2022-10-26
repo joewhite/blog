@@ -2,67 +2,67 @@
 title: "Agile Methods with Borland  #Delphi  #borcon2005  #extreme programming"
 sort: 2232
 ---
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Birds of a Feather: Agile Methods with Borland</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Matt Gelbwaks - Borland</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><o:p></o:p>&nbsp;</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>This was pretty much exclusively done as a Q&amp;A session. We came up with questions up front, and then they tried to answer as many as they could.</o:p></p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>&nbsp;</o:p></p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Note: All the questions we ask during this session are going to become requirements and scenarios in Borland's feature backlog. Cool!</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>&nbsp;</o:p></p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Interesting idea: show a scatter graph of estimated vs. actual time for each story. Hopefully that scatter graph will get closer and closer to a 45-degree line over time.</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>&nbsp;</o:p></p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">If we have ideas for new information radiators we'd like to see, tell Borland, or e-mail an example to Dan Massey. That's dmassey, on the obvious domain name.</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>&nbsp;</o:p></p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">What's Borland's experience with agile?</p>
+<p>Birds of a Feather: Agile Methods with Borland</p>
+<p>Matt Gelbwaks - Borland</p>
+<p><?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><o:p></o:p>&nbsp;</p>
+<p><o:p>This was pretty much exclusively done as a Q&amp;A session. We came up with questions up front, and then they tried to answer as many as they could.</o:p></p>
+<p><o:p>&nbsp;</o:p></p>
+<p>Note: All the questions we ask during this session are going to become requirements and scenarios in Borland's feature backlog. Cool!</p>
+<p><o:p>&nbsp;</o:p></p>
+<p>Interesting idea: show a scatter graph of estimated vs. actual time for each story. Hopefully that scatter graph will get closer and closer to a 45-degree line over time.</p>
+<p><o:p>&nbsp;</o:p></p>
+<p>If we have ideas for new information radiators we'd like to see, tell Borland, or e-mail an example to Dan Massey. That's dmassey, on the obvious domain name.</p>
+<p><o:p>&nbsp;</o:p></p>
+<p>What's Borland's experience with agile?</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo2; tab-stops: list .5in">Borland was doing agile before there was agile: in 1992, they were already doing short iterations, etc.
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo2; tab-stops: list .5in">Today, some teams are doing formal Scrum with StarTeam
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo2; tab-stops: list .5in">Larger projects: "release train" (like Eclipse - I'm not sure exactly what that means...)
+<li>Borland was doing agile before there was agile: in 1992, they were already doing short iterations, etc.
+<li>Today, some teams are doing formal Scrum with StarTeam
+<li>Larger projects: "release train" (like Eclipse - I'm not sure exactly what that means...)
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo2; tab-stops: list 1.0in">6-week milestones
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo2; tab-stops: list 1.0in">Some teams do smaller iterations within that
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo2; tab-stops: list 1.0in">All requirements in CaliberRM
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo2; tab-stops: list 1.0in">All bugs in StarTeam
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo2; tab-stops: list 1.0in">Starting to use Tempo</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo2; tab-stops: list .5in">Many of Borland's larger clients have SarbOx requirements, and have audit requirements. Need to prove that the work is being done the way it's supposed to be done (so some developers need to spend their time auditing instead of developing). To really do agile, they probably need to automate that.</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">How do we capture key design decisions in Together?</p>
+<li>6-week milestones
+<li>Some teams do smaller iterations within that
+<li>All requirements in CaliberRM
+<li>All bugs in StarTeam
+<li>Starting to use Tempo</li></ul>
+<li>Many of Borland's larger clients have SarbOx requirements, and have audit requirements. Need to prove that the work is being done the way it's supposed to be done (so some developers need to spend their time auditing instead of developing). To really do agile, they probably need to automate that.</li></ul>
+<p>How do we capture key design decisions in Together?</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo2; tab-stops: list .5in">e.g., how do you capture the alternatives that were considered?
+<li>e.g., how do you capture the alternatives that were considered?
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo2; tab-stops: list 1.0in">Consider: Instead of making a decision, hold off as long as possible, to show you're thinking about it. Include all three options in the diagram, label them somehow. As you figure out what will drive the decision, you can keep notes. (last responsible moment)
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo2; tab-stops: list 1.0in">Keep track of the set of options that are available. Don't collapse them into an actual decision until the iteration where you depend on that decision.</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo2; tab-stops: list .5in">There are some feature requests that might cover this&#8230;
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo2; tab-stops: list .5in">Short-term: using a Description field to record those decisions; whenever a decision is made, it should have been a requirement, so roll that back into the requirements repository (so it may feed into other projects)
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo2; tab-stops: list .5in">Could use version control to store the history of the discussion (StarTeam's threaded discussions).
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo2; tab-stops: list .5in">Use linkages between tools (e.g., links into CaliberRM)</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">How do you reconcile informality of agile with formal communication?</p>
+<li>Consider: Instead of making a decision, hold off as long as possible, to show you're thinking about it. Include all three options in the diagram, label them somehow. As you figure out what will drive the decision, you can keep notes. (last responsible moment)
+<li>Keep track of the set of options that are available. Don't collapse them into an actual decision until the iteration where you depend on that decision.</li></ul>
+<li>There are some feature requests that might cover this&#8230;
+<li>Short-term: using a Description field to record those decisions; whenever a decision is made, it should have been a requirement, so roll that back into the requirements repository (so it may feed into other projects)
+<li>Could use version control to store the history of the discussion (StarTeam's threaded discussions).
+<li>Use linkages between tools (e.g., links into CaliberRM)</li></ul>
+<p>How do you reconcile informality of agile with formal communication?</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo2; tab-stops: list .5in">Agile does require discipline, and a way to be measured.
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo2; tab-stops: list .5in">Use the discussion feature in CaliberRM to record the hallway discussion you just had (and why).
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo2; tab-stops: list .5in">You can't necessarily capture those hallway conversations. But when you're having an actual meeting, bring up the requirements grid and change it right there &#8211; don't make notes and update the requirements later.
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo2; tab-stops: list .5in">Give visibility to the time you spend on formal communication.
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo2; tab-stops: list .5in">Problem with discussion feature: no way to find out whether there are open questions still hanging. Is the thread closed?</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Selling agile to management</p>
+<li>Agile does require discipline, and a way to be measured.
+<li>Use the discussion feature in CaliberRM to record the hallway discussion you just had (and why).
+<li>You can't necessarily capture those hallway conversations. But when you're having an actual meeting, bring up the requirements grid and change it right there &#8211; don't make notes and update the requirements later.
+<li>Give visibility to the time you spend on formal communication.
+<li>Problem with discussion feature: no way to find out whether there are open questions still hanging. Is the thread closed?</li></ul>
+<p>Selling agile to management</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">What's the problem you're trying to solve? Measure it and start improving: timeboxes, testing, etc.</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">What do you do when you can't find someone with the time to play the role of customer?</p>
+<li>What's the problem you're trying to solve? Measure it and start improving: timeboxes, testing, etc.</li></ul>
+<p>What do you do when you can't find someone with the time to play the role of customer?</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">Borland's actual clients don't have a body to send to Borland, so Borland uses full-time surrogates
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">If you can't even get a full-time surrogate, try doing a big investment of time up-front, using Maya or some such
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">Then use tools like CaliberRM to keep the discussion going in trickle format
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">Three axes to address - people, process, technology
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">People
+<li>Borland's actual clients don't have a body to send to Borland, so Borland uses full-time surrogates
+<li>If you can't even get a full-time surrogate, try doing a big investment of time up-front, using Maya or some such
+<li>Then use tools like CaliberRM to keep the discussion going in trickle format
+<li>Three axes to address - people, process, technology
+<li>People
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Deliver early and often</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">Process
+<li>Deliver early and often</li></ul>
+<li>Process
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">More time up front</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">Technology
+<li>More time up front</li></ul>
+<li>Technology
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Radiators
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Web context</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">Possiblity #1: If there is no customer who thinks it's worth their time, there's no agility &#8211; and the value of the project is zero. If management isn't willing to make a person available to tell you whether you're on the right track, there's zero chance we'll deliver what you need, and this whole project is wasted effort.
+<li>Radiators
+<li>Web context</li></ul>
+<li>Possiblity #1: If there is no customer who thinks it's worth their time, there's no agility &#8211; and the value of the project is zero. If management isn't willing to make a person available to tell you whether you're on the right track, there's zero chance we'll deliver what you need, and this whole project is wasted effort.
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Maybe the person you're delivering to isn't really your customer. They might be your end user, but they're not your customer.
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level2 lfo1; tab-stops: list 1.0in">Go ahead and deliver the wrong thing (which it will be, since nobody ever told you what they wanted), but deliver it with panache. If you get them mad at you, maybe they'll take a little more interest. (Nice idea if this actually worked&#8230;)</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l1 level1 lfo1; tab-stops: list .5in">Possibility #2: Sit down with customer and Maya, to elicit requirements. Deliver something tangible and viewable, quickly, that shows understanding. (Maya is coming out sometime next quarter) Or otherwise find a way to show value immediately.</li></ul>
+<li>Maybe the person you're delivering to isn't really your customer. They might be your end user, but they're not your customer.
+<li>Go ahead and deliver the wrong thing (which it will be, since nobody ever told you what they wanted), but deliver it with panache. If you get them mad at you, maybe they'll take a little more interest. (Nice idea if this actually worked&#8230;)</li></ul>
+<li>Possibility #2: Sit down with customer and Maya, to elicit requirements. Deliver something tangible and viewable, quickly, that shows understanding. (Maya is coming out sometime next quarter) Or otherwise find a way to show value immediately.</li></ul>

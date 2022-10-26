@@ -2,105 +2,105 @@
 title: "Agile and Extreme Programming: A Pragmatic Approach (part 2)  #.NET  #Delphi  #borcon2005  #extreme programming"
 sort: 2215
 ---
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Random note: Wouldn't it be fun to work on a project code-named "Sisyphus"?</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><o:p>&nbsp;</o:p></p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Some agile methodologies:</p>
+<p>Random note: Wouldn't it be fun to work on a project code-named "Sisyphus"?</p>
+<p><?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><o:p>&nbsp;</o:p></p>
+<p>Some agile methodologies:</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Extreme programming</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Scrum</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in"><?xml:namespace prefix = st1 ns = "urn:schemas-microsoft-com:office:smarttags" /><st1:City><st1:place>Crystal</st1:place></st1:City> methodologies (different ones for different team sizes)</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">XP</p>
+<li>Extreme programming</li>
+<li>Scrum</li>
+<li><?xml:namespace prefix = st1 ns = "urn:schemas-microsoft-com:office:smarttags" /><st1:City><st1:place>Crystal</st1:place></st1:City> methodologies (different ones for different team sizes)</li></ul>
+<p>XP</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">ThoughtWorks has decided XP is the best thing they've tried. Always use it for flat-bid projects, and refuse projects that can't be done with some agile process.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">XP started in mid-1990s (predates Agile Manifesto)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Kent Beck and Ward Cunningham thinking about what made software simple to create, and what made it difficult</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">In March 1996, <st1:country-region><st1:place>Kent</st1:place></st1:country-region> started a project at DaimlerChrysler using new concepts, called it "Extreme Programming"</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">The 4 XP dimensions</p>
+<li>ThoughtWorks has decided XP is the best thing they've tried. Always use it for flat-bid projects, and refuse projects that can't be done with some agile process.</li>
+<li>XP started in mid-1990s (predates Agile Manifesto)</li>
+<li>Kent Beck and Ward Cunningham thinking about what made software simple to create, and what made it difficult</li>
+<li>In March 1996, <st1:country-region><st1:place>Kent</st1:place></st1:country-region> started a project at DaimlerChrysler using new concepts, called it "Extreme Programming"</li></ul>
+<p>The 4 XP dimensions</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Communication</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Simplicity</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Feedback</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Courage</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Can you create a less-scary XP by substituting out the stuff that scares the boss?</p>
+<li>Communication</li>
+<li>Simplicity</li>
+<li>Feedback</li>
+<li>Courage</li></ul>
+<p>Can you create a less-scary XP by substituting out the stuff that scares the boss?</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">XP is carefully calibrated for feedback, and relies on feedback to work. (XP is actually a highly-coupled process!)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Lots of backward arrows in the XP workflow diagrams (see e.g. <a href="http://www.extremeprogramming.org/map/project.html">http://www.extremeprogramming.org/map/project.html</a>)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">If you randomly remove some of those backwards arrows, you lose feedback, and you harm everything beyond that point</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Anything you replace has to provide approximately the same level of feedback</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">You can't randomly pick and choose &#8211; you'll create something that's worse than many other methodologies, and you're sure to fail</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">The Planning Practices</p>
+<li>XP is carefully calibrated for feedback, and relies on feedback to work. (XP is actually a highly-coupled process!)</li>
+<li>Lots of backward arrows in the XP workflow diagrams (see e.g. <a href="http://www.extremeprogramming.org/map/project.html">http://www.extremeprogramming.org/map/project.html</a>)</li>
+<li>If you randomly remove some of those backwards arrows, you lose feedback, and you harm everything beyond that point</li>
+<li>Anything you replace has to provide approximately the same level of feedback</li>
+<li>You can't randomly pick and choose &#8211; you'll create something that's worse than many other methodologies, and you're sure to fail</li></ul>
+<p>The Planning Practices</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">User stories</li>
+<li>User stories</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Not requirements lists</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Narratives that describe the ideal way in which the user plans to use the system for one piece of behavior</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Trying to capture that rich face-to-face communication through a narrative</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Used to create time estimates for release planning and acceptance testing</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Example: "I can add a customer to the system."</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Usually about 3 sentences written by the customer, in the customer's terminology, without techno-speak. You're not allowed to use words like "database".</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Not nearly as detailed as traditional requirements. You discover things like "which database fields do I need?" as you start to write the code. (You've got full-time access to a business analyst, right?)</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Aside: testing</li>
+<li>Not requirements lists</li>
+<li>Narratives that describe the ideal way in which the user plans to use the system for one piece of behavior</li>
+<li>Trying to capture that rich face-to-face communication through a narrative</li>
+<li>Used to create time estimates for release planning and acceptance testing</li>
+<li>Example: "I can add a customer to the system."</li>
+<li>Usually about 3 sentences written by the customer, in the customer's terminology, without techno-speak. You're not allowed to use words like "database".</li>
+<li>Not nearly as detailed as traditional requirements. You discover things like "which database fields do I need?" as you start to write the code. (You've got full-time access to a business analyst, right?)</li></ul>
+<li>Aside: testing</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Unit tests for developers</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Acceptance testing to say whether it's complete</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">There's no such thing as "80% done" for a single story. A story is either done or it's not.</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Acceptance tests:</li>
+<li>Unit tests for developers</li>
+<li>Acceptance testing to say whether it's complete</li>
+<li>There's no such thing as "80% done" for a single story. A story is either done or it's not.</li></ul>
+<li>Acceptance tests:</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">One story may have several acceptance tests (e.g. to cover validation requirements for that new customer, etc.)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Business analyst, or end-user, defines the acceptance test &#8211; not the programmer!</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Worst case: acceptance tests in an Excel spreadsheet, and someone runs the tests manually</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Can you do XP without index cards?</li>
+<li>One story may have several acceptance tests (e.g. to cover validation requirements for that new customer, etc.)</li>
+<li>Business analyst, or end-user, defines the acceptance test &#8211; not the programmer!</li>
+<li>Worst case: acceptance tests in an Excel spreadsheet, and someone runs the tests manually</li></ul>
+<li>Can you do XP without index cards?</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Sure</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Must be very flexible</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Must be granular</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">"CaliberRM is an outstanding choice for this"</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Requirements should be as narrative as possible, not just a dry list of facts</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Caliber is looking at features to make it more agile-friendly</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Session on Thursday on using Caliber with agile</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Neither user stories nor requirements should delve into technical details</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Aside: wikis</li>
+<li>Sure</li>
+<li>Must be very flexible</li>
+<li>Must be granular</li>
+<li>"CaliberRM is an outstanding choice for this"</li>
+<li>Requirements should be as narrative as possible, not just a dry list of facts</li>
+<li>Caliber is looking at features to make it more agile-friendly</li>
+<li>Session on Thursday on using Caliber with agile</li>
+<li>Neither user stories nor requirements should delve into technical details</li></ul>
+<li>Aside: wikis</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">ThoughtWorks has two systems for shared document management: Lotus Notes and Confluence</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">VeryQuickWiki (Java servlet)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Instiki (written in Ruby!) &#8211; Three steps: you download it, run it, and there is no third step</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Release planning</li>
+<li>ThoughtWorks has two systems for shared document management: Lotus Notes and Confluence</li>
+<li>VeryQuickWiki (Java servlet)</li>
+<li>Instiki (written in Ruby!) &#8211; Three steps: you download it, run it, and there is no third step</li></ul>
+<li>Release planning</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Creates the schedule</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Used to create iteration plans for each iteration</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Decisions</li>
+<li>Creates the schedule</li>
+<li>Used to create iteration plans for each iteration</li>
+<li>Decisions</li>
 <ul style="MARGIN-TOP: 0in" type=square>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">Technical decisions made by technical people</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">Business decisions made by business people</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Dev team estimates each user story in terms of ideal programming days/weeks (very rough)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Do not change estimates just because management is displeased</li>
+<li>Technical decisions made by technical people</li>
+<li>Business decisions made by business people</li></ul>
+<li>Dev team estimates each user story in terms of ideal programming days/weeks (very rough)</li>
+<li>Do not change estimates just because management is displeased</li>
 <ul style="MARGIN-TOP: 0in" type=square>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">Can't tell accounting that they have less time to do the taxes this year</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">But they try to do the same thing with developers</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Project can be quantified by scope, resources, time, quality</li>
+<li>Can't tell accounting that they have less time to do the taxes this year</li>
+<li>But they try to do the same thing with developers</li></ul>
+<li>Project can be quantified by scope, resources, time, quality</li>
 <ul style="MARGIN-TOP: 0in" type=square>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">Management can pick three; developers pick the other</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">Management usually picks scope, resources, and time, and leaves quality to the developers, because they understand the first three, and can't understand how to quantify quality.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">Lowering quality may have impact later in the project</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Quantifying quality</li>
+<li>Management can pick three; developers pick the other</li>
+<li>Management usually picks scope, resources, and time, and leaves quality to the developers, because they understand the first three, and can't understand how to quantify quality.</li>
+<li>Lowering quality may have impact later in the project</li></ul>
+<li>Quantifying quality</li>
 <ul style="MARGIN-TOP: 0in" type=square>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">Code coverage statistics (AutomatedQA does this for Delphi/Win32)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">No "I think it's pretty high quality" or "it's 80% done" &#8211; give actual statistics</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">If you want to let quality slide, I can't be responsible for bugs &#8211; because if I don't have tests for it, I don't know whether it works or not.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">Doesn't guarantee it does what the business analyst &#8211; that's what acceptance tests are for</li></ul></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Release Planning Substitutions</li>
+<li>Code coverage statistics (AutomatedQA does this for Delphi/Win32)</li>
+<li>No "I think it's pretty high quality" or "it's 80% done" &#8211; give actual statistics</li>
+<li>If you want to let quality slide, I can't be responsible for bugs &#8211; because if I don't have tests for it, I don't know whether it works or not.</li>
+<li>Doesn't guarantee it does what the business analyst &#8211; that's what acceptance tests are for</li></ul></ul>
+<li>Release Planning Substitutions</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Goal: consensus between devs, management, and business people</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Don't stop until everyone is happy (or at least equally unhappy)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Don't leave out the business stakeholders</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Don't leave out the developers (you wouldn't change accounting practices without accounting there, would you?)</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Small Releases</li>
+<li>Goal: consensus between devs, management, and business people</li>
+<li>Don't stop until everyone is happy (or at least equally unhappy)</li>
+<li>Don't leave out the business stakeholders</li>
+<li>Don't leave out the developers (you wouldn't change accounting practices without accounting there, would you?)</li></ul>
+<li>Small Releases</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Frequent small releases to customers (or customer proxies)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">These are *releases*, not "90% done". Done has to be binary (either done or not), not a percentage. That's the only way you can gather meaningful statistics. (See <a href="http://blog.excastle.com/2005/07/18/xp-constant-shippability/">http://excastle.com/blog/archive/2005/07/18/1928.aspx</a>)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">It's releasable &#8211; and done &#8211; when all the acceptance tests pass</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Do important stuff first. The longer you wait to add an important feature, the less time you'll have to fix it.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Never slip an iteration date. Stuff can hang over (if it hasn't passed its acceptance tests yet), but the date can't move.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Hard to substitute. Can simulate by doing small releases within your department, but if you slip into "90% done" mode, you're sunk.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Try hard to get User Acceptance Testing in.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">If management says "Finding bugs is your job", say "I've found all the technical bugs. I need you to find the business bugs."</li></ul></ul>
+<li>Frequent small releases to customers (or customer proxies)</li>
+<li>These are *releases*, not "90% done". Done has to be binary (either done or not), not a percentage. That's the only way you can gather meaningful statistics. (See <a href="http://blog.excastle.com/2005/07/18/xp-constant-shippability/">http://excastle.com/blog/archive/2005/07/18/1928.aspx</a>)</li>
+<li>It's releasable &#8211; and done &#8211; when all the acceptance tests pass</li>
+<li>Do important stuff first. The longer you wait to add an important feature, the less time you'll have to fix it.</li>
+<li>Never slip an iteration date. Stuff can hang over (if it hasn't passed its acceptance tests yet), but the date can't move.</li>
+<li>Hard to substitute. Can simulate by doing small releases within your department, but if you slip into "90% done" mode, you're sunk.</li>
+<li>Try hard to get User Acceptance Testing in.</li>
+<li>If management says "Finding bugs is your job", say "I've found all the technical bugs. I need you to find the business bugs."</li></ul></ul>

@@ -2,125 +2,125 @@
 title: "Empowering Agile Development with CaliberRM  #.NET  #Delphi  #borcon2005  #extreme programming"
 sort: 2234
 ---
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Empowering Agile Development with CaliberRM</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Jerry Odenwelder</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><o:p>&nbsp;</o:p></p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Test-first speaking :-) (they had to troubleshoot and test the recording software before the session started)</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>&nbsp;</o:p></p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Likes agile &#8211; customer involvement, lots of testing</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>&nbsp;</o:p></p>
+<p>Empowering Agile Development with CaliberRM</p>
+<p>Jerry Odenwelder</p>
+<p><?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><o:p>&nbsp;</o:p></p>
+<p>Test-first speaking :-) (they had to troubleshoot and test the recording software before the session started)</p>
+<p><o:p>&nbsp;</o:p></p>
+<p>Likes agile &#8211; customer involvement, lots of testing</p>
+<p><o:p>&nbsp;</o:p></p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Individuals and Interaction: People are not pluggable units</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Customer Collaboration: Customers are ultimate beneficiaries, so need to be involved</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Working Software: is what adds value to the business</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Adaptive: Change the process as needed.</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Agile Requirements</p>
+<li>Individuals and Interaction: People are not pluggable units</li>
+<li>Customer Collaboration: Customers are ultimate beneficiaries, so need to be involved</li>
+<li>Working Software: is what adds value to the business</li>
+<li>Adaptive: Change the process as needed.</li></ul>
+<p>Agile Requirements</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">User Stories</li>
+<li>User Stories</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Can break down into one or many requirements</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Describes a unit of work that contributes to business value</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Created by, and owned by, the customer</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Meets the PET criteria</li>
+<li>Can break down into one or many requirements</li></ul>
+<li>Describes a unit of work that contributes to business value</li>
+<li>Created by, and owned by, the customer</li>
+<li>Meets the PET criteria</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Can be Prioritized</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Can be Estimated</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Can be and Tested</li></ul></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Why Use a Tool (instead of index cards)</p>
+<li>Can be Prioritized</li>
+<li>Can be Estimated</li>
+<li>Can be and Tested</li></ul></ul>
+<p>Why Use a Tool (instead of index cards)</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Automation (cut/paste)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Disaster recovery</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Reporting</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Traceability</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Distributed Development</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Scalability</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Customer is not available</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">CaliberRM Supporting Agile</p>
+<li>Automation (cut/paste)</li>
+<li>Disaster recovery</li>
+<li>Reporting</li>
+<li>Traceability</li>
+<li>Distributed Development</li>
+<li>Scalability</li>
+<li>Customer is not available</li></ul>
+<p>CaliberRM Supporting Agile</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Light Weight</li>
+<li>Light Weight</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Expert Client</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Cross-Platform / Web Client</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Works in your environment (<?xml:namespace prefix = st1 ns = "urn:schemas-microsoft-com:office:smarttags" /><st1:place>Delphi</st1:place>, etc.)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Get the bureaucracy off your back</li>
+<li>Expert Client</li>
+<li>Cross-Platform / Web Client</li></ul>
+<li>Works in your environment (<?xml:namespace prefix = st1 ns = "urn:schemas-microsoft-com:office:smarttags" /><st1:place>Delphi</st1:place>, etc.)</li>
+<li>Get the bureaucracy off your back</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Document generation</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Reporting</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Everyone is on the same page</li>
+<li>Document generation</li>
+<li>Reporting</li></ul>
+<li>Everyone is on the same page</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Central server</li></ul></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Managing User Stories</p>
+<li>Central server</li></ul></ul>
+<p>Managing User Stories</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Rich text editor</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Attach pictures</li>
+<li>Rich text editor</li>
+<li>Attach pictures</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Take a picture of the napkin and put it in as a requirement</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">No zooming support in the current version</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Embedded tables (e.g., Fitness)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Glossaries: business can write terms they're familiar with, they'll automatically be highlighted in the text, and when the programmer hovers over them, they find out what the acronym means</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Could create a requirement type of "Backlog" and another called "Sprint Backlog"</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">User-defined attributes, e.g., complexity, iteration, requires spike</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Collaboration</p>
+<li>Take a picture of the napkin and put it in as a requirement</li>
+<li>No zooming support in the current version</li></ul>
+<li>Embedded tables (e.g., Fitness)</li>
+<li>Glossaries: business can write terms they're familiar with, they'll automatically be highlighted in the text, and when the programmer hovers over them, they find out what the acronym means</li>
+<li>Could create a requirement type of "Backlog" and another called "Sprint Backlog"</li>
+<li>User-defined attributes, e.g., complexity, iteration, requires spike</li></ul>
+<p>Collaboration</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">E-mail notifications (customize per group); registered interest</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Threaded discussions</li>
+<li>E-mail notifications (customize per group); registered interest</li>
+<li>Threaded discussions</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Record hallway discussions</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">If the customer isn't immediately available, could post questions and get responses back</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">When you log into Caliber, you get a pop-up notification (can disable, can run explicitly later) showing which discussion items you haven't read yet</li></ul></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Decrease time of meetings</p>
+<li>Record hallway discussions</li>
+<li>If the customer isn't immediately available, could post questions and get responses back</li>
+<li>When you log into Caliber, you get a pop-up notification (can disable, can run explicitly later) showing which discussion items you haven't read yet</li></ul></ul>
+<p>Decrease time of meetings</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Filtering: Remove data from grid that's not important for this meeting; sort</li>
+<li>Filtering: Remove data from grid that's not important for this meeting; sort</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Can save the grid settings and reload them later</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Edit right there during the meeting</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Maintains history of changes</p>
+<li>Can save the grid settings and reload them later</li></ul>
+<li>Edit right there during the meeting</li></ul>
+<p>Maintains history of changes</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Records how requirements change over time</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Go back and review old version of requirements</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Document Factory can produce documentation (which even includes the picture of the napkin)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">History tab: top pane shows history of changes, bottom pane shows what changed in any particular rev</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">No way to require (at the server side) comments for each change</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Manage Dependencies</p>
+<li>Records how requirements change over time</li>
+<li>Go back and review old version of requirements</li>
+<li>Document Factory can produce documentation (which even includes the picture of the napkin)</li>
+<li>History tab: top pane shows history of changes, bottom pane shows what changed in any particular rev</li>
+<li>No way to require (at the server side) comments for each change</li></ul>
+<p>Manage Dependencies</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Valuable for</li>
+<li>Valuable for</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Impact of change</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Risk assessment</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Planning</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Important Agile Traces</li>
+<li>Impact of change</li>
+<li>Risk assessment</li>
+<li>Planning</li></ul>
+<li>Important Agile Traces</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Dependent requirements</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Project tasks</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Model components</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Validation procedures</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Tracing to</li>
+<li>Dependent requirements</li>
+<li>Project tasks</li>
+<li>Model components</li>
+<li>Validation procedures</li></ul>
+<li>Tracing to</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">External files (might be a bad idea in Agile, since the files might change frequently)</li>
+<li>External files (might be a bad idea in Agile, since the files might change frequently)</li>
 <ul style="MARGIN-TOP: 0in" type=square>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">External revision control system?</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">TestDirector</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">StarTeam</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">View trace matrix</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">When you change one item, the items it feeds into are marked as suspect, so you can go and review them</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Baselines</p>
+<li>External revision control system?</li></ul>
+<li>TestDirector</li>
+<li>StarTeam</li></ul>
+<li>View trace matrix</li>
+<li>When you change one item, the items it feeds into are marked as suspect, so you can go and review them</li></ul>
+<p>Baselines</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Isolate requirements for a release or iteration</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Once a requirement has been put into a baseline, it can't be modified through normal editing (you have to explicitly go into Baseline Maintenance)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Baselines support digital signatures (if you have compliance issues)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Once a baseline is locked (signed), it can't be unlocked (for compliance reasons)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Can diff two baselines, or current baseline with old baseline</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Security</p>
+<li>Isolate requirements for a release or iteration</li>
+<li>Once a requirement has been put into a baseline, it can't be modified through normal editing (you have to explicitly go into Baseline Maintenance)</li>
+<li>Baselines support digital signatures (if you have compliance issues)</li>
+<li>Once a baseline is locked (signed), it can't be unlocked (for compliance reasons)</li>
+<li>Can diff two baselines, or current baseline with old baseline</li></ul>
+<p>Security</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Supported to User-Defined Attribute level</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Q: If you're in an agile environment, do you need security? A: It might not be a bad idea to keep the customer from editing the estimates (grin). Maybe the developer shouldn't be able to edit descriptions or iteration numbers. And if you're working with a third-party vendor, you'd want to rein that in as well. The person who drives the meetings should probably have all access.</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Conclusion</p>
+<li>Supported to User-Defined Attribute level</li>
+<li>Q: If you're in an agile environment, do you need security? A: It might not be a bad idea to keep the customer from editing the estimates (grin). Maybe the developer shouldn't be able to edit descriptions or iteration numbers. And if you're working with a third-party vendor, you'd want to rein that in as well. The person who drives the meetings should probably have all access.</li></ul>
+<p>Conclusion</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Change is inevitable; embrace it</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Requirement Capture and Understanding</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Planning and Risk Analysis</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Tracking Progress</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Post Mortems</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Q: What happens if you have an unreliable network connection that dies while you're working? A: Anything they were working on, but hadn't saved yet, will be lost. The requirement they were editing will be locked until the session times out (or the admin logs off their session).</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>&nbsp;</o:p></p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Q: How do you make sure the story gets QA'ed and documented? A: You would probably want to use user-defined attributes for that (possibly in combination with the built-in Status and Priority attributes). Find them by setting filters on the requirements grid.</p>
+<li>Change is inevitable; embrace it</li>
+<li>Requirement Capture and Understanding</li>
+<li>Planning and Risk Analysis</li>
+<li>Tracking Progress</li>
+<li>Post Mortems</li></ul>
+<p>Q: What happens if you have an unreliable network connection that dies while you're working? A: Anything they were working on, but hadn't saved yet, will be lost. The requirement they were editing will be locked until the session times out (or the admin logs off their session).</p>
+<p><o:p>&nbsp;</o:p></p>
+<p>Q: How do you make sure the story gets QA'ed and documented? A: You would probably want to use user-defined attributes for that (possibly in combination with the built-in Status and Priority attributes). Find them by setting filters on the requirements grid.</p>

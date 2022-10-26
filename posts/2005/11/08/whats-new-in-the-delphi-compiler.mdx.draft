@@ -3,38 +3,38 @@ title: "What's New in the Delphi Compiler?  #.NET  #Delphi  #borcon2005"
 sort: 2225
 ---
 Here's <a href="http://blogs.borland.com/dcc/">Danny</a>'s session, "What's New in the Delphi Compiler". At this point, I am actually caught up on my conference blogging. (Caught up on the first day. Will wonders never cease?)
-<p class="MsoNormal" style="margin: 0in 0in 0pt">What's New in the <st1:place>Delphi</st1:place> Compiler</p>
+<p>What's New in the <st1:place>Delphi</st1:place> Compiler</p>
 
 <ul style="margin-top: 0in" type="disc">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Major Win32 compiler work
+<li>Major Win32 compiler work
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Records with Methods</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Operator Overloading</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Class vars (per-type global storage)</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Unit initialization consolidation
+<li>Records with Methods</li>
+<li>Operator Overloading</li>
+<li>Class vars (per-type global storage)</li>
+<li>Unit initialization consolidation
 <ul style="margin-top: 0in" type="square">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Large app, lots of units, lots of initialization -&gt; loaded lots of pages from disk to run all those initialization sections.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">When the linker does smart linking and assigning addresses, now it puts all those initializations together in one clump of code pages. Result: faster startup (on the order of 2-5%), and significant reduction in working set.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Next step is to put them in a separate segment, so they can be purged from the working set after startup. Not done yet.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Finalizations are also clumped together.</li>
+<li>Large app, lots of units, lots of initialization -&gt; loaded lots of pages from disk to run all those initialization sections.</li>
+<li>When the linker does smart linking and assigning addresses, now it puts all those initializations together in one clump of code pages. Result: faster startup (on the order of 2-5%), and significant reduction in working set.</li>
+<li>Next step is to put them in a separate segment, so they can be purged from the working set after startup. Not done yet.</li>
+<li>Finalizations are also clumped together.</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Inline-able magic functions (string Length(), etc.)</li>
+<li>Inline-able magic functions (string Length(), etc.)</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Minor .NET compiler work
+<li>Minor .NET compiler work
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Minor bug fixes, metadata improvements</li>
+<li>Minor bug fixes, metadata improvements</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">.NET Compact Frameworks Enablement
+<li>.NET Compact Frameworks Enablement
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Soften error checking for missing CLR stuff</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Beef up class helpers</li>
+<li>Soften error checking for missing CLR stuff</li>
+<li>Beef up class helpers</li>
 </ul>
 </li>
 </ul>
-<p class="MsoNormal" style="margin: 0in 0in 0pt">Records with Methods</p>
+<p>Records with Methods</p>
 <pre>type
   TBlock = record
     procedure Foo(I: Integer);
@@ -46,80 +46,80 @@ Here's <a href="http://blogs.borland.com/dcc/">Danny</a>'s session, "What's New 
   end;</pre>
 
 <ul style="margin-top: 0in" type="disc">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">In old-style objects, virtual methods were optional, so the VMT could be at a different offset in different types (if it was there at all). Difficult to work with.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">In the <st1:place>Delphi</st1:place> language, "class" is always a reference type, for simplicity.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Value types: If they're small, allocating them is fast.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Yes, you can reference the type within itself (see the declaration of Bar, above).</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Private, protected, public. Probably has strict private and strict protected as well.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">No inheritance. (So protected really doesn't mean anything. Maybe it isn't there after all.)</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Default scope is public.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Can implement interfaces in .NET, but not in Win32</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">No published. Records have no VMT so they can't have RTTI.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Can still have variant sections in the record, but they have to be at the end. May not be able to put visibility specifiers after you've started a variant section. Cannot put methods inside a variant section.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Assigning the record will copy everything regardless of visibility.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Note: if you put compiler-managed types in a record (string, interface, dynamic array, Variant), the compiler will generate try..finally code all over the place for you. (This is the same rules as before.)</li>
+<li>In old-style objects, virtual methods were optional, so the VMT could be at a different offset in different types (if it was there at all). Difficult to work with.</li>
+<li>In the <st1:place>Delphi</st1:place> language, "class" is always a reference type, for simplicity.</li>
+<li>Value types: If they're small, allocating them is fast.</li>
+<li>Yes, you can reference the type within itself (see the declaration of Bar, above).</li>
+<li>Private, protected, public. Probably has strict private and strict protected as well.</li>
+<li>No inheritance. (So protected really doesn't mean anything. Maybe it isn't there after all.)</li>
+<li>Default scope is public.</li>
+<li>Can implement interfaces in .NET, but not in Win32</li>
+<li>No published. Records have no VMT so they can't have RTTI.</li>
+<li>Can still have variant sections in the record, but they have to be at the end. May not be able to put visibility specifiers after you've started a variant section. Cannot put methods inside a variant section.</li>
+<li>Assigning the record will copy everything regardless of visibility.</li>
+<li>Note: if you put compiler-managed types in a record (string, interface, dynamic array, Variant), the compiler will generate try..finally code all over the place for you. (This is the same rules as before.)</li>
 </ul>
-<p class="MsoNormal" style="margin: 0in 0in 0pt">Operator Overloading (Win32)</p>
+<p>Operator Overloading (Win32)</p>
 
 <ul style="margin-top: 0in" type="disc">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Requires value semantics. "A + B" must return a new instance. (Otherwise, who's going to clean them up?)</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Supported on record types only (see previous point)</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Same syntax &amp; rules as <st1:place>Delphi</st1:place> .NET
+<li>Requires value semantics. "A + B" must return a new instance. (Otherwise, who's going to clean them up?)</li>
+<li>Supported on record types only (see previous point)</li>
+<li>Same syntax &amp; rules as <st1:place>Delphi</st1:place> .NET
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">class operator Add(A, B: TQuark): TQuark;</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">class operator Add(A: TQuark; B: Byte): TQuark;</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">class operator Implicit(A: Integer): TQuark;</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">class operator Explicit(A: TQuark): Integer;</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">class operator Explicit(A: TQuark): string;</li>
+<li>class operator Add(A, B: TQuark): TQuark;</li>
+<li>class operator Add(A: TQuark; B: Byte): TQuark;</li>
+<li>class operator Implicit(A: Integer): TQuark;</li>
+<li>class operator Explicit(A: TQuark): Integer;</li>
+<li>class operator Explicit(A: TQuark): string;</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Implicitly overloaded, so you don't have to use the "overload;" directive.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Can't define new operators, but you can override all of the standard ones (except assignment and pointer dereferencing).</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">If you want to support all the different integer types, you have to do it yourself.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Commutativity is not assumed. So if you want both TQuark + Byte and Byte + TQuark, you have to define it. (Not a big deal &ndash; have one call the other, and get it inlined.)</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Operator Explicit is the only place you're allowed to overload on result type.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">If TFoo defines Add(TFoo, TBar), and TBar defines Add(TFoo, TBar), the compiler will pick one. Don't do this.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Implicit conversion happens when:
+<li>Implicitly overloaded, so you don't have to use the "overload;" directive.</li>
+<li>Can't define new operators, but you can override all of the standard ones (except assignment and pointer dereferencing).</li>
+<li>If you want to support all the different integer types, you have to do it yourself.</li>
+<li>Commutativity is not assumed. So if you want both TQuark + Byte and Byte + TQuark, you have to define it. (Not a big deal &ndash; have one call the other, and get it inlined.)</li>
+<li>Operator Explicit is the only place you're allowed to overload on result type.</li>
+<li>If TFoo defines Add(TFoo, TBar), and TBar defines Add(TFoo, TBar), the compiler will pick one. Don't do this.</li>
+<li>Implicit conversion happens when:
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">A := B;</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Passing parameters</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Don't define an implicit conversion if you will lose information.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Will not do long-trip conversions. If A can be implicitly converted to B, and B to C, and you try to go straight from A to C, <st1:place>Delphi</st1:place> will say "Bad programmer!"</li>
+<li>A := B;</li>
+<li>Passing parameters</li>
+<li>Don't define an implicit conversion if you will lose information.</li>
+<li>Will not do long-trip conversions. If A can be implicitly converted to B, and B to C, and you try to go straight from A to C, <st1:place>Delphi</st1:place> will say "Bad programmer!"</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Explicit is for explicit casts, like TFoo(5), or Integer(MyFoo).
+<li>Explicit is for explicit casts, like TFoo(5), or Integer(MyFoo).
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">These are allowed to lose data, e.g., going from a LongInt to a Byte.</li>
+<li>These are allowed to lose data, e.g., going from a LongInt to a Byte.</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">If two types both define the same implicit or explicit conversion (like TFoo to TBar), you will get a compiler error (ambiguous overload, or some such) at the point where you try to do the cast.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">You cannot call TQuark.Add directly. It doesn't exist.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Operators are implicitly static.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">WriteLn(Q) uses Explicit(Quark): string</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">If you do a hard typecast on something that supports that as an implicit typecast, it'll work. You don't have to declare the same thing as both implicit and explicit.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Cast operators: Implicit, Explicit</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Unary: Positive, Negative, Inc, Dec, LogicalNot, BitwiseNot, Trunc, Round</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Comparison: Equal, NotEqual, GreaterThan, GreaterThanOrEqual, LessThan, LessThanOrEqual</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Binary: Add, Subtract, Multiply, Divide, IntDivide, Modulus, ShiftLeft, ShiftRight, LogicalAnd, LogicalOr, LogicalXor, BitwiseAnd, BitwiseOr, BitwiseXor</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">If you define both LogicalOr and BinaryOr, the compiler will pick one. Don't do that.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">You can have an operator called Divide and a method called Divide. They won't collide.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Operators should always create and return a new value, not modify the inputs. (Yes, this applies to operator Inc and Dec as well.)</li>
+<li>If two types both define the same implicit or explicit conversion (like TFoo to TBar), you will get a compiler error (ambiguous overload, or some such) at the point where you try to do the cast.</li>
+<li>You cannot call TQuark.Add directly. It doesn't exist.</li>
+<li>Operators are implicitly static.</li>
+<li>WriteLn(Q) uses Explicit(Quark): string</li>
+<li>If you do a hard typecast on something that supports that as an implicit typecast, it'll work. You don't have to declare the same thing as both implicit and explicit.</li>
+<li>Cast operators: Implicit, Explicit</li>
+<li>Unary: Positive, Negative, Inc, Dec, LogicalNot, BitwiseNot, Trunc, Round</li>
+<li>Comparison: Equal, NotEqual, GreaterThan, GreaterThanOrEqual, LessThan, LessThanOrEqual</li>
+<li>Binary: Add, Subtract, Multiply, Divide, IntDivide, Modulus, ShiftLeft, ShiftRight, LogicalAnd, LogicalOr, LogicalXor, BitwiseAnd, BitwiseOr, BitwiseXor</li>
+<li>If you define both LogicalOr and BinaryOr, the compiler will pick one. Don't do that.</li>
+<li>You can have an operator called Divide and a method called Divide. They won't collide.</li>
+<li>Operators should always create and return a new value, not modify the inputs. (Yes, this applies to operator Inc and Dec as well.)</li>
 </ul>
-<p class="MsoNormal" style="margin: 0in 0in 0pt">Operator Selection</p>
+<p>Operator Selection</p>
 
 <ul style="margin-top: 0in" type="disc">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Expression: A + B</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Types: TA, TB</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Add operator is selected from the Add operators on TA and TB only, not from other classes. (Again, it's not automatically transitive.)</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">If TA is convertible from TB, but not the other way around, TA is considered narrower, or more specific. This affects overloaded method calls.</li>
+<li>Expression: A + B</li>
+<li>Types: TA, TB</li>
+<li>Add operator is selected from the Add operators on TA and TB only, not from other classes. (Again, it's not automatically transitive.)</li>
+<li>If TA is convertible from TB, but not the other way around, TA is considered narrower, or more specific. This affects overloaded method calls.</li>
 </ul>
-<p class="MsoNormal" style="margin: 0in 0in 0pt">Class vars</p>
+<p>Class vars</p>
 
 <ul style="margin-top: 0in" type="disc">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Global storage for a field within your type</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Descendants share ancestor's class vars
+<li>Global storage for a field within your type</li>
+<li>Descendants share ancestor's class vars
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Not separate storage for each derived type</li>
+<li>Not separate storage for each derived type</li>
 </ul>
 </li>
 </ul>
@@ -131,36 +131,36 @@ public
 end;</pre>
 
 <ul style="margin-top: 0in" type="disc">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Cannot initialize these in Win32, yet. (No class constructors in Win32.) But you could initialize it from a unit initialization section.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Accessible from class functions</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Same default initialization rules as globals: initialized to zero.</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">"class var" starts a new section. So do "var" and "type". ("Var" and "class var" are there because of nested types in Delphi 2005 &ndash; "type" introduces a section, so you need "var" to get back out of that mode.)</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Can have class constants as well (but not typed class constants).</li>
+<li>Cannot initialize these in Win32, yet. (No class constructors in Win32.) But you could initialize it from a unit initialization section.</li>
+<li>Accessible from class functions</li>
+<li>Same default initialization rules as globals: initialized to zero.</li>
+<li>"class var" starts a new section. So do "var" and "type". ("Var" and "class var" are there because of nested types in Delphi 2005 &ndash; "type" introduces a section, so you need "var" to get back out of that mode.)</li>
+<li>Can have class constants as well (but not typed class constants).</li>
 </ul>
-<p class="MsoNormal" style="margin: 0in 0in 0pt">Roadmap</p>
+<p>Roadmap</p>
 
 <ul style="margin-top: 0in" type="disc">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">These are objectives, not guaranteed feature lists</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">"Highlander" (calendar 2006)
+<li>These are objectives, not guaranteed feature lists</li>
+<li>"Highlander" (calendar 2006)
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Full .NET 2.0 support &amp; integration</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt"><st1:place>Delphi</st1:place> generics, class fragments, and more</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Full .NET Compact Framework support, including VCL.NET for CF</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Support .NET 2.0 64-bit app development</li>
+<li>Full .NET 2.0 support &amp; integration</li>
+<li><st1:place>Delphi</st1:place> generics, class fragments, and more</li>
+<li>Full .NET Compact Framework support, including VCL.NET for CF</li>
+<li>Support .NET 2.0 64-bit app development</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">"Delphi Longhorn" (not the actual codename) (sometime after Highlander)
+<li>"Delphi Longhorn" (not the actual codename) (sometime after Highlander)
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Win32 &amp; .NET development for Windows Vista OS</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Avalon (WPF)</li>
+<li>Win32 &amp; .NET development for Windows Vista OS</li>
+<li>Avalon (WPF)</li>
 </ul>
 </li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt"><st1:place>Delphi</st1:place> Win64
+<li><st1:place>Delphi</st1:place> Win64
 <ul style="margin-top: 0in" type="circle">
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Closest logical evolution of Win32</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Same shortcomings as Win32 (DLLs, APIs, security)</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Unicode VCL</li>
-<li class="MsoNormal" style="margin: 0in 0in 0pt">Company green light, just needs time &amp; resources<font size="2"><o:p></o:p></font></li>
+<li>Closest logical evolution of Win32</li>
+<li>Same shortcomings as Win32 (DLLs, APIs, security)</li>
+<li>Unicode VCL</li>
+<li>Company green light, just needs time &amp; resources<font size="2"><o:p></o:p></font></li>
 </ul>
 </li>
 </ul>

@@ -2,139 +2,139 @@
 title: "Second Keynote  #.NET  #Delphi  #borcon2005"
 sort: 2231
 ---
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">I didn't live-blog during the keynote yesterday, because it was an hour and a half, and I figured I wouldn't have enough battery. Since today's was only an hour, I fired up the laptop. Here's the goods:</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">&nbsp;</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Announcements (<a href="http://blogs.borland.com/davidi/">DavidI</a>)</p>
+<p>I didn't live-blog during the keynote yesterday, because it was an hour and a half, and I figured I wouldn't have enough battery. Since today's was only an hour, I fired up the laptop. Here's the goods:</p>
+<p>&nbsp;</p>
+<p>Announcements (<a href="http://blogs.borland.com/davidi/">DavidI</a>)</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Product ordering to get conference discount: <a href="http://shop.discount.com/">http://shop.discount.com/</a> or go to Programmers' <?xml:namespace prefix = st1 ns = "urn:schemas-microsoft-com:office:smarttags" /><st1:place>Paradise</st1:place> (same offer either way). International orders, pick up paper form.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Turn in conference evaluation form this afternoon by <st1:time Minute="0" Hour="15">3:00</st1:time> to get a Borland Conference T-shirt. Sorta looks like a muted, monochrome Hawaiian shirt.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Tonight's party is in the same room lunches are in. (Looks like they'll have real food this year, too!)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Tomorrow, starting at <st1:time Minute="15" Hour="13">1:15</st1:time>, Marco giving "Fun Side of Delphi" session.</li></ul>
+<li>Product ordering to get conference discount: <a href="http://shop.discount.com/">http://shop.discount.com/</a> or go to Programmers' <?xml:namespace prefix = st1 ns = "urn:schemas-microsoft-com:office:smarttags" /><st1:place>Paradise</st1:place> (same offer either way). International orders, pick up paper form.</li>
+<li>Turn in conference evaluation form this afternoon by <st1:time Minute="0" Hour="15">3:00</st1:time> to get a Borland Conference T-shirt. Sorta looks like a muted, monochrome Hawaiian shirt.</li>
+<li>Tonight's party is in the same room lunches are in. (Looks like they'll have real food this year, too!)</li>
+<li>Tomorrow, starting at <st1:time Minute="15" Hour="13">1:15</st1:time>, Marco giving "Fun Side of Delphi" session.</li></ul>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Borland's SDO strategy: quick recap</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Why being a developer sucks&#8230; even though we're gods at what we do</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">So how is Borland helping control the madness?</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Learn about the infrastructure being developed in order to enable the SDO vision</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Partner testimonial, Accenture</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">SDO Strategy</p>
+<li>Borland's SDO strategy: quick recap</li>
+<li>Why being a developer sucks&#8230; even though we're gods at what we do</li>
+<li>So how is Borland helping control the madness?</li>
+<li>Learn about the infrastructure being developed in order to enable the SDO vision</li>
+<li>Partner testimonial, Accenture</li></ul>
+<p>SDO Strategy</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Getting Good at Software &#8211; at the company level</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Controlling the forces WITHIN AND AROUND a development organization</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Being able to answer these questions:</li>
+<li>Getting Good at Software &#8211; at the company level</li>
+<li>Controlling the forces WITHIN AND AROUND a development organization</li>
+<li>Being able to answer these questions:</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Are you doing software right?</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Are you doing the right software?</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">How do you know?</li></ul></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Getting good at software means:</p>
+<li>Are you doing software right?</li>
+<li>Are you doing the right software?</li>
+<li>How do you know?</li></ul></ul>
+<p>Getting good at software means:</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Better targeting opportunities. Management needs to be making decisions based on the most important thing for the business.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Increase time-to-value of software</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Improving quality</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Minimizing risk, maximizing predictability</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Reducing cost</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">SDO is about answering:</p>
+<li>Better targeting opportunities. Management needs to be making decisions based on the most important thing for the business.</li>
+<li>Increase time-to-value of software</li>
+<li>Improving quality</li>
+<li>Minimizing risk, maximizing predictability</li>
+<li>Reducing cost</li></ul>
+<p>SDO is about answering:</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Are you doing software right, *as an organization*? Right amount of QA? Capturing requirements?</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Are you doing the right software? Nothing pisses a developer off as much as when they get jerked around by management.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">How do you know? Measure.</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Controlling the forces&#8230;</p>
+<li>Are you doing software right, *as an organization*? Right amount of QA? Capturing requirements?</li>
+<li>Are you doing the right software? Nothing pisses a developer off as much as when they get jerked around by management.</li>
+<li>How do you know? Measure.</li></ul>
+<p>Controlling the forces&#8230;</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">&#8230;that impact a developer</li>
+<li>&#8230;that impact a developer</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Which projects get funded?</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">How much rigor goes into that decision-making process?</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Which engineers get deployed? Skills, experience, availability</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">The physics of scope, schedule, resources</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">The impact of change&#8230;</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Timeliness, fidelity, and accuracy of requirements (e.g., up-front requirements documents)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">&#8230;and the list goes on.</li></ul></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Top reasons why it rocks, and why it sucks, to be a developer</p>
+<li>Which projects get funded?</li>
+<li>How much rigor goes into that decision-making process?</li>
+<li>Which engineers get deployed? Skills, experience, availability</li>
+<li>The physics of scope, schedule, resources</li>
+<li>The impact of change&#8230;</li>
+<li>Timeliness, fidelity, and accuracy of requirements (e.g., up-front requirements documents)</li>
+<li>&#8230;and the list goes on.</li></ul></ul>
+<p>Top reasons why it rocks, and why it sucks, to be a developer</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Why it ROCKS:</li>
+<li>Why it ROCKS:</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">3. Never-ending constant supply of new technologies to learn and use &#8211; enjoyable</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">2. You can realize your ideas and dreams without the burden of physical materials &#8211; empowering</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">1. With every single non-trivial endeavor in the world today, software is on the critical path. You get to solve tough problems for the planet, and sometimes even change the world &#8211; seriously satisfying</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Why it SUCKS:</li>
+<li>3. Never-ending constant supply of new technologies to learn and use &#8211; enjoyable</li>
+<li>2. You can realize your ideas and dreams without the burden of physical materials &#8211; empowering</li>
+<li>1. With every single non-trivial endeavor in the world today, software is on the critical path. You get to solve tough problems for the planet, and sometimes even change the world &#8211; seriously satisfying</li></ul>
+<li>Why it SUCKS:</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">10. Research &#8211; never enough time for the "R" in R&amp;D</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">9. Technology &#8211; it changes faster than I can code for it. (You get to play with those betas, but they crash.)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">8. Process &#8211; often makes life harder, doesn't guide me on what's next</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">7. Communication &#8211; difficult to bridge cultures, language, timezones</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">6. Bugs &#8211; not hard to fix&#8230; hard to find and hard to track</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">5. Outsourcing &#8211; thread of job getting "shipped overseas" (or to eastern Europe, if you're Marco)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">4. Schedules &#8211; never enough time, impossible to estimate time/scope/risk</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">3. Requirements &#8211; hard to track, never enough detaiol, becomes stale</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">2. IT Managers: if they had brains they'd be dangerous &#8211; care about the bottom line, we care about the software</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">1. Resources &#8211; never enough&#8230; and tradeoffs? what's a tradeoff? How often do you have a conversation with management where they make a tradeoff?</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">All of this is out of your control.</li></ul></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">SDO is helping to control external forces</p>
+<li>10. Research &#8211; never enough time for the "R" in R&amp;D</li>
+<li>9. Technology &#8211; it changes faster than I can code for it. (You get to play with those betas, but they crash.)</li>
+<li>8. Process &#8211; often makes life harder, doesn't guide me on what's next</li>
+<li>7. Communication &#8211; difficult to bridge cultures, language, timezones</li>
+<li>6. Bugs &#8211; not hard to fix&#8230; hard to find and hard to track</li>
+<li>5. Outsourcing &#8211; thread of job getting "shipped overseas" (or to eastern Europe, if you're Marco)</li>
+<li>4. Schedules &#8211; never enough time, impossible to estimate time/scope/risk</li>
+<li>3. Requirements &#8211; hard to track, never enough detaiol, becomes stale</li>
+<li>2. IT Managers: if they had brains they'd be dangerous &#8211; care about the bottom line, we care about the software</li>
+<li>1. Resources &#8211; never enough&#8230; and tradeoffs? what's a tradeoff? How often do you have a conversation with management where they make a tradeoff?</li>
+<li>All of this is out of your control.</li></ul></ul>
+<p>SDO is helping to control external forces</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">E.g. Management decision making</li>
+<li>E.g. Management decision making</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Management tools tied to development reality</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Rigor in decision making</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Good information = better decision making</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">E.g. The Garbage-In/Garbage-Out problem</li>
+<li>Management tools tied to development reality</li>
+<li>Rigor in decision making</li>
+<li>Good information = better decision making</li></ul>
+<li>E.g. The Garbage-In/Garbage-Out problem</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Good requirement fidelity = higher probability of getting it right</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">High-touch, VISUAL dialog with users: a good thing.</li></ul></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Demos</p>
+<li>Good requirement fidelity = higher probability of getting it right</li>
+<li>High-touch, VISUAL dialog with users: a good thing.</li></ul></ul>
+<p>Demos</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Tempo demo &#8211; wizard that asks the manager questions to nail down the requirements and importance</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Requirements elicitation &#8211; draw flowcharts, create storyboards with photos of existing customers</li>
+<li>Tempo demo &#8211; wizard that asks the manager questions to nail down the requirements and importance</li>
+<li>Requirements elicitation &#8211; draw flowcharts, create storyboards with photos of existing customers</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Generates requirements, test cases, etc.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Shows current project status automatically, so you don't need to spend time in status meetings or even manually updating status</li></ul></ul>
+<li>Generates requirements, test cases, etc.</li>
+<li>Shows current project status automatically, so you don't need to spend time in status meetings or even manually updating status</li></ul></ul>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">"Requirement Elicitation"</li>
+<li>"Requirement Elicitation"</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Where the business meets engineering</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Get requirements out of low-fidelity text, and into visual media</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Higher fidelity = lower rework</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Lower rework = happier developers</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">"Portfolio Management"</li>
+<li>Where the business meets engineering</li>
+<li>Get requirements out of low-fidelity text, and into visual media</li>
+<li>Higher fidelity = lower rework</li>
+<li>Lower rework = happier developers</li></ul>
+<li>"Portfolio Management"</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Buzzword alignment: "IT Governance", "Project Portfolio Management"</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Real-time, data-driven status</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">IT decision making with DATA</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">IT decision making with PROCESS and RIGOR</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Better decision making = less churn</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Less churn = happier developers</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Getting external forces under control makes more productive, happier developers</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Bridge the language gap between developers and management</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Futures: Raaj Shinde, VP SDO Platform</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Shape of things to come:</p>
+<li>Buzzword alignment: "IT Governance", "Project Portfolio Management"</li>
+<li>Real-time, data-driven status</li>
+<li>IT decision making with DATA</li>
+<li>IT decision making with PROCESS and RIGOR</li>
+<li>Better decision making = less churn</li>
+<li>Less churn = happier developers</li></ul>
+<li>Getting external forces under control makes more productive, happier developers</li>
+<li>Bridge the language gap between developers and management</li></ul>
+<p>Futures: Raaj Shinde, VP SDO Platform</p>
+<p>Shape of things to come:</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">"Common metamodel": Software process</li>
+<li>"Common metamodel": Software process</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Authoring</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Orchestration</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Monitoring</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Guidance</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Hooks for other vendors' software, e.g. Rational, Subversion</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Donald Gravlin, CTO, Accenture Healthcare Practice</p>
+<li>Authoring</li>
+<li>Orchestration</li>
+<li>Monitoring</li>
+<li>Guidance</li></ul>
+<li>Hooks for other vendors' software, e.g. Rational, Subversion</li></ul>
+<p>Donald Gravlin, CTO, Accenture Healthcare Practice</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Leading health care organization's business needs</li>
+<li>Leading health care organization's business needs</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Spiraling costs are forcing healthcare to be more efficient</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Consumer driven healthcare is driving real-time information demand from the "Quicken" generation (both consumers &amp; physicians)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Regional health information networks require application interop &amp;* collaboration &#8211; a $200B software opportunity</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">HCOs require IT resources to focus on new products &amp; services</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Pain points</li>
+<li>Spiraling costs are forcing healthcare to be more efficient</li>
+<li>Consumer driven healthcare is driving real-time information demand from the "Quicken" generation (both consumers &amp; physicians)</li>
+<li>Regional health information networks require application interop &amp;* collaboration &#8211; a $200B software opportunity</li>
+<li>HCOs require IT resources to focus on new products &amp; services</li></ul>
+<li>Pain points</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Rework of legacy environment required to transition toa<span style="mso-spacerun: yes">&nbsp; </span>SOA platform</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Lack of governance of distriuted IT development and integration</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Rapidly changing regulatory requirements &amp; time/cost of getting it wrong</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Poor visibility and predictability of software will cost lives</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">What Accenture likes about Borland's direction</li>
+<li>Rework of legacy environment required to transition toa<span style="mso-spacerun: yes">&nbsp; </span>SOA platform</li>
+<li>Lack of governance of distriuted IT development and integration</li>
+<li>Rapidly changing regulatory requirements &amp; time/cost of getting it wrong</li>
+<li>Poor visibility and predictability of software will cost lives</li></ul>
+<li>What Accenture likes about Borland's direction</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Borland gets what it takes to be world class developers</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Acquisition of Tempo</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Rapid development of elicitation technology</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Investment in building a platform</li></ul></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">3 things you need to remember</p>
+<li>Borland gets what it takes to be world class developers</li>
+<li>Acquisition of Tempo</li>
+<li>Rapid development of elicitation technology</li>
+<li>Investment in building a platform</li></ul></ul>
+<p>3 things you need to remember</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">SDO is relevant to developers</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Borland is committed to delivering SDO</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">We value you, our loyal customers</li></ul>
+<li>SDO is relevant to developers</li>
+<li>Borland is committed to delivering SDO</li>
+<li>We value you, our loyal customers</li></ul>

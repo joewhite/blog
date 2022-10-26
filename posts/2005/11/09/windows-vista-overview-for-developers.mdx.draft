@@ -2,123 +2,123 @@
 title: "Windows Vista Overview for Developers  #.NET  #Delphi  #borcon2005"
 sort: 2230
 ---
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Windows <?xml:namespace prefix = st1 ns = "urn:schemas-microsoft-com:office:smarttags" /><st1:place>Vista</st1:place> Overview for Developers</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><a href="http://erniebooth.name/">Ernie Booth</a>, Technical Evangelist</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><o:p>&nbsp;</o:p></p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Not much code, but plenty of demos</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>&nbsp;</o:p></p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Mostly base OS features, not WinFX</p>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt"><o:p>&nbsp;</o:p></p>
+<p>Windows <?xml:namespace prefix = st1 ns = "urn:schemas-microsoft-com:office:smarttags" /><st1:place>Vista</st1:place> Overview for Developers</p>
+<p><a href="http://erniebooth.name/">Ernie Booth</a>, Technical Evangelist</p>
+<p><?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><o:p>&nbsp;</o:p></p>
+<p>Not much code, but plenty of demos</p>
+<p><o:p>&nbsp;</o:p></p>
+<p>Mostly base OS features, not WinFX</p>
+<p><o:p>&nbsp;</o:p></p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Experience</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Platform</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in"><st1:place>Opportunity</st1:place></li></ul>
+<li>Experience</li>
+<li>Platform</li>
+<li><st1:place>Opportunity</st1:place></li></ul>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Clear</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Confident</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Connected (including Peer-to-Peer)</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Demo: Experiences</p>
+<li>Clear</li>
+<li>Confident</li>
+<li>Connected (including Peer-to-Peer)</li></ul>
+<p>Demo: Experiences</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Text box at bottom of Start menu &#8211; "word wheel". Incremental search through the entire Start menu hierarchy.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Start menu no longer pops out &#8211; more of an auto-expand treeview, there in place.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">"Glass": semitransparent title bar.</li>
+<li>Text box at bottom of Start menu &#8211; "word wheel". Incremental search through the entire Start menu hierarchy.</li>
+<li>Start menu no longer pops out &#8211; more of an auto-expand treeview, there in place.</li>
+<li>"Glass": semitransparent title bar.</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Desktop Window Manager takes advantage of your graphics hardware, so it's not all tying up the CPU.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Used to be that, when an app locked up, it wouldn't paint. Not true anymore: the OS hangs onto an image of what your window looks like, so you no longer need to respond to a paint message to appear on the screen. Compositing is handled in the OS/hardware.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">You can't overwrite other apps' part of the screen / video memory.</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">"Breadcrumb bar" at the top of the window (Administrator &gt; Documents &gt; Docs &gt; <st1:place>Europe</st1:place>; click on one of the breadcrumbs to pop down a menu of its other children)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Treeviews now use Mac-style arrows instead of "+" and "-"</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">"Virtual Folders": save a search query. Richer search than in the past. Rich property system &#8211; you can flag files with keywords. Devs can add as many properties as we want.</li>
+<li>Desktop Window Manager takes advantage of your graphics hardware, so it's not all tying up the CPU.</li>
+<li>Used to be that, when an app locked up, it wouldn't paint. Not true anymore: the OS hangs onto an image of what your window looks like, so you no longer need to respond to a paint message to appear on the screen. Compositing is handled in the OS/hardware.</li>
+<li>You can't overwrite other apps' part of the screen / video memory.</li></ul>
+<li>"Breadcrumb bar" at the top of the window (Administrator &gt; Documents &gt; Docs &gt; <st1:place>Europe</st1:place>; click on one of the breadcrumbs to pop down a menu of its other children)</li>
+<li>Treeviews now use Mac-style arrows instead of "+" and "-"</li>
+<li>"Virtual Folders": save a search query. Richer search than in the past. Rich property system &#8211; you can flag files with keywords. Devs can add as many properties as we want.</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Q: How fast is the search, and does it use background indexing? A: Fast, and yes.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Outlook uses the same search.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Drop down the "Author" column header. Lists all the unique values. Check and uncheck them to filter. (If none checked, means "all"; otherwise just shows the ones you checked)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Can show a live preview in the Explorer window.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Q: When you do the search, are virtual folders being created automatically? A: No. You have to explicitly go to the "Organize" menu and Save a virtual folder. (Goes into "Virtual Folders" folder by default, but you can change that.)</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Can zoom in on icons in Explorer. If you zoom far enough in on a folder, you can see the individual "sheets of paper" inside that folder, each with a live preview.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">All files have a "Previous Versions" tab. Can restore previous versions, to the same location or a different location.</li>
+<li>Q: How fast is the search, and does it use background indexing? A: Fast, and yes.</li>
+<li>Outlook uses the same search.</li>
+<li>Drop down the "Author" column header. Lists all the unique values. Check and uncheck them to filter. (If none checked, means "all"; otherwise just shows the ones you checked)</li>
+<li>Can show a live preview in the Explorer window.</li>
+<li>Q: When you do the search, are virtual folders being created automatically? A: No. You have to explicitly go to the "Organize" menu and Save a virtual folder. (Goes into "Virtual Folders" folder by default, but you can change that.)</li></ul>
+<li>Can zoom in on icons in Explorer. If you zoom far enough in on a folder, you can see the individual "sheets of paper" inside that folder, each with a live preview.</li>
+<li>All files have a "Previous Versions" tab. Can restore previous versions, to the same location or a different location.</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Q: How long do you keep previous versions? How much disk space does that take? Does it store diffs, or the entire file? Can you purge older versions? A: They'll get back to us on that. Watch for a post on Ernie's blog about it.</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Transactional file system and registry. When you copy files, you can cancel it, and it will roll back. (Sweeeet.)</li>
+<li>Q: How long do you keep previous versions? How much disk space does that take? Does it store diffs, or the entire file? Can you purge older versions? A: They'll get back to us on that. Watch for a post on Ernie's blog about it.</li></ul>
+<li>Transactional file system and registry. When you copy files, you can cancel it, and it will roll back. (Sweeeet.)</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Q: It can be rolled back, but is it true transactions, i.e., will it survive a sudden power loss? A: Nobody here who knows that answer for sure.</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">File Save dialog now looks a lot like an Explorer window.</li>
+<li>Q: It can be rolled back, but is it true transactions, i.e., will it survive a sudden power loss? A: Nobody here who knows that answer for sure.</li></ul>
+<li>File Save dialog now looks a lot like an Explorer window.</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Treeview on the side and everything.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Also lets user enter property values when they save.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Application developer can specify which properties are visible in the Save As dialog.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Developer can also customize "Common Places" on the left-hand side.</li></ul></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Clear: Visualize, Search, Organize</p>
+<li>Treeview on the side and everything.</li>
+<li>Also lets user enter property values when they save.</li>
+<li>Application developer can specify which properties are visible in the Save As dialog.</li>
+<li>Developer can also customize "Common Places" on the left-hand side.</li></ul></ul>
+<p>Clear: Visualize, Search, Organize</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Enable a simpler data management experience in your application:</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Make your app's files part of the experience</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Most (all?) of the Explorer controls are hostable in your app</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Search runs on <st1:City><st1:place>ADO</st1:place></st1:City> queries, so apps can use it</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Windows Presentation Foundation (WPF)</li>
+<li>Enable a simpler data management experience in your application:</li>
+<li>Make your app's files part of the experience</li>
+<li>Most (all?) of the Explorer controls are hostable in your app</li>
+<li>Search runs on <st1:City><st1:place>ADO</st1:place></st1:City> queries, so apps can use it</li>
+<li>Windows Presentation Foundation (WPF)</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Superior user experiences</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Modern client platform</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Windows SideBar</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">More productive, less intrusive</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">DirectX 10</li></ul></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Connected</p>
+<li>Superior user experiences</li>
+<li>Modern client platform</li>
+<li>Windows SideBar</li>
+<li>More productive, less intrusive</li>
+<li>DirectX 10</li></ul></ul>
+<p>Connected</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Windows Communication Foundation (WCF), previously known as Indigo: Unified API for service-priented distributed apps</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Windows Workflow Foundation (WF): Framework for building workflow into applications (whatever that means)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Peer to peer infrastructure for collaborative applications</li>
+<li>Windows Communication Foundation (WCF), previously known as Indigo: Unified API for service-priented distributed apps</li>
+<li>Windows Workflow Foundation (WF): Framework for building workflow into applications (whatever that means)</li>
+<li>Peer to peer infrastructure for collaborative applications</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">PNRP: Peer Name Resolution Protocol &#8211; basically DNS for P2P. Can publish a "friendly name", which is insecure and could be duplicated, or a "secure name" with a public/private key, which you can put in your vCard or whatever. No server required.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Q: Will P2P support Remote Desktop? A: Don't know. Haven't heard anything about that.</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">RSS</li>
+<li>PNRP: Peer Name Resolution Protocol &#8211; basically DNS for P2P. Can publish a "friendly name", which is insecure and could be duplicated, or a "secure name" with a public/private key, which you can put in your vCard or whatever. No server required.</li>
+<li>Q: Will P2P support Remote Desktop? A: Don't know. Haven't heard anything about that.</li></ul>
+<li>RSS</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Can subscribe to feeds through your browser</li></ul></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Connected: Build for Mobility</p>
+<li>Can subscribe to feeds through your browser</li></ul></ul>
+<p>Connected: Build for Mobility</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Be a good mobile PC citizen</li>
+<li>Be a good mobile PC citizen</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Handle transient network connectivity gracefully with the Network Awareness libraries</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Support instant suspend and resume</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Improve battery life with power management libraries and notifications</li></ul>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Target your app for corridor warriors</li>
+<li>Handle transient network connectivity gracefully with the Network Awareness libraries</li>
+<li>Support instant suspend and resume</li>
+<li>Improve battery life with power management libraries and notifications</li></ul>
+<li>Target your app for corridor warriors</li>
 <ul style="MARGIN-TOP: 0in" type=circle>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Enable a great TabletPC experience with the Pen and Ink API for shape recognition and gestures</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Add robust synchronization and conflict resolution through Device Synch and Conflict Resolution</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level2 lfo1; tab-stops: list 1.0in">Build SideShow extensions to access important information without opening the laptop</li>
+<li>Enable a great TabletPC experience with the Pen and Ink API for shape recognition and gestures</li>
+<li>Add robust synchronization and conflict resolution through Device Synch and Conflict Resolution</li>
+<li>Build SideShow extensions to access important information without opening the laptop</li>
 <ul style="MARGIN-TOP: 0in" type=square>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level3 lfo1; tab-stops: list 1.5in">(SideShow is a separate device you attach to the outside of the laptop)</li></ul></ul></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Windows Workflow Foundation (WF)</p>
+<li>(SideShow is a separate device you attach to the outside of the laptop)</li></ul></ul></ul>
+<p>Windows Workflow Foundation (WF)</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Bridging human &amp; system workflow</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Human workflow: Participants (people, roles), flow style (flexible, dynamic), data (unstructured, documents)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">System workflow: Participants (apps, services), flow style (prescriptive, protocols), data (structured, transactional)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Example: firing someone. There's a lot of stuff you need to do, like having Legal review it, setting up the exit interview, disabling their access to the network&#8230;</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Available now &#8211; separate download</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Okay, but I still have no idea what this WF thing is!</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Rubik's Cube demo</p>
+<li>Bridging human &amp; system workflow</li>
+<li>Human workflow: Participants (people, roles), flow style (flexible, dynamic), data (unstructured, documents)</li>
+<li>System workflow: Participants (apps, services), flow style (prescriptive, protocols), data (structured, transactional)</li>
+<li>Example: firing someone. There's a lot of stuff you need to do, like having Legal review it, setting up the exit interview, disabling their access to the network&#8230;</li>
+<li>Available now &#8211; separate download</li>
+<li>Okay, but I still have no idea what this WF thing is!</li></ul>
+<p>Rubik's Cube demo</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">GUI client that shows a Rubik's cube and can scramble it</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Service that knows how to solves it, and sends messages back saying how to solve it</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Simulate packet droppage. It doesn't end up solved.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Turn on reliability and ordering.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Q: Aren't the ideas of "reliable" and "in order" redundant when you use TCP? A: Apparently they open a separate TCP connection for each separate SOAP request, so TCP reliability doesn't even come into the picture. (Seems kinda silly.)</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Confident (= security)</p>
+<li>GUI client that shows a Rubik's cube and can scramble it</li>
+<li>Service that knows how to solves it, and sends messages back saying how to solve it</li>
+<li>Simulate packet droppage. It doesn't end up solved.</li>
+<li>Turn on reliability and ordering.</li>
+<li>Q: Aren't the ideas of "reliable" and "in order" redundant when you use TCP? A: Apparently they open a separate TCP connection for each separate SOAP request, so TCP reliability doesn't even come into the picture. (Seems kinda silly.)</li></ul>
+<p>Confident (= security)</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">LUA aka UPA (Least User-privileged Accounts, or another acronym)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">When <st1:place>Vista</st1:place> launches an application, it's launched under medium privilege. (IE runs under lowest privilege by default.)</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Can explicitly run an app under elevated privilege.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Built-in administrator does not use UPA at all. It's assumed that the administrator knows what they're doing. When you install, you're forced to create another user, and the default Administrator is hidden. Even if you add another user to the Administrators group, UPA is turned on.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">View the system clock. (Which you can do now, even if you're a non-admin!) You have to click "Unlock" to switch into edit mode. A highly magic window pops up saying "&lt;app&gt; needs your permission to complete this action. (Yes/No)". You can't send messages to this window, so it should be hard to spoof.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">If you try to do something that you don't have login permissions for, you're prompted for login credentials.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Can mark an app to run as Administrator only.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Q: What if you want to install for All Users? A: The OS does a lot of sniffing to detect that you're starting a Setup app, and requests privilege elevation right there.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Q: Does the confirmation prompt happen automatically, or does a program have to explicitly call some new APIs? A: Not answered.</li></ul>
-<p class=MsoNormal style="MARGIN: 0in 0in 0pt">Running as non-admin</p>
+<li>LUA aka UPA (Least User-privileged Accounts, or another acronym)</li>
+<li>When <st1:place>Vista</st1:place> launches an application, it's launched under medium privilege. (IE runs under lowest privilege by default.)</li>
+<li>Can explicitly run an app under elevated privilege.</li>
+<li>Built-in administrator does not use UPA at all. It's assumed that the administrator knows what they're doing. When you install, you're forced to create another user, and the default Administrator is hidden. Even if you add another user to the Administrators group, UPA is turned on.</li>
+<li>View the system clock. (Which you can do now, even if you're a non-admin!) You have to click "Unlock" to switch into edit mode. A highly magic window pops up saying "&lt;app&gt; needs your permission to complete this action. (Yes/No)". You can't send messages to this window, so it should be hard to spoof.</li>
+<li>If you try to do something that you don't have login permissions for, you're prompted for login credentials.</li>
+<li>Can mark an app to run as Administrator only.</li>
+<li>Q: What if you want to install for All Users? A: The OS does a lot of sniffing to detect that you're starting a Setup app, and requests privilege elevation right there.</li>
+<li>Q: Does the confirmation prompt happen automatically, or does a program have to explicitly call some new APIs? A: Not answered.</li></ul>
+<p>Running as non-admin</p>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in">Some apps don't work as non-admin because you can't write to Programs, can't write to HKEY_LOCAL_MACHINE, etc.</li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in"><st1:place>Vista</st1:place> adds "virtualization". Can lie to the user, and lie to the application, to make it work. If the app writes to Program Files, it gets redirected somewhere else. Same with the Registry.</li></ul>
+<li>Some apps don't work as non-admin because you can't write to Programs, can't write to HKEY_LOCAL_MACHINE, etc.</li>
+<li><st1:place>Vista</st1:place> adds "virtualization". Can lie to the user, and lie to the application, to make it work. If the app writes to Program Files, it gets redirected somewhere else. Same with the Registry.</li></ul>
 <ul style="MARGIN-TOP: 0in" type=disc>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in"><a href="http://channel9.msdn.com/">http://channel9.msdn.com/</a></li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in"><a href="http://microsoftgadgets.com/">http://microsoftgadgets.com/</a></li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in"><a href="http://microsoft.sitestream.com/PDC05/">http://microsoft.sitestream.com/PDC05/</a></li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in"><a href="http://forums.microsoft.com/msdn/">http://forums.microsoft.com/msdn/</a></li>
-<li class=MsoNormal style="MARGIN: 0in 0in 0pt; mso-list: l0 level1 lfo1; tab-stops: list .5in"><a href="http://msdn.microsoft.com/windowsvista/">http://msdn.microsoft.com/windowsvista/</a></li></ul>
+<li><a href="http://channel9.msdn.com/">http://channel9.msdn.com/</a></li>
+<li><a href="http://microsoftgadgets.com/">http://microsoftgadgets.com/</a></li>
+<li><a href="http://microsoft.sitestream.com/PDC05/">http://microsoft.sitestream.com/PDC05/</a></li>
+<li><a href="http://forums.microsoft.com/msdn/">http://forums.microsoft.com/msdn/</a></li>
+<li><a href="http://msdn.microsoft.com/windowsvista/">http://msdn.microsoft.com/windowsvista/</a></li></ul>
