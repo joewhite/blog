@@ -2,17 +2,86 @@
 title: Starting a new TypeScript project
 ---
 
-<Tabs>
-<Tab title="Console">
+## Customize this guide
 
-## Hello, world!
+<ul className="list-indent-children">
+<li><ContentCheckBox name="container">Develop inside a dev container</ContentCheckBox></li>
+<li>
+  Project type:
+  <ul className="list-indent-children">
+  <li><ContentRadioButton name="target" value="">Console</ContentRadioButton></li>
+  <li><ContentRadioButton name="target" value="react">React</ContentRadioButton></li>
+  <li><ContentRadioButton name="target" value="next">Next.js</ContentRadioButton></li>
+  </ul>
+</li>
+</ul>
 
-This is neat, innit?
+## Create the project
 
-</Tab>
-<Tab title="React">
+<If condition="!target">
+TODO
+</If>
 
-Some other content
+<If condition="target=react">
+```
+npx create-react-app my-app --template typescript
+cd my-app
+code .
+```
+</If>
 
-</Tab>
-</Tabs>
+<If condition="target=next">
+TODO
+</If>
+
+## Add VSCode extensions
+
+<If condition="!container">
+In VSCode, open the Command Palette (Ctrl+Shift+P). Search for, and select, the "Extensions: Configure Recommended Extensions (Workspace Folder)" command. This will create a <code>.vscode/extensions.json</code> file and open it in the editor. Edit the "recommendations" section to add the following:
+
+```
+{
+    ...
+    "recommendations": [
+        "dbaeumer.vscode-eslint",
+        "editorconfig.editorconfig",
+        "esbenp.prettier-vscode",
+        "streetsidesoftware.code-spell-checker"
+    ]
+    ...
+}
+```
+
+Save the file, then close and reopen VSCode. If you don't have these extensions installed already, you should see this.
+
+<figure>
+  <img src="/wp-content/uploads/2020/05/image.png" alt="" className="wp-image-4268"/>
+  <figcaption>This alert pops up in the bottom-right corner of VSCode when you open a folder with recommended extensions that you don't yet have installed.</figcaption>
+</figure>
+
+Click "Install All".
+</If>
+
+<If condition="container">
+1. Open .devcontainer/devcontainer.json.
+2. Change the `extensions` to:
+
+```
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "EditorConfig.EditorConfig",
+        "esbenp.prettier-vscode",
+        "streetsidesoftware.code-spell-checker"
+      ]
+```
+
+3. Save
+4. F1 > Remote-Containers: Rebuild Container
+</If>
+
+{/* Dev containers run Linux - no need for a Windows-only suggestion. */}
+<If condition="!container">
+<Info>
+If you're on Windows, I recommend not committing the extensions.json file to Git until you're also done with the next two steps (adding .editorconfig and .gitattributes). There's a chicken-and-egg problem with getting VSCode and Git to agree on line endings; if you commit now, Git will tell you "warning: LF will be replaced by CRLF in .vscode/extensions.json. The file will have its original line endings in your working directory" (harmless but annoying).
+</Info>
+</If>

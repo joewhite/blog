@@ -12,6 +12,20 @@ body {
   word-break: break-word;
 }
 
+ul.list-indent-children {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+ul.list-indent-children p {
+  margin: 0;
+}
+
+ul.list-indent-children ul.list-indent-children {
+  margin-left: 1.5rem;
+}
+
 img {
   max-width: 100%;
   height: auto;

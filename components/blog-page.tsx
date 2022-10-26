@@ -8,6 +8,8 @@ import {unicode} from './unicode';
 import {NavTree} from './nav-tree';
 import {BrokenLink} from './mdx/broken-link';
 import {Tab, Tabs} from './mdx/tabs';
+import {ContentCheckBox, ContentRadioButton, If} from './mdx/conditional-content';
+import {Info} from './mdx/alerts';
 
 interface PostContentParams {
   post: Post;
@@ -17,6 +19,10 @@ function PostContent({post}: PostContentParams) {
   const MDXContent = useMDXComponent(post.body.code);
   const components = {
     BrokenLink,
+    ContentCheckBox,
+    ContentRadioButton,
+    If,
+    Info,
     Tab,
     Tabs,
   };

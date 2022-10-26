@@ -1,0 +1,22 @@
+.alert {
+  display: flex;
+  gap: 0.75rem;
+  background: gray;
+  padding: 0 1.1rem;
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+}
+
+.alert .icon {
+  font-size: 3rem;
+  line-height: 1.25;
+  align-self: flex-start;
+}
+
+.alert .body {
+  flex-grow: 1;
+}
+
+.info {
+  background: #BDF;
+}
