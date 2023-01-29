@@ -7,21 +7,11 @@ sort: 2157
 <p dir="ltr">At this point, I've presented all the parts and pieces needed to make a serviceable <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">Longest Common Subsequence</a> algorithm. Now let's look at just how serviceable. How efficient are these parts and pieces?</p>
 <p dir="ltr"><a href="http://blog.excastle.com/2005/04/15/diff-part-15-implementing-expendable/">Last time</a>, I said we'd reached polynomial time. But what degree polynomial are we talking about? Here's a quick sketch of what the algorithm does:</p>
 
-<ul dir="ltr">
-	<li>Loop through all the elements in A, and for each A<sub><small><em>i</em></small></sub>:
-<ul>
-	<li>Loop through all the elements in B, and for each B<sub><small><em>j</em></small></sub> that <a href="http://blog.excastle.com/2005/03/31/diff-part-4-matches/">matches</a> A<sub><small><em>i</em></small></sub>:
-<ul>
-	<li>Loop through all the <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">CS</a>es we have so far, and for each CS that we can construct a <a href="http://blog.excastle.com/2005/04/02/diff-part-6-match-strings-and-common-subsequences/">longer CS</a> from by appending [i, j]:
-<ul>
-	<li>Loop through all the CSes <em>again,</em> calling <a href="http://blog.excastle.com/2005/04/14/diff-part-14-expendability/">Expendable</a> on [CS<sub><small><em>k</em></small></sub>, CS<sub><small><em>new</em></small></sub>] and discarding CSes as needed.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+* Loop through all the elements in A, and for each A<sub><small><em>i</em></small></sub>:
+  * Loop through all the elements in B, and for each B<sub><small><em>j</em></small></sub> that <a href="http://blog.excastle.com/2005/03/31/diff-part-4-matches/">matches</a> A<sub><small><em>i</em></small></sub>:
+    * Loop through all the <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">CS</a>es we have so far, and for each CS that we can construct a <a href="http://blog.excastle.com/2005/04/02/diff-part-6-match-strings-and-common-subsequences/">longer CS</a> from by appending [i, j]:
+      * Loop through all the CSes <em>again,</em> calling <a href="http://blog.excastle.com/2005/04/14/diff-part-14-expendability/">Expendable</a> on [CS<sub><small><em>k</em></small></sub>, CS<sub><small><em>new</em></small></sub>] and discarding CSes as needed.
+
 Looks like our algorithm, so far, is O(N<sup><small>4</small></sup>). Sure beats our old super-exponential time, but N<sup><small>4</small></sup> still leaves something to be desired.
 
 Can we do better? You bet. In fact, by the time we're done, the limiting factor is going to be how efficiently we can find matches: those outer two loops. Next time, I'll take a look at making that a little more efficient (though still technically O(N<sup><small>2</small></sup>)), and start setting the stage for some of the later improvements.

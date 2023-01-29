@@ -2,10 +2,13 @@
 title: "Diff, part 15: Implementing Expendable  #.NET  #Delphi  #diff"
 sort: 2152
 ---
-<p dir="ltr">In yesterday's episode of <a href="http://blog.excastle.com/tag/diff/">Diff Quest</a>, I outlined a function called <a href="http://blog.excastle.com/2005/04/14/diff-part-14-expendability/">Expendable</a>, which takes two CSes and tells you whether you can throw one of them away. Today I'll describe that function's implementation.</p>
-<p dir="ltr">Expendable takes two parameters, CS<sub><small>1</small></sub> and CS<sub><small>2</small></sub>. Each of those is a <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">common subsequence</a>, and therefore consists of a bunch of <a href="http://blog.excastle.com/2005/03/31/diff-part-4-matches/">matches</a>. And each match is a pair of indexes, like <font face="Courier New">[0,1]</font>.</p>
-<p dir="ltr">The Expendable function is all about the idea of <a href="http://blog.excastle.com/2005/04/14/diff-part-14-expendability/">growth potential</a>. Growth potential depends on two things, and two things only: the length of the CS, and the last match in the CS. <font face="Courier New">[0,0] [2,2]</font> has the exact same growth potential as <font face="Courier New">[1,1] [2,2]</font> &mdash; the earlier matches don't matter; what matters is what we can tack onto the end.</p>
-<p dir="ltr">This means there are three numbers that we care about, when we're thinking about a CS's growth potential: its length; the AIndex of its last match; and the BIndex of its last match. So the inputs to Expendable can be described by six individual numbers, and the different return values of Expendable are determined by the relationship between corresponding pairs:</p>
+In yesterday's episode of <a href="http://blog.excastle.com/tag/diff/">Diff Quest</a>, I outlined a function called <a href="http://blog.excastle.com/2005/04/14/diff-part-14-expendability/">Expendable</a>, which takes two CSes and tells you whether you can throw one of them away. Today I'll describe that function's implementation.
+
+Expendable takes two parameters, CS<sub><small>1</small></sub> and CS<sub><small>2</small></sub>. Each of those is a <a href="http://blog.excastle.com/2005/03/29/diff-part-3-introducing-the-longest-common-subsequence/">common subsequence</a>, and therefore consists of a bunch of <a href="http://blog.excastle.com/2005/03/31/diff-part-4-matches/">matches</a>. And each match is a pair of indexes, like <font face="Courier New">[0,1]</font>.
+
+The Expendable function is all about the idea of <a href="http://blog.excastle.com/2005/04/14/diff-part-14-expendability/">growth potential</a>. Growth potential depends on two things, and two things only: the length of the CS, and the last match in the CS. <font face="Courier New">[0,0] [2,2]</font> has the exact same growth potential as <font face="Courier New">[1,1] [2,2]</font> &mdash; the earlier matches don't matter; what matters is what we can tack onto the end.
+
+This means there are three numbers that we care about, when we're thinking about a CS's growth potential: its length; the AIndex of its last match; and the BIndex of its last match. So the inputs to Expendable can be described by six individual numbers, and the different return values of Expendable are determined by the relationship between corresponding pairs:
 
 <ul dir="ltr">
 	<li>Is CS<sub><small>1</small></sub>Length less than, equal to, or greater than CS<sub><small>2</small></sub>Length?</li>
@@ -13,15 +16,15 @@ sort: 2152
 	<li>Is CS<sub><small>1</small></sub>BIndex less than, equal to, or greater than CS<sub><small>2</small></sub>BIndex?</li>
 </ul>
 
-
 The following table lists all the possible combinations of these. The "Len" column shows "&lt;" if CS<sub><small>1</small></sub>Length &lt; CS<sub><small>2</small></sub>Length, "=" if CS<sub><small>1</small></sub>Length = CS<sub><small>2</small></sub>Length, and "&gt;" if CS<sub><small>1</small></sub>Length &gt; CS<sub><small>2</small></sub>Length. The "AI" column is the same thing for AIndex, and "BI" is BIndex. After that, there's a sample CS<sub><small>1</small></sub> and a sample CS<sub><small>2</small></sub> that exhibit these relationships (right-justified so the last matches always line up, since it's the last match that's important).
 
 The next two columns are a kind of game, where I try to come up with a set of inputs that would make CS<sub><small>1</small></sub> "win" (i.e., inputs that would build CS<sub><small>1</small></sub> into a longer subsequence without also growing CS<sub><small>2</small></sub>), and then a set of inputs that would make CS<sub><small>2</small></sub> win. It doesn't matter how contrived those inputs are; what matters is whether those inputs are possible (and sometimes they're not, which is when expendability kicks in). "EOF" means that no further input is required to make that CS win &mdash; if we reached end of file, and there were no more matches, then it's already won.
 
 Finally, the last column shows the result of Expendable(CS<sub><small>1</small></sub>, CS<sub><small>2</small></sub>).
+
 <blockquote>
 <table border="1">
-<tr vAlign=top bgColor=#f0f0f0>
+<tr vAlign="top" bgColor="#f0f0f0">
 <td>#</td>
 <td><strong>Len</strong></td>
 <td><strong>AI</strong></td>
@@ -32,304 +35,306 @@ Finally, the last column shows the result of Expendable(CS<sub><small>1</small><
 <td><strong>Make CS<sub><small>2</small></sub> win</strong></td>
 <td><strong>Exp</strong></td>
 </tr>
-<tr bgColor=#ffffff>
+<tr bgColor="#ffffff">
 <td>1</td>
-<td align=middle>&lt;</td>
-<td align=middle>&lt;</td>
-<td align=middle>&lt;</td>
+<td align="middle">&lt;</td>
+<td align="middle">&lt;</td>
+<td align="middle">&lt;</td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,3]</code></td>
 <td><code>[0,0] [6,6]</code></td>
 <td><code>[4,4] [5,5]</code></td>
 <td>EOF</td>
 <td>nil</td>
 </tr>
-<tr bgColor=#ffffff>
+<tr bgColor="#ffffff">
 <td>2</td>
-<td align=middle>&lt;</td>
-<td align=middle>&lt;</td>
-<td align=middle>=</td>
+<td align="middle">&lt;</td>
+<td align="middle">&lt;</td>
+<td align="middle">=</td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,3]</code></td>
 <td><code>[0,0] [6,3]</code></td>
 <td><code>[4,4] [5,5]</code></td>
 <td>EOF</td>
 <td>nil</td>
 </tr>
-<tr bgColor=#ffffff>
+<tr bgColor="#ffffff">
 <td>3</td>
-<td align=middle>&lt;</td>
-<td align=middle>&lt;</td>
-<td align=middle>&gt;</td>
+<td align="middle">&lt;</td>
+<td align="middle">&lt;</td>
+<td align="middle">&gt;</td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,6]</code></td>
 <td><code>[0,0] [6,3]</code></td>
 <td><code>[4,7] [5,8]</code></td>
 <td>EOF</td>
 <td>nil</td>
 </tr>
-<tr bgColor=#f0f0f0>
+<tr bgColor="#f0f0f0">
 <td>4</td>
-<td align=middle>&lt;</td>
-<td align=middle>=</td>
-<td align=middle>&lt;</td>
+<td align="middle">&lt;</td>
+<td align="middle">=</td>
+<td align="middle">&lt;</td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,3]</code></td>
 <td><code>[0,0] [3,6]</code></td>
 <td><code>[4,4] [5,5]</code></td>
 <td>EOF</td>
 <td>nil</td>
 </tr>
-<tr bgColor=#f0f0f0>
+<tr bgColor="#f0f0f0">
 <td>5</td>
-<td align=middle>&lt;</td>
-<td align=middle>=</td>
-<td align=middle>=</td>
+<td align="middle">&lt;</td>
+<td align="middle">=</td>
+<td align="middle">=</td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3,3]</code></td>
 <td><code>[0,0] [3,3]</code></td>
 <td>None possible</td>
 <td>EOF</td>
 <td>1</td>
 </tr>
-<tr bgColor=#f0f0f0>
+<tr bgColor="#f0f0f0">
 <td>6</td>
-<td align=middle>&lt;</td>
-<td align=middle>=</td>
-<td align=middle>&gt;</td>
+<td align="middle">&lt;</td>
+<td align="middle">=</td>
+<td align="middle">&gt;</td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,6]</code></td>
 <td><code>[0,0] [3,3]</code></td>
 <td>None possible</td>
 <td>EOF</td>
 <td>1</td>
 </tr>
-<tr bgColor=#ffffff>
+<tr bgColor="#ffffff">
 <td>7</td>
-<td align=middle>&lt;</td>
-<td align=middle>&gt;</td>
-<td align=middle>&lt;</td>
+<td align="middle">&lt;</td>
+<td align="middle">&gt;</td>
+<td align="middle">&lt;</td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [6,3]</code></td>
 <td><code>[0,0] [3,6]</code></td>
 <td><code>[7,4] [8,5]</code></td>
 <td>EOF</td>
 <td>nil</td>
 </tr>
-<tr bgColor=#ffffff>
+<tr bgColor="#ffffff">
 <td>8</td>
-<td align=middle>&lt;</td>
-<td align=middle>&gt;</td>
-<td align=middle>=</td>
+<td align="middle">&lt;</td>
+<td align="middle">&gt;</td>
+<td align="middle">=</td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6,3]</code></td>
 <td><code>[0,0] [3,3]</code></td>
 <td>None possible</td>
 <td>EOF</td>
 <td>1</td>
 </tr>
-<tr bgColor=#ffffff>
+<tr bgColor="#ffffff">
 <td>9</td>
-<td align=middle>&lt;</td>
-<td align=middle>&gt;</td>
-<td align=middle>&gt;</td>
+<td align="middle">&lt;</td>
+<td align="middle">&gt;</td>
+<td align="middle">&gt;</td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [6,6]</code></td>
 <td><code>[0,0] [3,3]</code></td>
 <td>None possible</td>
 <td>EOF</td>
 <td>1</td>
 </tr>
-<tr bgColor=#f0f0f0>
+<tr bgColor="#f0f0f0">
 <td>10</td>
-<td align=middle>=</td>
-<td align=middle>&lt;</td>
-<td align=middle>&lt;</td>
+<td align="middle">=</td>
+<td align="middle">&lt;</td>
+<td align="middle">&lt;</td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,3]</code></td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [6,6]</code></td>
 <td><code>[4,4]</code></td>
 <td>None possible</td>
 <td>2</td>
 </tr>
-<tr bgColor=#f0f0f0>
+<tr bgColor="#f0f0f0">
 <td>11</td>
-<td align=middle>=</td>
-<td align=middle>&lt;</td>
-<td align=middle>=</td>
+<td align="middle">=</td>
+<td align="middle">&lt;</td>
+<td align="middle">=</td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,3]</code></td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [6,3]</code></td>
 <td><code>[4,4]</code></td>
 <td>None possible</td>
 <td>2</td>
 </tr>
-<tr bgColor=#f0f0f0>
+<tr bgColor="#f0f0f0">
 <td>12</td>
-<td align=middle>=</td>
-<td align=middle>&lt;</td>
-<td align=middle>&gt;</td>
+<td align="middle">=</td>
+<td align="middle">&lt;</td>
+<td align="middle">&gt;</td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,6]</code></td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [6,3]</code></td>
 <td><code>[4,7]</code></td>
 <td><code>[7,4]</code></td>
 <td>nil</td>
 </tr>
-<tr bgColor=#ffffff>
+<tr bgColor="#ffffff">
 <td>13</td>
-<td align=middle>=</td>
-<td align=middle>=</td>
-<td align=middle>&lt;</td>
+<td align="middle">=</td>
+<td align="middle">=</td>
+<td align="middle">&lt;</td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,3]</code></td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,6]</code></td>
 <td><code>[4,4]</code></td>
 <td>None possible</td>
 <td>2</td>
 </tr>
-<tr bgColor=#ffffff>
+<tr bgColor="#ffffff">
 <td>14</td>
-<td align=middle>=</td>
-<td align=middle>=</td>
-<td align=middle>=</td>
+<td align="middle">=</td>
+<td align="middle">=</td>
+<td align="middle">=</td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3,3]</code></td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,3]</code></td>
 <td>None possible</td>
 <td>None possible</td>
 <td>Either</td>
 </tr>
-<tr bgColor=#ffffff>
+<tr bgColor="#ffffff">
 <td>15</td>
-<td align=middle>=</td>
-<td align=middle>=</td>
-<td align=middle>&gt;</td>
+<td align="middle">=</td>
+<td align="middle">=</td>
+<td align="middle">&gt;</td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,6]</code></td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,3]</code></td>
 <td>None possible</td>
 <td><code>[4,4]</code></td>
 <td>1</td>
 </tr>
-<tr bgColor=#f0f0f0>
+<tr bgColor="#f0f0f0">
 <td>16</td>
-<td align=middle>=</td>
-<td align=middle>&gt;</td>
-<td align=middle>&lt;</td>
+<td align="middle">=</td>
+<td align="middle">&gt;</td>
+<td align="middle">&lt;</td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [6,3]</code></td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,6]</code></td>
 <td><code>[7,4]</code></td>
 <td><code>[4,7]</code></td>
 <td>nil</td>
 </tr>
-<tr bgColor=#f0f0f0>
+<tr bgColor="#f0f0f0">
 <td>17</td>
-<td align=middle>=</td>
-<td align=middle>&gt;</td>
-<td align=middle>=</td>
+<td align="middle">=</td>
+<td align="middle">&gt;</td>
+<td align="middle">=</td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [6,3]</code></td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,3]</code></td>
 <td>None possible</td>
 <td><code>[4,4]</code></td>
 <td>1</td>
 </tr>
-<tr bgColor=#f0f0f0>
+<tr bgColor="#f0f0f0">
 <td>18</td>
-<td align=middle>=</td>
-<td align=middle>&gt;</td>
-<td align=middle>&gt;</td>
+<td align="middle">=</td>
+<td align="middle">&gt;</td>
+<td align="middle">&gt;</td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [6,6]</code></td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,3]</code></td>
 <td>None possible</td>
 <td><code>[4,4]</code></td>
 <td>1</td>
 </tr>
-<tr bgColor=#ffffff>
+<tr bgColor="#ffffff">
 <td>19</td>
-<td align=middle>&gt;</td>
-<td align=middle>&lt;</td>
-<td align=middle>&lt;</td>
+<td align="middle">&gt;</td>
+<td align="middle">&lt;</td>
+<td align="middle">&lt;</td>
 <td><code>[0,0] [3,3]</code></td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [6,6]</code></td>
 <td>EOF</td>
 <td>None possible</td>
 <td>2</td>
 </tr>
-<tr bgColor=#ffffff>
+<tr bgColor="#ffffff">
 <td>20</td>
-<td align=middle>&gt;</td>
-<td align=middle>&lt;</td>
-<td align=middle>=</td>
+<td align="middle">&gt;</td>
+<td align="middle">&lt;</td>
+<td align="middle">=</td>
 <td><code>[0,0] [3,3]</code></td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [6,3]</code></td>
 <td>EOF</td>
 <td>None possible</td>
 <td>2</td>
 </tr>
-<tr bgColor=#ffffff>
+<tr bgColor="#ffffff">
 <td>21</td>
-<td align=middle>&gt;</td>
-<td align=middle>&lt;</td>
-<td align=middle>&gt;</td>
+<td align="middle">&gt;</td>
+<td align="middle">&lt;</td>
+<td align="middle">&gt;</td>
 <td><code>[0,0] [3,6]</code></td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [6,3]</code></td>
 <td>EOF</td>
 <td><code>[7,4] [8,5]</code></td>
 <td>nil</td>
 </tr>
-<tr bgColor=#f0f0f0>
+<tr bgColor="#f0f0f0">
 <td>22</td>
-<td align=middle>&gt;</td>
-<td align=middle>=</td>
-<td align=middle>&lt;</td>
+<td align="middle">&gt;</td>
+<td align="middle">=</td>
+<td align="middle">&lt;</td>
 <td><code>[0,0] [3,3]</code></td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,6]</code></td>
 <td>EOF</td>
 <td>None possible</td>
 <td>2</td>
 </tr>
-<tr bgColor=#f0f0f0>
+<tr bgColor="#f0f0f0">
 <td>23</td>
-<td align=middle>&gt;</td>
-<td align=middle>=</td>
-<td align=middle>=</td>
+<td align="middle">&gt;</td>
+<td align="middle">=</td>
+<td align="middle">=</td>
 <td><code>[0,0] [3,3]</code></td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,3]</code></td>
 <td>EOF</td>
 <td>None possible</td>
 <td>2</td>
 </tr>
-<tr bgColor=#f0f0f0>
+<tr bgColor="#f0f0f0">
 <td>24</td>
-<td align=middle>&gt;</td>
-<td align=middle>=</td>
-<td align=middle>&gt;</td>
+<td align="middle">&gt;</td>
+<td align="middle">=</td>
+<td align="middle">&gt;</td>
 <td><code>[0,0] [3,6]</code></td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,3]</code></td>
 <td>EOF</td>
 <td><code>[4,4] [5,5]</code></td>
 <td>nil</td>
 </tr>
-<tr bgColor=#ffffff>
+<tr bgColor="#ffffff">
 <td>25</td>
-<td align=middle>&gt;</td>
-<td align=middle>&gt;</td>
-<td align=middle>&lt;</td>
+<td align="middle">&gt;</td>
+<td align="middle">&gt;</td>
+<td align="middle">&lt;</td>
 <td><code>[0,0] [6,3]</code></td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,6]</code></td>
 <td>EOF</td>
 <td><code>[4,7] [5,8]</code></td>
 <td>nil</td>
 </tr>
-<tr bgColor=#ffffff>
+<tr bgColor="#ffffff">
 <td>26</td>
-<td align=middle>&gt;</td>
-<td align=middle>&gt;</td>
-<td align=middle>=</td>
+<td align="middle">&gt;</td>
+<td align="middle">&gt;</td>
+<td align="middle">=</td>
 <td><code>[0,0] [6,3]</code></td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,3]</code></td>
 <td>EOF</td>
 <td><code>[4,4] [5,5]</code></td>
 <td>nil</td>
 </tr>
-<tr bgColor=#ffffff>
+<tr bgColor="#ffffff">
 <td>27</td>
-<td align=middle>&gt;</td>
-<td align=middle>&gt;</td>
-<td align=middle>&gt;</td>
+<td align="middle">&gt;</td>
+<td align="middle">&gt;</td>
+<td align="middle">&gt;</td>
 <td><code>[0,0] [6,6]</code></td>
 <td><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3,3]</code></td>
 <td>EOF</td>
 <td><code>[4,4] [5,5]</code></td>
 <td>nil</td>
-</tr></table>
+</tr>
+</table>
 </blockquote>
+
 Row #14 is interesting, in that the Expendable function could meaningfully return <em>either</em> CS<sub><small>1</small></sub> or CS<sub><small>2</small></sub>. That's because there's nothing to differentiate the two inputs &mdash; they are, as far as we care, the same. One might be <font face="Courier New">[0,1] [2,2]</font> and the other might be <font face="Courier New">[1,0] [2,2]</font>, but they both have the same growth potential, so there's no need to keep both. We can throw one of them away, and it really doesn't matter which one; we can decide arbitrarily.
 
 I spent a while staring at this table, trying to figure out the pattern, because of row #14. I originally had it marked as "nil", but I finally realized that that's not right; we do want to throw away one or the other. Once I figured out that both CS<sub><small>1</small></sub> and CS<sub><small>2</small></sub> were expendable for that row, the pattern became clear:

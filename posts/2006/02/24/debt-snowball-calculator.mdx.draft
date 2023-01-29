@@ -15,8 +15,6 @@ sort: 2267
 <ul>
 <li>It won't automatically pay the lowest balance each month, yet. It pays debts in the order you list them in the input file. (You can list them smallest to largest according to their balances today, but if one of them pays down faster than the one before it, the app won't automatically adjust.)</li>
 
-&PBOX_R&
-
 <li>Anything I haven't thought of yet.</li>
 <li>Anything someone requests that I feel like implementing.</li></ul>
 <p>How to use it:</p>

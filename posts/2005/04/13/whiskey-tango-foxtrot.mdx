@@ -5,20 +5,25 @@ sort: 2149
 We've been refactoring some legacy code over the past few days, and we've found a couple of amusing snippets. They were written by programmers who no longer work here, so we can poke fun at them.
 
 Here's an interesting bit from 1998:
-<pre>try
+
+```
+try
   // do some stuff
 except
   raise;
   ShowMessage('Duplicate ID: ' + IntToStr(NewID) + #13 +
     'TableName: ' + tblNewRow.TableName );
   tblNewRow.Cancel;
-end;</pre>
+end;
+```
+
 So we'll cancel the append <em>even if the re-raise fails,</em> and execution falls through to the line after the raise. I can honestly say that this bit of resource-protection code never would have occurred to me.
 
 A co-worker found another gem yesterday. This one also dates back to 1998 (though written by a different programmer):
-<pre>Query.Locate(Query.FieldByName('ID').FieldName, ID, []);</pre>
 
-
+```
+Query.Locate(Query.FieldByName('ID').FieldName, ID, []);
+```
 
 So we call FieldByName, which searches for, and returns, the field whose FieldName is 'ID'... and then we read that field's FieldName. Brilliant, no?
 
