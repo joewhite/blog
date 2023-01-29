@@ -5,42 +5,58 @@ sort: 2190
 Delphi's Variant type can contain an interface reference (and it holds a reference count, and everything else you'd expect). But this morning, we tried to figure out how to get that interface back <em>out</em> of the Variant, and it was a pain. Here are the results, in case anyone else ever needs to do such a thing (or in case I need to do it again).
 
 We wrote a little test app, and we tried this first:
-<pre>var
+
+```
+var
   Foo: IFoo;
   V: Variant;
 begin
   Foo := TFoo.Create;
   V := Foo;
-  Foo := V;</pre>
-
-
+  Foo := V;
+```
 
 The compiler didn't like that last line, complaining about "Incompatible types: 'Variant' and 'IFoo'". So the obvious didn't work. What if we tried "<font face="Courier New">Foo := V as IFoo;</font>"? Nope, no dice there either: "Operator not applicable to this operand type". "<font face="Courier New">Foo := IFoo(V);</font>"? No again: "Invalid typecast".
 
 The Variants unit has some helper functions like VarAsString and VarAsWideString, but there's no corresponding VarAsInterface. There's a VarAsType, but that just returns another Variant, which doesn't help us; the compiler still wouldn't let us assign it into our Foo variable.
 
 Internally, a Variant is just a struct. Is there a way, we wondered, to just say V.Innards.Interface? We dug around, found the TVarData struct that describes a Variant's internal structure (not to be confused with TVarRec), and found this line in the record's variant section:
-<pre>varUnknown:  (VUnknown: Pointer);</pre>
+
+```
+varUnknown:  (VUnknown: Pointer);
+```
 
 Eww, they store the interface reference as a pointer. That ended that particular line of inquiry. I know you can cast an interface to a pointer and vice versa, but it opens up new cans of worms as far as refcounting goes, and we didn't want to go there. There had to be an easier way to cast a Variant to an interface!
 
 We finally turned to the Help. (If all else fails, read the instructions.) We found that, while you can't assign a Variant directly into a variable of type IFoo, you <em>can</em> assign it directly into an IInterface. (You can also assign directly to IDispatch if you've got a dispinterface, which we didn't. But you can't assign a Variant to any other interface type.) We tried it, and it works:
-<pre>var
+
+```
+var
   Foo: IFoo;
   Intf: IInterface;
   V: Variant;
 begin
   // ... set up V with an IFoo instance
   Intf := V;
-  Foo := Intf as IFoo;</pre>
+  Foo := Intf as IFoo;
+```
+
 Or the simpler:
-<pre>Foo := IInterface(V) as IFoo;</pre>
+
+```
+Foo := IInterface(V) as IFoo;
+```
+
 The only problem was, the "<font face="Courier New">Intf := V;</font>" line, and the "<font face="Courier New">IInterface(V)</font>" cast, both throw an exception if the Variant doesn't happen to contain an interface. We just wanted "give me an IFoo if there is one, otherwise nil", so we wound up with something like this (also changing the "as" cast to use SysUtils.Supports):
-<pre>function VariantAsIFoo(V: Variant): IFoo;
+
+```
+function VariantAsIFoo(V: Variant): IFoo;
 begin
   if VarIsType(V, varUnknown) then
     Supports(V, IFoo, Result)
   else
     Result := nil;
-end;</pre>
+end;
+```
+
 If the Variant contains a non-interface, or an interface other than IFoo, this returns nil. Otherwise it returns the IFoo.

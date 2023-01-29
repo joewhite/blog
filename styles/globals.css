@@ -304,3 +304,7 @@ pre {
 .outline-roman-decimal-lower ol ol ol {
   list-style-type: lower-alpha;
 }
+
+pre strong {
+  color: #ffb;
+}

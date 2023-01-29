@@ -5,24 +5,33 @@ sort: 2191
 After my last post (about <a href="http://blog.excastle.com/2005/07/06/getting-an-interface-back-out-of-a-variant/">getting an interface back out of a Variant</a>), Sebastian asked a question about the code I had posted: "Have you tested that Supports() puts nil to the 'out Intf' parameter if the interface is NOT supported?"
 
 That was a good question &mdash; I started to answer, and then realized that I <em>didn't</em> know for sure. I thought it was safe, but I hadn't done any detective work to verify that. So I went hunting. Here's the implementation of Supports (the overload that takes an IInterface, which is the one I was using):
-<pre>function Supports(const Instance: IInterface; const IID: TGUID;
+
+```
+function Supports(const Instance: IInterface; const IID: TGUID;
   out Intf): Boolean;
 begin
-  Result := (Instance &lt;&gt; nil) and
+  Result := (Instance <> nil) and
     (Instance.QueryInterface(IID, Intf) = 0);
-end;</pre>
+end;
+```
+
 I could see two cases where the Intf parameter might end up being non-nil in the event of failure:
 <ol>
 	<li>If the body of the method never assigns to Intf, and the compiler doesn't magically nil out the variable.</li>
 	<li>If QueryInterface returns false, but still assigns a non-nil value to Intf.</li>
 </ol>
 #1 first. I suspected that the compiler would magically nil out the variable, but I wanted to confirm that. First stop: the CPU view. I started by writing a trivial function with the same kind of method signature Supports deals with:
-<pre>function TForm1.Foo(out Intf);
+
+```
+function TForm1.Foo(out Intf);
 begin
-end;</pre>
+end;
+```
+
 And called it from my FormCreate. Then I did the usual "look at the CPU view, figure out what the compiler is doing, and add more stuff to make sure I've got it right" drill.
 
 And yes, the compiler does indeed generate magic code to nil out Intf. I was expecting that magic code to be put inside my Foo() method, but it turned out to be in the caller:
+
 <pre><strong>Unit1.pas.36: Intf1 := nil;</strong>
 0046038C 8D45FC        lea ex,[ebp-$04]
 0046038F E8BC5BFAFF    call @IntfClear
@@ -32,6 +41,7 @@ And yes, the compiler does indeed generate magic code to nil out Intf. I was exp
 0046039C 8BD0          mov edx,eax
 0046039E 8BC3          mov eax,ebx
 004603A0 E8CBFFFFFF    call TForm1.Foo</pre>
+
 Notice those repeated lines. When it compiles the call to Foo (and sees that the interface variable is being passed to an out parameter), the compiler automatically calls @IntfClear before actually calling Foo. So I was wrong about the where, but right about the idea; the compiler does do some magic to nil the out parameter (when it's a magically-memory-managed type, at least).
 
 (Now that I think back on it, of <em>course</em> the interface-clearing happens at the caller. The Foo method has no idea what type is being passed on it, so it <em>can't</em> call @IntfClear &mdash; the parameter might just as well be a string, a dynamic array, a float, whatever. When it's an untyped out parameter, only the caller knows the type, so it's the caller's responsibility to clear it if need be.)
@@ -52,13 +62,17 @@ So I thought through it some more. If QueryInterface is asked for a GUID that a 
 	<li>Set the out parameter to point to a valid interface, and do increment that returned object's refcount.</li>
 </ol>
 Now consider this code:
-<pre>procedure X(Intf1: IInterface);
+
+```
+procedure X(Intf1: IInterface);
 var
   Intf2: IInterface;
 begin
   if Supports(Intf1, IFoo, Intf2) then
     DoSomething(Intf2);
-end;</pre>
+end;
+```
+
 There's a local variable of an interface type, so at the end of this method, the compiler automatically generates some teardown code (which checks to see if the reference is nil, and if not, calls Intf2._Release). So what happens with that teardown code in each of those four conditions?
 <ol>
 	<li>When X returns and its teardown code executes, Intf2 is nil. Everything runs successfully.</li>
