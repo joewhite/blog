@@ -23,11 +23,15 @@ And to round it out, a couple of place names. I thought about familiar names lik
 So here it is: my handy-dandy list of fiction-writing <a href="http://en.wikipedia.org/wiki/Metasyntactic_variable">metasyntactic variables</a>:
 
 <table border>
+<thead>
 <tr>
 <th>Role</th>
 <th>Male variant</th>
 <th>Female variant</th>
-</tr><tr>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td>Character #1</td>
 <td><strong>Bob</strong></td>
 <td><strong>Bobbi</strong></td>
@@ -41,13 +45,15 @@ So here it is: my handy-dandy list of fiction-writing <a href="http://en.wikiped
 <td><strong>Sue</strong></td>
 </tr><tr>
 <td>Pet</td>
-<td colspan="2"><strong>Spot</strong></td>
+<td colSpan="2"><strong>Spot</strong></td>
 </tr><tr>
 <td>Place #1</td>
-<td colspan="2"><strong>Bobsville</strong></td>
+<td colSpan="2"><strong>Bobsville</strong></td>
 </tr><tr>
 <td>Place #2</td>
-<td colspan="2"><strong>Nedsville</strong></td>
+<td colSpan="2"><strong>Nedsville</strong></td>
+</tr>
+</tbody>
 </table>
 
 Feel free to steal these names for your own writing -- or just the general idea. I'm all for fewer excuses for not writing.

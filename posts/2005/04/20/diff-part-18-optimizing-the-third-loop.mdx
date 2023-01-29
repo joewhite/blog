@@ -31,10 +31,9 @@ There are several different combinations of ways we could call Expendable on our
 
 So of our four CS<sub><small><i>new</i></small></sub>s, three turned out to be expendable with regards to each other. (This is the same thing we saw above, but this time we've eliminated one variable &#8212; we're just looking at the CS<sub><small><i>new</i></small></sub>s; the outcome no longer depends on what CSes we already happened to have on tap.) And there seems to be a pattern here: scenario #5 keeps showing up. Let's take a closer look at scenario #5:
 
-<blockquote>
-<table style={{borderCollapse: "collapse"}} cellSpacing="0" cellPadding="2" border="1">
-<tbody>
-<tr vAlign="top" bgColor="#f0f0f0">
+<table>
+<thead>
+<tr>
 <td><font size="2">#</font></td>
 <td><font size="2"><strong>Len</strong></font></td>
 <td><font size="2"><strong>AI</strong></font></td>
@@ -45,7 +44,9 @@ So of our four CS<sub><small><i>new</i></small></sub>s, three turned out to be e
 <td><font size="2"><strong>Make CS<sub><small>2</small></sub> win</strong></font></td>
 <td><font size="2"><strong>Exp</strong></font></td>
 </tr>
-<tr bgColor="#ffffff">
+</thead>
+<tbody>
+<tr>
 <td><font size="2">5</font></td>
 <td align="middle"><font size="2">&lt;</font></td>
 <td align="middle"><font size="2">=</font></td>
@@ -58,7 +59,6 @@ So of our four CS<sub><small><i>new</i></small></sub>s, three turned out to be e
 </tr>
 </tbody>
 </table>
-</blockquote>
 
 <p>What does this mean in English? It means that if two CSes are different lengths, but the last <a href="http://blog.excastle.com/2005/03/31/diff-part-4-matches/">match</a> is the same in both, the shorter CS can be thrown away.</p>
 <p>This is an appealing rule, because it immediately eliminates obvious holes. But it also works in cases without obvious holes: if, for example, we have `[0,3] [1,4] [5,5]` and `[2,0] [3,1] [4,2] [5,5]`, we have no obvious holes, but Expendable still tells us, with confidence, that we can throw the shorter one away.</p>
@@ -75,10 +75,10 @@ So of our four CS<sub><small><i>new</i></small></sub>s, three turned out to be e
 <li>`[4,1] [5,5]`</li>
 </ul>
 <p>Scenario 5 doesn't help here, because these are both the same length. No, this is a job for scenario #14:</p>
-<blockquote>
-<table style={{borderCollapse: "collapse"}} cellSpacing="0" cellPadding="2" border="1">
-<tbody>
-<tr vAlign="top" bgColor="#f0f0f0">
+
+<table>
+<thead>
+<tr>
 <td><font size="2">#</font></td>
 <td><font size="2"><strong>Len</strong></font></td>
 <td><font size="2"><strong>AI</strong></font></td>
@@ -89,7 +89,9 @@ So of our four CS<sub><small><i>new</i></small></sub>s, three turned out to be e
 <td><font size="2"><strong>Make CS<sub><small>2</small></sub> win</strong></font></td>
 <td><font size="2"><strong>Exp</strong></font></td>
 </tr>
-<tr bgColor="#ffffff">
+</thead>
+<tbody>
+<tr>
 <td><font size="2">14</font></td>
 <td align="middle"><font size="2">=</font></td>
 <td align="middle"><font size="2">=</font></td>
@@ -102,7 +104,6 @@ So of our four CS<sub><small><i>new</i></small></sub>s, three turned out to be e
 </tr>
 </tbody>
 </table>
-</blockquote>
 
 <p>Meaning, if CS<sub><small>1</small></sub> and CS<sub><small>2</small></sub> are both the same length, and both end in the same match, then we should throw one of them away, and it really doesn't matter which.</p>
 <p>With all this in mind, we can make another change to our algorithm's outline, this time to the third loop (with a minor tweak to the fourth):</p>

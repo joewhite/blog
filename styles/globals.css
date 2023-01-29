@@ -66,15 +66,32 @@ a:visited:hover {
 }
 
 table {
+  width: 100%;
   border-collapse: collapse;
   background: #b9baa333;
 }
 
 th,
 td {
-  vertical-align: top;
   border: 0.5px solid #999;
   padding: 0 0.25rem;
+}
+
+thead th,
+thead td {
+  vertical-align: bottom;
+  text-align: center;
+}
+
+th,
+td {
+  vertical-align: top;
+  text-align: left;
+  font-weight: normal;
+}
+
+tbody tr:not(.alt) td {
+  background: #fff;
 }
 
 #layout {
