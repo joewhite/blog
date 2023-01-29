@@ -292,3 +292,15 @@ pre {
   margin-right: -1.5rem;
   padding-left: 1.5rem;
 }
+
+.outline-roman-decimal-lower ol {
+  list-style-type: upper-roman;
+}
+
+.outline-roman-decimal-lower ol ol {
+  list-style-type: decimal;
+}
+
+.outline-roman-decimal-lower ol ol ol {
+  list-style-type: lower-alpha;
+}
