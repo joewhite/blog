@@ -11,7 +11,9 @@ I'll start with something I actually learned a couple of years ago, long before 
 XP teaches that you should write your tests first, and then write the code that will make them pass. An important detail of this, which people sometimes gloss over when talking about it, is this: once you've written your test, but before you've written the actual code, you should run your test and make sure it fails.
 
 I learned this by not doing it. I was writing a test to make sure that a particular method threw an exception if you passed it an invalid input. The code looked something vaguely like this:
-<pre>procedure TestMyWidget.TestValidatesInputs;
+
+```
+procedure TestMyWidget.TestValidatesInputs;
 begin
   try
     TMyWidget.Create(nil);
@@ -19,10 +21,10 @@ begin
   except
     { do nothing -- test passes if we get an exception }
   end;
-end;</pre>
+end;
+```
+
 (I don't think it was checking for nil; it was something a little subtler than that, but I don't remember the details now.)
-
-
 
 I wrote the test, wrote the validation code that would make it pass, ran the tests, got a green bar. All was well, right?
 
@@ -52,7 +54,9 @@ There will be times when you don't expect failure #1, because you're testing a n
 But most of the time, you'll at least expect failure #2. And you should see to it that you get that failure.
 
 <hr id="null" />The correct version of the above code, by the way, would be this:
-<pre>procedure TestMyWidget.TestValidatesInputs;
+
+```
+procedure TestMyWidget.TestValidatesInputs;
 begin
   try
     TMyWidget.Create(nil);
@@ -61,5 +65,7 @@ begin
     <strong>on EInvalidOperation do</strong>
       { do nothing -- test passes if we get an <strong>EInvalidOperation</strong> }
   end;
-end;</pre>
+end;
+```
+
 This test fails when it's supposed to. It also documents (and tests) the expected behavior of the code: it should throw an EInvalidOperation, and not, for example, an EAccessViolation. Better for the human reader, and better for the test.
